@@ -286,29 +286,6 @@ export default class CustomComplaints extends React.Component{
                     onComplaintClick(encodeURIComponent(complaint.bkApplicationNumber));
                   }}>View Details</button>
       
-                      {/* {complaintLocation && complaint.address && isEmpty(complaint.addressDetail) && (
-                        <div className="complaint-address-cont row">
-                          <Icon className="map-icon" action="maps" name="place" style={{ marginRight: 10 }} color={"#767676"} />
-                          <Label fontSize="12px" color="#484848" label={complaint.address} className="complaint-address" />
-                        </div>
-                      )} */}
-                      {/* {role === "citizen" && complaint && complaint.images && complaint.images.length > 0 && (
-                        <div className="complaint-image-cont">
-                          {complaint.images.map((image, index) => {
-                            return (
-                              image && (
-                                <div className="complaint-image-wrapper" key={index}>
-                                  <Image style={imageStyles} size="medium" className="complaint-image" width="100%" height={46} source={image} />{" "}
-                                </div>
-                              )
-                            );
-                          })}
-                        </div>
-                      )}
-                      {role === "citizen" && (
-                        <Label labelStyle={{ marginLeft: "3px" }} label={complaint.status.statusMessage} className="complaint-status-text dark-color" />
-                      )}
-                      {bottomInfoTemplate(complaint, role)} */}
                     </div>
                   }
                 />
@@ -316,7 +293,5 @@ export default class CustomComplaints extends React.Component{
             );
           })
         );
-
-        
     }
 }

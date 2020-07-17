@@ -150,9 +150,6 @@ class ApplicationDetails extends Component {
 			history.push(`/booking-resolved/${complaintNo}`);
 
 		}
-
-
-
 	};
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
@@ -319,7 +316,7 @@ class ApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let {historyApiData}=this.props;
+		let {historyApiData,paymentDetails}=this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -390,7 +387,7 @@ class ApplicationDetails extends Component {
 								/>
 
 								<PaymentDetails
-									{...complaint}
+									paymentDetails={paymentDetails && paymentDetails}
 								/>
 								<BookingDetails
 									{...complaint}
@@ -425,7 +422,7 @@ class ApplicationDetails extends Component {
 									width: "100",
 									backgroundColor: "white",
 									border: "2px solid white",
-									boxShadow: "0 0 2px 2px #e7dcdc"
+									boxShadow: "0 0 2px 2px #e7dcdc",paddingLeft:"30px",paddingTop:"10px"
 								}}><b>Document Deails</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
@@ -586,14 +583,12 @@ const mapStateToProps = (state, ownProps) => {
 	 const {HistoryData}=complaints;
 
 	 let historyObject=HistoryData?HistoryData:''
-	 console.log('historyObject in map state to props', historyObject)
 	  const{paymentData}=complaints;
-	  console.log('paymenData in map state to props', paymentData)
-
+	  
+let paymentDetails=paymentData?paymentData.data:''
 	let historyApiData={}
 	 if(historyObject){
 		historyApiData=historyObject;
-		console.log('hello21')
 	}
 	 console.log('HistoryData in map state to props', historyApiData)
 	const role =
@@ -648,6 +643,7 @@ const mapStateToProps = (state, ownProps) => {
 		let documentMapDataValues = [];
 		console.log('documentMap before return', documentMap)
 		return {
+			paymentDetails,
 			historyApiData,
 			documentMapDataValues,
 			documentMap,
@@ -661,6 +657,7 @@ const mapStateToProps = (state, ownProps) => {
 		};
 	} else {
 		return {
+			paymentDetails,
 			historyApiData,
 			documentMapDataValues,
 			documentMap,

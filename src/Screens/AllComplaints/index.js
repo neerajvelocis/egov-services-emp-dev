@@ -24,7 +24,10 @@ import CustomComplaints from "./components/CustomComponent";
 // import { makeStyles } from '@material-ui/core/styles';
 // import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const currencies = [
   {
@@ -272,24 +275,41 @@ class AllRequests extends Component {
 
     if (complaintNo) {
       queryObj.applicationNumber = complaintNo;
+      queryObj.applicationStatus="";
+      queryObj.mobileNumber="";
+      queryObj.bookingType="";
     }
 
 
     if (mobileNo) {
       queryObj.mobileNumber = mobileNo;
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus="";
+      queryObj.bookingType="";
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
+      queryObj.mobileNumber = "";
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus="";
  
 console.log('bookingType',bookingType)
     }
     // bookingType
     if (searchForm && searchForm.fromDate) {
       queryObj.fromDate = searchForm.fromDate;
+      queryObj.mobileNumber = "";
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus="";
+      queryObj.bookingType="";
     }
 
     if (searchForm && searchForm.toDate) {
       queryObj.toDate = searchForm.toDate;
+      queryObj.mobileNumber = "";
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus="";
+      queryObj.bookingType="";
     }
 
     // if (complaintNo || mobileNo) {
@@ -727,17 +747,7 @@ console.log('bookingType',bookingType)
                     label={`ES_ALL_COMPLAINTS_ASSIGNED_TAB_LABEL`}
                     labelStyle={tabStyle}
                   />
-                  {/*<Label
-                    labelClassName={
-                      this.state.value === 1
-                        ? "selected-tab-label-text"
-                        : "unselected-tab-label-text"
-                    }
-                    //color={this.state.value === 1 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
-                    bold={true}
-                    label={`(${assignedComplaints.length})`}
-                    labelStyle={tabStyle}
-                  />*/}
+                 
                 </div>
               ),
               children: (
@@ -1403,59 +1413,6 @@ const mapStateToProps = state => {
 };
 
 
-
-const RequestData = [{
-  "SLA": 5,
-  "address": "",
-  "addressDetail": {
-    "city": "ch.chandigarh",
-    "houseNoAndStreetName": "4400",
-    "landmark": "Abc",
-    "mohalla": "SECTOR-46",
-    "tenantId": "ch.chandigarh",
-    "uuid": "35f3296c-3395-4563-81fb-44cbad0f944a",
-  },
-  "assignedTo": "Sonu kumar",
-  "citizenPhoneNumber": "7013456789",
-  "Request No": "25/05/2020/011275",
-  "complaintStatus": "ASSIGNED",
-  "employeePhoneNumber": null,
-  "header": "DEP01_WaterSupply_07",
-  "images": [],
-  "latestActionTime": 1590254431142,
-  "latestCreationTime": 1590254431141,
-  "rawStatus": "assigned",
-  "reassign": false,
-  "reassignRequestedBy": "NA",
-  "status": { "status": "CS_DAYS_LEFT", "statusMessage": "" },
-  "submittedBy": "Randeep singh"
-},
-{
-  "SLA": 5,
-  "address": "",
-  "addressDetail": {
-    "city": "ch.chandigarh",
-    "houseNoAndStreetName": "4400",
-    "landmark": "Abc",
-    "mohalla": "SECTOR-46",
-    "tenantId": "ch.chandigarh",
-    "uuid": "35f3296c-3395-4563-81fb-44cbad0f944a",
-  },
-  "assignedTo": "Sonu kumar",
-  "citizenPhoneNumber": "9599313957",
-  "Request No": "25/05/2020/011275",
-  "complaintStatus": "ASSIGNED",
-  "employeePhoneNumber": null,
-  "header": "DEP01_WaterSupply_07",
-  "images": [],
-  "latestActionTime": 1590254431142,
-  "latestCreationTime": 1590254431141,
-  "rawStatus": "assigned",
-  "reassign": false,
-  "reassignRequestedBy": "NA",
-  "status": { "status": "CS_DAYS_LEFT", "statusMessage": "" },
-  "submittedBy": "Ravi"
-}];
 const mapDispatchToProps = dispatch => {
   return {
 
