@@ -86,7 +86,7 @@ class AppDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                <Icon action="notification" name="sms-failed" color="#767676" />{" "}
+                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
                 <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">

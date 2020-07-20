@@ -48,7 +48,16 @@ const currencies = [
   },
 ];
 
-
+// const useStyles = makeStyles((theme) => ({
+//   button: {
+//     display: 'block',
+//     marginTop: theme.spacing(2),
+//   },
+//   formControl: {
+//     margin: theme.spacing(1),
+//     minWidth: 120,
+//   },
+// }));
 
 
 //import ShowField from "C:/latest_project/frontend/web/rainmaker/packages/employee/src/modules/employee/reports/showField";
@@ -237,9 +246,14 @@ class AllRequests extends Component {
     });
   };
 
-  onComplaintClick = complaintNo => {
-    console.log('complaintNo in onComplaintClick', complaintNo);
-    this.props.history.push(`/application-details/${complaintNo}`);
+  onComplaintClick = (complaintNo,bookingType) => {
+    console.log('complaintNo in onComplaintClick', complaintNo,bookingType);
+     if(bookingType && bookingType=="WATER_TANKERS"){
+      this.props.history.push(`/bwt-application-details/${complaintNo}`);
+     }
+     if(bookingType && bookingType=="OSBM"){
+      this.props.history.push(`/application-details/${complaintNo}`);
+    }
   };
 
   onComplaintChange = e => {
@@ -800,9 +814,6 @@ console.log('bookingType',bookingType)
                   className="col-sm-3 col-xs-12"
                   style={{ paddingLeft: 8, paddingRight: 40 }}
                 >
-
-
-
                   <TextField
                     id="mobile-no"
                     name="mobile-no"
@@ -897,10 +908,10 @@ console.log('bookingType',bookingType)
                       />
                     <option value="">Select Booking Type</option>
                     <option value="OSBM">OSBM</option>
-                    <option value="WBT">WBT</option>
+                    <option value="WATER_TANKERS">WATER TANKERS</option>
                   </select>
 
-
+                
 
                   {/* <TextField
                     id="application-status"

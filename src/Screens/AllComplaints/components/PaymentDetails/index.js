@@ -88,7 +88,7 @@ class PayDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                <Icon action="notification" name="sms-failed" color="#767676" />{" "}
+                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
                 <div className="col-md-4">
                   <Label label="MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
@@ -96,7 +96,7 @@ class PayDetails extends Component {
                 </div>
                 <div className="col-md-4">
                   <h5>Total Amount</h5>
-          <h3><b>Rs {paymentDetails.amount}.00</b></h3>
+          <h3><b>Rs {paymentDetails.totalAmount}</b></h3>
                 </div>
               </div>
               <div key={10} className="complaint-detail-full-width">
@@ -164,11 +164,11 @@ class PayDetails extends Component {
 
                           id="complaint-details-submission-date"
                           labelStyle={{ color: "inherit" }}
-                          label={bkPaymentStatus}
+                          // label={bkPaymentStatus}
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
-                        <h5>{paymentDetails.amount}</h5>
+                        <h5>{paymentDetails.totalAmount}</h5>
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
@@ -217,11 +217,11 @@ class PayDetails extends Component {
 
                           id="complaint-details-submission-date"
                           labelStyle={{ color: "inherit" }}
-                          label={bkPaymentStatus}
+                          // label={paymentDetails.totalAmount}
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
-              <h5>{paymentDetails.amount}</h5>
+              <h5>{paymentDetails.totalAmount}</h5>
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
