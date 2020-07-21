@@ -18,9 +18,6 @@ import Typography from '@material-ui/core/Typography';
 import TaskStatusComponents from "../TaskStatusComponents";
 import TaskStatusContainer from "../TaskStatusContainer";
 
-
-
-
 import PropTypes from "prop-types";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -29,11 +26,6 @@ import StepContent from "@material-ui/core/StepContent";
 import Divider from "@material-ui/core/Divider";
 import { getCurrentStatus } from "../TaskStatusComponents";
 import { LabelContainer } from "egov-ui-framework/ui-containers";
-
-
-
-
-
 
 
 const styles = (theme) => ({
@@ -136,7 +128,7 @@ class BookingDetails extends Component {
 
   render() {
 
-    console.log('this.state', this.state)
+   
 
     const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
@@ -145,6 +137,8 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
+
+    console.log('ProcessInstances', ProcessInstances)
     // let currentObj =
     // ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
     // if(currentObj && currentObj.businessService && currentObj.businessService === "OSBM"){
@@ -171,10 +165,10 @@ class BookingDetails extends Component {
               {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
 
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
-                  <button style={{ color: "#FE7A51", border: "none", fontWeight: "500", background: "white" }} onClick={() => { this.handleClickOpen() }}>
+                  <button style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} onClick={() => { this.handleClickOpen() }}>
                     VIEW HISTORY
                 </button>
                 </div>
@@ -200,7 +194,7 @@ class BookingDetails extends Component {
                                   <LabelContainer
                                     labelName={getCurrentStatus(item.state.applicationStatus)}
                                     labelKey={
-                                      item.businessService
+                                       item.businessService
                                         ? `WF_${item.businessService.toUpperCase()}_${
                                         item.state.applicationStatus
                                         }`

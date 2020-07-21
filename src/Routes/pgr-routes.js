@@ -39,7 +39,10 @@ const ApplicationSummary = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
   loading: Loading
 });
-
+const ApplicationBWTSummary = Loadable({
+  loader: () => import("../Screens/BwtApplicationDetails"),
+  loading: Loading
+});
 
 
 const ServiceHome = Loadable({
@@ -62,6 +65,11 @@ const ClosedComplaints = Loadable({
 });
 const RejectComplaint = Loadable({
   loader: () => import("../Screens/RejectComplaint"),
+  loading: Loading
+});
+
+const AssignToDriver= Loadable({
+  loader: () => import("../Screens/AssignToDriver"),
   loading: Loading
 });
 const ComplaintRejected = Loadable({
@@ -159,9 +167,20 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "bwt-application-details/:applicationId",
+    component: ApplicationBWTSummary,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+
 
   {
-    path: "egov-services/home",
+    path: "egov-services/home123",
     component: ApplicationSummary,
     needsAuthentication: true,
     options: {
@@ -281,6 +300,20 @@ const routes = [
     }
   },
 
+  {
+    path: "assignto-driver/:applicationId?",
+    component: AssignToDriver,
+    needsAuthentication: true,
+    options: {
+       title: "MYBK_ASSIGN_TO_DRIVER_HEADER",
+      titleBackground: true, // Use this if you need white background for title in web version
+      hideFooter: true,
+      redirectionUrl
+    }
+  },
+
+
+  
   {
     path: "request-reassign/:serviceRequestId?",
     component: RequestReAssign,

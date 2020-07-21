@@ -193,7 +193,7 @@ export default class CustomComplaints extends React.Component{
     }
     render(){
         const {complaints, complaintLocation, role, onComplaintClick, noComplaintMessage, heightOffset} = this.props
-        console.log('complaintLocation in get status',complaints)
+        console.log('complaintLocation in get status',onComplaintClick)
         return complaints===null || complaints.length === 0 ? (
           <div className="no-complaints-message-cont" style={heightOffset && { height: `calc(100vh - ${heightOffset})` }}>
             <Label label={noComplaintMessage} dark={true} fontSize={"16px"} labelStyle={{ letterSpacing: "0.7px" }} />
@@ -240,50 +240,45 @@ export default class CustomComplaints extends React.Component{
                         </div>
                       </div>
                      
-                      <div className="complaint-number-cont row">
+                      {/* <div className="complaint-number-cont row">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_MOBILENUMBER"} />
-                          {/* <Label fontSize="12px" className="col-md-6"   label={" : "} /> */}
                           <Label fontSize="12px" className="col-md-6"   label={complaint.bkMobileNumber} className="complaint-complaint-number" />
                         </div>
-                      </div>
-                      <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_NAME"} />
-                          {/* <Label fontSize="12px" className="col-md-6"   label={" : "} /> */}
-                          <Label fontSize="12px" className="col-md-6"   label={complaint.bkApplicantName} className="complaint-complaint-number" />
-                        </div>
-                      </div>
+                      </div> */}
+                      {/* // <div className="complaint-number-cont row">
+                      //   <div className="complaint-number complaint-date">
+                      //     <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_NAME"} />
+                      //     <Label fontSize="12px" className="col-md-6"   label={complaint.bkApplicantName} className="complaint-complaint-number" />
+                      //   </div>
+                      // </div> */}
 
 
-                      <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_ADDRESS"} />
-                          {/* <Label fontSize="12px" className="col-md-6"  label={" : "} /> */}
-                          <Label fontSize="12px" className="col-md-6"  label={complaint.bkCompleteAddress} className="complaint-complaint-number" />
-                        </div>
-                      </div>
+                      {/* // <div className="complaint-number-cont row">
+                      //   <div className="complaint-number complaint-date">
+                      //     <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_ADDRESS"} />
+                      //     <Label fontSize="12px" className="col-md-6"  label={complaint.bkCompleteAddress} className="complaint-complaint-number" />
+                      //   </div>
+                      // </div> */}
 
                      
-                      <div className="complaint-number-cont row">
+                      {/* <div className="complaint-number-cont row">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_HOUSENO"} />
-                          {/* <Label fontSize="12px" className="col-md-6"  label={" : "} /> */}
                           <Label fontSize="12px" className="col-md-6"  label={complaint.bkHouseNo} className="complaint-complaint-number" />
                         </div>
-                      </div>
+                      </div> */}
 
-
+{/* 
                       <div className="complaint-number-cont row">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_SECTOR"} />
-                          {/* <Label fontSize="12px" className="col-md-6"  label={" : "} /> */}
                           <Label fontSize="12px" className="col-md-6"  label={complaint.bkSector} className="complaint-complaint-number" />
                         </div>
-                      </div>
+                      </div> */}
 
-                     <button style={{color:"#FE7A51",border: "none",fontWeight: "500", background: "white"}} onClick={(e) => {
-                    onComplaintClick(encodeURIComponent(complaint.bkApplicationNumber));
+                     <button style={{color:"#FE7A51",border: "none",fontWeight: "500",outline:"none", background: "white"}} onClick={(e) => {
+                    onComplaintClick(encodeURIComponent(complaint.bkApplicationNumber),complaint.bkBookingType);
                   }}>View Details</button>
       
                     </div>

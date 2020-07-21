@@ -39,7 +39,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications,fetchPayment,fetchHistory,
+	fetchApplications, fetchPayment, fetchHistory,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -56,44 +56,35 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
 const styles = (theme) => ({
-	
-  });
-  
-  const DialogTitle = withStyles(styles)((props) => {
+
+});
+
+const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
-	  <MuiDialogTitle disableTypography className={classes.root} {...other}>
-		<Typography variant="h6">{children}</Typography>
-		{onClose ? (
-		  <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-			<CloseIcon />
-		  </IconButton>
-		) : null}
-	  </MuiDialogTitle>
+		<MuiDialogTitle disableTypography className={classes.root} {...other}>
+			<Typography variant="h6">{children}</Typography>
+			{onClose ? (
+				<IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+					<CloseIcon />
+				</IconButton>
+			) : null}
+		</MuiDialogTitle>
 	);
-  });
-  
-  const DialogContent = withStyles((theme) => ({
-	// root: {
-	//   padding: theme.spacing(2),
-	// },
-  }))(MuiDialogContent);
+});
 
-class ApplicationDetails extends Component {
+
+class BwtApplicationDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			openMap: false,
 			docFileData: [],
 			bookingType: '',
-			open:false,
-			setOpen:false
+			open: false,
+			setOpen: false
 		};
 	};
-
-
-	
-
 	componentDidMount = async () => {
 		let {
 			fetchApplications,
@@ -109,21 +100,23 @@ class ApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
-	
+
 		prepareFormData("complaints", transformedComplaint);
 
-		const{complaint}=transformedComplaint;
+		const { complaint } = transformedComplaint;
 		fetchApplications(
-			{ "applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
-			"applicationStatus":"",
-			"mobileNumber":"","bookingType":"" }
+			{
+				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+				"applicationStatus": "",
+				"mobileNumber": "", "bookingType": ""
+			}
 		);
 		fetchHistory([
-			{key:"businessIds",value:match.params.applicationId}, {key:"history",value:true},{key:"tenantId",value:userInfo.tenantId}])
-//complaint.businessService
-			fetchPayment(
-				[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
-		])
+			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
+
+		fetchPayment(
+			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "BWT" }, { key: "tenantId", value: userInfo.tenantId }
+			])
 		let { details } = this.state;
 
 	}
@@ -143,7 +136,7 @@ class ApplicationDetails extends Component {
 		if (e.target.value == "REJECTED") {
 			history.push(`/reject-booking/${complaintNo}`);
 		} else if (e.target.value == 'APPROVED') {
-			history.push(`/booking-resolved/${complaintNo}`);
+			history.push(`/assignto-driver/${complaintNo}`);
 
 		}
 	};
@@ -230,22 +223,24 @@ class ApplicationDetails extends Component {
 	//     .then(() => console.log("Successful share"))
 	//     .catch(error => console.log("Error sharing", error));
 	// };
-	 handleClickOpen = () => {
-		 this.setState({
-			open:true
-		 })
-		
-	  };
-	  handleClose = () => {
+	handleClickOpen = () => {
 		this.setState({
-			open:false
-		 })
-		  };
-	
+			open: true
+		})
 
+	};
+	handleClose = () => {
+		this.setState({
+			open: false
+		})
+	};
+
+	assignToDiver = (e, complaintNo) => {
+		let { history } = this.props;
+		history.push(`/assignto-driver/${complaintNo}`);
+	}
 	callApiDorData = async (e) => {
 		const { documentMap } = this.props;
-		// let documentMap={"93e71d9f-6eb0-461a-b3cd-9a5c2220950d":"Screenshot (14)_small.png"}
 		var documentsPreview = [];
 		// const {documentMap}=this.props;
 		if (documentMap && Object.keys(documentMap).length > 0) {
@@ -312,7 +307,7 @@ class ApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let {historyApiData,paymentDetails}=this.props;
+		let { historyApiData, paymentDetails } = this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -372,19 +367,12 @@ class ApplicationDetails extends Component {
 					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
-
 							<BookingDetails
 									{...complaint}
-									historyApiData={historyApiData&&historyApiData}
+									historyApiData={historyApiData && historyApiData}
 								/>
 								<AppDetails
 									{...complaint}
-								// role={role}
-								// history={history}
-								// mapAction={true}
-								// redirectToMap={this.redirectToMap}
-								// action={action}
-								// complaintLoc={complaintLoc}
 								/>
 
 								<PaymentDetails
@@ -392,40 +380,19 @@ class ApplicationDetails extends Component {
 								/>
 								
 
-								{/* {documentMap && (
-									<DownloadFileContainer
-									
-									/> */}
-								{/* )} */}
-
-								{/* <ComplaintTimeLine
-                  status={complaint.status}
-                  timelineSLAStatus={complaint.timelineSLAStatus}
-                  timeLine={timeLine}
-                  history={history}
-                  handleFeedbackOpen={this.handleFeedbackOpen}
-                  role={role}
-                  feedback={complaint ? complaint.feedback : ""}
-                  rating={complaint ? complaint.rating : ""}
-                  filedBy={
-                    complaint && complaint.filedBy ? complaint.filedBy : ""
-                  }
-                  filedUserMobileNumber={
-                    complaint ? complaint.filedUserMobileNumber : ""
-                  }
-                  reopenValidChecker={reopenValidChecker}
-                /> */}
 								<div style={{
 									height: "100px",
 									width: "100",
 									backgroundColor: "white",
 									border: "2px solid white",
-									boxShadow: "0 0 2px 2px #e7dcdc",paddingLeft:"30px",paddingTop:"10px"
+									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Document Deails</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
 									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
 								</div>
+
+
 
 								<Comments
 									comments={comments}
@@ -437,16 +404,11 @@ class ApplicationDetails extends Component {
 								paddingTop: "30px",
 								paddingRight: "30px"
 							}}>
-								{(role === "ao" &&
-									complaint.complaintStatus.toLowerCase() !== "closed") ||
-									(role === "eo" &&
-										(complaint.status.toLowerCase() === "escalatedlevel1pending" ||
-											complaint.status.toLowerCase() === "escalatedlevel2pending" ||
-											complaint.status.toLowerCase() === "assigned")) ||
+								{
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGAPPROVAL" &&
-												// <ActionButton
+											(complaint.bkStatus == "Normal" &&
+
 
 												<select
 													value={this.state.bookingType}
@@ -476,24 +438,30 @@ class ApplicationDetails extends Component {
 														color: "gray"
 													}} value="REJECTED">REJECT</option>
 												</select>
-
-
-
-												// btnOneLabel={btnOneLabel}
-												// btnOneOnClick={() =>
-												// 	this.btnOneOnClick(serviceRequestId, btnOneLabel)
-												// }
-												// btnTwoLabel={btnTwoLabel}
-												// btnTwoOnClick={() =>
-												// 	this.btnTwoOnClick(serviceRequestId, btnTwoLabel)
-												// }
-
-
-												// />
 											)
-											
+
 										)
 									)}
+
+								{
+
+									(role === "employee" &&
+										(
+											complaint.bkStatus == "Paid" &&
+												<button className="ViewDetailButton"	style={{
+													marginRight: "15",
+													backgroundColor: "#FE7A51",
+													color: "#fff",
+													border: "none",
+													height: "60px",
+													width: "200px",
+													float: "right"
+
+												}} onClick={(e) => { this.assignToDiver(e, serviceRequestId) }}>ASSIGN TO DRIVER</button>
+												
+										)
+									)}
+
 							</div>
 						</div>
 					)}
@@ -570,26 +538,26 @@ const mapStateToProps = (state, ownProps) => {
 
 	const serviceRequestId = ownProps.match.params.applicationId;
 	let selectedComplaint = applicationData ? applicationData.bookingsModelList[0] : ''
-	let businessService=applicationData ? applicationData.businessService:"";
+	let businessService = applicationData ? applicationData.businessService : '';
 	let bookingDocs;
 
-console.log('businessService=====',businessService)
+
 	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	 const { documentMap } = state.complaints.applicationData;
-	 const {HistoryData}=complaints;
+	const { documentMap } = state.complaints.applicationData;
+	const { HistoryData } = complaints;
 
-	 let historyObject=HistoryData?HistoryData:''
-	  const{paymentData}=complaints;
-	  
-let paymentDetails=paymentData?paymentData.Bill[0]:''
-	let historyApiData={}
-	 if(historyObject){
-		historyApiData=historyObject;
+	let historyObject = HistoryData ? HistoryData : ''
+	const { paymentData } = complaints;
+
+	let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	let historyApiData = {}
+	if (historyObject) {
+		historyApiData = historyObject;
 	}
-	 console.log('HistoryData in map state to props', historyApiData)
+	console.log('HistoryData in map state to props', historyApiData)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -602,7 +570,7 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 					: "employee";
 
 	let isAssignedToEmployee = true;
-	if (selectedComplaint&&businessService) {
+	if (selectedComplaint) {
 
 		let details = {
 			applicantName: selectedComplaint.bkApplicantName,
@@ -618,18 +586,18 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 			areaRequired: selectedComplaint.bkAreaRequired,
 			bkDuration: selectedComplaint.bkDuration,
 			bkCategory: selectedComplaint.bkCategory,
-			constructionType:selectedComplaint.bkConstructionType,
-			villageCity:selectedComplaint.bkVillCity,
-			residentialCommercial:selectedComplaint.bkType,
-			businessService:businessService
-			
+			constructionType: selectedComplaint.bkConstructionType,
+			villageCity: selectedComplaint.bkVillCity,
+			residentialCommercial: selectedComplaint.bkType,
+			bkStatus:selectedComplaint.bkStatus,
+			businessService: businessService
 		}
 
 
 
 		let transformedComplaint;
 		if (applicationData != null && applicationData != undefined) {
-		
+
 			transformedComplaint = {
 				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
 			};
@@ -641,6 +609,7 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 			localizationLabels
 		);
 		// let documentMapDataValues = [];
+		console.log('documentMap before return', documentMap)
 		return {
 			paymentDetails,
 			historyApiData,
@@ -689,4 +658,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ApplicationDetails);
+)(BwtApplicationDetails);
