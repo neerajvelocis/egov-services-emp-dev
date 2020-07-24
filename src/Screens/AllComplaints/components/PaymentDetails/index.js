@@ -99,7 +99,7 @@ class PayDetails extends Component {
           <h3><b>Rs {paymentDetails.totalAmount}</b></h3>
                 </div>
               </div>
-              <div key={10} className="complaint-detail-full-width">
+              {/* <div key={10} className="complaint-detail-full-width"> */}
                 {/* <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} /> */}
                 {/* Dont delete !! */}
                 {/* {role && role == "ao" ? (
@@ -317,7 +317,7 @@ class PayDetails extends Component {
                     />
                   </div>
                 )} */}
-              </div>
+              {/* </div> */}
             </div>
           }
         />

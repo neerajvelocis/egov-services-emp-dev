@@ -52,7 +52,7 @@ class AppDetails extends Component {
   render() {
     const { status, applicantName, applicationNo, bkEmail, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
-    console.log('hello details', applicantName)
+   
     // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
     // const icon = {};
     // icon.name = "location";

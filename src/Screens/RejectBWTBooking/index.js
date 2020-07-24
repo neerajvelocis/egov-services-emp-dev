@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import AssignToDriverForm from "./components/AssignToDriverForm";
+import RejectBWTBookingForm from "./components/RejectBWTBooking";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
@@ -10,13 +10,13 @@ import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
 const RejectComplaintHOC = formHOC({
-  formKey: "approveWBTBooking",
+  formKey: "rejectBWTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(AssignToDriverForm);
+})(RejectBWTBookingForm);
 
 
-class RejectComplaint extends Component {
+class RejectBWTBooking extends Component {
   state = {
     valueSelected: "",
     commentValue: "",
@@ -74,7 +74,7 @@ class RejectComplaint extends Component {
       com2 = val.textVal;
     }
     let concatvalue = com1 + com2;
-    this.props.handleFieldChange("approveWBTBooking", "comments", concatvalue);
+    this.props.handleFieldChange("rejectBWTBooking", "comments", concatvalue);
   };
 
   onMobileChange = (e) => {
@@ -88,29 +88,21 @@ class RejectComplaint extends Component {
 
   }
   onApproverNameChange = (e) => {
-    const approverName = e.target.value;
-    this.setState({ approverName: approverName });
+    const approverFullName = e.target.value;
+    this.setState({ approverName: approverFullName });
 
   }
-  handleValidation = e => {
-    
-    console.log('is valid---  ',this.state)
-    const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
-    if (driverFullName != '' && mobileNo != '' && approverName != '') {
-    //  return this.onSubmit()
-    }
-    return false;
-  }
+
   onSubmit = e => {
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
   };
 
   render() {
     let { match, userInfo } = this.props;
 
-    const { handleCommentsChange, handleOptionsChange, onSubmit,handleValidation, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
+    const { handleCommentsChange, handleOptionsChange, onSubmit, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     const { trasformData, businessServiceData } = this.props;
     // console.log('this in render', trasformData)
@@ -126,7 +118,6 @@ class RejectComplaint extends Component {
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}
           onSubmit={onSubmit}
-          handleValidation={handleValidation}
           bookingtype={trasformData.bkBookingType}
           bkStatus={trasformData.bkStatus}
           bookingservice={businessServiceData ? businessServiceData : ''}
@@ -162,4 +153,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RejectComplaint);
+)(RejectBWTBooking);

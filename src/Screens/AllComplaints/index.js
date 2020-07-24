@@ -536,7 +536,7 @@ console.log('bookingType',bookingType)
   };
 
   clearSearch = () => {
-    const { metaData, resetForm, searchForm, setSearchParams } = this.props;
+    const { metaData, resetForm, searchForm, setSearchParams,userInfo } = this.props;
     if (!searchForm) {
       return;
     } else {
@@ -564,9 +564,11 @@ console.log('bookingType',bookingType)
       });
     }
     const { fetchApplications } = this.props;
-    fetchApplications([
-      { key: "status", value: "assigned,open,reassignrequested" }
-    ]);
+    fetchApplications(
+      {"uuid": userInfo.uuid,"applicationNumber":"",
+      "applicationStatus":"",
+      "mobileNumber":"","bookingType":"" },
+    );
     this.setState({ mobileNo: "", complaintNo: "", bookingType:"",search: false });
   };
 
@@ -875,7 +877,12 @@ console.log('bookingType',bookingType)
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
+               
+                 
+               <div>
+                 
+               </div>
+             <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
 
 
                 {/* <TextField
@@ -910,6 +917,9 @@ console.log('bookingType',bookingType)
                     <option value="OSBM">OSBM</option>
                     <option value="WATER_TANKERS">WATER TANKERS</option>
                   </select>
+
+
+               
 
                 
 

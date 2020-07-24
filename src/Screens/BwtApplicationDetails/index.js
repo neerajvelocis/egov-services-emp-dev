@@ -134,10 +134,16 @@ class BwtApplicationDetails extends Component {
 		//Action for first button
 		let { history } = this.props;
 		if (e.target.value == "REJECTED") {
-			history.push(`/reject-booking/${complaintNo}`);
+			history.push(`/reject-bwt-booking/${complaintNo}`);
 		} else if (e.target.value == 'APPROVED') {
 			history.push(`/assignto-driver/${complaintNo}`);
-
+		}
+		else if (e.target.value == 'DELIVERED') {
+			history.push(`/deliver-application/${complaintNo}`);
+		}
+		
+		else if (e.target.value == 'NOTDELIVERED') {
+			history.push(`/not-deliver-application/${complaintNo}`);
 		}
 	};
 	btnTwoOnClick = (complaintNo, label) => {
@@ -404,12 +410,10 @@ class BwtApplicationDetails extends Component {
 								paddingTop: "30px",
 								paddingRight: "30px"
 							}}>
-								{
+								  {
 									(role === "employee" &&
 										(
-											(complaint.bkStatus == "Normal" &&
-
-
+											(complaint.bkStatus == "Normal" &&complaint.status=="PENDINGASSIGNMENTDRIVER"&&
 												<select
 													value={this.state.bookingType}
 													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
@@ -432,14 +436,49 @@ class BwtApplicationDetails extends Component {
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="APPROVED">APPROVE</option>
+													}} value="APPROVED">ASSIGN TO DRIVER </option>
 													<option style={{
 														background: "white",
 														color: "gray"
 													}} value="REJECTED">REJECT</option>
 												</select>
 											)
+										)
+									)}
 
+{
+									(role === "employee" &&
+										(
+											(complaint.status=="PENDINGUPDATE"&&
+												<select
+													value={this.state.bookingType}
+													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
+													style={{
+														marginRight: "15",
+														backgroundColor: "#FE7A51",
+														color: "#fff",
+														border: "none",
+														height: "60px",
+														width: "200px",
+														float: "right", paddingLeft: "50px"
+
+													}}
+
+												>
+													<option style={{
+														background: "white",
+														color: "gray"
+													}} value="">Take Action</option>
+													<option style={{
+														background: "white",
+														color: "gray"
+													}} value="DELIVERED">DELIVERED </option>
+													<option style={{
+														background: "white",
+														color: "gray"
+													}} value="NOTDELIVERED">NOT DELIVERED</option>
+												</select>
+											)
 										)
 									)}
 
@@ -447,7 +486,7 @@ class BwtApplicationDetails extends Component {
 
 									(role === "employee" &&
 										(
-											complaint.bkStatus == "Paid" &&
+											complaint.bkStatus == "Paid" && complaint.status=="PENDINGASSIGNMENTDRIVER"&&
 												<button className="ViewDetailButton"	style={{
 													marginRight: "15",
 													backgroundColor: "#FE7A51",
@@ -461,6 +500,9 @@ class BwtApplicationDetails extends Component {
 												
 										)
 									)}
+
+
+
 
 							</div>
 						</div>

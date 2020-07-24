@@ -67,6 +67,19 @@ const RejectComplaint = Loadable({
   loader: () => import("../Screens/RejectComplaint"),
   loading: Loading
 });
+const RejectBWTComplaint = Loadable({
+  loader: () => import("../Screens/RejectBWTBooking"),
+  loading: Loading
+});
+
+const deliverBooking= Loadable({
+  loader: () => import("../Screens/DeliveredBWTBooking"),
+  loading: Loading
+});
+const notDeliverBooking= Loadable({
+  loader: () => import("../Screens/NotDeliveredBWTBooking"),
+  loading: Loading
+});
 
 const AssignToDriver= Loadable({
   loader: () => import("../Screens/AssignToDriver"),
@@ -299,7 +312,42 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "reject-bwt-booking/:applicationId?",
+    component: RejectBWTComplaint,
+    needsAuthentication: true,
+    options: {
+      // title: "ES_REASON_TO_REJECT_HEADER",
+      titleBackground: true, // Use this if you need white background for title in web version
+      hideFooter: true,
+      redirectionUrl
+    }
+  },
 
+  {
+    path: "deliver-application/:applicationId?",
+    component: deliverBooking,
+    needsAuthentication: true,
+    options: {
+      // title: "ES_REASON_TO_REJECT_HEADER",
+      titleBackground: true, // Use this if you need white background for title in web version
+      hideFooter: true,
+      redirectionUrl
+    }
+  },
+  {
+    path: "not-deliver-application/:applicationId?",
+    component: notDeliverBooking,
+    needsAuthentication: true,
+    options: {
+      // title: "ES_REASON_TO_REJECT_HEADER",
+      titleBackground: true, // Use this if you need white background for title in web version
+      hideFooter: true,
+      redirectionUrl
+    }
+  },
+  
+ 
   {
     path: "assignto-driver/:applicationId?",
     component: AssignToDriver,
