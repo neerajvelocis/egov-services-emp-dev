@@ -72,18 +72,30 @@ const transformer = (formKey, form = {}, state = {}) => {
       return updateComplaintStatus(state, form);
     },
     rejectComplaint: () => {
-      console.log('hello1')
+    
       return updateComplaintStatus(state, form);
     },
     rejectBooking: () => {
-      console.log('hello2')
+     
       return updateComplaintStatus(state, form);
     },
-
+    deliveredWBTBooking: () => {
+      return updateComplaintStatus(state, form);
+    },
+    NotdeliveredWBTBooking: () => {
+      return updateComplaintStatus(state, form);
+    },
     approveBooking: () => {
-      console.log('hello2')
+    
       return updateComplaintStatus(state, form);
     },
+    approveWBTBooking: () => {
+    
+      return updateComplaintStatus(state, form);
+    }, 
+    rejectBWTBooking: () => {
+      return updateComplaintStatus(state, form);
+    }, 
     complaintResolved: () => {
       return updateComplaintStatus(state, form);
     },
