@@ -68,13 +68,14 @@ class AllRequests extends Component {
     fromDate: '',
     toDate: '',
     mobileNo: "",
-    bookingType:'',
+    bookingType: '',
+    applicationStatus: '',
     complaints: [],
     search: false,
     value: 0,
     sortPopOpen: false,
     errorText: "",
-    currency:''
+    currency: ''
   };
   style = {
     iconStyle: {
@@ -195,9 +196,11 @@ class AllRequests extends Component {
       else {
         fetchApplications(
 
-          {"uuid": userInfo.uuid,"applicationNumber":"",
-          "applicationStatus":"",
-          "mobileNumber":"","bookingType":"" },
+          {
+            "uuid": userInfo.uuid, "applicationNumber": "",
+            "applicationStatus": "",
+            "mobileNumber": "", "bookingType": ""
+          },
 
           true,
           true
@@ -246,12 +249,12 @@ class AllRequests extends Component {
     });
   };
 
-  onComplaintClick = (complaintNo,bookingType) => {
-    console.log('complaintNo in onComplaintClick', complaintNo,bookingType);
-     if(bookingType && bookingType=="WATER_TANKERS"){
+  onComplaintClick = (complaintNo, bookingType) => {
+    console.log('complaintNo in onComplaintClick', complaintNo, bookingType);
+    if (bookingType && bookingType == "WATER_TANKERS") {
       this.props.history.push(`/bwt-application-details/${complaintNo}`);
-     }
-     if(bookingType && bookingType=="OSBM"){
+    }
+    if (bookingType && bookingType == "OSBM") {
       this.props.history.push(`/application-details/${complaintNo}`);
     }
   };
@@ -275,55 +278,63 @@ class AllRequests extends Component {
 
   onbookingChange = e => {
     const inputValue = e.target.value;
-    console.log('on this.props', inputValue)
-
     this.setState({ bookingType: inputValue });
+  };
+  onApplicationStatusChange = e => {
+    const inputValue = e.target.value;
+    this.setState({ applicationStatus: inputValue });
   };
 
   onSearch = () => {
     console.log('on this.props', this.props, this.state)
-    const { complaintNo, mobileNo,bookingType } = this.state;
+    const { complaintNo, mobileNo, bookingType, applicationStatus } = this.state;
     const { fetchApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
     queryObj.uuid = userInfo.uuid;
 
     if (complaintNo) {
       queryObj.applicationNumber = complaintNo;
-      queryObj.applicationStatus="";
-      queryObj.mobileNumber="";
-      queryObj.bookingType="";
+      queryObj.applicationStatus = "";
+      queryObj.mobileNumber = "";
+      queryObj.bookingType = "";
     }
 
+    if (applicationStatus) {
+      queryObj.applicationStatus = applicationStatus
+      queryObj.applicationNumber = '';
+      queryObj.mobileNumber = "";
+      queryObj.bookingType = "";
+    }
 
     if (mobileNo) {
       queryObj.mobileNumber = mobileNo;
       queryObj.applicationNumber = "";
-      queryObj.applicationStatus="";
-      queryObj.bookingType="";
+      queryObj.applicationStatus = "";
+      queryObj.bookingType = "";
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
-      queryObj.applicationStatus="";
- 
-console.log('bookingType',bookingType)
+      queryObj.applicationStatus = "";
+
+      console.log('bookingType', bookingType)
     }
     // bookingType
     if (searchForm && searchForm.fromDate) {
       queryObj.fromDate = searchForm.fromDate;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
-      queryObj.applicationStatus="";
-      queryObj.bookingType="";
+      queryObj.applicationStatus = "";
+      queryObj.bookingType = "";
     }
 
     if (searchForm && searchForm.toDate) {
       queryObj.toDate = searchForm.toDate;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
-      queryObj.applicationStatus="";
-      queryObj.bookingType="";
+      queryObj.applicationStatus = "";
+      queryObj.bookingType = "";
     }
 
     // if (complaintNo || mobileNo) {
@@ -346,7 +357,10 @@ console.log('bookingType',bookingType)
     } else if (bookingType) {
       fetchApplications(queryObj, true, true);
     }
-     else if (mobileNo) {
+    else if (applicationStatus) {
+      fetchApplications(queryObj, true, true);
+    }
+    else if (mobileNo) {
       fetchApplications(queryObj, true, true);
     } else if (searchForm && searchForm.fromDate) {
       fetchApplications(queryObj, true, true);
@@ -536,7 +550,7 @@ console.log('bookingType',bookingType)
   };
 
   clearSearch = () => {
-    const { metaData, resetForm, searchForm, setSearchParams,userInfo } = this.props;
+    const { metaData, resetForm, searchForm, setSearchParams, userInfo } = this.props;
     if (!searchForm) {
       return;
     } else {
@@ -565,11 +579,13 @@ console.log('bookingType',bookingType)
     }
     const { fetchApplications } = this.props;
     fetchApplications(
-      {"uuid": userInfo.uuid,"applicationNumber":"",
-      "applicationStatus":"",
-      "mobileNumber":"","bookingType":"" },
+      {
+        "uuid": userInfo.uuid, "applicationNumber": "",
+        "applicationStatus": "",
+        "mobileNumber": "", "bookingType": ""
+      },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType:"",search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", search: false });
   };
 
   //  getDropDownItem=()=>{
@@ -584,17 +600,17 @@ console.log('bookingType',bookingType)
 
   handleSelectChange = (event) => {
     this.setState({
-        currency: event.target.value
+      currency: event.target.value
     })
-};
+  };
   render() {
     const dropbordernone = {
       border: "none",
-      boxShadow:"none",
+      boxShadow: "none",
       borderBottom: "solid 1px #cccccc",
       position: "relative",
       top: "30px"
-  
+
     };
     console.log('this.props in render', this.props)
     const { loading, history } = this.props;
@@ -602,6 +618,7 @@ console.log('bookingType',bookingType)
       mobileNo,
       bookingType,
       complaintNo,
+      applicationStatus,
       search,
       sortPopOpen,
       errorText
@@ -763,7 +780,7 @@ console.log('bookingType',bookingType)
                     label={`ES_ALL_COMPLAINTS_ASSIGNED_TAB_LABEL`}
                     labelStyle={tabStyle}
                   />
-                 
+
                 </div>
               ),
               children: (
@@ -813,7 +830,7 @@ console.log('bookingType',bookingType)
                   />
                 </div>
                 <div
-                  className="col-sm-3 col-xs-12"
+                  className="col-sm-4 col-xs-12"
                   style={{ paddingLeft: 8, paddingRight: 40 }}
                 >
                   <TextField
@@ -877,29 +894,24 @@ console.log('bookingType',bookingType)
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-               
-                 
-               <div>
-                 
-               </div>
-             <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
 
-
-                {/* <TextField
-                            id="standard-select-currency"
-                            select
-                            label="Select Currency"
-                            value={this.state.currency}
-                            onChange={this.handleSelectChange}
-                            helperText="Please select your currency"
-                            >
-                            {currencies.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                            ))}
-                            </TextField> */}
- 
+              
+                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px' }}>
+                  <select
+                    value={this.state.applicationStatus}
+                    onChange={(e, value) => this.onApplicationStatusChange(e)}
+                    className="form-control"
+                    style={dropbordernone}
+                  >
+                    <option value="">Select Application Status</option>
+                    <option value="PENDINGAPPROVAL">Pending Approval</option>
+                    <option value="PENDINGPAYMENT">Pending Payment</option>
+                    <option value="PENDINGUPDATE">Pending Update</option>
+                    <option value="PENDINGASSIGNMENTDRIVER">Pending Assignment Driver</option>
+                    <option value="WATER_TANKERS">Pending Update</option>
+                  </select>
+                </div>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px',paddingTop: "10px" }}>
                   <select
                     value={bookingType}
                     onChange={(e, value) => this.onbookingChange(e)}
@@ -907,21 +919,16 @@ console.log('bookingType',bookingType)
                     style={dropbordernone}
                   >
                     <Label
-                        label="MYBK_APPLICATION_STATUS"
-                        color="rgba(0, 0, 0, 0.3799999952316284)"
-                         fontSize={12}
-                         dark={true}
-                        labelStyle={hintTextStyle}
-                      />
+                      label="MYBK_APPLICATION_STATUS"
+                      color="rgba(0, 0, 0, 0.3799999952316284)"
+                      fontSize={12}
+                      dark={true}
+                      labelStyle={hintTextStyle}
+                    />
                     <option value="">Select Booking Type</option>
-                    <option value="OSBM">OSBM</option>
-                    <option value="WATER_TANKERS">WATER TANKERS</option>
+                    <option value="OSBM">Open Space To Store Building Material</option>
+                    <option value="WATER_TANKERS">Water Tankers</option>
                   </select>
-
-
-               
-
-                
 
                   {/* <TextField
                     id="application-status"
@@ -956,15 +963,19 @@ console.log('bookingType',bookingType)
                     hintStyle={{ width: "100%" }}
                   /> */}
                 </div>
-
-                <div
+                {/* <div
                   className="col-sm-6 col-xs-12 csr-action-buttons"
+                  style={{ marginTop: 10, paddingRight: 8 }}
+                >
+              </div> */}
+                <div
+                  className="col-sm-8 col-xs-12 csr-action-buttons"
                   style={{ marginTop: 10, paddingRight: 8 }}
                 >
                   <Grid container spacing={8}>{this.handleFormFields()}</Grid>
                 </div>
                 <div
-                  className="col-sm-6 col-xs-12 csr-action-buttons"
+                  className="col-sm-12 col-xs-12 csr-action-buttons"
                   style={{ marginTop: 10, paddingRight: 8 }}
                 >
                   <Button
@@ -974,7 +985,7 @@ console.log('bookingType',bookingType)
                         label="MYBK_APPLICATIONS_SEARCH_BUTTON"
                       />
                     }
-                    style={{ marginRight: 28, width: "36%" }}
+                    style={{ marginRight: 28, width: "20%" }}
                     backgroundColor="#fe7a51"
                     labelStyle={{
                       letterSpacing: 0.7,
@@ -998,7 +1009,7 @@ console.log('bookingType',bookingType)
                       color: "#fe7a51"
                     }}
                     buttonStyle={{ border: "1px solid #fe7a51" }}
-                    style={{ width: "36%" }}
+                    style={{ width: "20%" }}
                     onClick={() => this.clearSearch()}
                   />
                 </div>
@@ -1156,7 +1167,7 @@ console.log('bookingType',bookingType)
                 }
               />
             </div>
-            <div className="form-without-button-cont-generic" style={{fontWeight: "bold"}}>
+            <div className="form-without-button-cont-generic" style={{ fontWeight: "bold" }}>
               <CountDetails
                 count={
                   search

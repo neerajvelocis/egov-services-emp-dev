@@ -386,17 +386,17 @@ class BwtApplicationDetails extends Component {
 								/>
 								
 
-								<div style={{
+								{/* <div style={{
 									height: "100px",
 									width: "100",
 									backgroundColor: "white",
 									border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
-								}}><b>Document Deails</b><br></br>
+								}}><b>Documents</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
 									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
-								</div>
+								</div> */}
 
 
 
@@ -413,7 +413,7 @@ class BwtApplicationDetails extends Component {
 								  {
 									(role === "employee" &&
 										(
-											(complaint.bkStatus == "Normal" &&complaint.status=="PENDINGASSIGNMENTDRIVER"&&
+											(!(complaint.bkStatus).includes("Paid") &&complaint.status=="PENDINGASSIGNMENTDRIVER"&&
 												<select
 													value={this.state.bookingType}
 													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
@@ -436,11 +436,11 @@ class BwtApplicationDetails extends Component {
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="APPROVED">ASSIGN TO DRIVER </option>
+													}} value="APPROVED">Assign to Driver</option>
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="REJECTED">REJECT</option>
+													}} value="REJECTED">Reject</option>
 												</select>
 											)
 										)
@@ -472,11 +472,11 @@ class BwtApplicationDetails extends Component {
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="DELIVERED">DELIVERED </option>
+													}} value="DELIVERED">Delivered</option>
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="NOTDELIVERED">NOT DELIVERED</option>
+													}} value="NOTDELIVERED">Not Delivered</option>
 												</select>
 											)
 										)
@@ -486,7 +486,7 @@ class BwtApplicationDetails extends Component {
 
 									(role === "employee" &&
 										(
-											complaint.bkStatus == "Paid" && complaint.status=="PENDINGASSIGNMENTDRIVER"&&
+											complaint.bkStatus.includes("Paid")  && complaint.status=="PENDINGASSIGNMENTDRIVER"&&
 												<button className="ViewDetailButton"	style={{
 													marginRight: "15",
 													backgroundColor: "#FE7A51",
