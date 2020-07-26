@@ -140,7 +140,7 @@ const routes = [
     }
   },
   {
-    path: "all-applications",
+    path: "egov-services/all-applications",
     component: AllRequests,
     needsAuthentication: true,
     options: {

@@ -421,7 +421,7 @@ class ApplicationDetails extends Component {
 									backgroundColor: "white",
 									border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc",paddingLeft:"30px",paddingTop:"10px"
-								}}><b>Document Deails</b><br></br>
+								}}><b>Documents</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
 									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
@@ -470,11 +470,11 @@ class ApplicationDetails extends Component {
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="APPROVED">APPROVE</option>
+													}} value="APPROVED">Approve</option>
 													<option style={{
 														background: "white",
 														color: "gray"
-													}} value="REJECTED">REJECT</option>
+													}} value="REJECTED">Reject</option>
 												</select>
 
 

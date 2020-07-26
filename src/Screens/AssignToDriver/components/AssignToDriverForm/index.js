@@ -33,7 +33,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
         {/* <div className="reject-complaint-textArea">
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
         </div> */}
-        {(bkStatus != 'Paid' &&
+        {(!bkStatus.includes("Paid") &&
           <div className="col-sm-4 col-xs-12"
             style={{ paddingLeft: 8 }}
           >
@@ -149,7 +149,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
       </div>
       <div className="responsive-action-button-cont">
         {(() => {
-          if(bkStatus!='Paid'){
+          if(!bkStatus.includes("Paid")){
           if (driverFullName && mobileNumber && approverName) {
             return <Button
             onClick={handleValidation}

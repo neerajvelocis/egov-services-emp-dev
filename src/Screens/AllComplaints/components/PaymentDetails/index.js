@@ -156,7 +156,7 @@ class PayDetails extends Component {
                   <div>
                     {/* <div className="col-xs-12"> */}
                     {/*first row */}
-                    <div className="col-xs-12" style={{marginBottom: "16px"}}>
+                    <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
                         <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
                         <Label
@@ -168,13 +168,13 @@ class PayDetails extends Component {
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
-                        <h5>{paymentDetails.totalAmount}</h5>
+                      <h5>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
                     </div>
                     {/*second row */}
-                    {/* <div className="col-xs-12">
+                   <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
                         <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
                         <Label
@@ -184,12 +184,13 @@ class PayDetails extends Component {
                           label={bkPaymentStatus}
                         />
                       </div>
-                      <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 22 }}>
-                        <h5>726.84</h5>
+                      <div className="col-sm-4 col-xs-12">
+                      <h5>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
+
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
-                    </div> */}
+                    </div>
                     {/*third row */}
                     {/* <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
