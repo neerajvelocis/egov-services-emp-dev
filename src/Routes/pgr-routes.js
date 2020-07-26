@@ -160,7 +160,7 @@ const routes = [
     options: { hideFooter: true, title: "CORE_COMMON_SEARCH_COMPLAINT" }
   },
   {
-    path: "booking-resolved/:applicationId?",
+    path: "egov-services/booking-resolved/:applicationId?",
     component: ComplaintResolved,
     needsAuthentication: true,
     options: {
@@ -171,7 +171,7 @@ const routes = [
     }
   },
   {
-    path: "application-details/:applicationId",
+    path: "egov-services/application-details/:applicationId",
     component: ApplicationSummary,
     needsAuthentication: true,
     options: {
@@ -181,7 +181,7 @@ const routes = [
     }
   },
   {
-    path: "bwt-application-details/:applicationId",
+    path: "egov-services/bwt-application-details/:applicationId",
     component: ApplicationBWTSummary,
     needsAuthentication: true,
     options: {
@@ -302,7 +302,7 @@ const routes = [
     }
   },
   {
-    path: "reject-booking/:applicationId?",
+    path: "egov-services/reject-booking/:applicationId?",
     component: RejectComplaint,
     needsAuthentication: true,
     options: {
@@ -313,7 +313,7 @@ const routes = [
     }
   },
   {
-    path: "reject-bwt-booking/:applicationId?",
+    path: "egov-services/reject-bwt-booking/:applicationId?",
     component: RejectBWTComplaint,
     needsAuthentication: true,
     options: {
@@ -325,7 +325,7 @@ const routes = [
   },
 
   {
-    path: "deliver-application/:applicationId?",
+    path: "egov-services/deliver-application/:applicationId?",
     component: deliverBooking,
     needsAuthentication: true,
     options: {
@@ -336,7 +336,7 @@ const routes = [
     }
   },
   {
-    path: "not-deliver-application/:applicationId?",
+    path: "egov-services/not-deliver-application/:applicationId?",
     component: notDeliverBooking,
     needsAuthentication: true,
     options: {
@@ -349,7 +349,7 @@ const routes = [
   
  
   {
-    path: "assignto-driver/:applicationId?",
+    path: "egov-services/assignto-driver/:applicationId?",
     component: AssignToDriver,
     needsAuthentication: true,
     options: {

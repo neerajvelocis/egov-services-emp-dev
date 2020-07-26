@@ -252,10 +252,10 @@ class AllRequests extends Component {
   onComplaintClick = (complaintNo, bookingType) => {
     console.log('complaintNo in onComplaintClick', complaintNo, bookingType);
     if (bookingType && bookingType == "WATER_TANKERS") {
-      this.props.history.push(`/bwt-application-details/${complaintNo}`);
+      this.props.history.push(`/egov-services/bwt-application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "OSBM") {
-      this.props.history.push(`/application-details/${complaintNo}`);
+      this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
   };
 
