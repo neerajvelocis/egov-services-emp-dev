@@ -243,7 +243,7 @@ class BwtApplicationDetails extends Component {
 
 	assignToDiver = (e, complaintNo) => {
 		let { history } = this.props;
-		history.push(`/assignto-driver/${complaintNo}`);
+		history.push(`/egov-services/assignto-driver/${complaintNo}`);
 	}
 	callApiDorData = async (e) => {
 		const { documentMap } = this.props;
