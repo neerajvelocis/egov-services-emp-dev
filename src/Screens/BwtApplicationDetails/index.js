@@ -134,16 +134,16 @@ class BwtApplicationDetails extends Component {
 		//Action for first button
 		let { history } = this.props;
 		if (e.target.value == "REJECTED") {
-			history.push(`/reject-bwt-booking/${complaintNo}`);
+			history.push(`/egov-services/reject-bwt-booking/${complaintNo}`);
 		} else if (e.target.value == 'APPROVED') {
-			history.push(`/assignto-driver/${complaintNo}`);
+			history.push(`/egov-services/assignto-driver/${complaintNo}`);
 		}
 		else if (e.target.value == 'DELIVERED') {
-			history.push(`/deliver-application/${complaintNo}`);
+			history.push(`/egov-services/deliver-application/${complaintNo}`);
 		}
 		
 		else if (e.target.value == 'NOTDELIVERED') {
-			history.push(`/not-deliver-application/${complaintNo}`);
+			history.push(`/egov-services/not-deliver-application/${complaintNo}`);
 		}
 	};
 	btnTwoOnClick = (complaintNo, label) => {

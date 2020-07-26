@@ -141,9 +141,9 @@ class ApplicationDetails extends Component {
 		//Action for first button
 		let { history } = this.props;
 		if (e.target.value == "REJECTED") {
-			history.push(`/reject-booking/${complaintNo}`);
+			history.push(`/egov-services/reject-booking/${complaintNo}`);
 		} else if (e.target.value == 'APPROVED') {
-			history.push(`/booking-resolved/${complaintNo}`);
+			history.push(`/egov-services/booking-resolved/${complaintNo}`);
 
 		}
 	};

@@ -73,37 +73,14 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
         )}
       </div>
       <div className="responsive-action-button-cont">
-
-
-       
-{(() => {
-if(approverName){
-  <Button
-  onClick={onSubmit}
-  className="responsive-action-button"
-  id="rejectcomplaint-submit-action"
-  primary={true}
-  {...submit}
-  fullWidth={true}
-/>
-}else{
-  <Button
-  onClick={onSubmit}
-  className="responsive-action-button"
-  id="rejectcomplaint-submit-actions"
-  primary={true}
-  {...submit}
-  fullWidth={true}
-  disabled
-/>
-}
-
-})()}
-
-
-      
-      
-
+        <Button
+          onClick={onSubmit}
+          className="responsive-action-button"
+          id="rejectcomplaint-submit-action"
+          primary={true}
+          {...submit}
+          fullWidth={true}
+        />
       </div>
     </div>
   );
