@@ -54,7 +54,7 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
     switch (obj.type) {
       case "epoch":
         return (
-          <Grid item xs={12} sm={4} md={4} lg={4}>
+          <Grid item xs={12} sm={6} md={6} lg={6} style={{paddingRight: 8,paddingLeft: "20px"}}>
             <DatePicker
               // className="custom-form-control-for-textfield"
               id={obj.label.split(".").join("-")}
@@ -62,6 +62,7 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
               fullWidth={true}
               floatingLabelFixed={true}
               maxDate={maxDate}
+              
               // required={obj.isMandatory ? true : false}
               floatingLabelText={
                 <div className="rainmaker-displayInline">
