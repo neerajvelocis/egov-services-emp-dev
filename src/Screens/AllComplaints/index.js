@@ -831,7 +831,7 @@ class AllRequests extends Component {
                 </div>
                 <div
                   className="col-sm-4 col-xs-12"
-                  style={{ paddingLeft: 8, paddingRight: 40 }}
+                  style={{ paddingLeft: 8 }}
                 >
                   <TextField
                     id="mobile-no"
@@ -860,7 +860,7 @@ class AllRequests extends Component {
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
+                <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 30 }}>
                   <TextField
                     id="complaint-no"
                     name="complaint-no"
@@ -903,7 +903,7 @@ class AllRequests extends Component {
                     className="form-control"
                     style={dropbordernone}
                   >
-                    <option value="">Select Application Status</option>
+                    <option value="">Application Status</option>
                     <option value="PENDINGAPPROVAL">Pending Approval</option>
                     <option value="PENDINGPAYMENT">Pending Payment</option>
                     <option value="PENDINGUPDATE">Pending Update</option>
@@ -911,7 +911,7 @@ class AllRequests extends Component {
                     <option value="WATER_TANKERS">Pending Update</option>
                   </select>
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px',paddingTop: "10px" }}>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px',paddingTop: "10px",paddingLeft: "8px" }}>
                   <select
                     value={bookingType}
                     onChange={(e, value) => this.onbookingChange(e)}
@@ -925,7 +925,7 @@ class AllRequests extends Component {
                       dark={true}
                       labelStyle={hintTextStyle}
                     />
-                    <option value="">Select Booking Type</option>
+                    <option value="">Application Type</option>
                     <option value="OSBM">Open Space To Store Building Material</option>
                     <option value="WATER_TANKERS">Water Tankers</option>
                   </select>
@@ -970,12 +970,12 @@ class AllRequests extends Component {
               </div> */}
                 <div
                   className="col-sm-8 col-xs-12 csr-action-buttons"
-                  style={{ marginTop: 10, paddingRight: 8 }}
+                  style={{ marginTop: 10 }}
                 >
                   <Grid container spacing={8}>{this.handleFormFields()}</Grid>
                 </div>
                 <div
-                  className="col-sm-12 col-xs-12 csr-action-buttons"
+                  className="col-sm-12 col-xs-12"
                   style={{ marginTop: 10, paddingRight: 8 }}
                 >
                   <Button

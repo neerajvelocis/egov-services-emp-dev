@@ -133,8 +133,12 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
-
-    console.log('ProcessInstances', ProcessInstances)
+  //  if(ProcessInstances&&ProcessInstances.auditDetails&&ProcessInstances.auditDetails.lastModifiedTime){
+  //   ProcessInstances= ProcessInstances.sort(ProcessInstances&&ProcessInstances.auditDetails.lastModifiedTime)
+  //  }
+   
+   console.log('ProcessInstances',ProcessInstances)
+   
     // let currentObj =
     // ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
     // if(currentObj && currentObj.businessService && currentObj.businessService === "OSBM"){

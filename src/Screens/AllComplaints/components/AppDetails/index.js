@@ -177,7 +177,7 @@ class AppDetails extends Component {
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={areaRequired}
+                      label={areaRequired?areaRequired:'NA'}
                     />
                   </div>
                   <div className="col-md-4">
@@ -187,7 +187,7 @@ class AppDetails extends Component {
                       label={submittedDate}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bkDuration}
+                      label={bkDuration?bkDuration:'NA'}
                     />
                   </div>
                   <div className="col-md-4">
@@ -197,7 +197,7 @@ class AppDetails extends Component {
                       label={submittedDate}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bkCategory}
+                      label={bkCategory?bkCategory:'NA'}
                     />
                   </div>
                 </div>
