@@ -621,7 +621,8 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 			constructionType:selectedComplaint.bkConstructionType,
 			villageCity:selectedComplaint.bkVillCity,
 			residentialCommercial:selectedComplaint.bkType,
-			businessService:businessService
+			businessService:businessService,
+			bkConstructionType:selectedComplaint.bkConstructionType
 			
 		}
 

@@ -585,7 +585,7 @@ class AllRequests extends Component {
         "mobileNumber": "", "bookingType": ""
       },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "",applicationStatus:"", search: false });
   };
 
   //  getDropDownItem=()=>{

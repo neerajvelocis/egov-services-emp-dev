@@ -50,7 +50,7 @@ class AppDetails extends Component {
   };
 
   render() {
-    const { status, applicantName, applicationNo, bkEmail, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
    
     // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
@@ -178,6 +178,16 @@ class AppDetails extends Component {
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={areaRequired?areaRequired:'NA'}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkConstructionType?bkConstructionType:'NA'}
                     />
                   </div>
                   <div className="col-md-4">
