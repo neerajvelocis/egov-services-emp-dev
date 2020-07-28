@@ -165,7 +165,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_COMPLAINT_DETAILS_RESOLUTION_EVIDENCE",
+      title: "MYBK_APPLICATION_DETAILS_RESOLVE",
       titleBackground: true, // Use this if you need white background for title in web version
       redirectionUrl
     }

@@ -25,9 +25,9 @@ console.log('formValue--->>',formValue)
   return (
     <div>
       
-      <div className="custom-padding-for-screens">
+      {/* <div className="custom-padding-for-screens">
       <b>Application Number: </b>{applicationNumber}
-    </div>   
+    </div>    */}
     
        <div className="custom-padding-for-screens">
         {/* <div className="reject-complaint-question request-reaasign-question">
@@ -37,7 +37,15 @@ console.log('formValue--->>',formValue)
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
         </div>
       </div>
-      <div className="responsive-action-button-cont">
+      <button 
+       onClick={onSubmit}
+       className="responsive-action-button"
+       id="rejectcomplaint-submit-action"
+       primary={true}
+       {...submit}
+       fullWidth={true}
+      >Verify and Forward</button>
+      {/* <div className="responsive-action-button-cont">
         <Button
           onClick={onSubmit}
           className="responsive-action-button"
@@ -46,7 +54,7 @@ console.log('formValue--->>',formValue)
           {...submit}
           fullWidth={true}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

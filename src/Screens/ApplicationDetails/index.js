@@ -20,6 +20,7 @@ import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import ApproveBooking from "../ComplaintResolved"
 
 import jp from "jsonpath";
 import {
@@ -39,7 +40,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications,fetchPayment,fetchHistory,
+	fetchApplications, fetchPayment, fetchHistory,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -56,28 +57,33 @@ import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 
 const styles = (theme) => ({
-	
-  });
-  
-  const DialogTitle = withStyles(styles)((props) => {
+
+});
+const dosalogStyle = {
+	flex: '1 1 auto',
+	padding: '0 24px 24px',
+	overflowY: 'auto',
+	overflowScrolling: 'touch',
+	zIndex: '2000',
+}
+
+const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
-	  <MuiDialogTitle disableTypography className={classes.root} {...other}>
-		<Typography variant="h6">{children}</Typography>
-		{onClose ? (
-		  <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-			<CloseIcon />
-		  </IconButton>
-		) : null}
-	  </MuiDialogTitle>
+		<MuiDialogTitle disableTypography className={classes.root} {...other}>
+			<Typography variant="h6">{children}</Typography>
+			{onClose ? (
+				<IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+					<CloseIcon />
+				</IconButton>
+			) : null}
+		</MuiDialogTitle>
 	);
-  });
-  
-  const DialogContent = withStyles((theme) => ({
-	// root: {
-	//   padding: theme.spacing(2),
-	// },
-  }))(MuiDialogContent);
+});
+
+const DialogContent = withStyles((theme) => ({
+
+}))(MuiDialogContent);
 
 class ApplicationDetails extends Component {
 	constructor(props) {
@@ -86,13 +92,14 @@ class ApplicationDetails extends Component {
 			openMap: false,
 			docFileData: [],
 			bookingType: '',
-			open:false,
-			setOpen:false
+			open: false,
+			setOpen: false,
+			openPopup: false
 		};
 	};
 
 
-	
+
 
 	componentDidMount = async () => {
 		let {
@@ -109,21 +116,23 @@ class ApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
-	
+
 		prepareFormData("complaints", transformedComplaint);
 
-		const{complaint}=transformedComplaint;
+		const { complaint } = transformedComplaint;
 		fetchApplications(
-			{ "applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
-			"applicationStatus":"",
-			"mobileNumber":"","bookingType":"" }
+			{
+				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+				"applicationStatus": "",
+				"mobileNumber": "", "bookingType": ""
+			}
 		);
 		fetchHistory([
-			{key:"businessIds",value:match.params.applicationId}, {key:"history",value:true},{key:"tenantId",value:userInfo.tenantId}])
-//complaint.businessService
-			fetchPayment(
-				[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
-		])
+			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
+		//complaint.businessService
+		fetchPayment(
+			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
+			])
 		let { details } = this.state;
 
 	}
@@ -143,7 +152,10 @@ class ApplicationDetails extends Component {
 		if (e.target.value == "REJECTED") {
 			history.push(`/egov-services/reject-booking/${complaintNo}`);
 		} else if (e.target.value == 'APPROVED') {
-			history.push(`/egov-services/booking-resolved/${complaintNo}`);
+			this.setState({
+				openPopup: true
+			})
+			// history.push(`/egov-services/booking-resolved/${complaintNo}`);
 
 		}
 	};
@@ -230,18 +242,18 @@ class ApplicationDetails extends Component {
 	//     .then(() => console.log("Successful share"))
 	//     .catch(error => console.log("Error sharing", error));
 	// };
-	 handleClickOpen = () => {
-		 this.setState({
-			open:true
-		 })
-		
-	  };
-	  handleClose = () => {
+	handleClickOpen = () => {
 		this.setState({
-			open:false
-		 })
-		  };
-	
+			open: true
+		})
+
+	};
+	handleClose = () => {
+		this.setState({
+			openPopup: false
+		})
+	};
+
 
 	callApiDorData = async (e) => {
 		const { documentMap } = this.props;
@@ -312,7 +324,7 @@ class ApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let {historyApiData,paymentDetails}=this.props;
+		let { historyApiData, paymentDetails, match, userInfo } = this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -373,9 +385,9 @@ class ApplicationDetails extends Component {
 						<div>
 							<div className="form-without-button-cont-generic">
 
-							<BookingDetails
+								<BookingDetails
 									{...complaint}
-									historyApiData={historyApiData&&historyApiData}
+									historyApiData={historyApiData && historyApiData}
 								/>
 								<AppDetails
 									{...complaint}
@@ -390,7 +402,7 @@ class ApplicationDetails extends Component {
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
-								
+
 
 								{/* {documentMap && (
 									<DownloadFileContainer
@@ -420,7 +432,7 @@ class ApplicationDetails extends Component {
 									width: "100",
 									backgroundColor: "white",
 									border: "2px solid white",
-									boxShadow: "0 0 2px 2px #e7dcdc",paddingLeft:"30px",paddingTop:"10px"
+									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
@@ -476,24 +488,24 @@ class ApplicationDetails extends Component {
 														color: "gray"
 													}} value="REJECTED">Reject</option>
 												</select>
-
-
-
-												// btnOneLabel={btnOneLabel}
-												// btnOneOnClick={() =>
-												// 	this.btnOneOnClick(serviceRequestId, btnOneLabel)
-												// }
-												// btnTwoLabel={btnTwoLabel}
-												// btnTwoOnClick={() =>
-												// 	this.btnTwoOnClick(serviceRequestId, btnTwoLabel)
-												// }
-
-
-												// />
 											)
-											
+
 										)
 									)}
+								<Dialog maxWidth={false} style={ dosalogStyle } onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.openPopup} >
+									<DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
+										<b>Verify And Forward Application</b>
+									</DialogTitle>
+									<DialogContent>
+										<Typography>
+											<ApproveBooking
+												applicationNumber={match.params.applicationId}
+												userInfo={userInfo}
+											/>
+
+										</Typography>
+									</DialogContent>
+								</Dialog>
 							</div>
 						</div>
 					)}
@@ -570,26 +582,26 @@ const mapStateToProps = (state, ownProps) => {
 
 	const serviceRequestId = ownProps.match.params.applicationId;
 	let selectedComplaint = applicationData ? applicationData.bookingsModelList[0] : ''
-	let businessService=applicationData ? applicationData.businessService:"";
+	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
 
-console.log('businessService=====',businessService)
+	console.log('businessService=====', businessService)
 	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	 const { documentMap } = state.complaints.applicationData;
-	 const {HistoryData}=complaints;
+	const { documentMap } = state.complaints.applicationData;
+	const { HistoryData } = complaints;
 
-	 let historyObject=HistoryData?HistoryData:''
-	  const{paymentData}=complaints;
-	  
-let paymentDetails=paymentData?paymentData.Bill[0]:''
-	let historyApiData={}
-	 if(historyObject){
-		historyApiData=historyObject;
+	let historyObject = HistoryData ? HistoryData : ''
+	const { paymentData } = complaints;
+
+	let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	let historyApiData = {}
+	if (historyObject) {
+		historyApiData = historyObject;
 	}
-	 console.log('HistoryData in map state to props', historyApiData)
+	console.log('HistoryData in map state to props', historyApiData)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -602,7 +614,7 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 					: "employee";
 
 	let isAssignedToEmployee = true;
-	if (selectedComplaint&&businessService) {
+	if (selectedComplaint && businessService) {
 
 		let details = {
 			applicantName: selectedComplaint.bkApplicantName,
@@ -618,19 +630,19 @@ let paymentDetails=paymentData?paymentData.Bill[0]:''
 			areaRequired: selectedComplaint.bkAreaRequired,
 			bkDuration: selectedComplaint.bkDuration,
 			bkCategory: selectedComplaint.bkCategory,
-			constructionType:selectedComplaint.bkConstructionType,
-			villageCity:selectedComplaint.bkVillCity,
-			residentialCommercial:selectedComplaint.bkType,
-			businessService:businessService,
-			bkConstructionType:selectedComplaint.bkConstructionType
-			
+			constructionType: selectedComplaint.bkConstructionType,
+			villageCity: selectedComplaint.bkVillCity,
+			residentialCommercial: selectedComplaint.bkType,
+			businessService: businessService,
+			bkConstructionType: selectedComplaint.bkConstructionType
+
 		}
 
 
 
 		let transformedComplaint;
 		if (applicationData != null && applicationData != undefined) {
-		
+
 			transformedComplaint = {
 				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
 			};
