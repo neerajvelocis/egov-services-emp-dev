@@ -17,8 +17,9 @@ const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
 		<MuiDialogTitle>
+            <Typography variant="h6">{children}</Typography>
 			{onClose ? (
-				<IconButton aria-label="close">
+				<IconButton aria-label="close" onClick={onClose}>
 					<CloseIcon />
 				</IconButton>
 			) : null}
@@ -37,11 +38,12 @@ class DialogContainer extends React.Component {
     //alert('Enter')
   }
   render() {
-    const { toggle, maxWidth, children, togglepopup } = this.props;
+    const { toggle, maxWidth, children, togglepopup,actionTittle } = this.props;
     console.log('togglepopup', togglepopup)
     return (
-      <Dialog open={toggle} maxWidth={maxWidth} onClose={() => { togglepopup }}>
-        <DialogTitle id="customized-dialog-title" onClose={() => {togglepopup }}>
+      <Dialog open={toggle} maxWidth={maxWidth} onClose={togglepopup}>
+        <DialogTitle id="customized-dialog-title" onClose= {togglepopup}>
+        {actionTittle}
         </DialogTitle>
         <DialogContent children={children} />
       </Dialog>

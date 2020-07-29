@@ -97,7 +97,8 @@ class ApplicationDetails extends Component {
 			open: false,
 			setOpen: false,
 			togglepopup: false,
-			actionOnApplication: ''
+			actionOnApplication: '',
+			actionTittle:''
 		};
 	};
 
@@ -149,6 +150,16 @@ class ApplicationDetails extends Component {
 	}
 
 	actionButtonOnClick = (e, complaintNo, label) => {
+		
+		if(e.target.value=='APPROVED'){
+			this.setState({
+				actionTittle:"Verify and Forward"
+			})
+	}else{
+		this.setState({
+			actionTittle:"Reject"
+		})
+	}
 			this.setState({
 				togglepopup: !this.state.togglepopup,
 				actionOnApplication: e.target.value
@@ -406,6 +417,7 @@ class ApplicationDetails extends Component {
 
 								<DialogContainer
 									toggle={this.state.togglepopup}
+									actionTittle={this.state.actionTittle}
 									togglepopup={this.actionButtonOnClick}
 									children={this.state.actionOnApplication=='APPROVED'?<ApproveBooking
 										applicationNumber={match.params.applicationId}
