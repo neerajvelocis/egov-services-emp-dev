@@ -20,9 +20,8 @@ import CountDetails from "./components/CountDetails";
 import "./index.css";
 import ShowField from "./showField";
 import CustomComplaints from "./components/CustomComponent";
+import SelectBox from '../../modules/SelectBox';
 
-// import { makeStyles } from '@material-ui/core/styles';
-// import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -48,16 +47,6 @@ const currencies = [
   },
 ];
 
-// const useStyles = makeStyles((theme) => ({
-//   button: {
-//     display: 'block',
-//     marginTop: theme.spacing(2),
-//   },
-//   formControl: {
-//     margin: theme.spacing(1),
-//     minWidth: 120,
-//   },
-// }));
 
 
 //import ShowField from "C:/latest_project/frontend/web/rainmaker/packages/employee/src/modules/employee/reports/showField";
@@ -75,13 +64,25 @@ class AllRequests extends Component {
     value: 0,
     sortPopOpen: false,
     errorText: "",
-    currency: ''
+    currency: '',
+    open: false, setOpen: false
   };
   style = {
     iconStyle: {
       height: "30px",
       width: "30px"
     }
+  };
+  handleClose = () => {
+    this.setState({
+      setOpen: false
+    })
+  };
+
+  handleOpen = () => {
+    this.setState({
+      setOpen: true
+    })
   };
   // const compainsData=[];
   componentDidMount = async () => {
@@ -585,7 +586,7 @@ class AllRequests extends Component {
         "mobileNumber": "", "bookingType": ""
       },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType: "",applicationStatus:"", search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", search: false });
   };
 
   //  getDropDownItem=()=>{
@@ -895,8 +896,31 @@ class AllRequests extends Component {
                   />
                 </div>
 
-              
-                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px' }}>
+
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px' }}>
+                 
+                 
+                 
+                <FormControl style={{width: '100%'}}>
+                    <InputLabel  style={{width: '100%'}}  id="demo-controlled-open-select-label">Application Status</InputLabel>
+                    <Select 
+                      maxWidth={false}
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={this.state.SetOpen}
+                      onClose={() => this.handleClose()}
+                      onOpen={() => this.handleOpen()}
+                      value={this.state.applicationStatus}
+                      onChange={(e, value) => this.onApplicationStatusChange(e)}
+                    >
+                      <MenuItem value= "" disabled>Application Status</MenuItem>
+                      <MenuItem value='PENDINGAPPROVAL'>Pending Approval</MenuItem>
+                      <MenuItem value='PENDINGPAYMENT'>Pending Payment</MenuItem>
+                      <MenuItem value='PENDINGUPDATE'>Pending Update</MenuItem>
+                      <MenuItem value='PENDINGASSIGNMENTDRIVER'>Pending Assignment Driver</MenuItem>
+                    </Select>
+                  </FormControl>
+{/*                  
                   <select
                     value={this.state.applicationStatus}
                     onChange={(e, value) => this.onApplicationStatusChange(e)}
@@ -909,10 +933,10 @@ class AllRequests extends Component {
                     <option value="PENDINGUPDATE">Pending Update</option>
                     <option value="PENDINGASSIGNMENTDRIVER">Pending Assignment Driver</option>
                     <option value="WATER_TANKERS">Pending Update</option>
-                  </select>
+                  </select> */}
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ minHeight:'72px',paddingTop: "10px",paddingLeft: "8px" }}>
-                  <select
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px", paddingLeft: "8px" }}>
+                  {/* <select
                     value={bookingType}
                     onChange={(e, value) => this.onbookingChange(e)}
                     className="form-control"
@@ -928,7 +952,33 @@ class AllRequests extends Component {
                     <option value="">Application Type</option>
                     <option value="OSBM">Open Space To Store Building Material</option>
                     <option value="WATER_TANKERS">Water Tankers</option>
-                  </select>
+                  </select> */}
+
+
+{/* <SelectBox
+selectBoxOptions={['a','b','c']}
+/> */}
+
+
+                  <FormControl style={{width: '100%'}}>
+                    <InputLabel  style={{width: '100%'}}  id="demo-controlled-open-select-label">Booking Type</InputLabel>
+                    <Select 
+                      maxWidth={false}
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={this.state.SetOpen}
+                      onClose={() => this.handleClose()}
+                      onOpen={() => this.handleOpen()}
+                      value={bookingType}
+                      onChange={(e, value) => this.onbookingChange(e)}
+                    >
+                      <MenuItem value= "" disabled>Bokking Type</MenuItem>
+                      <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
+                      <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
+                    </Select>
+                  </FormControl>
+
+
 
                   {/* <TextField
                     id="application-status"

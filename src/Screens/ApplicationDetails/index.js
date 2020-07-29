@@ -18,9 +18,10 @@ import AppDetails from "../AllComplaints/components/AppDetails"
 import BookingDetails from "../AllComplaints/components/BookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
-import DialogContainer from "../../modules/DialogContainer"
+// import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import ApproveBooking from "../ComplaintResolved"
+import ApproveBooking from "../ComplaintResolved";
+import RejectBooking from "../RejectComplaint";
 
 import jp from "jsonpath";
 import {
@@ -45,6 +46,7 @@ import {
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
+import DialogContainer from '../../modules/DialogContainer';
 
 import "./index.css";
 import { withStyles } from '@material-ui/core/styles';
@@ -94,7 +96,9 @@ class ApplicationDetails extends Component {
 			bookingType: '',
 			open: false,
 			setOpen: false,
-			openPopup: false
+			togglepopup: false,
+			actionOnApplication: '',
+			actionTittle:''
 		};
 	};
 
@@ -145,20 +149,24 @@ class ApplicationDetails extends Component {
 		}
 	}
 
-	btnOneOnClick = (e, complaintNo, label) => {
-		console.log('complaintNo in  btnone', e.target.value, complaintNo, label)
-		//Action for first button
-		let { history } = this.props;
-		if (e.target.value == "REJECTED") {
-			history.push(`/egov-services/reject-booking/${complaintNo}`);
-		} else if (e.target.value == 'APPROVED') {
+	actionButtonOnClick = (e, complaintNo, label) => {
+		
+		if(e.target.value=='APPROVED'){
 			this.setState({
-				openPopup: true
+				actionTittle:"Verify and Forward"
 			})
-			// history.push(`/egov-services/booking-resolved/${complaintNo}`);
-
-		}
+	}else{
+		this.setState({
+			actionTittle:"Reject"
+		})
+	}
+			this.setState({
+				togglepopup: !this.state.togglepopup,
+				actionOnApplication: e.target.value
+			})
 	};
+
+
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
 		let { history } = this.props;
@@ -175,73 +183,7 @@ class ApplicationDetails extends Component {
 		}
 	};
 
-	// ShareButtonOnClick = () => {
-	//   const complaintData = this.props.transformedComplaint.complaint;
-	//   const name = complaintData.filedBy ? complaintData.filedBy : "NA";
-	//   const moblileNo = complaintData.filedUserMobileNumber
-	//     ? complaintData.filedUserMobileNumber
-	//     : "NA";
-	//   const complaintNo = complaintData.applicationNo
-	//     ? complaintData.applicationNo
-	//     : "NA";
-	//   const complaintType = this.props.complaintTypeLocalised
-	//     ? this.props.complaintTypeLocalised
-	//     : "NA";
-	//   const address = complaintData.address ? complaintData.address : "NA";
-	//   const { sendMessage } = this.props;
-
-	//   const shareMetaData = {
-	//     tenantId: getTenantId(),
-	//     shareSource: "WEB",
-	//     shareMedia: "SMS",
-	//     shareContent: [
-	//       {
-	//         to: "",
-	//         content: { name, moblileNo, complaintNo, complaintType, address },
-	//         expiredIn: "",
-	//         documents: []
-	//       }
-	//     ],
-	//     shareTemplate: "complaintDetails"
-	//   };
-	//   sendMessage(shareMetaData);
-
-	//   // const messageStr =
-	//   //   "Name: " + name + "\nMobile: " + moblileNo + "\nComplaint No: " + complaintNo + "\nComplaint Type: " + complaintType + "\nAddress: " + address;
-	// };
-
-	// shareCallback = () => {
-	//   let { complaint } = this.props.transformedComplaint;
-
-	//   navigator
-	//     .share({
-	//       title: "Complaint Summary",
-	//       text: `Dear Sir/Madam,\nPlease find complaint detail given below :\n${get(
-	//         complaint,
-	//         "filedBy",
-	//         ""
-	//       )}, ${get(complaint, "filedUserMobileNumber", "")},\n${get(
-	//         complaint,
-	//         "complaint",
-	//         ""
-	//       )}, ${get(complaint, "description", "")}\nAddress: ${get(
-	//         complaint,
-	//         "addressDetail.houseNoAndStreetName",
-	//         ""
-	//       )},\n${get(complaint, "addressDetail.locality", "")},\n${get(
-	//         complaint,
-	//         "addressDetail.landMark",
-	//         ""
-	//       )}\nSLA: ${get(
-	//         complaint,
-	//         "timelineSLAStatus.slaStatement",
-	//         ""
-	//       )}\nThanks`,
-	//       url: ""
-	//     })
-	//     .then(() => console.log("Successful share"))
-	//     .catch(error => console.log("Error sharing", error));
-	// };
+	
 	handleClickOpen = () => {
 		this.setState({
 			open: true
@@ -402,31 +344,11 @@ class ApplicationDetails extends Component {
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
-
-
 								{/* {documentMap && (
 									<DownloadFileContainer
 									
 									/> */}
 								{/* )} */}
-
-								{/* <ComplaintTimeLine
-                  status={complaint.status}
-                  timelineSLAStatus={complaint.timelineSLAStatus}
-                  timeLine={timeLine}
-                  history={history}
-                  handleFeedbackOpen={this.handleFeedbackOpen}
-                  role={role}
-                  feedback={complaint ? complaint.feedback : ""}
-                  rating={complaint ? complaint.rating : ""}
-                  filedBy={
-                    complaint && complaint.filedBy ? complaint.filedBy : ""
-                  }
-                  filedUserMobileNumber={
-                    complaint ? complaint.filedUserMobileNumber : ""
-                  }
-                  reopenValidChecker={reopenValidChecker}
-                /> */}
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -462,7 +384,7 @@ class ApplicationDetails extends Component {
 
 												<select
 													value={this.state.bookingType}
-													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
+													onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
 													style={{
 														marginRight: "15",
 														backgroundColor: "#FE7A51",
@@ -492,7 +414,20 @@ class ApplicationDetails extends Component {
 
 										)
 									)}
-								<Dialog maxWidth={false} style={ dosalogStyle } onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.openPopup} >
+
+								<DialogContainer
+									toggle={this.state.togglepopup}
+									actionTittle={this.state.actionTittle}
+									togglepopup={this.actionButtonOnClick}
+									children={this.state.actionOnApplication=='APPROVED'?<ApproveBooking
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/>:<RejectBooking
+									applicationNumber={match.params.applicationId}
+									userInfo={userInfo}
+								/>}
+								/>
+								{/* <Dialog maxWidth={false} style={ dosalogStyle } onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.openPopup} >
 									<DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
 										<b>Verify And Forward Application</b>
 									</DialogTitle>
@@ -502,10 +437,9 @@ class ApplicationDetails extends Component {
 												applicationNumber={match.params.applicationId}
 												userInfo={userInfo}
 											/>
-
 										</Typography>
 									</DialogContent>
-								</Dialog>
+								</Dialog> */}
 							</div>
 						</div>
 					)}
