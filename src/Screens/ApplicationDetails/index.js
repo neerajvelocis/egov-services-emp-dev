@@ -47,7 +47,7 @@ import {
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 import DialogContainer from '../../modules/DialogContainer';
-
+import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
 import "./index.css";
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -60,6 +60,8 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+
+
 
 const styles = (theme) => ({
 
@@ -383,7 +385,7 @@ class ApplicationDetails extends Component {
 							</div>
 							<div style={{
 								paddingTop: "30px",
-								paddingRight: "30px"
+								paddingRight: "30px",float: "right",
 							}}>
 								{(role === "ao" &&
 									complaint.complaintStatus.toLowerCase() !== "closed") ||
@@ -393,14 +395,15 @@ class ApplicationDetails extends Component {
 											complaint.status.toLowerCase() === "assigned")) ||
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGAPPROVAL" &&
-												// <ActionButton
-
-
-												<FormControl>
+											(complaint.status == "PENDINGAPPROVAL" && 
+											// <ActionButtonDropdown
+											
+											// />
+												
+												<FormControl style={{width: '100%'}}>
 												<Select 
 											
-												  labelId="demo-controlled-open-select-label"
+												  labelId="demo-controlled-open-select-label-button"
 												  id="demo-controlled-open-select"
 												  open={this.state.actionOpen}
 												  displayEmpty
@@ -409,18 +412,12 @@ class ApplicationDetails extends Component {
 												  value={this.state.bookingType}
 												  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
 													style={{
-														marginRight: "15",
 														backgroundColor: "#FE7A51",
-														color: "#fff",
-														border: "none",
-														height: "60px",
 														width: "200px",
-														float: "right", paddingLeft: "50px"
-
+														textAlign: "center",
 													}}
 												>
-												  <MenuItem value="" selected>Take Action </MenuItem>
-												  {/* <MenuItem value= "" disabled default>Take Action</MenuItem> */}
+												  <MenuItem value="" disabled>Take Action </MenuItem>
 												  <MenuItem value="APPROVED">Approved</MenuItem>
 												  <MenuItem value='REJECT'>Reject</MenuItem>
 												</Select>
@@ -557,7 +554,8 @@ const mapStateToProps = (state, ownProps) => {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	const { documentMap } = state.complaints.applicationData;
+	// const { documentMap } = state.complaints.applicationData;
+	const { documentMap } = applicationData;
 	const { HistoryData } = complaints;
 
 	let historyObject = HistoryData ? HistoryData : ''

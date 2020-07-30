@@ -211,7 +211,7 @@ export default class CustomComplaints extends React.Component{
                   textChildren={
                     <div className="complaint-card-wrapper">
 
-                      <div className="complaint-number-cont row">
+                      <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6" label={"MYBK_COMMON_APPLICATION_NO"} />
                           {/* <Label fontSize="12px" label={" : "} /> */}
@@ -219,21 +219,21 @@ export default class CustomComplaints extends React.Component{
                         </div>
                       </div>
 
-                      <div className="complaint-number-cont row">
+                      <div className="complaint-number-cont row application-format">
                         {/* <div className="complaint-number complaint-date"> */}
                           <Label fontSize="12px" className="col-md-6" label={"MYBK_APPLICATION_DETAILS_CURRENT_STATUS"} />
                           {/* <Label fontSize="12px" label={" : "} /> */}
                           <Label fontSize="12px" className="col-md-6" label={complaint.bkApplicationStatus} className="complaint-complaint-number" />
                         {/* </div> */}
                       </div>
-                      <div className="complaint-number-cont row">
+                      <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICATION_BOOKING_TYPE"} />
                           <Label fontSize="12px" className="col-md-6"   label={complaint.bkBookingType} className="complaint-complaint-number" />
                         </div>
                       </div>
                      
-                      <div className="complaint-number-cont row">
+                      <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICATION_DETAILS_SUBMISSION_DATE"} />
                           <Label fontSize="12px" className="col-md-6"   label={complaint.bkDateCreated} className="complaint-complaint-number" />

@@ -133,3 +133,6 @@
     display: flex; }
   .comma-style {
     display: inherit; } }
+
+.application-format {
+  padding-left: 10px; }

@@ -75,7 +75,7 @@ class ComplaintResolved extends Component {
   };
 
   onSubmit = e => {
-
+this.setState({commentValue:''})
     const { valueSelected, commentValue } = this.state;
     console.log('this.stat in on submite', this.state)
     const { toggleSnackbarAndSetText } = this.props;
