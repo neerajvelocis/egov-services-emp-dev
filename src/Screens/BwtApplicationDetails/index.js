@@ -162,73 +162,8 @@ class BwtApplicationDetails extends Component {
 		}
 	};
 
-	// ShareButtonOnClick = () => {
-	//   const complaintData = this.props.transformedComplaint.complaint;
-	//   const name = complaintData.filedBy ? complaintData.filedBy : "NA";
-	//   const moblileNo = complaintData.filedUserMobileNumber
-	//     ? complaintData.filedUserMobileNumber
-	//     : "NA";
-	//   const complaintNo = complaintData.applicationNo
-	//     ? complaintData.applicationNo
-	//     : "NA";
-	//   const complaintType = this.props.complaintTypeLocalised
-	//     ? this.props.complaintTypeLocalised
-	//     : "NA";
-	//   const address = complaintData.address ? complaintData.address : "NA";
-	//   const { sendMessage } = this.props;
-
-	//   const shareMetaData = {
-	//     tenantId: getTenantId(),
-	//     shareSource: "WEB",
-	//     shareMedia: "SMS",
-	//     shareContent: [
-	//       {
-	//         to: "",
-	//         content: { name, moblileNo, complaintNo, complaintType, address },
-	//         expiredIn: "",
-	//         documents: []
-	//       }
-	//     ],
-	//     shareTemplate: "complaintDetails"
-	//   };
-	//   sendMessage(shareMetaData);
-
-	//   // const messageStr =
-	//   //   "Name: " + name + "\nMobile: " + moblileNo + "\nComplaint No: " + complaintNo + "\nComplaint Type: " + complaintType + "\nAddress: " + address;
-	// };
-
-	// shareCallback = () => {
-	//   let { complaint } = this.props.transformedComplaint;
-
-	//   navigator
-	//     .share({
-	//       title: "Complaint Summary",
-	//       text: `Dear Sir/Madam,\nPlease find complaint detail given below :\n${get(
-	//         complaint,
-	//         "filedBy",
-	//         ""
-	//       )}, ${get(complaint, "filedUserMobileNumber", "")},\n${get(
-	//         complaint,
-	//         "complaint",
-	//         ""
-	//       )}, ${get(complaint, "description", "")}\nAddress: ${get(
-	//         complaint,
-	//         "addressDetail.houseNoAndStreetName",
-	//         ""
-	//       )},\n${get(complaint, "addressDetail.locality", "")},\n${get(
-	//         complaint,
-	//         "addressDetail.landMark",
-	//         ""
-	//       )}\nSLA: ${get(
-	//         complaint,
-	//         "timelineSLAStatus.slaStatement",
-	//         ""
-	//       )}\nThanks`,
-	//       url: ""
-	//     })
-	//     .then(() => console.log("Successful share"))
-	//     .catch(error => console.log("Error sharing", error));
-	// };
+	
+	
 	handleClickOpen = () => {
 		this.setState({
 			open: true
@@ -588,7 +523,8 @@ const mapStateToProps = (state, ownProps) => {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	const { documentMap } = state.complaints.applicationData;
+
+	const { documentMap } = applicationData;
 	const { HistoryData } = complaints;
 
 	let historyObject = HistoryData ? HistoryData : ''
@@ -599,7 +535,7 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('HistoryData in map state to props', historyApiData)
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -650,12 +586,9 @@ const mapStateToProps = (state, ownProps) => {
 			`SERVICEDEFS.${transformedComplaint.complaint.complaint}`.toUpperCase(),
 			localizationLabels
 		);
-		// let documentMapDataValues = [];
-		console.log('documentMap before return', documentMap)
 		return {
 			paymentDetails,
 			historyApiData,
-			// documentMapDataValues,
 			documentMap,
 			form,
 			transformedComplaint,
@@ -669,7 +602,6 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
-			// documentMapDataValues,
 			documentMap,
 			form,
 			transformedComplaint: {},

@@ -82,3 +82,8 @@
   border:none;
   background-color: #f3e1e1;
 }
+
+[labelId="demo-controlled-open-select-label-button"] [class*="MuiSelect-selectMenu-"] {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}

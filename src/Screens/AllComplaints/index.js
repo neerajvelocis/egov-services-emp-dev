@@ -1030,7 +1030,7 @@ selectBoxOptions={['a','b','c']}
                   className="col-sm-12 col-xs-12"
                   style={{ marginTop: 10, paddingRight: 8 }}
                 >
-                  <Button
+                <Button
                     label={
                       <Label
                         buttonLabel={true}
@@ -1064,6 +1064,7 @@ selectBoxOptions={['a','b','c']}
                     style={{ width: "20%" }}
                     onClick={() => this.clearSearch()}
                   />
+                    
                 </div>
               </div>
             }
