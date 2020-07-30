@@ -279,7 +279,7 @@ export default class CustomComplaints extends React.Component{
 
                      <button style={{color:"#FE7A51",border: "none",fontWeight: "500",outline:"none", background: "white"}} onClick={(e) => {
                     onComplaintClick(encodeURIComponent(complaint.bkApplicationNumber),complaint.bkBookingType);
-                  }}>View Details</button>
+                  }}>VIEW DETAILS</button>
       
                     </div>
                   }

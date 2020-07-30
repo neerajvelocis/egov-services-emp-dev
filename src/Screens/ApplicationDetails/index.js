@@ -57,6 +57,9 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 const styles = (theme) => ({
 
@@ -98,11 +101,22 @@ class ApplicationDetails extends Component {
 			setOpen: false,
 			togglepopup: false,
 			actionOnApplication: '',
-			actionTittle:''
+			actionTittle:'',
+			actionOpen:false
 		};
 	};
 
-
+	handleActionButtonClose = () => {
+		this.setState({
+			actionOpen: false
+		})
+	  };
+	
+	  handleActionButtonOpen = () => {
+		this.setState({
+			actionOpen: true
+		})
+	  };
 
 
 	componentDidMount = async () => {
@@ -382,9 +396,18 @@ class ApplicationDetails extends Component {
 											(complaint.status == "PENDINGAPPROVAL" &&
 												// <ActionButton
 
-												<select
-													value={this.state.bookingType}
-													onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
+
+												<FormControl>
+												<Select 
+											
+												  labelId="demo-controlled-open-select-label"
+												  id="demo-controlled-open-select"
+												  open={this.state.actionOpen}
+												  displayEmpty
+												  onClose={() => this.handleActionButtonClose()}
+												  onOpen={() => this.handleActionButtonOpen()}
+												  value={this.state.bookingType}
+												  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
 													style={{
 														marginRight: "15",
 														backgroundColor: "#FE7A51",
@@ -395,21 +418,43 @@ class ApplicationDetails extends Component {
 														float: "right", paddingLeft: "50px"
 
 													}}
-
 												>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="">Take Action</option>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="APPROVED">Approve</option>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="REJECTED">Reject</option>
-												</select>
+												  <MenuItem value="" selected>Take Action </MenuItem>
+												  {/* <MenuItem value= "" disabled default>Take Action</MenuItem> */}
+												  <MenuItem value="APPROVED">Approved</MenuItem>
+												  <MenuItem value='REJECT'>Reject</MenuItem>
+												</Select>
+											  </FormControl>
+
+											
+												// <select
+												// 	value={this.state.bookingType}
+												// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
+												// 	style={{
+												// 		marginRight: "15",
+												// 		backgroundColor: "#FE7A51",
+												// 		color: "#fff",
+												// 		border: "none",
+												// 		height: "60px",
+												// 		width: "200px",
+												// 		float: "right", paddingLeft: "50px"
+
+												// 	}}
+
+												// >
+												// 	<option style={{
+												// 		background: "white",
+												// 		color: "gray"
+												// 	}} value="">Take Action</option>
+												// 	<option style={{
+												// 		background: "white",
+												// 		color: "gray"
+												// 	}} value="APPROVED">Approve</option>
+												// 	<option style={{
+												// 		background: "white",
+												// 		color: "gray"
+												// 	}} value="REJECTED">Reject</option>
+												// </select>
 											)
 
 										)
@@ -427,19 +472,7 @@ class ApplicationDetails extends Component {
 									userInfo={userInfo}
 								/>}
 								/>
-								{/* <Dialog maxWidth={false} style={ dosalogStyle } onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.openPopup} >
-									<DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
-										<b>Verify And Forward Application</b>
-									</DialogTitle>
-									<DialogContent>
-										<Typography>
-											<ApproveBooking
-												applicationNumber={match.params.applicationId}
-												userInfo={userInfo}
-											/>
-										</Typography>
-									</DialogContent>
-								</Dialog> */}
+								
 							</div>
 						</div>
 					)}

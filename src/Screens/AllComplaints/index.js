@@ -897,12 +897,12 @@ class AllRequests extends Component {
                 </div>
 
 
-                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px' }}>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px',marginTop: '10px' }}>
                  
                  
                  
                 <FormControl style={{width: '100%'}}>
-                    <InputLabel  style={{width: '100%'}}  id="demo-controlled-open-select-label">Application Status</InputLabel>
+                    <InputLabel  shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Application Status</InputLabel>
                     <Select 
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
@@ -911,6 +911,7 @@ class AllRequests extends Component {
                       onClose={() => this.handleClose()}
                       onOpen={() => this.handleOpen()}
                       value={this.state.applicationStatus}
+                      displayEmpty
                       onChange={(e, value) => this.onApplicationStatusChange(e)}
                     >
                       <MenuItem value= "" disabled>Application Status</MenuItem>
@@ -935,7 +936,7 @@ class AllRequests extends Component {
                     <option value="WATER_TANKERS">Pending Update</option>
                   </select> */}
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px", paddingLeft: "8px" }}>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "18px", paddingLeft: "8px" }}>
                   {/* <select
                     value={bookingType}
                     onChange={(e, value) => this.onbookingChange(e)}
@@ -961,18 +962,19 @@ selectBoxOptions={['a','b','c']}
 
 
                   <FormControl style={{width: '100%'}}>
-                    <InputLabel  style={{width: '100%'}}  id="demo-controlled-open-select-label">Booking Type</InputLabel>
+                    <InputLabel shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Booking Type</InputLabel>
                     <Select 
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
                       open={this.state.SetOpen}
+                      displayEmpty
                       onClose={() => this.handleClose()}
                       onOpen={() => this.handleOpen()}
                       value={bookingType}
                       onChange={(e, value) => this.onbookingChange(e)}
                     >
-                      <MenuItem value= "" disabled>Bokking Type</MenuItem>
+                      <MenuItem value= "" disabled>Booking Type</MenuItem>
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                     </Select>
@@ -1178,23 +1180,7 @@ selectBoxOptions={['a','b','c']}
                       className="col-sm-6 col-xs-12 csr-action-buttons"
                       style={{ marginTop: 10, paddingRight: 8 }}
                     >
-                      <Button
-                        label={
-                          <Label
-                            buttonLabel={true}
-                            label="ES_MYCOMPLAINTS_SEARCH_BUTTON"
-                          />
-                        }
-                        style={{ marginRight: 28, width: "36%" }}
-                        backgroundColor="#fe7a51"
-                        labelStyle={{
-                          letterSpacing: 0.7,
-                          padding: 0,
-                          color: "#fff"
-                        }}
-                        buttonStyle={{ border: 0 }}
-                        onClick={() => this.onSearch()}
-                      />
+                    
                       <Button
                         label={
                           <Label
@@ -1211,6 +1197,23 @@ selectBoxOptions={['a','b','c']}
                         buttonStyle={{ border: "1px solid #fe7a51" }}
                         style={{ width: "36%" }}
                         onClick={() => this.clearSearch()}
+                      />
+                        <Button
+                        label={
+                          <Label
+                            buttonLabel={true}
+                            label="ES_MYCOMPLAINTS_SEARCH_BUTTON"
+                          />
+                        }
+                        style={{ marginRight: 28, width: "36%" }}
+                        backgroundColor="#fe7a51"
+                        labelStyle={{
+                          letterSpacing: 0.7,
+                          padding: 0,
+                          color: "#fff"
+                        }}
+                        buttonStyle={{ border: 0 }}
+                        onClick={() => this.onSearch()}
                       />
                     </div>
                   </div>
