@@ -127,7 +127,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			//	fetchDataAfterPayment,
+			//fetchDataAfterPayment,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -172,7 +172,7 @@ class ApplicationDetails extends Component {
 	}
 
 	actionButtonOnClick = (e, complaintNo, label) => {
-console.log('e--------',e,'complaintNo',complaintNo,'label',label)
+		console.log('e--------', e, 'complaintNo', complaintNo, 'label', label)
 		if (label == 'APPROVED') {
 			this.setState({
 				actionTittle: "Verify and Forward"
@@ -406,7 +406,7 @@ console.log('e--------',e,'complaintNo',complaintNo,'label',label)
 
 												// />
 
-												<Footer className="apply-wizard-footer"  style={{display: 'flex', justifyContent: 'flex-end'}} children={<ActionButtonDropdown data={{
+												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
 													rightIcon: "arrow_drop_down",
 													props: {
@@ -415,19 +415,19 @@ console.log('e--------',e,'complaintNo',complaintNo,'label',label)
 													},
 													menu: [{
 														label: {
-															labelName: "APPROVE",
-															labelKey: "APPROVED"
+															labelName: "Approve",
+															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
 														},
-												
+
 														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
 													},
 													{
-													label: {
-														labelName: "REJECT",
-														labelKey: "REJECT"
-													},
-													link: () => this.actionButtonOnClick('state', "dispatch",'REJECT')
-												}]
+														label: {
+															labelName: "Reject",
+															labelKey: "MYBK_REJECT_ACTION_BUTTON"
+														},
+														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+													}]
 												}} />}></Footer>
 
 												// 	<FormControl style={{width: '100%'}}>
@@ -586,15 +586,21 @@ const mapStateToProps = (state, ownProps) => {
 
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
-	// const {fetchPaymentAfterPayment}=complaints;
+	// const { fetchPaymentAfterPayment } = complaints;
 
+	// let paymentDetails;
+	// if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
+	// 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
+	// } else {
+		let	paymentDetails = paymentData ? paymentData.Bill[0] : '';
+	// }
 
-	let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
+	// console.log('paymentDetails in map state to props', paymentDetails)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")

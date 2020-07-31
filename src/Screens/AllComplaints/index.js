@@ -1046,7 +1046,7 @@ selectBoxOptions={['a','b','c']}
                       floatingLabelText={
                         <Label
                           key={1}
-                          label="From_Date"
+                          label="From Date"
                           color="rgba(0,0,0,0.60)"
                           fontSize="12px"
                         />
@@ -1085,7 +1085,7 @@ selectBoxOptions={['a','b','c']}
                       floatingLabelText={
                         <Label
                           key={1}
-                          label="To_Date"
+                          label="To Date"
                           color="rgba(0,0,0,0.60)"
                           fontSize="12px"
                         />
