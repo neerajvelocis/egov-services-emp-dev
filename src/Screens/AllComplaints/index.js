@@ -272,6 +272,22 @@ class AllRequests extends Component {
     }
   };
 
+
+  onFromDateChange = e => {
+    const fromDate = e.target.value;
+    this.setState({
+      fromDate
+    })
+  }
+
+  onToDateChange = e => {
+    const toDate = e.target.value;
+    this.setState({
+      toDate:toDate
+    })
+  }
+
+
   onMobileChange = e => {
     const inputValue = e.target.value;
     this.setState({ mobileNo: inputValue });
@@ -288,7 +304,7 @@ class AllRequests extends Component {
 
   onSearch = () => {
     console.log('on this.props', this.props, this.state)
-    const { complaintNo, mobileNo, bookingType, applicationStatus } = this.state;
+    const { complaintNo, mobileNo, bookingType, applicationStatus ,fromDate, toDate} = this.state;
     const { fetchApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
     queryObj.uuid = userInfo.uuid;
@@ -321,6 +337,26 @@ class AllRequests extends Component {
 
       console.log('bookingType', bookingType)
     }
+
+    if (fromDate) {
+      queryObj.bookingType = "";
+      queryObj.mobileNumber = "";
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus = "";
+      queryObj.fromDate = fromDate;
+      console.log('fromDate', fromDate)
+    }
+    if (toDate) {
+      queryObj.bookingType = "";
+      queryObj.mobileNumber = "";
+      queryObj.applicationNumber = "";
+      queryObj.applicationStatus = "";
+      queryObj.toDate = toDate;
+      console.log('toDate', toDate)
+    }
+
+
+
     // bookingType
     if (searchForm && searchForm.fromDate) {
       queryObj.fromDate = searchForm.fromDate;
@@ -366,6 +402,16 @@ class AllRequests extends Component {
     } else if (searchForm && searchForm.fromDate) {
       fetchApplications(queryObj, true, true);
     } else if (searchForm && searchForm.toDate) {
+      fetchApplications(queryObj, true, true);
+    }
+    else if (fromDate,toDate) {
+      if (fromDate>toDate){
+alert("from date is greater than to date")
+      }
+      else{
+      fetchApplications(queryObj, true, true);
+      }
+    } else if (toDate) {
       fetchApplications(queryObj, true, true);
     }
     this.setState({ search: true });
@@ -586,7 +632,7 @@ class AllRequests extends Component {
         "mobileNumber": "", "bookingType": ""
       },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate:"", toDate:"", search: false });
   };
 
   //  getDropDownItem=()=>{
@@ -622,7 +668,9 @@ class AllRequests extends Component {
       applicationStatus,
       search,
       sortPopOpen,
-      errorText
+      errorText,
+      fromDate,
+      toDate
     } = this.state;
     const tabStyle = {
       letterSpacing: "0.6px"
@@ -861,7 +909,7 @@ class AllRequests extends Component {
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-                <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 30 }}>
+                <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 12 }}>
                   <TextField
                     id="complaint-no"
                     name="complaint-no"
@@ -981,54 +1029,105 @@ selectBoxOptions={['a','b','c']}
                   </FormControl>
 
 
+                  </div>
+                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                    <TextField
+                      id="from-Date"
+                      name="from-Date"
+                      value={fromDate}
+                      hintText={
+                        <Label
+                          color="rgba(0, 0, 0, 0.3799999952316284)"
+                          fontSize={16}
+                          labelStyle={hintTextStyle}
+                        />
+                      }
+                      // errorText={<Label label={errorText} color="red" />}
+                      floatingLabelText={
+                        <Label
+                          key={1}
+                          label="From_Date"
+                          color="rgba(0,0,0,0.60)"
+                          fontSize="12px"
+                        />
+                      }
+                      onChange={(e, value) => this.onFromDateChange(e)}
+                      underlineStyle={{
+                        bottom: 7,
+                        borderBottom: "1px solid #e0e0e0"
+                      }}
+                      underlineFocusStyle={{
+                        bottom: 7,
+                        borderBottom: "1px solid #e0e0e0"
+                      }}
+                      hintStyle={{ width: "100%" }}
 
-                  {/* <TextField
-                    id="application-status"
-                    name="application-status"
-                    value={complaintNo}
-                    hintText={
-                      <Label
-                        label="MYBK_APPLICATION_STATUS"
-                        color="rgba(0, 0, 0, 0.3799999952316284)"
-                        fontSize={16}
-                        labelStyle={hintTextStyle}
-                      />
-                    }
-                    errorText={<Label label={errorText} color="red" />}
-                    floatingLabelText={
-                      <Label
-                        key={1}
-                        label="MYBK_APPLICATION_STATUS_PLACEHOLDER"
-                        color="rgba(0,0,0,0.60)"
-                        fontSize="12px"
-                      />
-                    }
-                     onChange={(e, value) => this.onComplaintChange(e)}
-                    underlineStyle={{
-                      bottom: 7,
-                      borderBottom: "1px solid #e0e0e0"
-                    }}
-                    underlineFocusStyle={{
-                      bottom: 7,
-                      borderBottom: "1px solid #e0e0e0"
-                    }}
-                    hintStyle={{ width: "100%" }}
-                  /> */}
-                </div>
+                      type="date"
+                      defaultValue="2017-05-24"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </div>
+                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                    <TextField
+                      id="to-date"
+                      name="to-date"
+                      value={toDate}
+                      hintText={
+                        <Label
+                          color="rgba(0, 0, 0, 0.3799999952316284)"
+                          fontSize={16}
+                          labelStyle={hintTextStyle}
+                        />
+                      }
+                      // errorText={<Label label={errorText} color="red" />}
+                      floatingLabelText={
+                        <Label
+                          key={1}
+                          label="To_Date"
+                          color="rgba(0,0,0,0.60)"
+                          fontSize="12px"
+                        />
+                      }
+                      onChange={(e, value) => this.onToDateChange(e)}
+                      underlineStyle={{
+                        bottom: 7,
+                        borderBottom: "1px solid #e0e0e0"
+                      }}
+                      underlineFocusStyle={{
+                        bottom: 7,
+                        borderBottom: "1px solid #e0e0e0"
+                      }}
+                      hintStyle={{ width: "100%" }}
+
+                      type="date"
+                      defaultValue="2017-05-24"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
+                  </div>
+             
+           
                 {/* <div
                   className="col-sm-6 col-xs-12 csr-action-buttons"
                   style={{ marginTop: 10, paddingRight: 8 }}
                 >
               </div> */}
-                <div
+                {/* <div
                   className="col-sm-8 col-xs-12 csr-action-buttons"
                   style={{ marginTop: 10 }}
                 >
                   <Grid container spacing={8}>{this.handleFormFields()}</Grid>
-                </div>
+                </div> */}
+
+
+
+
                 <div
                   className="col-sm-12 col-xs-12"
-                  style={{ marginTop: 10, paddingRight: 8 }}
+                  style={{ marginTop: 10, paddingRight: 8 ,marginLeft:"16%"}}
                 >
                 <Button
                     label={
@@ -1037,7 +1136,7 @@ selectBoxOptions={['a','b','c']}
                         label="MYBK_APPLICATIONS_SEARCH_BUTTON"
                       />
                     }
-                    style={{ marginRight: 28, width: "20%" }}
+                    style={{ marginRight: 28, width: "30%" }}
                     backgroundColor="#fe7a51"
                     labelStyle={{
                       letterSpacing: 0.7,
@@ -1061,7 +1160,7 @@ selectBoxOptions={['a','b','c']}
                       color: "#fe7a51"
                     }}
                     buttonStyle={{ border: "1px solid #fe7a51" }}
-                    style={{ width: "20%" }}
+                    style={{ width: "30%" }}
                     onClick={() => this.clearSearch()}
                   />
                     
