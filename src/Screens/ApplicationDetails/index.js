@@ -47,6 +47,7 @@ import {
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 import DialogContainer from '../../modules/DialogContainer';
+import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
 import "./index.css";
 import { withStyles } from '@material-ui/core/styles';
@@ -103,8 +104,8 @@ class ApplicationDetails extends Component {
 			setOpen: false,
 			togglepopup: false,
 			actionOnApplication: '',
-			actionTittle:'',
-			actionOpen:false
+			actionTittle: '',
+			actionOpen: false
 		};
 	};
 
@@ -112,13 +113,13 @@ class ApplicationDetails extends Component {
 		this.setState({
 			actionOpen: false
 		})
-	  };
-	
-	  handleActionButtonOpen = () => {
+	};
+
+	handleActionButtonOpen = () => {
 		this.setState({
 			actionOpen: true
 		})
-	  };
+	};
 
 
 	componentDidMount = async () => {
@@ -126,6 +127,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
+			//	fetchDataAfterPayment,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -153,6 +155,10 @@ class ApplicationDetails extends Component {
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
+		// fetchDataAfterPayment(
+		// 	[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
+		// 	])
+
 		let { details } = this.state;
 
 	}
@@ -166,20 +172,20 @@ class ApplicationDetails extends Component {
 	}
 
 	actionButtonOnClick = (e, complaintNo, label) => {
-		
-		if(e.target.value=='APPROVED'){
+console.log('e--------',e,'complaintNo',complaintNo,'label',label)
+		if (label == 'APPROVED') {
 			this.setState({
-				actionTittle:"Verify and Forward"
+				actionTittle: "Verify and Forward"
 			})
-	}else{
+		} else {
+			this.setState({
+				actionTittle: "Reject"
+			})
+		}
 		this.setState({
-			actionTittle:"Reject"
+			togglepopup: !this.state.togglepopup,
+			actionOnApplication: label
 		})
-	}
-			this.setState({
-				togglepopup: !this.state.togglepopup,
-				actionOnApplication: e.target.value
-			})
 	};
 
 
@@ -199,7 +205,7 @@ class ApplicationDetails extends Component {
 		}
 	};
 
-	
+
 	handleClickOpen = () => {
 		this.setState({
 			open: true
@@ -213,7 +219,7 @@ class ApplicationDetails extends Component {
 	};
 
 
-	callApiDorData = async (e) => {
+	callApiForDocumentData = async (e) => {
 		const { documentMap } = this.props;
 		// let documentMap={"93e71d9f-6eb0-461a-b3cd-9a5c2220950d":"Screenshot (14)_small.png"}
 		var documentsPreview = [];
@@ -374,7 +380,7 @@ class ApplicationDetails extends Component {
 								}}><b>Documents</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
-									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
+									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
 
 								<Comments
@@ -385,7 +391,7 @@ class ApplicationDetails extends Component {
 							</div>
 							<div style={{
 								paddingTop: "30px",
-								paddingRight: "30px",float: "right",
+								paddingRight: "30px", float: "right",
 							}}>
 								{(role === "ao" &&
 									complaint.complaintStatus.toLowerCase() !== "closed") ||
@@ -395,35 +401,58 @@ class ApplicationDetails extends Component {
 											complaint.status.toLowerCase() === "assigned")) ||
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGAPPROVAL" && 
-											// <ActionButtonDropdown
-											
-											// />
-												
-												<FormControl style={{width: '100%'}}>
-												<Select 
-											
-												  labelId="demo-controlled-open-select-label-button"
-												  id="demo-controlled-open-select"
-												  open={this.state.actionOpen}
-												  displayEmpty
-												  onClose={() => this.handleActionButtonClose()}
-												  onOpen={() => this.handleActionButtonOpen()}
-												  value={this.state.bookingType}
-												  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-													style={{
-														backgroundColor: "#FE7A51",
-														width: "200px",
-														textAlign: "center",
-													}}
-												>
-												  <MenuItem value="" disabled>Take Action </MenuItem>
-												  <MenuItem value="APPROVED">Approved</MenuItem>
-												  <MenuItem value='REJECT'>Reject</MenuItem>
-												</Select>
-											  </FormControl>
+											(complaint.status == "PENDINGAPPROVAL" &&
+												// <ActionButtonDropdown
 
-											
+												// />
+
+												<Footer className="apply-wizard-footer"  style={{display: 'flex', justifyContent: 'flex-end'}} children={<ActionButtonDropdown data={{
+													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													rightIcon: "arrow_drop_down",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+													},
+													menu: [{
+														label: {
+															labelName: "APPROVE",
+															labelKey: "APPROVED"
+														},
+												
+														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
+													},
+													{
+													label: {
+														labelName: "REJECT",
+														labelKey: "REJECT"
+													},
+													link: () => this.actionButtonOnClick('state', "dispatch",'REJECT')
+												}]
+												}} />}></Footer>
+
+												// 	<FormControl style={{width: '100%'}}>
+												// 	<Select 
+												// 	  labelId="demo-controlled-open-select-label-button"
+												// 	  id="demo-controlled-open-select"
+												// 	  open={this.state.actionOpen}
+												// 	  displayEmpty
+												// 	  onClose={() => this.handleActionButtonClose()}
+												// 	  onOpen={() => this.handleActionButtonOpen()}
+												// 	  value={this.state.bookingType}
+												// 	  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
+												// 		style={{
+												// 			backgroundColor: "#FE7A51",
+												// 			width: "200px",
+												// 			textAlign: "center",
+												// 		}}
+												// 	>
+												// 	  <MenuItem value="" disabled>Take Action </MenuItem>
+												// 	  <MenuItem value="APPROVED">Approve</MenuItem>
+												// 	  <MenuItem value='REJECT'>Reject</MenuItem>
+												// 	</Select>
+												//   </FormControl>
+
+
 												// <select
 												// 	value={this.state.bookingType}
 												// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
@@ -461,15 +490,15 @@ class ApplicationDetails extends Component {
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.actionButtonOnClick}
-									children={this.state.actionOnApplication=='APPROVED'?<ApproveBooking
+									children={this.state.actionOnApplication == 'APPROVED' ? <ApproveBooking
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
-									/>:<RejectBooking
-									applicationNumber={match.params.applicationId}
-									userInfo={userInfo}
-								/>}
+									/> : <RejectBooking
+											applicationNumber={match.params.applicationId}
+											userInfo={userInfo}
+										/>}
 								/>
-								
+
 							</div>
 						</div>
 					)}
@@ -537,13 +566,10 @@ const mapStateToProps = (state, ownProps) => {
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
-
 	const { employeeById, departmentById, designationsById, cities } =
 		common || {};
 	const { categoriesById } = complaints;
 	const { userInfo } = state.auth;
-
-
 	const serviceRequestId = ownProps.match.params.applicationId;
 	let selectedComplaint = applicationData ? applicationData.bookingsModelList[0] : ''
 	let businessService = applicationData ? applicationData.businessService : "";
@@ -560,13 +586,15 @@ const mapStateToProps = (state, ownProps) => {
 
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
+	// const {fetchPaymentAfterPayment}=complaints;
+
 
 	let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('HistoryData in map state to props', historyApiData)
+	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -652,7 +680,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-
+		// fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),
