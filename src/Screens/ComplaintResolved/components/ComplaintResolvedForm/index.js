@@ -4,7 +4,7 @@ import { ImageUpload } from "modules/common";
 import { TextArea } from "modules/common";
 
 const ComplaintResolvedForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  console.log('submit button',form);
+  console.log('submit commentValue',commentValue);
   
   if(form && form.fields){
     let formValue={...form.fields};

@@ -41,7 +41,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory,
+	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -127,7 +127,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			//fetchDataAfterPayment,
+			fetchDataAfterPayment,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -155,9 +155,9 @@ class ApplicationDetails extends Component {
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
-		// fetchDataAfterPayment(
-		// 	[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
-		// 	])
+		fetchDataAfterPayment(
+			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
+			])
 
 		let { details } = this.state;
 
@@ -581,26 +581,33 @@ const mapStateToProps = (state, ownProps) => {
 	// 	console.log('hel1')
 	// }
 	// const { documentMap } = state.complaints.applicationData;
-	const { documentMap } = applicationData;
+	const { documentMap } = applicationData&&applicationData;
 	const { HistoryData } = complaints;
-
+	let temp;
+	if(applicationData && applicationData.documentMap){
+		temp=applicationData;
+	}
+console.log('temp===',temp)
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
-	// const { fetchPaymentAfterPayment } = complaints;
+	const { fetchPaymentAfterPayment } = complaints;
 
-	// let paymentDetails;
-	// if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
-	// 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
-	// } else {
-		let	paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	// }
+	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
+
+
+	let paymentDetails;
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
+		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
+	} else {
+		paymentDetails = paymentData ? paymentData.Bill[0] : '';
+	}
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	// console.log('paymentDetails in map state to props', paymentDetails)
+	console.log('paymentDetails in map state to props', paymentDetails)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -686,7 +693,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-		// fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),
