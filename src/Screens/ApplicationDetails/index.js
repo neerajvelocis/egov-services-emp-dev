@@ -698,7 +698,8 @@ const mapStateToProps = (state, ownProps) => {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	const { documentMap } = applicationData;
+	let documentMap= applicationData&&applicationData.documentMap?applicationData.documentMap:'';
+
 	const { HistoryData } = complaints;
 	let temp;
 	// if(applicationData && applicationData.documentMap){

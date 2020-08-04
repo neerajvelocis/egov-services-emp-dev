@@ -50,6 +50,7 @@ class ComplaintResolved extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
+    console.log(' e.target.value')
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -75,7 +76,6 @@ class ComplaintResolved extends Component {
   };
 
   onSubmit = e => {
-this.setState({commentValue:''})
     const { valueSelected, commentValue } = this.state;
     console.log('this.stat in on submite', this.state)
     const { toggleSnackbarAndSetText } = this.props;

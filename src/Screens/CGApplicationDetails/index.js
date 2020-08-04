@@ -576,6 +576,62 @@ console.log("complaintsToAddress ",complaint)
 		}
 		return (
 			<div>
+				 <div className="col-xs-12">
+					  <div className="col-sm-6 col-xs-12"></div>
+					  <div className="col-sm-3 col-xs-12">
+								<ActionButtonDropdown data={{
+													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "cloud_download",
+													props: {
+														variant: "outlined",
+														style: { color: "#FE7A51",height: "60px" },className: "tl-download-button"
+													},
+													menu: [{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+														},
+
+														 link: () => this.downloadPaymentReceiptButton('Receipt')
+													},
+													{
+														label: {
+															labelName: "PermissionLetter",
+															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+														},
+														link: () => this.downloadPermissionLetterButton('Letter')
+													}]
+												}} />
+												</div>
+												<div className="col-sm-3 col-xs-12">
+												{/*printButton*/}
+												<ActionButtonDropdown data={{
+													label: { labelName: "Download ", labelKey: "COMMON_PRINT_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "cloud_download",
+													props: {
+														variant: "outlined",
+														style: {color: "#FE7A51",height: "60px" },className: "tl-download-button"
+													},
+													menu: [{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+														},
+
+														 link: () => this.downloadPaymentReceiptButton('Receipt')
+													},
+													{
+														label: {
+															labelName: "PermissionLetter",
+															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+														},
+														link: () => this.downloadPermissionLetterButton('Letter')
+													}]
+												}} />
+												</div>
+												</div>
 
 				<Screen>
 				
@@ -636,6 +692,7 @@ console.log("complaintsToAddress ",complaint)
                 )}
                *<ShareButton onLoadFn={this.ShareButtonOnClick} />*
               </div> */}
+			 
 							<div className="form-without-button-cont-generic">
 
 								{/* <div>
@@ -643,31 +700,6 @@ console.log("complaintsToAddress ",complaint)
 							<button data-doc={documentMap} style={{color:"#FE7A51",border: "none",fontWeight: "500", background: "white"}} onClick={(e) =>{this.callApiDorData(e)}}>VIEW</button>
 								</div> */}
 								{/*PaymentReceipt Button*/}
-
-								<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51",height: "60px" },className: "tl-download-button"
-													},
-													menu: [{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
-
-														 link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														link: () => this.downloadPermissionLetterButton('Letter')
-													}]
-												}} />
 
                               <CGBookingDetails
 									{...complaint}
