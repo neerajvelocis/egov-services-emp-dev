@@ -153,7 +153,7 @@ const TaskStatusComponents = ({ currentObj, index }) => {
            />
         </Typography>
       </Grid>
-      {get(currentObj, "documents") && (
+      {/* {get(currentObj, "documents") && (
         <DownloadFileContainer
           data={get(currentObj, "documents")}
           className="review-documents"
@@ -161,7 +161,7 @@ const TaskStatusComponents = ({ currentObj, index }) => {
           // jsonPath={`workflow.ProcessInstances[${index}]`}
           // sourceJsonPath="documents"
         />
-      )}
+      )} */}
     </Grid>
   );
 };

@@ -50,6 +50,7 @@ class ComplaintResolved extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
+    console.log(' e.target.value')
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
