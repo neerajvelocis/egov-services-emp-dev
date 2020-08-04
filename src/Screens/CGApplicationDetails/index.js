@@ -600,7 +600,7 @@ console.log("complaintsToAddress ",complaint)
 															labelName: "PermissionLetter",
 															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
-														link: () => this.downloadPermissionLetterButton('Letter')
+														link: () => this.downloadPermissionLetterButton('PermissionLetter')
 													}]
 												}} />
 												</div>
@@ -627,7 +627,7 @@ console.log("complaintsToAddress ",complaint)
 															labelName: "PermissionLetter",
 															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
-														link: () => this.downloadPermissionLetterButton('Letter')
+														link: () => this.downloadPermissionLetterButton('PermissionLetter')
 													}]
 												}} />
 												</div>
