@@ -405,8 +405,15 @@ class AllRequests extends Component {
       fetchApplications(queryObj, true, true);
     }
     else if (fromDate,toDate) {
-      if (fromDate>toDate){
-alert("from date is greater than to date")
+      if (fromDate > this.state.toDate){ 
+        toggleSnackbarAndSetText(
+          true,
+          {
+            labelName: "From_Date_Is_Greater_Than_To_Date",
+            labelKey: `From_Date_Is_Greater_Than_To_Date`
+          },
+          "warning"
+        );
       }
       else{
       fetchApplications(queryObj, true, true);
