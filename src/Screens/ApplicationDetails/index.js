@@ -41,7 +41,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory,
+	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,downloadPaymentReceipt,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -127,7 +127,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			//fetchDataAfterPayment,
+			fetchDataAfterPayment,downloadPaymentReceipt,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -155,9 +155,12 @@ class ApplicationDetails extends Component {
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
-		// fetchDataAfterPayment(
-		// 	[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
-		// 	])
+		fetchDataAfterPayment(
+			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
+			])
+
+
+			
 
 		let { details } = this.state;
 
@@ -218,31 +221,75 @@ class ApplicationDetails extends Component {
 		})
 	};
 
+	downloadPaymentReceiptFunction = async (e) => {
+		
+		const { transformedComplaint,paymentDetails,downloadPaymentReceipt } = this.props;
+		
+		const {complaint} = transformedComplaint;
 
-	callApiForDocumentData = async (e) => {
-		const { documentMap } = this.props;
-		// let documentMap={"93e71d9f-6eb0-461a-b3cd-9a5c2220950d":"Screenshot (14)_small.png"}
+		console.log('compalint in downloadpayament',complaint,paymentDetails)
+
+		let BookingInfo=[];
+		let applicantDetail={
+			"name":complaint&&complaint.applicantName?complaint.applicantName:'',
+			"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
+			"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
+			"permanentAddress":complaint&&complaint.address?complaint.address:'',
+			"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
+			"sector":complaint&&complaint.sector?complaint.sector:''
+		};
+		let booking={
+			"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
+		};
+		let paymentInfo={
+			"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
+			"transactionId": "EDR654GF35",//paymentDetails[0].id,
+			"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
+			"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+			"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
+			"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
+			"grandTotal":"2340",
+			"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
+		};
+		BookingInfo.push(applicantDetail);
+		BookingInfo.push(booking);
+		BookingInfo.push(paymentInfo);
+		console.log('BookingInfo===>>>',BookingInfo)
+		// return BookingInfo;
+
+		downloadPaymentReceipt({BookingInfo:BookingInfo})
+
+
+	}
+
+
+
+	downloadPaymentReceiptButton = async (e) => {
+		await this.downloadPaymentReceiptFunction();
+
+		console.log('DownloadPaymentReceiptDetails this.props',this.props)
+		let documentsPreviewData;
+		const { DownloadPaymentReceiptDetails } = this.props;
+		
 		var documentsPreview = [];
-		// const {documentMap}=this.props;
-		if (documentMap && Object.keys(documentMap).length > 0) {
-			let keys = Object.keys(documentMap);
-			let values = Object.values(documentMap);
-			let id = keys[0],
-				fileName = values[0];
+		if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {
+
+			console.log('DownloadPaymentReceiptDetails',DownloadPaymentReceiptDetails.filestoreIds[0])
+			 documentsPreviewData=DownloadPaymentReceiptDetails.filestoreIds[0];
+			
+			// let keys = Object.keys(documentMap);
+			// let values = Object.values(documentMap);
+			// let id = keys[0], fileName = values[0];
 
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
-				fileStoreId: id,
+				fileStoreId: documentsPreviewData,
 				linkText: "View",
 			});
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
 			console.log("fileUrls", fileUrls);
-
-
-			//  window.open(response.file);
-			console.log("documentsPreview", documentsPreview);
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -262,16 +309,61 @@ class ApplicationDetails extends Component {
 								.slice(13)
 						)) ||
 					`Document - ${index + 1}`;
-				console.log('doc====', doc)
 				return doc;
 			});
-
-
-
+			console.log('documentsPreview',documentsPreview)
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
-			console.log('documentsPreview1--', documentsPreview)
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+
+
+
+	}
+
+	callApiForDocumentData = async (e) => {
+		const { documentMap } = this.props;
+		var documentsPreview = [];
+		if (documentMap && Object.keys(documentMap).length > 0) {
+			let keys = Object.keys(documentMap);
+			let values = Object.values(documentMap);
+			let id = keys[0],
+				fileName = values[0];
+
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: id,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
 			prepareFinalObject('documentsPreview', documentsPreview)
 		}
 
@@ -348,6 +440,31 @@ class ApplicationDetails extends Component {
 					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
+
+							<ActionButtonDropdown data={{
+													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "cloud_download",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51",height: "60px" },className: "tl-download-button"
+													},
+													menu: [{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+														},
+
+														 link: () => this.downloadPaymentReceiptButton('Receipt')
+													},
+													{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_DOWNLOAD_APPLICATION"
+														},
+														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+													}]
+												}} />
 
 								<BookingDetails
 									{...complaint}
@@ -562,6 +679,7 @@ let gro = "";
 const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
+	const {DownloadPaymentReceiptDetails}=complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
@@ -580,27 +698,34 @@ const mapStateToProps = (state, ownProps) => {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// 	console.log('hel1')
 	// }
-	// const { documentMap } = state.complaints.applicationData;
-	const { documentMap } = applicationData;
-	const { HistoryData } = complaints;
+	let documentMap= applicationData&&applicationData.documentMap?applicationData.documentMap:'';
 
+	const { HistoryData } = complaints;
+	let temp;
+	// if(applicationData && applicationData.documentMap){
+	// 	temp=applicationData;
+	// }
+console.log('temp===',temp)
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
-	// const { fetchPaymentAfterPayment } = complaints;
+	const { fetchPaymentAfterPayment } = complaints;
 
-	// let paymentDetails;
-	// if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
-	// 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
-	// } else {
-		let	paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	// }
+	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
+
+
+	let paymentDetails;
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
+		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
+	} else {
+		paymentDetails = paymentData ? paymentData.Bill[0] : '';
+	}
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	// console.log('paymentDetails in map state to props', paymentDetails)
+	console.log('paymentDetails in map state to props', paymentDetails)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -656,6 +781,7 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
+			DownloadPaymentReceiptDetails,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -670,6 +796,7 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
+			DownloadPaymentReceiptDetails,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -686,7 +813,9 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-		// fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
+
+		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),
