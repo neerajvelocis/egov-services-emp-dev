@@ -39,6 +39,12 @@ const ApplicationSummary = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
   loading: Loading
 });
+
+const CGApplicationDetails = Loadable({
+  loader: () => import("../Screens/CGApplicationDetails"),
+  loading: Loading
+});
+
 const ApplicationBWTSummary = Loadable({
   loader: () => import("../Screens/BwtApplicationDetails"),
   loading: Loading
@@ -173,6 +179,16 @@ const routes = [
   {
     path: "egov-services/application-details/:applicationId",
     component: ApplicationSummary,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+  {
+    path: "cg-application-details/:applicationId",
+    component: CGApplicationDetails,
     needsAuthentication: true,
     options: {
       hideFooter: true,

@@ -258,6 +258,10 @@ class AllRequests extends Component {
     if (bookingType && bookingType == "OSBM") {
       this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
+    if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
+      console.log("bookingType ",bookingType)
+      this.props.history.push(`/cg-application-details/${complaintNo}`);
+    }
   };
 
   onComplaintChange = e => {
@@ -404,9 +408,17 @@ class AllRequests extends Component {
     } else if (searchForm && searchForm.toDate) {
       fetchApplications(queryObj, true, true);
     }
-    else if (fromDate,toDate) {
-      if (fromDate>toDate){
-alert("from date is greater than to date")
+    else if (fromDate) {
+
+      if (fromDate > this.state.toDate){ 
+        toggleSnackbarAndSetText(
+          true,
+          {
+            labelName: "From_Date_Is_Greater_Than_To_Date",
+            labelKey: `From_Date_Is_Greater_Than_To_Date`
+          },
+          "warning"
+        );
       }
       else{
       fetchApplications(queryObj, true, true);
