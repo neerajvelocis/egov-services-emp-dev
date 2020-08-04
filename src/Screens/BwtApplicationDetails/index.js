@@ -315,12 +315,12 @@ class BwtApplicationDetails extends Component {
 								<AppDetails
 									{...complaint}
 								/>
-
+{(complaint.bkStatus).includes("Paid")&&
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
 								
-
+					}
 								{/* <div style={{
 									height: "100px",
 									width: "100",
@@ -332,9 +332,6 @@ class BwtApplicationDetails extends Component {
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
 									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
 								</div> */}
-
-
-
 								<Comments
 									comments={comments}
 									role={role}
@@ -408,10 +405,10 @@ class BwtApplicationDetails extends Component {
 														background: "white",
 														color: "gray"
 													}} value="DELIVERED">Delivered</option>
-													<option style={{
+													{/* <option style={{
 														background: "white",
 														color: "gray"
-													}} value="NOTDELIVERED">Not Delivered</option>
+													}} value="NOTDELIVERED">Not Delivered</option> */}
 												</select>
 											)
 										)
