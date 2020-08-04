@@ -489,7 +489,8 @@ class ApplicationDetails extends Component {
 								<DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
-									togglepopup={this.actionButtonOnClick}
+									togglepopup={this.actionButtonOnClick}									
+									maxWidth={'md'}
 									children={this.state.actionOnApplication == 'APPROVED' ? <ApproveBooking
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}

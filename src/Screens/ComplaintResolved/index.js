@@ -75,7 +75,7 @@ class ComplaintResolved extends Component {
   };
 
   onSubmit = e => {
-this.setState({commentValue:''})
+
     const { valueSelected, commentValue } = this.state;
     console.log('this.stat in on submite', this.state)
     const { toggleSnackbarAndSetText } = this.props;
@@ -100,7 +100,7 @@ this.setState({commentValue:''})
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     console.log('this in render', trasformData)
     return (
-      <Screen className="background-white">
+      // <Screen className="background-white">
         <ComplaintResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
@@ -114,7 +114,7 @@ this.setState({commentValue:''})
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      </Screen>
+      // </Screen>
     );
   }
 }

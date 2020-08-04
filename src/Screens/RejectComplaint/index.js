@@ -100,7 +100,7 @@ class RejectComplaint extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     console.log('this in render', trasformData)
     return (
-      <Screen className="background-white">
+      // <Screen className="background-white">
         <RejectComplaintHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
@@ -114,7 +114,7 @@ class RejectComplaint extends Component {
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      </Screen>
+      // </Screen>
     );
   }
 }
