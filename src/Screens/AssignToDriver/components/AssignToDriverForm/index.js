@@ -144,10 +144,8 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
             hintStyle={{ width: "100%" }}
           />
         </div>
-
-
       </div>
-      <div className="responsive-action-button-cont">
+ 
         {(() => {
           if(!bkStatus.includes("Paid")){
           if (driverFullName && mobileNumber && approverName) {
@@ -195,7 +193,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
          
         })()}
       
-      </div>
+    
     </div>
   );
 };
