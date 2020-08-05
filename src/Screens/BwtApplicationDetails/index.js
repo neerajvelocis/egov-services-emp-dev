@@ -370,7 +370,7 @@ class BwtApplicationDetails extends Component {
 								  {
 									(role === "employee" &&
 										(
-											(!(complaint.bkStatus).includes("Paid") &&complaint.status=="PENDINGASSIGNMENTDRIVER"&&
+											(complaint.status=="PENDINGASSIGNMENTDRIVER"&&
 											
 											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
@@ -380,7 +380,7 @@ class BwtApplicationDetails extends Component {
 													style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
 												},
 												
-												menu: [{
+												menu: !(complaint.bkStatus).includes("Paid")?[{
 													label: {
 														labelName: "Approve",
 														labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
@@ -395,7 +395,13 @@ class BwtApplicationDetails extends Component {
 													},
 
 													link: () => this.btnOneOnClick('REJECTED',serviceRequestId)
-												}]
+												}]:[{label: {
+													labelName: "Approve",
+													labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+												},
+
+												link: () => this.btnOneOnClick('APPROVED',serviceRequestId)
+											}]
 											}} />}></Footer>
 
 											
@@ -429,7 +435,7 @@ class BwtApplicationDetails extends Component {
 										)
 									)}
 
-								{
+								{/* {
 
 									(role === "employee" &&
 										(
@@ -453,7 +459,7 @@ class BwtApplicationDetails extends Component {
 												}} />}></Footer>
 
 										)
-									)}
+									)} */}
 
 
 <DialogContainer
