@@ -197,9 +197,13 @@ class BwtApplicationDetails extends Component {
 		})
 	};
 
-	assignToDiver = (complaintNo) => {
+	assignToDiver = (value) => {
+		this.setState({
+			togglepopup: !this.state.togglepopup,
+			actionOnApplication: value
+		})
 		let { history } = this.props;
-		history.push(`/egov-services/assignto-driver/${complaintNo}`);
+		// history.push(`/egov-services/assignto-driver/${complaintNo}`);
 	}
 	callApiDorData = async (e) => {
 		const { documentMap } = this.props;
@@ -466,6 +470,17 @@ class BwtApplicationDetails extends Component {
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
 									/>:''}
+								/>
+
+
+<DialogContainer
+									toggle={this.state.togglepopup}
+									actionTittle={this.state.actionTittle}
+									togglepopup={this.assignToDiver}
+									children={<AssignTODriver
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/>}
 								/>
 
 
