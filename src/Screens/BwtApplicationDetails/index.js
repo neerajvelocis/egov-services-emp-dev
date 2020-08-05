@@ -39,7 +39,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory,
+	fetchApplications, fetchPayment, fetchHistory,fetchDataAfterPayment,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -88,7 +88,7 @@ class BwtApplicationDetails extends Component {
 	componentDidMount = async () => {
 		let {
 			fetchApplications,
-			fetchHistory,
+			fetchHistory,fetchDataAfterPayment,
 			fetchPayment,
 			match,
 			resetFiles,
@@ -117,6 +117,11 @@ class BwtApplicationDetails extends Component {
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "BWT" }, { key: "tenantId", value: userInfo.tenantId }
 			])
+
+			fetchDataAfterPayment(
+				[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
+				])
+	
 		let { details } = this.state;
 
 	}
@@ -521,13 +526,21 @@ const mapStateToProps = (state, ownProps) => {
 	// 	console.log('hel1')
 	// }
 
-	const { documentMap } = applicationData;
+	let documentMap= applicationData&&applicationData.documentMap?applicationData.documentMap:'';
 	const { HistoryData } = complaints;
 
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
+	const { fetchPaymentAfterPayment } = complaints;
 
-	let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	let paymentDetails;
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus!= "PENDINGASSIGNMENTDRIVER") {
+		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
+	} else {
+		paymentDetails = paymentData ? paymentData.Bill[0] : '';
+	}
+
+	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
@@ -614,6 +627,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
