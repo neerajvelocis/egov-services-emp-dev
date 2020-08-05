@@ -26,9 +26,9 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
   const submit = form.submit;
   return (
     <div>
-      <div className="custom-padding-for-screens">
+      {/* <div className="custom-padding-for-screens">
         <b>Application Number: </b>{applicationNumber}
-      </div>
+      </div> */}
       <div className="custom-padding-for-screens">
         {/* <div className="reject-complaint-textArea">
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
@@ -151,16 +151,16 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
         {(() => {
           if(!bkStatus.includes("Paid")){
           if (driverFullName && mobileNumber && approverName) {
-            return <Button
+            return <button
             onClick={handleValidation}
             className="responsive-action-button"
             id="rejectcomplaint-submit-action"
             primary={true}
             {...submit}
             fullWidth={true}
-          />
+          >Assign</button>
            }else{
-            return <Button
+            return <button
             onClick={handleValidation}
             className="responsive-action-button"
             id="rejectcomplaint-submit-action"
@@ -168,20 +168,20 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
             {...submit}
             fullWidth={true}
             disabled
-          />
+            >Assign</button>
            }
           }else{
             if (driverFullName && mobileNumber ) {
-              return <Button
+              return <button
               onClick={handleValidation}
               className="responsive-action-button"
               id="rejectcomplaint-submit-action"
               primary={true}
               {...submit}
               fullWidth={true}
-            />
+            >Assign</button>
              }else{
-              return <Button
+              return <button
               onClick={handleValidation}
               className="responsive-action-button"
               id="rejectcomplaint-submit-action"
@@ -189,7 +189,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
               {...submit}
               fullWidth={true}
               disabled
-            />
+            >Assign</button>
              }
           }
          
