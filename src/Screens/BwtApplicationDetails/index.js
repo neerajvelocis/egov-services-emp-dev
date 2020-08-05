@@ -473,7 +473,7 @@ class BwtApplicationDetails extends Component {
 								/>
 
 
-<DialogContainer
+{/* <DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.assignToDiver}
@@ -481,7 +481,7 @@ class BwtApplicationDetails extends Component {
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
 									/>}
-								/>
+								/> */}
 
 
 							</div>
