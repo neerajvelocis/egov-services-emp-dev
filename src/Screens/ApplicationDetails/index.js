@@ -178,11 +178,11 @@ class ApplicationDetails extends Component {
 		console.log('e--------', e, 'complaintNo', complaintNo, 'label', label)
 		if (label == 'APPROVED') {
 			this.setState({
-				actionTittle: "Verify and Forward"
+				actionTittle: "Approve Application"
 			})
 		} else {
 			this.setState({
-				actionTittle: "Reject"
+				actionTittle: "Reject Application"
 			})
 		}
 		this.setState({
@@ -465,6 +465,8 @@ class ApplicationDetails extends Component {
 														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 													}]
 												}} />
+
+												
 
 								<BookingDetails
 									{...complaint}

@@ -35,7 +35,7 @@ console.log('formValue--->>',formValue)
        primary={true}
        {...submit}
        fullWidth={true}
-      >Verify and Forward</button>
+      >Approve</button>
     </div>
   );
 };
