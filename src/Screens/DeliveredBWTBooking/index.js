@@ -101,7 +101,7 @@ class DeliveredBWTBooking extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     console.log('this in render', trasformData)
     return (
-      <Screen className="background-white">
+      // <Screen className="background-white">
         <DeliveredBWTBookingHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
@@ -115,7 +115,7 @@ class DeliveredBWTBooking extends Component {
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      </Screen>
+      // </Screen>
     );
   }
 }
