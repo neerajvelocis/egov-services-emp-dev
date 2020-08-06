@@ -20,6 +20,8 @@ import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import Footer from "../../modules/footer"
+import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
 
 import jp from "jsonpath";
 import {
@@ -54,6 +56,11 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import AssignTODriver from "../AssignToDriver";
+import RejectBWTBooking from "../RejectBWTBooking";
+import DeliveredBWTBooking from "../DeliveredBWTBooking";
+
+
 
 const styles = (theme) => ({
 
@@ -82,7 +89,10 @@ class BwtApplicationDetails extends Component {
 			docFileData: [],
 			bookingType: '',
 			open: false,
-			setOpen: false
+			setOpen: false,
+			togglepopup: false,
+			actionOnApplication: '',
+			actionTittle: '',
 		};
 	};
 	componentDidMount = async () => {
@@ -134,22 +144,28 @@ class BwtApplicationDetails extends Component {
 		}
 	}
 
-	btnOneOnClick = (e, complaintNo, label) => {
-		console.log('complaintNo in  btnone', e.target.value, complaintNo, label)
+	btnOneOnClick = (value,complaintNo) => {
+
+		this.setState({
+			togglepopup: !this.state.togglepopup,
+			actionOnApplication: value
+		})
+
+		//console.log('complaintNo in  btnone',value, complaintNo)
 		//Action for first button
-		let { history } = this.props;
-		if (e.target.value == "REJECTED") {
-			history.push(`/egov-services/reject-bwt-booking/${complaintNo}`);
-		} else if (e.target.value == 'APPROVED') {
-			history.push(`/egov-services/assignto-driver/${complaintNo}`);
-		}
-		else if (e.target.value == 'DELIVERED') {
-			history.push(`/egov-services/deliver-application/${complaintNo}`);
-		}
+		// let { history } = this.props;
+		// if (value == "REJECTED") {
+		// 	history.push(`/egov-services/reject-bwt-booking/${complaintNo}`);
+		// } else if (value == 'APPROVED') {
+		// 	history.push(`/egov-services/assignto-driver/${complaintNo}`);
+		// }
+		// else if (value == 'DELIVERED') {
+		// 	history.push(`/egov-services/deliver-application/${complaintNo}`);
+		// }
 		
-		else if (e.target.value == 'NOTDELIVERED') {
-			history.push(`/egov-services/not-deliver-application/${complaintNo}`);
-		}
+		// else if (value == 'NOTDELIVERED') {
+		// 	history.push(`/egov-services/not-deliver-application/${complaintNo}`);
+		// }
 	};
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
@@ -181,9 +197,13 @@ class BwtApplicationDetails extends Component {
 		})
 	};
 
-	assignToDiver = (e, complaintNo) => {
+	assignToDiver = (value) => {
+		this.setState({
+			togglepopup: !this.state.togglepopup,
+			actionOnApplication: value
+		})
 		let { history } = this.props;
-		history.push(`/egov-services/assignto-driver/${complaintNo}`);
+		// history.push(`/egov-services/assignto-driver/${complaintNo}`);
 	}
 	callApiDorData = async (e) => {
 		const { documentMap } = this.props;
@@ -253,7 +273,7 @@ class BwtApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails } = this.props;
+		let { historyApiData, paymentDetails,match,userInfo } = this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -350,35 +370,41 @@ class BwtApplicationDetails extends Component {
 								  {
 									(role === "employee" &&
 										(
-											(!(complaint.bkStatus).includes("Paid") &&complaint.status=="PENDINGASSIGNMENTDRIVER"&&
-												<select
-													value={this.state.bookingType}
-													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
-													style={{
-														marginRight: "15",
-														backgroundColor: "#FE7A51",
-														color: "#fff",
-														border: "none",
-														height: "60px",
-														width: "200px",
-														float: "right", paddingLeft: "50px"
+											(complaint.status=="PENDINGASSIGNMENTDRIVER"&&
+											
+											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+												rightIcon: "arrow_drop_down",
+												props: {
+													variant: "outlined",
+													style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+												},
+												
+												menu: !(complaint.bkStatus).includes("Paid")?[{
+													label: {
+														labelName: "Approve",
+														labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+													},
 
-													}}
+													link: () => this.btnOneOnClick('APPROVED',serviceRequestId)
+												},
+												{
+													label: {
+														labelName: "REJECT",
+														labelKey: "MYBK_REJECT_ACTION_BUTTON"
+													},
 
-												>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="">Take Action</option>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="APPROVED">Assign to Driver</option>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="REJECTED">Reject</option>
-												</select>
+													link: () => this.btnOneOnClick('REJECTED',serviceRequestId)
+												}]:[{label: {
+													labelName: "Approve",
+													labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+												},
+
+												link: () => this.btnOneOnClick('APPROVED',serviceRequestId)
+											}]
+											}} />}></Footer>
+
+											
 											)
 										)
 									)}
@@ -387,58 +413,81 @@ class BwtApplicationDetails extends Component {
 									(role === "employee" &&
 										(
 											(complaint.status=="PENDINGUPDATE"&&
-												<select
-													value={this.state.bookingType}
-													onChange={(e, value) => this.btnOneOnClick(e, serviceRequestId, btnOneLabel)}
-													style={{
-														marginRight: "15",
-														backgroundColor: "#FE7A51",
-														color: "#fff",
-														border: "none",
-														height: "60px",
-														width: "200px",
-														float: "right", paddingLeft: "50px"
 
-													}}
+											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+												rightIcon: "arrow_drop_down",
+												props: {
+													variant: "outlined",
+													style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+												},
+												menu: [{
+													label: {
+														labelName: "Approve",
+														labelKey: "MYBK_DELIVERED_ACTION_BUTTON"
+													},
 
-												>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="">Take Action</option>
-													<option style={{
-														background: "white",
-														color: "gray"
-													}} value="DELIVERED">Delivered</option>
-													{/* <option style={{
-														background: "white",
-														color: "gray"
-													}} value="NOTDELIVERED">Not Delivered</option> */}
-												</select>
+													link: () => this.btnOneOnClick('DELIVERED',serviceRequestId)
+												}]
+											}} />}></Footer>
+
 											)
 										)
 									)}
 
-								{
+								{/* {
 
 									(role === "employee" &&
 										(
 											complaint.bkStatus.includes("Paid")  && complaint.status=="PENDINGASSIGNMENTDRIVER"&&
-												<button className="ViewDetailButton"	style={{
-													marginRight: "15",
-													backgroundColor: "#FE7A51",
-													color: "#fff",
-													border: "none",
-													height: "60px",
-													width: "200px",
-													float: "right"
-
-												}} onClick={(e) => { this.assignToDiver(e, serviceRequestId) }}>ASSIGN TO DRIVER</button>
 												
+												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													rightIcon: "arrow_drop_down",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+													},
+													menu: [{
+														label: {
+															labelName: "Approve",
+															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+														},
+
+														link: () => this.assignToDiver(serviceRequestId)
+													}]
+												}} />}></Footer>
+
 										)
-									)}
+									)} */}
 
 
+<DialogContainer
+									toggle={this.state.togglepopup}
+									actionTittle={this.state.actionTittle}
+									togglepopup={this.btnOneOnClick}
+									children={this.state.actionOnApplication == 'APPROVED' ? <AssignTODriver
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/> : this.state.actionOnApplication == 'REJECTED'?<RejectBWTBooking
+											applicationNumber={match.params.applicationId}
+											userInfo={userInfo}
+										/>:this.state.actionOnApplication == 'DELIVERED'?<DeliveredBWTBooking
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/>:''}
+								/>
+
+
+{/* <DialogContainer
+									toggle={this.state.togglepopup}
+									actionTittle={this.state.actionTittle}
+									togglepopup={this.assignToDiver}
+									children={<AssignTODriver
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/>}
+								/> */}
 
 
 							</div>
@@ -534,11 +583,11 @@ const mapStateToProps = (state, ownProps) => {
 	const { fetchPaymentAfterPayment } = complaints;
 
 	let paymentDetails;
-	if (selectedComplaint && selectedComplaint.bkApplicationStatus!= "PENDINGASSIGNMENTDRIVER") {
+	// if (selectedComplaint && selectedComplaint.bkApplicationStatus!= "PENDINGASSIGNMENTDRIVER") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
-	} else {
-		paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	}
+	// } else {
+	// 	paymentDetails = paymentData ? paymentData.Bill[0] : '';
+	// }
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}

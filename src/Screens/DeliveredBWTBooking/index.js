@@ -2,38 +2,35 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import RejectBWTBookingForm from "./components/RejectBWTBooking";
+import RejectComplaintForm from "./components/DeliveredBWTBookingForm";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const RejectComplaintHOC = formHOC({
-  formKey: "rejectBWTBooking",
+const DeliveredBWTBookingHOC = formHOC({
+  formKey: "deliveredWBTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(RejectBWTBookingForm);
+})(RejectComplaintForm);
 
 
-class RejectBWTBooking extends Component {
+class DeliveredBWTBooking extends Component {
   state = {
     valueSelected: "",
-    commentValue: "",
-    mobileNo: "",
-    driverFullName: '',
-    approverName: ''
-
+    commentValue: ""
   };
   componentDidMount() {
+    console.log('DeliveredBWTBookingHOC', DeliveredBWTBookingHOC)
 
     let { fetchApplications, match, userInfo,applicationNumber } = this.props;
+    console.log('match.params.applicationId', this.props)
     fetchApplications(
-      {
-        'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
-        "applicationStatus": "",
-        "mobileNumber": "", "bookingType": ""
-      }
+      { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
+      "applicationStatus":"",
+      "mobileNumber":"","bookingType":""  }
+      // { "applicationNumber": match.params.applicationId }
     );
   }
 
@@ -53,6 +50,7 @@ class RejectBWTBooking extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
+    console.log('e and values',e,'valllllll',value)
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -74,57 +72,48 @@ class RejectBWTBooking extends Component {
       com2 = val.textVal;
     }
     let concatvalue = com1 + com2;
-    this.props.handleFieldChange("rejectBWTBooking", "comments", concatvalue);
+    this.props.handleFieldChange("deliveredWBTBooking", "comments", concatvalue);
   };
-
-  onMobileChange = (e) => {
-    const inputValue = e.target.value;
-    this.setState({ mobileNo: inputValue });
-  };
-
-  onDriverNameChange = (e) => {
-    const driverName = e.target.value;
-    this.setState({ driverFullName: driverName });
-
-  }
-  onApproverNameChange = (e) => {
-    const approverFullName = e.target.value;
-    this.setState({ approverName: approverFullName });
-
-  }
 
   onSubmit = e => {
+
     const { valueSelected, commentValue } = this.state;
-    
+    console.log('this.stat in on submite', this.state)
     const { toggleSnackbarAndSetText } = this.props;
+    // if (valueSelected === "Other" && !commentValue) {
+    //   e.preventDefault();
+    //   toggleSnackbarAndSetText(
+    //     true,
+    //     {
+    //       labelName: "Please mention your reason",
+    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
+    //     },
+    //     "error"
+    //   );
+    // }
   };
 
   render() {
     let { match, userInfo } = this.props;
 
-    const { handleCommentsChange, handleOptionsChange, onSubmit, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
-    const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
+    const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
+    const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    // console.log('this in render', trasformData)
+    console.log('this in render', trasformData)
     return (
       <Screen className="background-white">
-        <RejectComplaintHOC
+        <DeliveredBWTBookingHOC
+          // options={this.options}
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
+          // optionSelected={valueSelected}
           commentValue={commentValue}
-          mobileNumber={mobileNo}
-          driverFullName={driverFullName}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}
           onSubmit={onSubmit}
           bookingtype={trasformData.bkBookingType}
-          bkStatus={trasformData.bkStatus}
-          bookingservice={businessServiceData ? businessServiceData : ''}
-          onMobileChange={onMobileChange}
-          onDriverNameChange={onDriverNameChange}
-          onApproverNameChange={onApproverNameChange}
-          approverName={approverName}
+          bookingservice={businessServiceData?businessServiceData:''}
         />
       </Screen>
     );
@@ -153,4 +142,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RejectBWTBooking);
+)(DeliveredBWTBooking);

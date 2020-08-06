@@ -176,7 +176,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },

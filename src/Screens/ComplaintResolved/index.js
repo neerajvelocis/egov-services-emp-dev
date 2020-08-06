@@ -100,7 +100,7 @@ class ComplaintResolved extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     console.log('this in render', trasformData)
     return (
-      // <Screen className="background-white">
+      //<Screen className="background-white">
         <ComplaintResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
