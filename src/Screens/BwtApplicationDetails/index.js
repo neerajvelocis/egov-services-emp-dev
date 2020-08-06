@@ -14,7 +14,7 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import AppDetails from "../AllComplaints/components/AppDetails"
+import BwtApplicantDetails from "../AllComplaints/components/BwtApplicantDetails"
 import BookingDetails from "../AllComplaints/components/BookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
@@ -145,7 +145,20 @@ class BwtApplicationDetails extends Component {
 	}
 
 	btnOneOnClick = (value,complaintNo) => {
-
+		console.log('value===???',value)
+		if (value == 'APPROVED') {
+			this.setState({
+				actionTittle: "Assign To Driver"
+			})
+		} else if(value == 'REJECTED') {
+			this.setState({
+				actionTittle: "Reject Application"
+			})
+		}else if(value == 'DELIVERED'){
+			this.setState({
+				actionTittle: "Deliver Application"
+			})
+		}
 		this.setState({
 			togglepopup: !this.state.togglepopup,
 			actionOnApplication: value
@@ -337,7 +350,7 @@ class BwtApplicationDetails extends Component {
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<AppDetails
+								<BwtApplicantDetails
 									{...complaint}
 								/>
 {(complaint.bkStatus).includes("Paid")&&
@@ -466,6 +479,7 @@ class BwtApplicationDetails extends Component {
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.btnOneOnClick}
+									maxWidth={'md'}
 									children={this.state.actionOnApplication == 'APPROVED' ? <AssignTODriver
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
