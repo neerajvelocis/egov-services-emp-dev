@@ -115,7 +115,7 @@ class RejectComplaint extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     // console.log('this in render', trasformData)
     return (
-      <Screen className="background-white">
+      // <Screen className="background-white">
         <RejectComplaintHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -135,7 +135,7 @@ class RejectComplaint extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      </Screen>
+      // </Screen>
     );
   }
 }

@@ -205,7 +205,6 @@ class ApplicationDetails extends Component {
 	}
 
 	actionButtonOnClick = (e, complaintNo, label) => {
-		console.log('e--------', e, 'complaintNo', complaintNo, 'label', label)
 		if (label == 'APPROVED') {
 			this.setState({
 				actionTittle: "Approve Application"
