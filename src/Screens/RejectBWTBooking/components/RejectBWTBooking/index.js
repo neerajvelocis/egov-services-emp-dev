@@ -26,9 +26,9 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
   const submit = form.submit;
   return (
     <div>
-      <div className="custom-padding-for-screens">
+      {/* <div className="custom-padding-for-screens">
         <b>Application Number: </b>{applicationNumber}
-      </div>
+      </div> */}
       <div className="custom-padding-for-screens">
         {/* <div className="reject-complaint-textArea">
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
@@ -72,16 +72,15 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
           </div>
         )}
       </div>
-      <div className="responsive-action-button-cont">
-        <Button
+        <button
           onClick={onSubmit}
           className="responsive-action-button"
           id="rejectcomplaint-submit-action"
           primary={true}
           {...submit}
           fullWidth={true}
-        />
-      </div>
+        >Reject</button>
+    
     </div>
   );
 };

@@ -158,7 +158,7 @@ class PayDetails extends Component {
                     {/*first row */}
                     <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
 
@@ -176,7 +176,7 @@ class PayDetails extends Component {
                     {/*second row */}
                    <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                           id="complaint-details-submission-date"
@@ -212,7 +212,7 @@ class PayDetails extends Component {
                     */}
                     <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_TOTAL_AMOUNT" />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TOTAL_AMOUNT" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
 
