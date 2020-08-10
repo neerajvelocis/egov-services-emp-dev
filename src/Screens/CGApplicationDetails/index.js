@@ -287,12 +287,14 @@ let BookingInfo = [{
 		"permanentAddress": complaint && complaint.address ? complaint.address : '',
 		"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
 		"sector": complaint && complaint.sector ? complaint.sector : '',
+		"fatherName":complaint.bkFatherName,
+		"DOB": null,
 		"email":complaint.bkEmail,
 	},
 	"bookingDetail": {
-		"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : '',
+		"applicationNumber":complaint.applicationNo,
 		"venue": complaint.sector,
-        "category": complaint.bkCategory,
+        "bookingCategory": complaint.bkCategory,
         "bookingPeriod": getDurationDate(
 			complaint.bkFromDate,
 			complaint.bkToDate
@@ -306,13 +308,13 @@ let BookingInfo = [{
 		// 	complaint.bkFromDate,
 		// 	complaint.bkToDate
 		// ),
-		"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+		"baseCharge": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
 			(el) => !el.taxHeadCode.includes("TAX")
 		)[0].amount,
-		"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+		"taxes": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
 			(el) => el.taxHeadCode.includes("TAX")
 		)[0].amount,
-		"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+		"totalAmount": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
 		// "amountInWords": NumInWords(
 		// 	paymentDetailsForReceipt.Payments[0].totalAmountPaid
 		// ),
@@ -726,6 +728,56 @@ const {documentMap}=this.props;
 
 		
 	}
+
+	callApiForDocumentData = async (e) => {
+		const { documentMap } = this.props;
+		var documentsPreview = [];
+		if (documentMap && Object.keys(documentMap).length > 0) {
+			let keys = Object.keys(documentMap);
+			let values = Object.values(documentMap);
+			let id = keys[0],
+				fileName = values[0];
+
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: id,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+
+
+
+	}
+
 	render() {
 		const dropbordernone = {
 			float: "right",
