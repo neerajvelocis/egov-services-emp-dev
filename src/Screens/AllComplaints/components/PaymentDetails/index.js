@@ -95,7 +95,7 @@ class PayDetails extends Component {
                 <div className="col-md-4">
                 </div>
                 <div className="col-md-4">
-                  <h5>Total Amount</h5>
+                  <h5>Total Amount</h5>                
           <h3><b>Rs {paymentDetails?paymentDetails.totalAmount:'NA'}</b></h3>
                 </div>
               </div>
@@ -186,7 +186,6 @@ class PayDetails extends Component {
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       <h5>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
-
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>

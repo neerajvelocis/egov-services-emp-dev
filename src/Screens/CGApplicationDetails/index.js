@@ -46,11 +46,13 @@ import {
 import {
 	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,downloadPaymentReceipt,
 	sendMessage,
-	sendMessageMedia,downloadPermissionLetter
+	sendMessageMedia,downloadPermissionLetter,downloadApplication
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 
 import "./index.css";
+//newImport
+import { convertEpochToDate, getDurationDate, NumInWords} from '../../modules/commonFunction'
 import ActionButtonDropdown from "../../modules/ActionButtonDropdown"
 class CGApplicationDetails extends Component {
 	constructor(props) {
@@ -92,7 +94,7 @@ class CGApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			fetchDataAfterPayment,downloadPaymentReceipt,downloadPermissionLetter,
+			fetchDataAfterPayment,downloadPaymentReceipt,downloadPermissionLetter,downloadApplication,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -103,6 +105,7 @@ class CGApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
+		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -148,10 +151,7 @@ class CGApplicationDetails extends Component {
 		}else if(e.target.value=='APPROVED'){
 			history.push(`/booking-resolved/${complaintNo}`);
 
-		}
-			
-			
-		
+		}		
 	};
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
@@ -169,103 +169,296 @@ class CGApplicationDetails extends Component {
 		}
 	};
 
+	// convertEpochToDate = (dateEpoch) => {
+	// 	const dateFromApi = new Date(dateEpoch);
+	// 	let month = dateFromApi.getMonth() + 1;
+	// 	let day = dateFromApi.getDate();
+	// 	let year = dateFromApi.getFullYear();
+	// 	month = (month > 9 ? "" : "0") + month;
+	// 	day = (day > 9 ? "" : "0") + day;
+	// 	return `${day}/${month}/${year}`;
+	// };
+
+	//  getDurationDate = (fromDate, toDate) => {
+	// 	let monthNames = [
+	// 		"Jan",
+	// 		"Feb",
+	// 		"Mar",
+	// 		"Apr",
+	// 		"May",
+	// 		"Jun",
+	// 		"Jul",
+	// 		"Aug",
+	// 		"Sep",
+	// 		"Oct",
+	// 		"Nov",
+	// 		"Dec",
+	// 	];
+	// 	let startDate = new Date(fromDate);
+	// 	let finalStartDate =
+	// 		startDate.getDate() +
+	// 		" " +
+	// 		monthNames[startDate.getMonth()] +
+	// 		" " +
+	// 		startDate.getFullYear();
+	
+	// 	let endDate = new Date(toDate);
+	// 	endDate.setMonth(endDate.getMonth());
+	// 	let finalEndDate =
+	// 		endDate.getDate() +
+	// 		" " +
+	// 		monthNames[endDate.getMonth()] +
+	// 		" " +
+	// 		endDate.getFullYear();
+	// 	let finalDate = finalStartDate + " to " + finalEndDate;
+	// 	return finalDate;
+	// };
+
 //PaymentReceipt
 downloadPaymentReceiptFunction = async (e) => {
-		
-	const { transformedComplaint,paymentDetails,downloadPaymentReceipt } = this.props;
-	
-	const {complaint} = transformedComplaint;
+	const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
+	const { complaint } = transformedComplaint;
+	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
 
-	console.log('compalint in downloadpayament',complaint,paymentDetails)
+	let BookingInfo = [{
+		"applicantDetail": {
+			"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+			"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
+			"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
+			"permanentAddress": complaint && complaint.address ? complaint.address : '',
+			"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
+			"sector": complaint && complaint.sector ? complaint.sector : ''
+		},
+		"booking": {
+			"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
+		},
+		"paymentInfo": {
+			"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
+			"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
+			"bookingPeriod": getDurationDate(
+				complaint.bkFromDate,
+				complaint.bkToDate
+			),
+			"bookingItem": "Online Payment Against Booking of Commercial Ground",
+			"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+				(el) => !el.taxHeadCode.includes("TAX")
+			)[0].amount,
+			"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+				(el) => el.taxHeadCode.includes("TAX")
+			)[0].amount,
+			"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+			"amountInWords": NumInWords(
+				paymentDetailsForReceipt.Payments[0].totalAmountPaid
+			),
+			paymentItemExtraColumnLabel: "Booking Period",
+			paymentMode:
+				paymentDetailsForReceipt.Payments[0].paymentMode,
+			receiptNo:
+				paymentDetailsForReceipt.Payments[0].paymentDetails[0]
+					.receiptNumber,
+			// name: paymentDetailsForReceipt.Payments[0].payerName,
+			//     mobileNumber:
+			//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+		},
+		payerInfo: {
+			payerName: paymentDetailsForReceipt.Payments[0].payerName,
+			payerMobile:
+				paymentDetailsForReceipt.Payments[0].mobileNumber,
+		},
+		generatedBy: {
+			generatedBy: userInfo.name,
+		},
+	}
+	]
+	downloadPaymentReceipt({ BookingInfo: BookingInfo })
+}
 
-	let BookingInfo=[];
-	let applicantDetail={
-		"name":complaint&&complaint.applicantName?complaint.applicantName:'',
-		"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
-		"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
-		"permanentAddress":complaint&&complaint.address?complaint.address:'',
-		"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
-		"sector":complaint&&complaint.sector?complaint.sector:''
-	};
-	let booking={
-		"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
-	};
-	let paymentInfo={
-		"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
-		"transactionId": "EDR654GF35",//paymentDetails[0].id,
-		"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
-		"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-		"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
-		"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
-		"grandTotal":"2340",
-		"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
-	};
-	BookingInfo.push(applicantDetail);
-	BookingInfo.push(booking);
-	BookingInfo.push(paymentInfo);
-	console.log('BookingInfo===>>>',BookingInfo)
-	// return BookingInfo;
+downloadApplicationFunction = async (e) => {
+const { transformedComplaint,paymentDetails,downloadApplication } = this.props;
 
-	downloadPaymentReceipt({BookingInfo:BookingInfo})
+const {complaint} = transformedComplaint;
+
+console.log('compalint in downloadpayament',complaint,paymentDetails)
+let queryObj = {};
+queryObj.tenantId = userInfo.tenantId;
+let BookingInfo=[];
+let applicantDetail={
+	"name":complaint&&complaint.applicantName?complaint.applicantName:'',
+	"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
+	"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
+	"permanentAddress":complaint&&complaint.address?complaint.address:'',
+	"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
+	"sector":complaint&&complaint.sector?complaint.sector:''
+};
+let booking={
+	"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
+};
+let paymentInfo={
+	"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
+	"transactionId": "EDR654GF35",//paymentDetails[0].id,
+	"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
+	"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+	"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
+	"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
+	"grandTotal":"2340",
+	"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
+};
+BookingInfo.push(applicantDetail);
+BookingInfo.push(booking);
+BookingInfo.push(paymentInfo);
+console.log('BookingInfo===>>>',BookingInfo)
+// return BookingInfo;
+
+
+
+downloadApplication({BookingInfo:BookingInfo})
 
 
 }
-
-
 
 downloadPermissionLetterFunction = async (e) => {
 		
 	const { transformedComplaint,paymentDetails,downloadPermissionLetter } = this.props;
 	
 	const {complaint} = transformedComplaint;
-
+	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
 	console.log('compalint in downloadpayament',complaint,paymentDetails)
 
-	let BookingInfo=[];
-	let applicantDetail={
-		"name":complaint&&complaint.applicantName?complaint.applicantName:'',
-		"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
-		"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
-		"permanentAddress":complaint&&complaint.address?complaint.address:'',
-		"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
-		"sector":complaint&&complaint.sector?complaint.sector:''
-	};
-	let booking={
-		"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
-	};
-	let paymentInfo={
-		"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
-		"transactionId": "EDR654GF35",//paymentDetails[0].id,
-		"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
-		"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-		"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
-		"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
-		"grandTotal":"2340",
-		"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
-	};
-	BookingInfo.push(applicantDetail);
-	BookingInfo.push(booking);
-	BookingInfo.push(paymentInfo);
-	console.log('BookingInfo===>>>',BookingInfo)
+	// let BookingInfo=[];
+	// let applicantDetail={
+	// 	"name":complaint&&complaint.applicantName?complaint.applicantName:'',
+	// 	"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
+	// 	"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
+	// 	"permanentAddress":complaint&&complaint.address?complaint.address:'',
+	// 	"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
+	// 	"sector":complaint&&complaint.sector?complaint.sector:''
+	// };
+	// let booking={
+	// 	"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
+	// };
+	// let paymentInfo={
+	// 	"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
+	// 	"transactionId": "EDR654GF35",//paymentDetails[0].id,
+	// 	"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
+	// 	"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+	// 	"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
+	// 	"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
+	// 	"grandTotal":"2340",
+	// 	"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
+	// };
+	// BookingInfo.push(applicantDetail);
+	// BookingInfo.push(booking);
+	// BookingInfo.push(paymentInfo);
+	// console.log('BookingInfo===>>>',BookingInfo)
 	// return BookingInfo;
 
-	downloadPermissionLetter({BookingInfo:BookingInfo})
+	let receiptData = [
+		{
+			applicantDetail: {
+				name: complaint.applicantName,
+				mobileNumber: complaint.bkMobileNumber,
+				houseNo: complaint.houseNo,
+				permanentAddress: complaint.address,
+				permanentCity: complaint.villageCity,
+				sector: complaint.sector,
+			},
+			bookingDetail: {
+				applicationNumber:
+				complaint.applicationNo,
+				// applicationDate:
+				// complaint.dateCreated,
+				applicationDate: convertEpochToDate(
+					complaint.dateCreated,"dayend"
+				),
+				bookingPeriod: getDurationDate(
+					complaint.bkFromDate,
+					complaint.bkToDate
+				),
+				groundName:complaint.sector
+			},
+		}]
+
+	downloadPermissionLetter({BookingInfo:receiptData})
+
+
+}
+downloadApplicationButton = async (e) => {
+	
+	await this.downloadApplicationFunction();
+
+	console.log('DownloadApplicationDetails this.props',this.props)
+	let documentsPreviewData;
+	const { DownloadApplicationDetails } = this.props;
+	
+	var documentsPreview = [];
+	if (DownloadApplicationDetails && DownloadApplicationDetails.filestoreIds.length > 0) {
+
+		console.log('DownloadApplicationDetails',DownloadApplicationDetails.filestoreIds[0])
+		 documentsPreviewData=DownloadApplicationDetails.filestoreIds[0];
+		
+		// let keys = Object.keys(documentMap);
+		// let values = Object.values(documentMap);
+		// let id = keys[0], fileName = values[0];
+
+		documentsPreview.push({
+			title: "DOC_DOC_PICTURE",
+			fileStoreId: documentsPreviewData,
+			linkText: "View",
+		});
+		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+		let fileUrls =
+			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+		console.log("fileUrls", fileUrls);
+
+		documentsPreview = documentsPreview.map(function (doc, index) {
+			doc["link"] =
+				(fileUrls &&
+					fileUrls[doc.fileStoreId] &&
+					fileUrls[doc.fileStoreId].split(",")[0]) ||
+				"";
+			//doc["name"] = doc.fileStoreId;
+			doc["name"] =
+				(fileUrls[doc.fileStoreId] &&
+					decodeURIComponent(
+						fileUrls[doc.fileStoreId]
+							.split(",")[0]
+							.split("?")[0]
+							.split("/")
+							.pop()
+							.slice(13)
+					)) ||
+				`Document - ${index + 1}`;
+			return doc;
+		});
+		console.log('documentsPreview',documentsPreview)
+		setTimeout(() => {
+			window.open(documentsPreview[0].link);
+		}, 100);
+		prepareFinalObject('documentsPreview', documentsPreview)
+	}
+
 
 
 }
 
+
+
+
+
+
 downloadPermissionLetterButton = async (e) => {
+	
 	await this.downloadPermissionLetterFunction();
 
-	console.log('DownloadPaymentReceiptDetails this.props',this.props)
+	console.log('DownloadPermissionLetterDetails this.props',this.props)
 	let documentsPreviewData;
-	const { DownloadPaymentReceiptDetails } = this.props;
+	const { DownloadPermissionLetterDetails } = this.props;
 	
 	var documentsPreview = [];
-	if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {
+	if (DownloadPermissionLetterDetails && DownloadPermissionLetterDetails.filestoreIds.length > 0) {
 
-		console.log('DownloadPaymentReceiptDetails',DownloadPaymentReceiptDetails.filestoreIds[0])
-		 documentsPreviewData=DownloadPaymentReceiptDetails.filestoreIds[0];
+		console.log('DownloadPermissionLetterDetails',DownloadPermissionLetterDetails.filestoreIds[0])
+		 documentsPreviewData=DownloadPermissionLetterDetails.filestoreIds[0];
 		
 		// let keys = Object.keys(documentMap);
 		// let values = Object.values(documentMap);
@@ -315,6 +508,7 @@ downloadPermissionLetterButton = async (e) => {
 
 
 downloadPaymentReceiptButton = async (e) => {
+	
 	await this.downloadPaymentReceiptFunction();
 
 	console.log('DownloadPaymentReceiptDetails this.props',this.props)
@@ -576,131 +770,87 @@ console.log("complaintsToAddress ",complaint)
 		}
 		return (
 			<div>
-				 <div className="col-xs-12">
-					  <div className="col-sm-6 col-xs-12"></div>
-					  <div className="col-sm-3 col-xs-12">
-								<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: { color: "#FE7A51",height: "60px" },className: "tl-download-button"
-													},
-													menu: [{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
-
-														 link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														link: () => this.downloadPermissionLetterButton('PermissionLetter')
-													}]
-												}} />
-												</div>
-												<div className="col-sm-3 col-xs-12">
-												{/*printButton*/}
-												<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_PRINT_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: {color: "#FE7A51",height: "60px" },className: "tl-download-button"
-													},
-													menu: [{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
-
-														 link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														link: () => this.downloadPermissionLetterButton('PermissionLetter')
-													}]
-												}} />
-												</div>
-												</div>
-
 				<Screen>
-				
-				{/* <ActionButtonDropdown data={{
-													label: { labelName: " DOWNLOAD", labelKey: "DOWNLOAD" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#fff", color: "#FE7A51", height: "60px", width: "250px",bordercolor: "black" }
-													},
-													menu: [{
-														label: {
-															labelName: "Payment Receipt",
-															labelKey: "MYBK_Payment_Receipt"
-														},
-
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
-													},
-													{
-														label: {
-															labelName: "Permission Letter",
-															labelKey: "MYBK_Permission_Letter"
-														},
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
-													}]
-												}} /> */}
-												
-												{/*print button*/}
-												
-												{/* <ActionButtonDropdown data={{
-													label: { labelName: "PRINT", labelKey: "PRINT" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#fff", color: "#FE7A51", height: "60px", width: "250px", bordercolor: "black" }
-													},
-													menu: [{
-														label: {
-															labelName: "Payment Receipt",
-															labelKey: "MYBK_Payment_Receipt"
-														},
-
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
-													},
-													{
-														label: {
-															labelName: "Permission Letter",
-															labelKey: "MYBK_Permission_Letter"
-														},
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
-													}]
-												}} /> */}
-					{complaint && !openMap && (
+				{complaint && !openMap && (
 						<div>
-							{/* <div className="share-btn">
-                {navigator.share && (
-                  <CommonShare variant="fab" shareCallback={shareCallback} roleDefination={{ rolePath: "user-info.roles", roles: ["EMPLOYEE"] }} />
-                )}
-               *<ShareButton onLoadFn={this.ShareButtonOnClick} />*
-              </div> */}
-			 
 							<div className="form-without-button-cont-generic">
+								<div className="container" >
+									<div className="row">
+										<div className="col-12 col-md-6" style={{fontSize: 'x-large'}}>
+											
+Application Details
+										</div>
+										<div className="col-12 col-md-6 row">
+										<div class="col-12 col-md-6 col-sm-3" >
+										<ActionButtonDropdown data={{
+									label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+									rightIcon: "arrow_drop_down",
+									leftIcon: "cloud_download",
+									props: {
+										variant: "outlined",
+										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+									},
+									menu: [{
+										label: {
+											labelName: "Receipt",
+											labelKey: "MYBK_DOWNLOAD_RECEIPT"
+										},
 
-								{/* <div>
-								{documentMap && documentMap["93e71d9f-6eb0-461a-b3cd-9a5c2220950d"]}
-							<button data-doc={documentMap} style={{color:"#FE7A51",border: "none",fontWeight: "500", background: "white"}} onClick={(e) =>{this.callApiDorData(e)}}>VIEW</button>
-								</div> */}
-								{/*PaymentReceipt Button*/}
+										link: () => this.downloadPaymentReceiptButton('Receipt')
+									},
+									{
+										label: {
+											labelName: "PermissionLetter",
+											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+										},
+										link: () => this.downloadPermissionLetterButton('PermissionLetter')
+									},
+									{
+										label: {
+											labelName: "Application",
+											labelKey: "MYBK_DOWNLOAD_APPLICATION"
+										},
+										 link: () => this.downloadApplicationButton('Application')
+									}]
+								}} />
+								</div>
+								<div class="col-12 col-md-6 col-sm-3" >
+										<ActionButtonDropdown data={{
+									label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+									rightIcon: "arrow_drop_down",
+									leftIcon: "print",
+									props: {
+										variant: "outlined",
+										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+									},
+									menu: [{
+										label: {
+											labelName: "Receipt",
+											labelKey: "MYBK_PRINT_RECEIPT"
+										},
 
+										link: () => this.downloadPaymentReceiptButton('Receipt')
+									},
+									{
+										label: {
+											labelName: "PermissionLetter",
+											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+										},
+										link: () => this.downloadPermissionLetterButton('PermissionLetter')
+									},
+									{
+										label: {
+											labelName: "Application",
+											labelKey: "MYBK_PRINT_APPLICATION"
+										},
+										link: () => this.downloadApplicationButton('Application')
+									}]
+								}} />
+
+</div>
+										</div>
+									</div>
+								</div>
                               <CGBookingDetails
 									{...complaint}
 								/>
@@ -713,16 +863,16 @@ console.log("complaintsToAddress ",complaint)
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
 
-                             <div style={{
+<div style={{
 									height: "100px",
 									width: "100",
 									backgroundColor: "white",
 									border: "2px solid white",
-									boxShadow: "0 0 2px 2px #e7dcdc"
-								}}><b>Document Deails</b><br></br>
+									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
+								}}><b>Documents</b><br></br>
 
 									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
-									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
+									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
 
 								{/* {documentMap && (
@@ -989,6 +1139,9 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
 	const {DownloadPaymentReceiptDetails}=complaints;
+	const {DownloadPermissionLetterDetails}=complaints;
+	const {DownloadApplicationDetails}=complaints;
+	
 	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
@@ -1020,13 +1173,15 @@ console.log('temp===',temp)
 
 	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
 
-
+	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
+	// let paymentDetails;
 	let paymentDetails;
-	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPLIED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
-	} else {
+	} 
+	else {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	}
+	} 
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
@@ -1094,6 +1249,9 @@ console.log('temp===',temp)
 			paymentDetails,
 			historyApiData,
 			DownloadPaymentReceiptDetails,
+			DownloadPermissionLetterDetails,
+			DownloadApplicationDetails,
+			paymentDetailsForReceipt,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -1109,6 +1267,9 @@ console.log('temp===',temp)
 			paymentDetails,
 			historyApiData,
 			DownloadPaymentReceiptDetails,
+			DownloadPermissionLetterDetails,
+			DownloadApplicationDetails,
+			paymentDetailsForReceipt,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -1130,6 +1291,7 @@ const mapDispatchToProps = dispatch => {
 		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
 
 		downloadPermissionLetter: criteria => dispatch(downloadPermissionLetter(criteria)),
+		downloadApplication: criteria => dispatch(downloadApplication(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),

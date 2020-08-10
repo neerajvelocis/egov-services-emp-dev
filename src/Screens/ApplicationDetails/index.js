@@ -138,6 +138,7 @@ class ApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
+		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -437,34 +438,74 @@ class ApplicationDetails extends Component {
 		return (
 			<div>
 				<Screen>
-					{complaint && !openMap && (
+				{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
+								<div className="container" >
+									<div className="row">
+										<div className="col-12 col-md-6" style={{fontSize: 'x-large'}}>
+											
+Application Details
+										</div>
+										<div className="col-12 col-md-6 row">
+										<div class="col-12 col-md-6 col-sm-3" >
+										<ActionButtonDropdown data={{
+									label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+									rightIcon: "arrow_drop_down",
+									leftIcon: "cloud_download",
+									props: {
+										variant: "outlined",
+										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+									},
+									menu: [{
+										label: {
+											labelName: "Receipt",
+											labelKey: "MYBK_DOWNLOAD_RECEIPT"
+										},
 
-							<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51",height: "60px" },className: "tl-download-button"
-													},
-													menu: [{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
+										link: () => this.downloadPaymentReceiptButton('Receipt')
+									},
+									{
+										label: {
+											labelName: "Application",
+											labelKey: "MYBK_DOWNLOAD_APPLICATION"
+										},
+										 link: () => this.downloadApplicationButton('Application')
+									}]
+								}} />
+								</div>
+								<div class="col-12 col-md-6 col-sm-3" >
+										<ActionButtonDropdown data={{
+									label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+									rightIcon: "arrow_drop_down",
+									leftIcon: "print",
+									props: {
+										variant: "outlined",
+										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+									},
+									menu: [{
+										label: {
+											labelName: "Receipt",
+											labelKey: "MYBK_PRINT_RECEIPT"
+										},
 
-														 link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_DOWNLOAD_APPLICATION"
-														},
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
-													}]
-												}} />
+										link: () => this.downloadPaymentReceiptButton('Receipt')
+									},
+									{
+										label: {
+											labelName: "Application",
+											labelKey: "MYBK_PRINT_APPLICATION"
+										},
+										// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+									}]
+								}} />
+
+</div>
+										</div>
+									</div>
+								</div>
+					
+								
 
 								<BookingDetails
 									{...complaint}
