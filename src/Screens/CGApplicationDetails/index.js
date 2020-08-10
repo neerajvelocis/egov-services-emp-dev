@@ -274,46 +274,69 @@ downloadPaymentReceiptFunction = async (e) => {
 }
 
 downloadApplicationFunction = async (e) => {
-const { transformedComplaint,paymentDetails,downloadApplication } = this.props;
+const { transformedComplaint,paymentDetails,downloadApplication,paymentDetailsForReceipt,userInfo } = this.props;
 
 const {complaint} = transformedComplaint;
 
 console.log('compalint in downloadpayament',complaint,paymentDetails)
-let queryObj = {};
-queryObj.tenantId = userInfo.tenantId;
-let BookingInfo=[];
-let applicantDetail={
-	"name":complaint&&complaint.applicantName?complaint.applicantName:'',
-	"mobileNumber":complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
-	"houseNo":complaint&&complaint.houseNo?complaint.houseNo:'',
-	"permanentAddress":complaint&&complaint.address?complaint.address:'',
-	"permanentCity":complaint&&complaint.villageCity?complaint.villageCity:'',
-	"sector":complaint&&complaint.sector?complaint.sector:''
-};
-let booking={
-	"bkApplicationNumber":complaint&&complaint.applicationNo?complaint.applicationNo:''
-};
-let paymentInfo={
-	"paymentDate":"13th Augest 2020",//paymentDetails[0].billDate,
-	"transactionId": "EDR654GF35",//paymentDetails[0].id,
-	"bookingPeriod":"13th Aug 2020 to 12th Sep 2020",
-	"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-	"amount": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
-	"tax": paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
-	"grandTotal":"2340",
-	"amountInWords":"Three Thousands Five Hundred Fourty Rupees"
-};
-BookingInfo.push(applicantDetail);
-BookingInfo.push(booking);
-BookingInfo.push(paymentInfo);
-console.log('BookingInfo===>>>',BookingInfo)
-// return BookingInfo;
-
-
-
+let BookingInfo = [{
+	"applicantDetail": {
+		"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+		"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
+		"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
+		"permanentAddress": complaint && complaint.address ? complaint.address : '',
+		"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
+		"sector": complaint && complaint.sector ? complaint.sector : '',
+		"email":complaint.bkEmail,
+	},
+	"bookingDetail": {
+		"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : '',
+		"venue": complaint.sector,
+        "category": complaint.bkCategory,
+        "bookingPeriod": getDurationDate(
+			complaint.bkFromDate,
+			complaint.bkToDate
+		),
+        "bookingPurpose": complaint.bkBookingPurpose
+	},
+	"feeDetail": {
+		// "paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
+		// "transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
+		// "bookingPeriod": getDurationDate(
+		// 	complaint.bkFromDate,
+		// 	complaint.bkToDate
+		// ),
+		"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+			(el) => !el.taxHeadCode.includes("TAX")
+		)[0].amount,
+		"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+			(el) => el.taxHeadCode.includes("TAX")
+		)[0].amount,
+		"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+		// "amountInWords": NumInWords(
+		// 	paymentDetailsForReceipt.Payments[0].totalAmountPaid
+		// ),
+		// paymentItemExtraColumnLabel: "Booking Period",
+		// paymentMode:
+		// 	paymentDetailsForReceipt.Payments[0].paymentMode,
+		// receiptNo:
+		// 	paymentDetailsForReceipt.Payments[0].paymentDetails[0]
+		// 		.receiptNumber,
+		// name: paymentDetailsForReceipt.Payments[0].payerName,
+		//     mobileNumber:
+		//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+	},
+	// payerInfo: {
+	// 	payerName: paymentDetailsForReceipt.Payments[0].payerName,
+	// 	payerMobile:
+	// 		paymentDetailsForReceipt.Payments[0].mobileNumber,
+	// },
+	generatedBy: {
+		generatedBy: userInfo.name,
+	},
+}
+]
 downloadApplication({BookingInfo:BookingInfo})
-
-
 }
 
 downloadPermissionLetterFunction = async (e) => {
@@ -383,7 +406,6 @@ downloadPermissionLetterFunction = async (e) => {
 
 }
 downloadApplicationButton = async (e) => {
-	
 	await this.downloadApplicationFunction();
 
 	console.log('DownloadApplicationDetails this.props',this.props)

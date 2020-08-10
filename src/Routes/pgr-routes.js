@@ -27,10 +27,7 @@ const AllRequests = Loadable({
   loader: () => import("../Screens/AllComplaints"),
   loading: Loading
 });
-const ApplyWaterTanker = Loadable({
-  loader: () => import("../Screens/ApplyWaterTanker"),
-  loading: Loading
-})
+
 const ComplaintResolved = Loadable({
   loader: () => import("../Screens/ComplaintResolved"),
   loading: Loading
@@ -163,22 +160,6 @@ const routes = [
       customTitle: "MYBK_ALL_APPLICAION_HEADER"
     }
   },
-  //sonu-SIR
-  {
-    path: "egov-services/applywatertanker",
-    component: ApplyWaterTanker,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_OPEN_APPLICAION_HEADER",
-      hideTitle: false,
-      redirectionUrl,
-      hideFor: "ao",
-      customFor: "employee",
-      customTitle: "MYBK_ALL_APPLICAION_HEADER"
-    }
-  },
-  //sonuSIR
   {
     path: "search-complaint",
     component: SearchScreen,
