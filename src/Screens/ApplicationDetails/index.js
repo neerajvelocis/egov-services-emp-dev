@@ -139,6 +139,7 @@ class ApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
+		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -734,7 +735,7 @@ downloadPermissionLetterFunction = async (e) => {
 		return (
 			<div>
 				<Screen>
-					{complaint && !openMap && (
+				{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
 								<div className="container" >

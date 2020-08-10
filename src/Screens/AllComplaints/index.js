@@ -258,6 +258,10 @@ class AllRequests extends Component {
     if (bookingType && bookingType == "OSBM") {
       this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
+    if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
+      console.log("bookingType ",bookingType)
+      this.props.history.push(`/cg-application-details/${complaintNo}`);
+    }
   };
 
   onComplaintChange = e => {
@@ -404,7 +408,8 @@ class AllRequests extends Component {
     } else if (searchForm && searchForm.toDate) {
       fetchApplications(queryObj, true, true);
     }
-    else if (fromDate,toDate) {
+    else if (fromDate) {
+
       if (fromDate > this.state.toDate){ 
         toggleSnackbarAndSetText(
           true,
@@ -873,7 +878,7 @@ class AllRequests extends Component {
     ) : role === "employee" ? (
       <Screen loading={loading}>
 
-/*<button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button>*/
+{/* <button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button> */}
         
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />
