@@ -5,28 +5,26 @@ import { SuccessMessage } from "modules/common";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 import "./index.css";
 
-class ResolveSuccess extends Component {
+class RejectBWTApplicationSuccess extends Component {
   continueComplaintSubmit = () => {
     this.props.history.push("/egov-services/all-applications");
   };
   render() {
     return (
-      <div className="success-message-main-screen resolve-success">
+      <div className="success-message-main-screen">
         <SuccessMessage
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_RESOLVED"
-          containerStyle={{ display: "inline-block" }}
-          icon={<Icon action="navigation" name="check" />}
-          backgroundColor={"#22b25f"}
+          successmessage="ES_COMPLAINT_REJECT_SUCCESS_MESSAGE"
+          icon={<Icon action="navigation" name="close" />}
+          backgroundColor={"#e74c3c"}
         />
+
         <div className="responsive-action-button-cont">
           <Button
-            id="resolve-success-continue"
+            className="responsive-action-button"
             primary={true}
             label={<Label buttonLabel={true} label="CORE_COMMON_GOTOHOME" />}
             fullWidth={true}
-            onClick={this.continueComplaintSubmit}
-            className="responsive-action-button"
+            onClick={this.handleComplaintReassigned}
           />
         </div>
       </div>
@@ -34,4 +32,4 @@ class ResolveSuccess extends Component {
   }
 }
 
-export default ResolveSuccess;
+export default RejectBWTApplicationSuccess;

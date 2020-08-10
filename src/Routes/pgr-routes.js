@@ -72,6 +72,10 @@ const RejectBWTComplaint = Loadable({
   loading: Loading
 });
 
+const ApplyWaterTanker = Loadable({
+  loader: () => import("../Screens/ApplyWaterTanker"),
+  loading: Loading
+})
 const deliverBooking= Loadable({
   loader: () => import("../Screens/DeliveredBWTBooking"),
   loading: Loading
@@ -95,6 +99,21 @@ const ComplaintAssigned = Loadable({
 });
 const ResolveSuccess = Loadable({
   loader: () => import("../Screens/ResolveSuccess"),
+  loading: Loading
+});
+
+const AssignToDriverSuccess = Loadable({
+  loader: () => import("../Screens/AssignToDriverSuccess"),
+  loading: Loading
+});
+
+const RejectBWTApplicationSuccess= Loadable({
+  loader: () => import("../Screens/RejectBWTApplicationSuccess"),
+  loading: Loading
+});
+
+const DeliveredApplicationSuccess= Loadable({
+  loader: () => import("../Screens/DeliveredBWTApplicationSuccess"),
   loading: Loading
 });
 const ReassignSuccess = Loadable({
@@ -142,6 +161,23 @@ const routes = [
   {
     path: "egov-services/all-applications",
     component: AllRequests,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      title: "ES_OPEN_APPLICAION_HEADER",
+      hideTitle: false,
+      redirectionUrl,
+      hideFor: "ao",
+      customFor: "employee",
+      customTitle: "MYBK_ALL_APPLICAION_HEADER"
+    }
+  },
+
+
+
+  {
+    path: "egov-services/applywatertanker",
+    component: ApplyWaterTanker,
     needsAuthentication: true,
     options: {
       hideFooter: true,
@@ -224,8 +260,46 @@ const routes = [
     }
   },
   {
-    path: "resolve-success",
+    path: "egov-services/resolve-success",
     component: ResolveSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+  {
+    path: "egov-services/assign-to-success",
+    component: AssignToDriverSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  {
+    path: "egov-services/reject-bwt-application-success",
+    component: RejectBWTApplicationSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  {
+    path: "egov-services/delivered-bwt-application-success",
+    component: DeliveredApplicationSuccess,
     needsAuthentication: true,
     options: {
       hideBackButton: true,
@@ -260,7 +334,7 @@ const routes = [
     }
   },
   {
-    path: "complaint-rejected",
+    path: "egov-services/application-rejected",
     component: ComplaintRejected,
     needsAuthentication: true,
     options: {

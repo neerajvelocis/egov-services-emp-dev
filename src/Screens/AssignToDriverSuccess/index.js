@@ -5,7 +5,7 @@ import { SuccessMessage } from "modules/common";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 import "./index.css";
 
-class ResolveSuccess extends Component {
+class AssignToDriverSuccess extends Component {
   continueComplaintSubmit = () => {
     this.props.history.push("/egov-services/all-applications");
   };
@@ -13,8 +13,8 @@ class ResolveSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_RESOLVED"
+          successmessage="ES_ASSIGN_TO_DRIVER_SUCCESS_MESSAGE"
+          secondaryLabel="MYBK_SUCCESSFULLY_ASSIGNED"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
@@ -34,4 +34,4 @@ class ResolveSuccess extends Component {
   }
 }
 
-export default ResolveSuccess;
+export default AssignToDriverSuccess;
