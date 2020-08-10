@@ -940,6 +940,7 @@ Application Details
 											labelName: "Receipt",
 											labelKey: "MYBK_DOWNLOAD_RECEIPT"
 										},
+										leftIcon: "receipt",
 
 										link: () => this.downloadPaymentReceiptButton('Receipt')
 									},
@@ -948,6 +949,8 @@ Application Details
 											labelName: "PermissionLetter",
 											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 										},
+										leftIcon: "book",
+
 										link: () => this.downloadPermissionLetterButton('PermissionLetter')
 									},
 									{
@@ -955,6 +958,7 @@ Application Details
 											labelName: "Application",
 											labelKey: "MYBK_DOWNLOAD_APPLICATION"
 										},
+										leftIcon:"assignment",
 										 link: () => this.downloadApplicationButton('Application')
 									}]
 								}} />
@@ -973,7 +977,7 @@ Application Details
 											labelName: "Receipt",
 											labelKey: "MYBK_PRINT_RECEIPT"
 										},
-
+										leftIcon: "receipt",
 										link: () => this.downloadPaymentReceiptButton('Receipt')
 									},
 									{
@@ -981,6 +985,7 @@ Application Details
 											labelName: "PermissionLetter",
 											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 										},
+										leftIcon: "book",
 										link: () => this.downloadPermissionLetterButton('PermissionLetter')
 									},
 									{
@@ -988,6 +993,7 @@ Application Details
 											labelName: "Application",
 											labelKey: "MYBK_PRINT_APPLICATION"
 										},
+										leftIcon:"assignment",
 										link: () => this.downloadApplicationButton('Application')
 									}]
 								}} />

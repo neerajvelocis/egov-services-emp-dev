@@ -877,12 +877,7 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
-
-{/* <button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button> */}
         
-        {/* <div style={{float: "right"}} className="quick-action-button">
-            <MenuButton data={buttonItems}  />
-          </div> */}
         <div className="form-without-button-cont-generic">
           {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
 
