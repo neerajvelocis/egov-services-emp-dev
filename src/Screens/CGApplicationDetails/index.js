@@ -52,7 +52,7 @@ import { connect } from "react-redux";
 
 import "./index.css";
 //newImport
-import { convertEpochToDate, getDurationDate, NumInWords} from '../../modules/commonFunction'
+import { convertEpochToDate, getDurationDate} from '../../modules/commonFunction'
 import ActionButtonDropdown from "../../modules/ActionButtonDropdown"
 class CGApplicationDetails extends Component {
 	constructor(props) {
@@ -141,6 +141,74 @@ class CGApplicationDetails extends Component {
 			prepareFormData("complaints", nextProps.transformedComplaint);
 		}
 	}
+
+
+	NumInWords = (number) => {
+		const first = [
+			"",
+			"One ",
+			"Two ",
+			"Three ",
+			"Four ",
+			"Five ",
+			"Six ",
+			"Seven ",
+			"Eight ",
+			"Nine ",
+			"Ten ",
+			"Eleven ",
+			"Twelve ",
+			"Thirteen ",
+			"Fourteen ",
+			"Fifteen ",
+			"Sixteen ",
+			"Seventeen ",
+			"Eighteen ",
+			"Nineteen ",
+		];
+		const tens = [
+			"",
+			"",
+			"Twenty",
+			"Thirty",
+			"Forty",
+			"Fifty",
+			"Sixty",
+			"Seventy",
+			"Eighty",
+			"Ninety",
+		];
+		const mad = ["", "Thousand", "Million", "Billion", "Trillion"];
+		let word = "";
+
+		for (let i = 0; i < mad.length; i++) {
+			let tempNumber = number % (100 * Math.pow(1000, i));
+			if (Math.floor(tempNumber / Math.pow(1000, i)) !== 0) {
+				if (Math.floor(tempNumber / Math.pow(1000, i)) < 20) {
+					word =
+						first[Math.floor(tempNumber / Math.pow(1000, i))] +
+						mad[i] +
+						" " +
+						word;
+				} else {
+					word =
+						tens[Math.floor(tempNumber / (10 * Math.pow(1000, i)))] +
+						first[Math.floor(tempNumber / Math.pow(1000, i)) % 10] +
+						mad[i] +
+						" " +
+						word;
+				}
+			}
+
+			tempNumber = number % Math.pow(1000, i + 1);
+			if (Math.floor(tempNumber / (100 * Math.pow(1000, i))) !== 0)
+				word =
+					first[Math.floor(tempNumber / (100 * Math.pow(1000, i)))] +
+					"Hunderd " +
+					word;
+		}
+		return word + "Rupees Only";
+	};
 
 	btnOneOnClick = (e,complaintNo, label) => {
 		console.log('complaintNo in  btnone', e.target.value,complaintNo, label)
@@ -247,7 +315,7 @@ downloadPaymentReceiptFunction = async (e) => {
 				(el) => el.taxHeadCode.includes("TAX")
 			)[0].amount,
 			"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
-			"amountInWords": NumInWords(
+			"amountInWords": this.NumInWords(
 				paymentDetailsForReceipt.Payments[0].totalAmountPaid
 			),
 			paymentItemExtraColumnLabel: "Booking Period",
@@ -343,7 +411,7 @@ downloadApplication({BookingInfo:BookingInfo})
 
 downloadPermissionLetterFunction = async (e) => {
 		
-	const { transformedComplaint,paymentDetails,downloadPermissionLetter } = this.props;
+	const { transformedComplaint,paymentDetails,downloadPermissionLetter,userInfo } = this.props;
 	
 	const {complaint} = transformedComplaint;
 	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
@@ -400,6 +468,9 @@ downloadPermissionLetterFunction = async (e) => {
 					complaint.bkToDate
 				),
 				groundName:complaint.sector
+			},
+			generatedBy: {
+				generatedBy: userInfo.name,
 			},
 		}]
 
@@ -937,7 +1008,7 @@ Application Details
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
 
-<div style={{
+                             <div style={{
 									height: "100px",
 									width: "100",
 									backgroundColor: "white",

@@ -50,3 +50,27 @@
       border-radius: 50%;
       border-radius: initial;
       background-color: #00bbd3; } }
+
+
+      .ViewDetailButton {
+        /* width: 100%; */
+        border: none;
+        display: inherit;
+        align-items: inherit;
+        justify-content: inherit;
+        margin-top: 2%;
+        background-color: white;
+        color: #FE7A51;
+        display: inherit;
+        font-size: 14px;
+        font-weight: bold; }
+      
+      .ViewDetailButton:hover {
+        background-color: white;
+        color: #00005c;
+        border: none;
+        background-color: #f3e1e1; }
+      
+      [labelId="demo-controlled-open-select-label-button"] [class*="MuiSelect-selectMenu-"] {
+        padding-top: 25px;
+        padding-bottom: 25px; }
