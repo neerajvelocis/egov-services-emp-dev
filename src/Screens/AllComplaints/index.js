@@ -873,7 +873,7 @@ class AllRequests extends Component {
     ) : role === "employee" ? (
       <Screen loading={loading}>
 
-/*<button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button>*/
+{/* <button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button> */}
         
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />

@@ -7,6 +7,7 @@ import "./index.css";
 
 class RejectBWTApplicationSuccess extends Component {
   continueComplaintSubmit = () => {
+    console.log('on go to home')
     this.props.history.push("/egov-services/all-applications");
   };
   render() {
