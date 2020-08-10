@@ -27,10 +27,10 @@ class RejectComplaint extends Component {
   };
   componentDidMount() {
 
-    let { fetchApplications, match, userInfo } = this.props;
+    let { fetchApplications, match, userInfo,applicationNumber } = this.props;
     fetchApplications(
       {
-        'uuid': userInfo.uuid, "applicationNumber": match.params.applicationId,
+        'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
         "applicationStatus": "",
         "mobileNumber": "", "bookingType": ""
       }
@@ -112,17 +112,17 @@ class RejectComplaint extends Component {
 
     const { handleCommentsChange, handleOptionsChange, onSubmit,handleValidation, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
-    const { trasformData, businessServiceData } = this.props;
+    const { trasformData, businessServiceData,applicationNumber } = this.props;
     // console.log('this in render', trasformData)
     return (
-      <Screen className="background-white">
+      // <Screen className="background-white">
         <RejectComplaintHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
           commentValue={commentValue}
           mobileNumber={mobileNo}
           driverFullName={driverFullName}
-          applicationNumber={match.params.applicationId}
+          applicationNumber={applicationNumber}
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}
           onSubmit={onSubmit}
@@ -135,7 +135,7 @@ class RejectComplaint extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      </Screen>
+      // </Screen>
     );
   }
 }

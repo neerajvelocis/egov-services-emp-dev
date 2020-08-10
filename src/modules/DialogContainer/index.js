@@ -10,16 +10,22 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
-
+  root: {
+    margin: 0,
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
 });
-
 const DialogTitle = withStyles(styles)((props) => {
 	const { children, classes, onClose, ...other } = props;
 	return (
 		<MuiDialogTitle>
             <Typography variant="h6">{children}</Typography>
 			{onClose ? (
-				<IconButton aria-label="close" onClick={onClose}>
+				<IconButton aria-label="close" onClick={onClose} className={classes.closeButton} >
 					<CloseIcon />
 				</IconButton>
 			) : null}
@@ -41,7 +47,7 @@ class DialogContainer extends React.Component {
     const { toggle, maxWidth, children, togglepopup,actionTittle } = this.props;
     console.log('togglepopup', togglepopup)
     return (
-      <Dialog open={toggle} maxWidth={maxWidth} onClose={togglepopup}>
+      <Dialog open={toggle} maxWidth={maxWidth} onClose={togglepopup} fullWidth={true}>
         <DialogTitle id="customized-dialog-title" onClose= {togglepopup}>
         {actionTittle}
         </DialogTitle>

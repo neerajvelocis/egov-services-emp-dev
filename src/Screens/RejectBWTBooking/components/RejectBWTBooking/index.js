@@ -3,8 +3,49 @@ import { Button, TextField } from "components";
 import { Question } from "modules/common";
 import { TextArea } from "modules/common";
 import Label from "egov-ui-kit/utils/translationNode";
+import { withStyles } from "@material-ui/core/styles";
 
-const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFullName, onDriverNameChange, approverName, onApproverNameChange, onMobileChange, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+const styles = theme => ( {
+  root: {
+    width: "100%",
+    textAlign: 'right'
+  },
+  btnWrapper: {
+    width: '100%',
+    textAlign: 'right'
+  },
+  button: {
+    height: "48px",
+    minWidth: "200px",
+    border: "none",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: "14px",
+    borderRadius: "5px",
+    backgroundColor: '#FE7A51',
+    textTransform: 'uppercase',
+    // display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: "pointer",
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    "&:hover, &:focus": {       
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:active": {        
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:focus": {
+        outline:0
+    }
+  }
+});
+
+const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, driverFullName, onDriverNameChange, approverName, onApproverNameChange, onMobileChange, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
   console.log('submit mobileNumber', bkStatus)
   // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
@@ -26,15 +67,15 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
   const submit = form.submit;
   return (
     <div>
-      <div className="custom-padding-for-screens">
+      {/* <div className="custom-padding-for-screens">
         <b>Application Number: </b>{applicationNumber}
-      </div>
+      </div> */}
       <div className="custom-padding-for-screens">
-        {/* <div className="reject-complaint-textArea">
+        <div className="reject-complaint-textArea">
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
-        </div> */}
+        </div>
         {(bkStatus != 'Paid' &&
-          <div className="col-sm-4 col-xs-12"
+          <div className="reject-complaint-textArea"
             style={{ paddingLeft: 8 }}
           >
             <TextField
@@ -72,18 +113,20 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
           </div>
         )}
       </div>
-      <div className="responsive-action-button-cont">
-        <Button
+      <div className={classes.btnWrapper}>
+        <button
           onClick={onSubmit}
-          className="responsive-action-button"
+          className={classes.button}
           id="rejectcomplaint-submit-action"
           primary={true}
           {...submit}
           fullWidth={true}
-        />
-      </div>
+        >Reject</button>
+    </div>
     </div>
   );
 };
 
-export default RejectComplaintForm;
+
+export default withStyles( styles )( RejectComplaintForm );
+

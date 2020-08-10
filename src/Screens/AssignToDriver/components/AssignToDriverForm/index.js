@@ -3,8 +3,53 @@ import { Button, TextField } from "components";
 import { Question } from "modules/common";
 import { TextArea } from "modules/common";
 import Label from "egov-ui-kit/utils/translationNode";
+import { withStyles } from "@material-ui/core/styles";
 
-const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFullName, handleValidation, onDriverNameChange, approverName, onApproverNameChange, onMobileChange, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+
+const styles = theme => ( {
+  root: {
+    width: "100%",
+    textAlign: 'right'
+  },
+  btnWrapper: {
+    width: '100%',
+    textAlign: 'right'
+  },
+  button: {
+    height: "48px",
+    minWidth: "200px",
+    border: "none",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: "14px",
+    borderRadius: "5px",
+    backgroundColor: '#FE7A51',
+    textTransform: 'uppercase',
+    // display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: "pointer",
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    "&:hover, &:focus": {       
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:active": {        
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:focus": {
+        outline:0
+    }
+  }
+});
+
+
+
+
+const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, driverFullName, handleValidation, onDriverNameChange, approverName, onApproverNameChange, onMobileChange, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
 
 
   if (form && form.fields) {
@@ -26,15 +71,15 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
   const submit = form.submit;
   return (
     <div>
-      <div className="custom-padding-for-screens">
+      {/* <div className="custom-padding-for-screens">
         <b>Application Number: </b>{applicationNumber}
-      </div>
+      </div> */}
       <div className="custom-padding-for-screens">
         {/* <div className="reject-complaint-textArea">
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
         </div> */}
         {(!bkStatus.includes("Paid") &&
-          <div className="col-sm-4 col-xs-12"
+          <div className="reject-complaint-textArea"
             style={{ paddingLeft: 8 }}
           >
             <TextField
@@ -71,7 +116,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
             />
           </div>
         )}
-        <div className="col-sm-4 col-xs-12"
+        <div className="reject-complaint-textArea"
           style={{ paddingLeft: 8 }}
         >
           <TextField
@@ -108,7 +153,7 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
           />
         </div>
 
-        <div className="col-sm-4 col-xs-12"
+        <div className="reject-complaint-textArea"
           style={{ paddingLeft: 8 }}
         >
           <TextField
@@ -116,6 +161,10 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
             name="mobile-no"
             type="number"
             value={mobileNumber}
+            onInput = {(e) =>{
+              e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,13)
+              // e.target.value = Math.min(10, parseInt(e.target.value) ).toString().slice(0,10)
+          }}
             hintText={
               <Label
                 label="MYBK_DRIVER_MOBILE_NUMBER_PLACEHOLDER"
@@ -144,60 +193,58 @@ const RejectComplaintForm = ({ form, options, bkStatus, mobileNumber, driverFull
             hintStyle={{ width: "100%" }}
           />
         </div>
-
-
       </div>
-      <div className="responsive-action-button-cont">
+      <div className={classes.btnWrapper}>
         {(() => {
           if(!bkStatus.includes("Paid")){
           if (driverFullName && mobileNumber && approverName) {
-            return <Button
+            return <button
             onClick={handleValidation}
-            className="responsive-action-button"
+            className={classes.button}
             id="rejectcomplaint-submit-action"
             primary={true}
             {...submit}
             fullWidth={true}
-          />
+          >Assign</button>
            }else{
-            return <Button
+            return <button
             onClick={handleValidation}
-            className="responsive-action-button"
+            className={classes.button}
             id="rejectcomplaint-submit-action"
             primary={true}
             {...submit}
             fullWidth={true}
             disabled
-          />
+            >Assign</button>
            }
           }else{
             if (driverFullName && mobileNumber ) {
-              return <Button
+              return <button
               onClick={handleValidation}
-              className="responsive-action-button"
+              className={classes.button}
               id="rejectcomplaint-submit-action"
               primary={true}
               {...submit}
               fullWidth={true}
-            />
+            >Assign</button>
              }else{
-              return <Button
+              return <button
               onClick={handleValidation}
-              className="responsive-action-button"
+              className={classes.button}
               id="rejectcomplaint-submit-action"
               primary={true}
               {...submit}
               fullWidth={true}
               disabled
-            />
+            >Assign</button>
              }
           }
          
         })()}
       
-      </div>
+    </div>
     </div>
   );
 };
 
-export default RejectComplaintForm;
+export default withStyles( styles )( RejectComplaintForm );

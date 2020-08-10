@@ -2,8 +2,48 @@ import React from "react";
 import { Button } from "components";
 import { Question } from "modules/common";
 import { TextArea } from "modules/common";
+import { withStyles } from "@material-ui/core/styles";
 
-const RejectComplaintForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+const styles = theme => ( {
+  root: {
+    width: "100%",
+    textAlign: 'right'
+  },
+  btnWrapper: {
+    width: '100%',
+    textAlign: 'right'
+  },
+  button: {
+    height: "48px",
+    minWidth: "200px",
+    border: "none",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: "14px",
+    borderRadius: "5px",
+    backgroundColor: '#FE7A51',
+    textTransform: 'uppercase',
+    // display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: "pointer",
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    "&:hover, &:focus": {       
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:active": {        
+        backgroundColor: '#DB6844',
+        color: "#fff",
+        border: "none"
+    },
+    "&:focus": {
+        outline:0
+    }
+  }
+});
+const RejectComplaintForm = ({ form, options,classes, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
   console.log(' RejectComplaintForm form',form)
 // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
@@ -24,9 +64,9 @@ console.log('formValue--->>',formValue)
   const submit = form.submit;
   return (
     <div>
- <div className="custom-padding-for-screens">
+ {/* <div className="custom-padding-for-screens">
       <b>Application Number: </b>{applicationNumber}
-    </div>  
+    </div>   */}
           <div className="custom-padding-for-screens">
         {/* <div className="reject-complaint-question request-reaasign-question">
           <Question options={options} label={"ES_REJECT_COMPLAINT_QUESTION"} handleChange={handleOptionChange} valueSelected={optionSelected} />
@@ -35,18 +75,18 @@ console.log('formValue--->>',formValue)
           <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
         </div>
       </div>
-      <div className="responsive-action-button-cont">
-        <Button
+      <div className={classes.btnWrapper}>
+        <button
           onClick={onSubmit}
-          className="responsive-action-button"
+          className={classes.button}
           id="rejectcomplaint-submit-action"
           primary={true}
           {...submit}
           fullWidth={true}
-        />
-      </div>
+        >Deliver/Closed</button>
+     </div>
     </div>
   );
 };
 
-export default RejectComplaintForm;
+export default withStyles( styles )( RejectComplaintForm );
