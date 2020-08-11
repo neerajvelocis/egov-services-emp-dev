@@ -567,6 +567,20 @@ downloadPermissionLetterFunction = async (e) => {
 			categoryImage: "",
 				groundName:complaint.sector
 			},
+
+
+
+			approvedBy:{
+				approvedBy: "Renil Commissioner",
+				role: "Additional Commissioner"
+			},
+			tenantInfo:{
+				municipalityName: "Municipal Corporation Chandigarh",
+				address: "New Deluxe Building, Sector 17, Chandigarh",
+				contactNumber: "+91-172-2541002, 0172-2541003",
+				logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
+				webSite: "http://mcchandigarh.gov.in"
+			},
 			generatedBy: {
 				generatedBy: userInfo.name,
 			}
@@ -754,7 +768,7 @@ downloadPermissionLetterFunction = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu: [{
+													menu: (complaint.status=='APPROVED')?[{
 														label: {
 															labelName: "Receipt",
 															labelKey: "MYBK_DOWNLOAD_RECEIPT"
@@ -768,8 +782,15 @@ downloadPermissionLetterFunction = async (e) => {
 															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
 														link: () => this.downloadPermissionLetterButton('PermissionLetter')
-													},
-													{
+													},{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
+
+													}]:
+													[{
 														label: {
 															labelName: "Application",
 															labelKey: "MYBK_DOWNLOAD_APPLICATION"
@@ -787,7 +808,7 @@ downloadPermissionLetterFunction = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu: [{
+													menu:  (complaint.status=='APPROVED')?[{
 														label: {
 															labelName: "Receipt",
 															labelKey: "MYBK_PRINT_RECEIPT"
@@ -797,10 +818,24 @@ downloadPermissionLetterFunction = async (e) => {
 													},
 													{
 														label: {
+															labelName: "PermissionLetter",
+															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+														},
+														 link: () => this.downloadPermissionLetterButton('state', "dispatch", 'REJECT')
+													},{
+														label: {
 															labelName: "Application",
 															labelKey: "MYBK_PRINT_APPLICATION"
 														},
-														// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
+
+													}]:[{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
+
 													}]
 												}} />
 

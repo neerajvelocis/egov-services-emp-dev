@@ -188,12 +188,12 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "ES_OPEN_APPLICAION_HEADER",
+      title: "Apply for Water Tanker",
       hideTitle: false,
       redirectionUrl,
       hideFor: "ao",
       customFor: "employee",
-      customTitle: "MYBK_ALL_APPLICAION_HEADER"
+      customTitle: "Apply for Water Tanker"
     }
   },
   {
