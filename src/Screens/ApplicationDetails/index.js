@@ -367,7 +367,7 @@ class ApplicationDetails extends Component {
 	}
 
 	downloadApplicationFunction = async (e) => {
-		const { transformedComplaint, paymentDetailsForReceipt, paymentDetails,userInfo } = this.props;
+		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
 
 		const { complaint } = transformedComplaint;
 
