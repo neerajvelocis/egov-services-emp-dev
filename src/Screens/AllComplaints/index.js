@@ -200,8 +200,7 @@ class AllRequests extends Component {
           {
             "uuid": userInfo.uuid, "applicationNumber": "",
             "applicationStatus": "",
-            "mobileNumber": "", "bookingType": "",
-            "roles":userInfo.roles
+            "mobileNumber": "", "bookingType": ""
           },
 
           true,
@@ -315,7 +314,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-      queryObj.roles=userInfo.roles
+      
     }
 
     if (applicationStatus) {
@@ -323,7 +322,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = '';
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-      queryObj.roles=userInfo.roles
+     
     }
 
     if (mobileNo) {
@@ -331,14 +330,14 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-      queryObj.roles=userInfo.roles
+     
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
-      queryObj.roles=userInfo.roles
+     
 
       console.log('bookingType', bookingType)
     }
@@ -349,7 +348,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
-      queryObj.roles=userInfo.roles
+     
       console.log('fromDate', fromDate)
     }
     if (toDate) {
@@ -358,7 +357,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
-      queryObj.roles=userInfo.roles
+    
       console.log('toDate', toDate)
     }
 
@@ -371,7 +370,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-      queryObj.roles=userInfo.roles
+     
     }
 
     if (searchForm && searchForm.toDate) {
@@ -380,7 +379,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-      queryObj.roles=userInfo.roles
+  
     }
 
     // if (complaintNo || mobileNo) {
@@ -645,8 +644,7 @@ class AllRequests extends Component {
       {
         "uuid": userInfo.uuid, "applicationNumber": "",
         "applicationStatus": "",
-        "mobileNumber": "", "bookingType": "",
-        "roles":userInfo.roles
+        "mobileNumber": "", "bookingType": ""
       },
     );
     this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate:"", toDate:"", search: false });

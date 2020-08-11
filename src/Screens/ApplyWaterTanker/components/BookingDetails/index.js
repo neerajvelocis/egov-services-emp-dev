@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 import { Tabs, Card, TextField, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-
-
-
-import { fetchComplaintSector } from "egov-ui-kit/redux/complaints/actions";
-
+import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class BookingsDetails extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-    sectorData:[]
 
-    }}
-
-    componentDidMount = async () => {
-
-      let {fetchComplaintSector}=this.props;
-      fetchComplaintSector();
-    }
+  state = {
+    open: false, setOpen: false
+  }
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -29,7 +21,17 @@ class BookingsDetails extends Component {
     e.preventDefault();
     this.props.prevStep();
   }
+  handleClose = () => {
+    this.setState({
+      setOpen: false
+    })
+  };
 
+  handleOpen = () => {
+    this.setState({
+      setOpen: true
+    })
+  };
   render() {
     const { jobTitle, jobCompany, jobLocation, handleChange, houseNo, address, locality, residenials } = this.props;
     const hintTextStyle = {
@@ -95,7 +97,7 @@ class BookingsDetails extends Component {
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
         />
-        <TextField
+        {/* <TextField
           id="locality"
           name="locality"
           type="text"
@@ -120,8 +122,53 @@ class BookingsDetails extends Component {
           underlineStyle={{ bottom: 7 }}
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
-        />
-        <TextField
+        /> */}
+
+        <FormControl style={{ width: '100%' }}>
+          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
+          <Select
+            maxWidth={false}
+            labelId="demo-controlled-open-select-label-Locality"
+            id="demo-controlled-open-select-locality"
+            open={this.state.SetOpen}
+            onClose={() => this.handleClose()}
+            onOpen={() => this.handleOpen()}
+            value={locality}
+            displayEmpty
+            onChange={handleChange('locality')}
+          >
+            <MenuItem value="" disabled>Locality</MenuItem>
+            <MenuItem value='SECTOR-1'>Sector-1</MenuItem>
+            <MenuItem value='SECTOR-2'>Sector-2</MenuItem>
+            <MenuItem value='SECTOR-3'>Sector-3</MenuItem>
+            <MenuItem value='SECTOR-4'>Sector-4</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl style={{ width: '100%' }}>
+          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Booking Type</InputLabel>
+          <Select
+            maxWidth={false}
+            labelId="demo-controlled-open-select-label"
+            id="demo-controlled-open-select"
+            open={this.state.SetOpen}
+            displayEmpty
+            onClose={() => this.handleClose()}
+            onOpen={() => this.handleOpen()}
+            value={residenials}
+            onChange={handleChange('residenials')}
+          >
+            <MenuItem value="" disabled>Residentials/Commercial</MenuItem>
+            <MenuItem value='OSBM'>Residentials</MenuItem>
+            <MenuItem value='WATER_TANKERS'>Commercial</MenuItem>
+          </Select>
+        </FormControl>
+
+
+
+
+
+
+        {/* <TextField
           id="residenials"
           name="residenials"
           type="text"
@@ -146,7 +193,7 @@ class BookingsDetails extends Component {
           underlineStyle={{ bottom: 7 }}
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
-        />
+        /> */}
 
 
         {/*                
@@ -192,24 +239,5 @@ class BookingsDetails extends Component {
     );
   }
 }
-const mapStateToProps = (state, ownProps) => {
 
-  const { complaints, common, auth, form } = state;
-  const { complaintSector } = complaints;
-  console.log('complaintSector', complaintSector)
-  return {
-    complaintSector
-  }
-
-}
-const mapDispatchToProps = dispatch => {
-  return {
-
-    fetchComplaintSector: criteria => dispatch(fetchComplaintSector(criteria)),
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BookingsDetails);
+export default BookingsDetails;
