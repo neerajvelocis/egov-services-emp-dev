@@ -29,7 +29,7 @@ class ComplaintResolved extends Component {
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
-      "mobileNumber":"","bookingType":""  }
+      "mobileNumber":"","bookingType":"","roles":userInfo.roles  }
       // { "applicationNumber": match.params.applicationId }
     );
   }
