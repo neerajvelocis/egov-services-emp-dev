@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 class BookingsDetails extends Component {
 
   state = {
@@ -43,12 +42,14 @@ class BookingsDetails extends Component {
     };
     return (
       <div>
-        {/* <h2>Enter your job information:</h2> */}
+           <div className="col-xs-12" style={{ padding: 0 }}>
+              <div className="col-sm-12 col-xs-12">
 
         <TextField
           id="houseNo"
           name="houseNo"
           type="text"
+          
           value={houseNo}
           hintText={
             <Label
@@ -125,7 +126,7 @@ class BookingsDetails extends Component {
         /> */}
 
         <FormControl style={{ width: '100%' }}>
-          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
+          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Locality</InputLabel>
           <Select
             maxWidth={false}
             labelId="demo-controlled-open-select-label-Locality"
@@ -145,7 +146,7 @@ class BookingsDetails extends Component {
           </Select>
         </FormControl>
         <FormControl style={{ width: '100%' }}>
-          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Booking Type</InputLabel>
+          <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Residentials/Commercials</InputLabel>
           <Select
             maxWidth={false}
             labelId="demo-controlled-open-select-label"
@@ -158,8 +159,8 @@ class BookingsDetails extends Component {
             onChange={handleChange('residenials')}
           >
             <MenuItem value="" disabled>Residentials/Commercial</MenuItem>
-            <MenuItem value='OSBM'>Residentials</MenuItem>
-            <MenuItem value='WATER_TANKERS'>Commercial</MenuItem>
+            <MenuItem value='Residentials'>Residentials</MenuItem>
+            <MenuItem value='Commercial'>Commercial</MenuItem>
           </Select>
         </FormControl>
 
@@ -228,13 +229,44 @@ class BookingsDetails extends Component {
               
               
                */}
+        {/* <div className="responsive-action-button-cont">
+          <Button
+            className="responsive-action-button"
+            primary={true}
+            label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
+            fullWidth={true}
+            onClick={this.back}
+          />
+        </div> */}
+        </div></div>
+        
 
-        <button className="Back" onClick={this.back}>
-          « Back
-                </button>
-        <button className="Next" onClick={this.continue}>
+
+        <div className="responsive-action-button-cont">
+
+        <Button
+            className="responsive-action-button"
+            primary={true}
+            label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
+            fullWidth={true}
+            onClick={this.back}
+            style={{marginRight:18}}
+          />
+          <Button
+            className="responsive-action-button"
+            primary={true}
+            label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
+            fullWidth={true}
+            onClick={this.continue}
+          />
+        </div>
+
+        {/* <button className="Back" onClick={this.back}>
+          « Previous
+                </button> */}
+        {/* <button className="Next" onClick={this.continue}>
           Next »
-                </button>
+                </button> */}
       </div>
     );
   }

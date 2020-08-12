@@ -12,20 +12,19 @@ export class StepForm extends Component {
         firstName: '',
         lastName: '',
         email: '',
-        mobileNo:'',
-
+        mobileNo: '',
         // step 2
         jobTitle: '',
         jobCompany: '',
         jobLocation: '',
-        houseNo:'',
-        address:'',
-        locality:'',
-        residenials:'',
-        childrenArray:[{label:"APPLICANT DETAILS"},{label:"BOOKING DETAILS"},{label:"SUMMARY"}]
+        houseNo: '',
+        address: '',
+        locality: '',
+        residenials: '',
+        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" }, { label: "SUMMARY" }]
 
     }
-     
+
     nextStep = () => {
         const { step } = this.state;
 
@@ -42,71 +41,71 @@ export class StepForm extends Component {
     }
 
     handleChange = input => e => {
-        this.setState({[input]: e.target.value});
+        this.setState({ [input]: e.target.value });
     }
 
     showStep = () => {
-        const { step, firstName, lastName, jobTitle, jobCompany, jobLocation,mobileNo,email,houseNo,address,locality,residenials} = this.state;
-
-        if(step === 0)
-            return (<PersonalInfo 
-                nextStep = {this.nextStep} 
-                handleChange = {this.handleChange} 
-                firstName={firstName} 
+        const { step, firstName, lastName, jobTitle, jobCompany, jobLocation, mobileNo, email, houseNo, address, locality, residenials } = this.state;
+        let propsData =this.props
+        if (step === 0)
+            return (<PersonalInfo
+                nextStep={this.nextStep}
+                handleChange={this.handleChange}
+                firstName={firstName}
                 lastName={lastName}
                 email={email}
                 mobileNo={mobileNo}
             />);
-        if(step === 1)
-            return (<JobDetails 
-                houseNo={houseNo
-                }
+        if (step === 1)
+            return (<JobDetails
+                houseNo={houseNo}
                 address={address}
                 residenials={residenials}
                 locality={locality}
-                nextStep = {this.nextStep} 
-                prevStep = {this.prevStep}
-                handleChange = {this.handleChange} 
-                jobTitle={jobTitle} 
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                handleChange={this.handleChange}
+                jobTitle={jobTitle}
                 jobCompany={jobCompany}
                 jobLocation={jobLocation}
             />);
-        if(step === 2)
-            return (<AllInfo 
-                firstName={firstName} 
+        if (step === 2)
+            return (<AllInfo
+                firstName={firstName}
                 lastName={lastName}
-                jobTitle={jobTitle} 
+                jobTitle={jobTitle}
                 jobCompany={jobCompany}
                 jobLocation={jobLocation}
-                prevStep = {this.prevStep}
+                prevStep={this.prevStep}
                 mobileNo={mobileNo}
                 email={email}
                 houseNo={houseNo}
                 address={address}
                 locality={locality}
                 residenials={residenials}
+                {...propsData}
             />);
     }
 
-    render(){
-        
+    render() {
+console.log('this.props',this.props)
         const { step } = this.state;
 
-        return(
+        return (
             <div>
+            <div className="col-xs-12" style={{ padding: 0 }}>
+              <div className="col-sm-12 col-xs-12">
+                    <Stepper alternativeLabel activeStep={step}>
+                        {this.state.childrenArray.map((child, index) => (
+                            <Step key={child.label}>
+                                <StepLabel>{child.label}</StepLabel>
+                            </Step>
+                        ))}
 
-
-<Stepper alternativeLabel activeStep={step}>
-
-
-            {this.state.childrenArray.map((child, index) => (
-              <Step key={child.label}>
-                <StepLabel>{child.label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-                {/* <h2>Step {step} of 3.</h2> */}
+                    </Stepper>
+                </div>
                 {this.showStep()}
+                </div>
             </div>
         );
     }
