@@ -101,7 +101,10 @@ const ResolveSuccess = Loadable({
   loader: () => import("../Screens/ResolveSuccess"),
   loading: Loading
 });
-
+const CreateSuccess= Loadable({
+  loader: () => import("../Screens/CreateWBTApplicationSuccess"),
+  loading: Loading
+});
 const AssignToDriverSuccess = Loadable({
   loader: () => import("../Screens/AssignToDriverSuccess"),
   loading: Loading
@@ -271,6 +274,20 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "egov-services/create-success",
+    component: CreateSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  
   {
     path: "egov-services/assign-to-success",
     component: AssignToDriverSuccess,
