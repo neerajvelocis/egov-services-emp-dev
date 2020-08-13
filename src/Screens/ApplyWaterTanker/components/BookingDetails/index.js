@@ -6,14 +6,42 @@ import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
+import { connect } from "react-redux";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { fetchComplaintSector } from "egov-ui-kit/redux/complaints/actions";
+
 class BookingsDetails extends Component {
 
   state = {
     open: false, setOpen: false
   }
+
+
+
+  componentDidMount = async () => {
+    let {fetchComplaintSector}=this.props;
+    fetchComplaintSector();
+  }
   continue = e => {
     e.preventDefault();
-    this.props.nextStep();
+    const { jobTitle, jobCompany, toggleSnackbarAndSetText,jobLocation, handleChange, houseNo, address, locality, residenials } = this.props;
+
+    if(houseNo==""||address==""||locality==""||residenials==""){
+
+      toggleSnackbarAndSetText(
+        true,
+        {
+          labelName: "Error_Message_For_Water_tanker_Application",
+          labelKey: `Error_Message_For_Water_tanker_Application`
+        },
+        "warning"
+      );
+    }else{
+      this.props.nextStep();
+
+    }
   }
 
   back = e => {
@@ -32,7 +60,22 @@ class BookingsDetails extends Component {
     })
   };
   render() {
-    const { jobTitle, jobCompany, jobLocation, handleChange, houseNo, address, locality, residenials } = this.props;
+    const { jobTitle, jobCompany, jobLocation,complaintSector, handleChange, houseNo, address, locality, residenials } = this.props;
+    let sectorData=[];
+    sectorData.push(complaintSector);
+
+    let arrayData=[];
+   
+    let y=sectorData.forEach((item,index)=>{
+    let finalValues=Object.values(item);
+    finalValues.forEach((event)=>{
+          arrayData.push(event);
+      })
+    })
+
+
+    
+    console.log('arrayData',arrayData,'complaintSector',complaintSector)
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -138,11 +181,15 @@ class BookingsDetails extends Component {
             displayEmpty
             onChange={handleChange('locality')}
           >
-            <MenuItem value="" disabled>Locality</MenuItem>
-            <MenuItem value='SECTOR-1'>Sector-1</MenuItem>
+             {arrayData.map((child, index) => (
+
+           
+            <MenuItem value={child.name}>{child.name}</MenuItem>
+            ))}
+            {/* <MenuItem value='SECTOR-1'>Sector-1</MenuItem>
             <MenuItem value='SECTOR-2'>Sector-2</MenuItem>
             <MenuItem value='SECTOR-3'>Sector-3</MenuItem>
-            <MenuItem value='SECTOR-4'>Sector-4</MenuItem>
+            <MenuItem value='SECTOR-4'>Sector-4</MenuItem> */}
           </Select>
         </FormControl>
         <FormControl style={{ width: '100%' }}>
@@ -251,6 +298,7 @@ class BookingsDetails extends Component {
             fullWidth={true}
             onClick={this.back}
             style={{marginRight:18}}
+            startIcon={<ArrowBackIosIcon />}
           />
           <Button
             className="responsive-action-button"
@@ -258,6 +306,7 @@ class BookingsDetails extends Component {
             label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
             fullWidth={true}
             onClick={this.continue}
+            startIcon={<ArrowForwardIosIcon />}
           />
         </div>
 
@@ -271,5 +320,26 @@ class BookingsDetails extends Component {
     );
   }
 }
+const mapStateToProps = state => {
 
-export default BookingsDetails;
+
+  const { complaints, common, auth, form } = state;
+  const { complaintSector } = complaints;
+  console.log('complaintSector', complaintSector)
+  return {
+    complaintSector
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      toggleSnackbarAndSetText: (open, message, error) =>
+      dispatch(toggleSnackbarAndSetText(open, message, error)),
+      fetchComplaintSector: criteria => dispatch(fetchComplaintSector(criteria)),
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BookingsDetails);
