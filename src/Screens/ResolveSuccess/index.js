@@ -7,13 +7,13 @@ import "./index.css";
 
 class ResolveSuccess extends Component {
   continueComplaintSubmit = () => {
-    this.props.history.push("/egov-services/all-applications");
+    this.props.history.push("/all-complaints");
   };
   render() {
     return (
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
+          successmessage="ES_COMPLAINT_RESOLVED_SUCCESS_MESSAGE"
           secondaryLabel="CS_COMMON_RESOLVED"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}

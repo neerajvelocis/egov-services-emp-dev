@@ -262,6 +262,10 @@ class AllRequests extends Component {
       console.log("bookingType ",bookingType)
       this.props.history.push(`/cg-application-details/${complaintNo}`);
     }
+    if (bookingType && bookingType == "JURISDICTION") {
+      console.log("bookingType ",bookingType)
+      this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
+    }
   };
 
   onComplaintChange = e => {
@@ -670,12 +674,6 @@ class AllRequests extends Component {
       currency: event.target.value
     })
   };
-
-  gotoWaterTanker = (e) => {
-
-    this.props.history.push(`/egov-services/applywatertanker`); 
-  }
-
   render() {
     const dropbordernone = {
       border: "none",
@@ -885,8 +883,6 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
-
-<button onClick={() => this.gotoWaterTanker()}>Create Water Tanker</button>
         
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />

@@ -43,7 +43,7 @@ const styles = theme => ( {
     }
   }
 });
-const RejectComplaintForm = ({ form, options,classes,driverFullName,mobileNumber,approverName, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+const RejectComplaintForm = ({ form, options,classes, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
   console.log(' RejectComplaintForm form',form)
 // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
@@ -55,10 +55,7 @@ formValue.createdBy.value=createdBy;
 formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 formValue.bookingType.value=bookingtype;
-formValue.businessService.value=bookingservice;
-formValue.driverName.value = driverFullName;
-    formValue.mobileNumber.value = mobileNumber;
-    formValue.approverName.value = approverName;
+formValue.businessService.value=bookingservice
 console.log('formValue--->>',formValue)
   }
 
@@ -86,7 +83,7 @@ console.log('formValue--->>',formValue)
           primary={true}
           {...submit}
           fullWidth={true}
-        >Delivered/Closed</button>
+        >Deliver/Closed</button>
      </div>
     </div>
   );

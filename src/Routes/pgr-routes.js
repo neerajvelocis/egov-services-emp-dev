@@ -45,6 +45,10 @@ const CGApplicationDetails = Loadable({
   loader: () => import("../Screens/CGApplicationDetails"),
   loading: Loading
 });
+const OSWMCCApplicationDetails = Loadable({
+  loader: () => import("../Screens/OSWMCCApplicationDetails"),
+  loading: Loading
+});
 
 const ApplicationBWTSummary = Loadable({
   loader: () => import("../Screens/BwtApplicationDetails"),
@@ -79,10 +83,6 @@ const RejectBWTComplaint = Loadable({
   loading: Loading
 });
 
-const ApplyWaterTanker = Loadable({
-  loader: () => import("../Screens/ApplyWaterTanker"),
-  loading: Loading
-})
 const deliverBooking= Loadable({
   loader: () => import("../Screens/DeliveredBWTBooking"),
   loading: Loading
@@ -138,6 +138,11 @@ const SearchScreen = Loadable({
   loader: () => import("../Screens/SearchScreen"),
   loading: Loading
 });
+
+const ApplyWaterTanker = Loadable({
+  loader: () => import("../Screens/ApplyWaterTanker"),
+  loading: Loading
+})
 
 // import CreateEmployee from "modules/employee/pgr/CreateEmployee";
 const redirectionUrl = "/user/login";
@@ -237,6 +242,16 @@ const routes = [
     }
   },
   {
+    path: "osmcc-application-details/:applicationId",
+    component: OSWMCCApplicationDetails,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+  {
     path: "egov-services/bwt-application-details/:applicationId",
     component: ApplicationBWTSummary,
     needsAuthentication: true,
@@ -246,8 +261,6 @@ const routes = [
       redirectionUrl
     }
   },
-
-
   {
     path: "egov-services/home123",
     component: ApplicationSummary,
@@ -280,7 +293,7 @@ const routes = [
     }
   },
   {
-    path: "egov-services/resolve-success",
+    path: "resolve-success",
     component: ResolveSuccess,
     needsAuthentication: true,
     options: {
@@ -368,7 +381,7 @@ const routes = [
     }
   },
   {
-    path: "egov-services/application-rejected",
+    path: "complaint-rejected",
     component: ComplaintRejected,
     needsAuthentication: true,
     options: {
