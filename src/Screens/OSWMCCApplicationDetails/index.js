@@ -14,8 +14,8 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import AppDetails from "../AllComplaints/components/AppDetails"
-import BookingDetails from "../AllComplaints/components/BookingDetails"
+import OSMCCAppDetails from "../AllComplaints/components/OSMCCAppDetails"
+import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
@@ -41,7 +41,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt,
+	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -127,7 +127,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			fetchDataAfterPayment, downloadPaymentReceipt,
+			fetchDataAfterPayment, 
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -160,35 +160,35 @@ class ApplicationDetails extends Component {
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
-		let BookingInfo = [];
-		let applicantDetail = {
-			"name": 'sonu kumar',//complaint&&complaint.applicantName?complaint.applicantName:'',
-			"mobileNumber": '9809090909',//complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
-			"houseNo": '23',//complaint&&complaint.houseNo?complaint.houseNo:'',
-			"permanentAddress": 'new delhi',//complaint&&complaint.address?complaint.address:'',
-			"permanentCity": 'delhi',//complaint&&complaint.villageCity?complaint.villageCity:'',
-			"sector": '4',//complaint&&complaint.sector?complaint.sector:''
-		};
-		let booking = {
-			"bkApplicationNumber": 'CH-BK-000000879',//complaint&&complaint.applicationNo?complaint.applicationNo:''
-		};
-		let paymentInfo = {
-			"paymentDate": "13th Augest 2020",//paymentDetails[0].billDate,
-			"transactionId": "EDR654GF35",//paymentDetails[0].id,
-			"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
-			"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-			"amount": '3000',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
-			"tax": '540',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
-			"grandTotal": "2340",
-			"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
-		};
-		await BookingInfo.push(applicantDetail);
-		await BookingInfo.push(booking);
-		await BookingInfo.push(paymentInfo);
-		console.log('BookingInfo===>>>', BookingInfo)
-		// return BookingInfo;
+		// let BookingInfo = [];
+		// let applicantDetail = {
+		// 	"name": 'sonu kumar',//complaint&&complaint.applicantName?complaint.applicantName:'',
+		// 	"mobileNumber": '9809090909',//complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
+		// 	"houseNo": '23',//complaint&&complaint.houseNo?complaint.houseNo:'',
+		// 	"permanentAddress": 'new delhi',//complaint&&complaint.address?complaint.address:'',
+		// 	"permanentCity": 'delhi',//complaint&&complaint.villageCity?complaint.villageCity:'',
+		// 	"sector": '4',//complaint&&complaint.sector?complaint.sector:''
+		// };
+		// let booking = {
+		// 	"bkApplicationNumber": 'CH-BK-000000879',//complaint&&complaint.applicationNo?complaint.applicationNo:''
+		// };
+		// let paymentInfo = {
+		// 	"paymentDate": "13th Augest 2020",//paymentDetails[0].billDate,
+		// 	"transactionId": "EDR654GF35",//paymentDetails[0].id,
+		// 	"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
+		// 	"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+		// 	"amount": '3000',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
+		// 	"tax": '540',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
+		// 	"grandTotal": "2340",
+		// 	"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
+		// };
+		// await BookingInfo.push(applicantDetail);
+		// await BookingInfo.push(booking);
+		// await BookingInfo.push(paymentInfo);
+		// console.log('BookingInfo===>>>', BookingInfo)
+		// // return BookingInfo;
 
-		await downloadPaymentReceipt({ BookingInfo: BookingInfo })
+		// await downloadPaymentReceipt({ BookingInfo: BookingInfo })
 
 
 
@@ -251,102 +251,102 @@ class ApplicationDetails extends Component {
 		})
 	};
 
-	downloadPaymentReceiptFunction = async (e) => {
-		const { transformedComplaint, paymentDetails, downloadPaymentReceipt } = this.props;
-		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetails)
+	// downloadPaymentReceiptFunction = async (e) => {
+	// 	const { transformedComplaint, paymentDetails, downloadPaymentReceipt } = this.props;
+	// 	const { complaint } = transformedComplaint;
+	// 	console.log('compalint in downloadpayament', complaint, paymentDetails)
 
-		let BookingInfo = [];
-		let applicantDetail = {
-			"name": 'sonu kumar',//complaint&&complaint.applicantName?complaint.applicantName:'',
-			"mobileNumber": '9809090909',//complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
-			"houseNo": '23',//complaint&&complaint.houseNo?complaint.houseNo:'',
-			"permanentAddress": 'new delhi',//complaint&&complaint.address?complaint.address:'',
-			"permanentCity": 'delhi',//complaint&&complaint.villageCity?complaint.villageCity:'',
-			"sector": '4',//complaint&&complaint.sector?complaint.sector:''
-		};
-		let booking = {
-			"bkApplicationNumber": 'CH-BK-000000879',//complaint&&complaint.applicationNo?complaint.applicationNo:''
-		};
-		let paymentInfo = {
-			"paymentDate": "13th Augest 2020",//paymentDetails[0].billDate,
-			"transactionId": "EDR654GF35",//paymentDetails[0].id,
-			"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
-			"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-			"amount": '3000',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
-			"tax": '540',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
-			"grandTotal": "2340",
-			"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
-		};
-		BookingInfo.push(applicantDetail);
-		BookingInfo.push(booking);
-		BookingInfo.push(paymentInfo);
-		console.log('BookingInfo===>>>', BookingInfo)
-		// return BookingInfo;
-		downloadPaymentReceipt({ BookingInfo: BookingInfo })
-	}
+	// 	let BookingInfo = [];
+	// 	let applicantDetail = {
+	// 		"name": 'sonu kumar',//complaint&&complaint.applicantName?complaint.applicantName:'',
+	// 		"mobileNumber": '9809090909',//complaint&&complaint.bkMobileNumber?complaint.bkMobileNumber:'',
+	// 		"houseNo": '23',//complaint&&complaint.houseNo?complaint.houseNo:'',
+	// 		"permanentAddress": 'new delhi',//complaint&&complaint.address?complaint.address:'',
+	// 		"permanentCity": 'delhi',//complaint&&complaint.villageCity?complaint.villageCity:'',
+	// 		"sector": '4',//complaint&&complaint.sector?complaint.sector:''
+	// 	};
+	// 	let booking = {
+	// 		"bkApplicationNumber": 'CH-BK-000000879',//complaint&&complaint.applicationNo?complaint.applicationNo:''
+	// 	};
+	// 	let paymentInfo = {
+	// 		"paymentDate": "13th Augest 2020",//paymentDetails[0].billDate,
+	// 		"transactionId": "EDR654GF35",//paymentDetails[0].id,
+	// 		"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
+	// 		"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+	// 		"amount": '3000',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount,
+	// 		"tax": '540',//paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount,
+	// 		"grandTotal": "2340",
+	// 		"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
+	// 	};
+	// 	BookingInfo.push(applicantDetail);
+	// 	BookingInfo.push(booking);
+	// 	BookingInfo.push(paymentInfo);
+	// 	console.log('BookingInfo===>>>', BookingInfo)
+	// 	// return BookingInfo;
+	// 	downloadPaymentReceipt({ BookingInfo: BookingInfo })
+	// }
 
-	downloadApplicationButton = async (e) => {
+	// downloadApplicationButton = async (e) => {
 
-	}
+	// }
 
-	downloadPaymentReceiptButton = async (e) => {
-		//  await this.downloadPaymentReceiptFunction();
+	// downloadPaymentReceiptButton = async (e) => {
+	// 	//  await this.downloadPaymentReceiptFunction();
 
-		console.log('DownloadPaymentReceiptDetails this.props', this.props)
-		let documentsPreviewData;
-		const { DownloadPaymentReceiptDetails } = this.props;
+	// 	console.log('DownloadPaymentReceiptDetails this.props', this.props)
+	// 	let documentsPreviewData;
+	// 	const { DownloadPaymentReceiptDetails } = this.props;
 
-		var documentsPreview = [];
-		if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {
+	// 	var documentsPreview = [];
+	// 	if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {
 
-			console.log('DownloadPaymentReceiptDetails', DownloadPaymentReceiptDetails.filestoreIds[0])
-			documentsPreviewData = DownloadPaymentReceiptDetails.filestoreIds[0];
+	// 		console.log('DownloadPaymentReceiptDetails', DownloadPaymentReceiptDetails.filestoreIds[0])
+	// 		documentsPreviewData = DownloadPaymentReceiptDetails.filestoreIds[0];
 
-			// let keys = Object.keys(documentMap);
-			// let values = Object.values(documentMap);
-			// let id = keys[0], fileName = values[0];
+	// 		// let keys = Object.keys(documentMap);
+	// 		// let values = Object.values(documentMap);
+	// 		// let id = keys[0], fileName = values[0];
 
-			documentsPreview.push({
-				title: "DOC_DOC_PICTURE",
-				fileStoreId: documentsPreviewData,
-				linkText: "View",
-			});
-			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
-			let fileUrls =
-				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+	// 		documentsPreview.push({
+	// 			title: "DOC_DOC_PICTURE",
+	// 			fileStoreId: documentsPreviewData,
+	// 			linkText: "View",
+	// 		});
+	// 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+	// 		let fileUrls =
+	// 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+	// 		console.log("fileUrls", fileUrls);
 
-			documentsPreview = documentsPreview.map(function (doc, index) {
-				doc["link"] =
-					(fileUrls &&
-						fileUrls[doc.fileStoreId] &&
-						fileUrls[doc.fileStoreId].split(",")[0]) ||
-					"";
-				//doc["name"] = doc.fileStoreId;
-				doc["name"] =
-					(fileUrls[doc.fileStoreId] &&
-						decodeURIComponent(
-							fileUrls[doc.fileStoreId]
-								.split(",")[0]
-								.split("?")[0]
-								.split("/")
-								.pop()
-								.slice(13)
-						)) ||
-					`Document - ${index + 1}`;
-				return doc;
-			});
-			console.log('documentsPreview', documentsPreview)
-			setTimeout(() => {
-				window.open(documentsPreview[0].link);
-			}, 100);
-			prepareFinalObject('documentsPreview', documentsPreview)
-		}
+	// 		documentsPreview = documentsPreview.map(function (doc, index) {
+	// 			doc["link"] =
+	// 				(fileUrls &&
+	// 					fileUrls[doc.fileStoreId] &&
+	// 					fileUrls[doc.fileStoreId].split(",")[0]) ||
+	// 				"";
+	// 			//doc["name"] = doc.fileStoreId;
+	// 			doc["name"] =
+	// 				(fileUrls[doc.fileStoreId] &&
+	// 					decodeURIComponent(
+	// 						fileUrls[doc.fileStoreId]
+	// 							.split(",")[0]
+	// 							.split("?")[0]
+	// 							.split("/")
+	// 							.pop()
+	// 							.slice(13)
+	// 					)) ||
+	// 				`Document - ${index + 1}`;
+	// 			return doc;
+	// 		});
+	// 		console.log('documentsPreview', documentsPreview)
+	// 		setTimeout(() => {
+	// 			window.open(documentsPreview[0].link);
+	// 		}, 100);
+	// 		prepareFinalObject('documentsPreview', documentsPreview)
+	// 	}
 
 
 
-	}
+	// }
 
 	callApiForDocumentData = async (e) => {
 		const { documentMap } = this.props;
@@ -532,11 +532,11 @@ Application Details
 					
 								
 
-								<BookingDetails
+								<OSMCCBookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<AppDetails
+								<OSMCCAppDetails
 									{...complaint}
 								// role={role}
 								// history={history}
@@ -881,7 +881,7 @@ const mapDispatchToProps = dispatch => {
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
 		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 
-		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
+		// downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),

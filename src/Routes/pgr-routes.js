@@ -45,6 +45,10 @@ const CGApplicationDetails = Loadable({
   loader: () => import("../Screens/CGApplicationDetails"),
   loading: Loading
 });
+const OSWMCCApplicationDetails = Loadable({
+  loader: () => import("../Screens/OSWMCCApplicationDetails"),
+  loading: Loading
+});
 
 const ApplicationBWTSummary = Loadable({
   loader: () => import("../Screens/BwtApplicationDetails"),
@@ -79,10 +83,6 @@ const RejectBWTComplaint = Loadable({
   loading: Loading
 });
 
-const ApplyWaterTanker = Loadable({
-  loader: () => import("../Screens/ApplyWaterTanker"),
-  loading: Loading
-})
 const deliverBooking= Loadable({
   loader: () => import("../Screens/DeliveredBWTBooking"),
   loading: Loading
@@ -106,21 +106,6 @@ const ComplaintAssigned = Loadable({
 });
 const ResolveSuccess = Loadable({
   loader: () => import("../Screens/ResolveSuccess"),
-  loading: Loading
-});
-
-const AssignToDriverSuccess = Loadable({
-  loader: () => import("../Screens/AssignToDriverSuccess"),
-  loading: Loading
-});
-
-const RejectBWTApplicationSuccess= Loadable({
-  loader: () => import("../Screens/RejectBWTApplicationSuccess"),
-  loading: Loading
-});
-
-const DeliveredApplicationSuccess= Loadable({
-  loader: () => import("../Screens/DeliveredBWTApplicationSuccess"),
   loading: Loading
 });
 const ReassignSuccess = Loadable({
@@ -179,23 +164,6 @@ const routes = [
       customTitle: "MYBK_ALL_APPLICAION_HEADER"
     }
   },
-
-
-
-  {
-    path: "egov-services/applywatertanker",
-    component: ApplyWaterTanker,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_OPEN_APPLICAION_HEADER",
-      hideTitle: false,
-      redirectionUrl,
-      hideFor: "ao",
-      customFor: "employee",
-      customTitle: "MYBK_ALL_APPLICAION_HEADER"
-    }
-  },
   {
     path: "search-complaint",
     component: SearchScreen,
@@ -234,6 +202,16 @@ const routes = [
     }
   },
   {
+    path: "osmcc-application-details/:applicationId",
+    component: OSWMCCApplicationDetails,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+  {
     path: "egov-services/bwt-application-details/:applicationId",
     component: ApplicationBWTSummary,
     needsAuthentication: true,
@@ -243,8 +221,6 @@ const routes = [
       redirectionUrl
     }
   },
-
-
   {
     path: "egov-services/home123",
     component: ApplicationSummary,
@@ -277,46 +253,8 @@ const routes = [
     }
   },
   {
-    path: "egov-services/resolve-success",
+    path: "resolve-success",
     component: ResolveSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/assign-to-success",
-    component: AssignToDriverSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/reject-bwt-application-success",
-    component: RejectBWTApplicationSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/delivered-bwt-application-success",
-    component: DeliveredApplicationSuccess,
     needsAuthentication: true,
     options: {
       hideBackButton: true,
@@ -351,7 +289,7 @@ const routes = [
     }
   },
   {
-    path: "egov-services/application-rejected",
+    path: "complaint-rejected",
     component: ComplaintRejected,
     needsAuthentication: true,
     options: {
