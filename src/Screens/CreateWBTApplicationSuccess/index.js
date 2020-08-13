@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-import { SuccessMessage } from "modules/common";
+import  SuccessMessage from "../../modules/SuccessMessage";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 import "./index.css";
 
@@ -13,8 +13,8 @@ class CreateWBTApplicationSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_RESOLVED"
+          successmessage="ES_APPLICATION_CREATED_SUCCESS_MESSAGE"
+          secondaryLabel="CS_COMMON_CREATED"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}

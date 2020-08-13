@@ -39,6 +39,14 @@ export class StepForm extends Component {
             step: step - 1
         });
     }
+  
+    firstStep = () => {
+        const { step } = this.state;
+        this.setState({
+            step: step - 2
+        });
+    }
+    
 
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
@@ -84,11 +92,12 @@ export class StepForm extends Component {
                 locality={locality}
                 residenials={residenials}
                 {...propsData}
+                firstStep={this.firstStep}
             />);
     }
 
     render() {
-console.log('this.props',this.props)
+console.log('this.props in water tanker apply',this.props)
         const { step } = this.state;
 
         return (
