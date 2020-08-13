@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { Tabs, Card, TextField, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
+import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
+import { connect } from "react-redux";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class ApplicatInfo extends Component {
   continue = e => {
     e.preventDefault();
-    this.props.nextStep();
+    console.log('vlue of e',this.props,'e.target.value',e.target.value)
+    if(this.props.firstName==""||this.props.email==""||this.props.mobileNo==""){
+
+      this.props.toggleSnackbarAndSetText(
+        true,
+        {
+          labelName: "Error_Message_For_Water_tanker_Application",
+          labelKey: `Error_Message_For_Water_tanker_Application`
+        },
+        "warning"
+      );
+    }
+    else{this.props.nextStep();}
+    
   }
 
 
@@ -117,17 +133,31 @@ class ApplicatInfo extends Component {
             label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
             fullWidth={true}
             onClick={this.continue}
+            startIcon={<ArrowForwardIosIcon />}
           />
         </div>
-
-
-
-        {/* <button className="Next" onClick={this.continue}>
-                    Next »
-                </button> */}
       </div>
     );
   }
 }
 
-export default ApplicatInfo;
+
+
+const mapStateToProps = state => {
+  const { complaints, common, auth, form } = state;
+  return {
+    
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+      toggleSnackbarAndSetText: (open, message, error) =>
+      dispatch(toggleSnackbarAndSetText(open, message, error)),
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ApplicatInfo);
