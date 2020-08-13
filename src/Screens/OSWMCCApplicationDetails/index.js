@@ -348,6 +348,7 @@ class ApplicationDetails extends Component {
 
 	// }
 
+
 	callApiForDocumentData = async (e) => {
 		const { documentMap } = this.props;
 		var documentsPreview = [];
