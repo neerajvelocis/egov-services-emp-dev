@@ -322,6 +322,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
+      
     }
 
     if (applicationStatus) {
@@ -329,6 +330,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = '';
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
+     
     }
 
     if (mobileNo) {
@@ -336,12 +338,14 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
+     
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
+     
 
       console.log('bookingType', bookingType)
     }
@@ -352,6 +356,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
+     
       console.log('fromDate', fromDate)
     }
     if (toDate) {
@@ -360,6 +365,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
+    
       console.log('toDate', toDate)
     }
 
@@ -372,6 +378,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
+     
     }
 
     if (searchForm && searchForm.toDate) {
@@ -380,6 +387,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
+  
     }
 
     // if (complaintNo || mobileNo) {
@@ -875,6 +883,7 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
+        
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />
           </div> */}

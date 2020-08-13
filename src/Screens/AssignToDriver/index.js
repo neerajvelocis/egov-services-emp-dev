@@ -33,6 +33,7 @@ class RejectComplaint extends Component {
         'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
         "applicationStatus": "",
         "mobileNumber": "", "bookingType": ""
+        
       }
     );
   }

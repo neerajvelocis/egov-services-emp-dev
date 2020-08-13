@@ -108,6 +108,24 @@ const ResolveSuccess = Loadable({
   loader: () => import("../Screens/ResolveSuccess"),
   loading: Loading
 });
+const CreateSuccess= Loadable({
+  loader: () => import("../Screens/CreateWBTApplicationSuccess"),
+  loading: Loading
+});
+const AssignToDriverSuccess = Loadable({
+  loader: () => import("../Screens/AssignToDriverSuccess"),
+  loading: Loading
+});
+
+const RejectBWTApplicationSuccess= Loadable({
+  loader: () => import("../Screens/RejectBWTApplicationSuccess"),
+  loading: Loading
+});
+
+const DeliveredApplicationSuccess= Loadable({
+  loader: () => import("../Screens/DeliveredBWTApplicationSuccess"),
+  loading: Loading
+});
 const ReassignSuccess = Loadable({
   loader: () => import("../Screens/ReassignSuccess"),
   loading: Loading
@@ -120,6 +138,11 @@ const SearchScreen = Loadable({
   loader: () => import("../Screens/SearchScreen"),
   loading: Loading
 });
+
+const ApplyWaterTanker = Loadable({
+  loader: () => import("../Screens/ApplyWaterTanker"),
+  loading: Loading
+})
 
 // import CreateEmployee from "modules/employee/pgr/CreateEmployee";
 const redirectionUrl = "/user/login";
@@ -162,6 +185,23 @@ const routes = [
       hideFor: "ao",
       customFor: "employee",
       customTitle: "MYBK_ALL_APPLICAION_HEADER"
+    }
+  },
+
+
+
+  {
+    path: "egov-services/applywatertanker",
+    component: ApplyWaterTanker,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      title: "Apply for Water Tanker",
+      hideTitle: false,
+      redirectionUrl,
+      hideFor: "ao",
+      customFor: "employee",
+      customTitle: "Apply for Water Tanker"
     }
   },
   {
@@ -255,6 +295,58 @@ const routes = [
   {
     path: "resolve-success",
     component: ResolveSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+  {
+    path: "egov-services/create-success",
+    component: CreateSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  
+  {
+    path: "egov-services/assign-to-success",
+    component: AssignToDriverSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  {
+    path: "egov-services/reject-bwt-application-success",
+    component: RejectBWTApplicationSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+  {
+    path: "egov-services/delivered-bwt-application-success",
+    component: DeliveredApplicationSuccess,
     needsAuthentication: true,
     options: {
       hideBackButton: true,
