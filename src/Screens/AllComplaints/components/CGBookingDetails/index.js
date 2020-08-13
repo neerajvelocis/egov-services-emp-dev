@@ -49,6 +49,16 @@ class CGBookingDetails extends Component {
     // this.props.history.push(`/image?source=${source}`);
   };
 
+  convertEpochToDate = (dateEpoch) => {
+    const dateFromApi = new Date(dateEpoch);
+    let month = dateFromApi.getMonth() + 1;
+    let day = dateFromApi.getDate();
+    let year = dateFromApi.getFullYear();
+    month = (month > 9 ? "" : "0") + month;
+    day = (day > 9 ? "" : "0") + day;
+    return `${day}-${month}-${year}`;
+  };
+
   render() {
     console.log('this.state', this.state)
 
@@ -94,7 +104,10 @@ class CGBookingDetails extends Component {
                     //label={submittedDate}
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    label={dateCreated}
+                    // label={dateCreated}
+                    label= {this.convertEpochToDate(
+                      dateCreated,"dayend"
+                    )}
                   /></b>
                 </div>
                 <div className="col-md-4">
@@ -135,7 +148,10 @@ class CGBookingDetails extends Component {
                     //label={submittedDate}
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    label={bkFromDate}
+                    label= {this.convertEpochToDate(
+                      bkFromDate,"dayend"
+                    )}
+                    // label={bkFromDate}
                   />
                 </div>
 
@@ -146,7 +162,10 @@ class CGBookingDetails extends Component {
                     // label={submittedDate}
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    label={bkToDate}
+                    // label={bkToDate}
+                    label= {this.convertEpochToDate(
+                      bkToDate,"dayend"
+                    )}
                   />
                 </div> 
 

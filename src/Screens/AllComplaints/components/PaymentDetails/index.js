@@ -168,7 +168,9 @@ class PayDetails extends Component {
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
-                      <h5>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
+                        <div >
+                      <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
+                      </div>
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
@@ -184,9 +186,9 @@ class PayDetails extends Component {
                           label={bkPaymentStatus}
                         />
                       </div>
-                      <div className="col-sm-4 col-xs-12">
-                      <h5>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
-                      </div>
+                      <div className="col-sm-4 col-xs-12">                      
+                      <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
+                      </div>                  
                       <div className="col-sm-4 col-xs-12">
                       </div>
                     </div>

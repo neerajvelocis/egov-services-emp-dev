@@ -191,6 +191,17 @@ export default class CustomComplaints extends React.Component{
         }
         // alert("hello world")
     }
+
+convertEpochToDate = (dateEpoch) => {
+  const dateFromApi = new Date(dateEpoch);
+  let month = dateFromApi.getMonth() + 1;
+  let day = dateFromApi.getDate();
+  let year = dateFromApi.getFullYear();
+  month = (month > 9 ? "" : "0") + month;
+  day = (day > 9 ? "" : "0") + day;
+  return `${day}-${month}-${year}`;
+};
+
     render(){
         const {complaints, complaintLocation, role, onComplaintClick, noComplaintMessage, heightOffset} = this.props
         console.log('complaintLocation in get status',onComplaintClick)
@@ -236,7 +247,13 @@ export default class CustomComplaints extends React.Component{
                       <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
                           <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICATION_DETAILS_SUBMISSION_DATE"} />
-                          <Label fontSize="12px" className="col-md-6"   label={complaint.bkDateCreated} className="complaint-complaint-number" />
+                          <Label fontSize="12px" className="col-md-6"   label= {this.convertEpochToDate(
+                      complaint.bkDateCreated,"dayend"
+                    )} className="complaint-complaint-number" />
+                        {/*label={complaint.bkDateCreated}*/}
+                          {/* label= {this.convertEpochToDate(
+                      dateCreated,"dayend"
+                    )} */}
                         </div>
                       </div>
                      
