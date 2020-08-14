@@ -5,6 +5,7 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
+
 class ApplicatInfo extends Component {
   continue = e => {
     e.preventDefault();
@@ -23,13 +24,9 @@ class ApplicatInfo extends Component {
     else{this.props.nextStep();}
     
   }
-
-
   onCitizenNameChange = e => {
 
   }
-
-
 
   render() {
     const { firstName, email, mobileNo, lastName, handleChange } = this.props;
@@ -41,11 +38,10 @@ class ApplicatInfo extends Component {
       overflow: "hidden"
     };
     return (
-      <div className="col-xs-12" style={{ padding: 0 }}>
-      <div className="col-sm-12 col-xs-12">
+      <div className="col-xs-12">
+        <div ClassName="row" style={{paddingTop:35}}>
+      <div className="col-sm-6 col-xs-12">
         
-      
-
           <TextField
             id="name"
             name="name"
@@ -72,6 +68,8 @@ class ApplicatInfo extends Component {
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
           />
+          </div>
+          <div className="col-sm-6 col-xs-12">
           <TextField
             id="email"
             name="email"
@@ -98,6 +96,8 @@ class ApplicatInfo extends Component {
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
           />
+          </div>
+          <div className="col-sm-6 col-xs-12" style={{marginTop: 20}}>
           <TextField
             id="mobile-no"
             name="mobile-no"
@@ -125,7 +125,7 @@ class ApplicatInfo extends Component {
             hintStyle={{ width: "100%" }}
           />
         </div>
-
+        </div>
         <div className="responsive-action-button-cont">
           <Button
             className="responsive-action-button"

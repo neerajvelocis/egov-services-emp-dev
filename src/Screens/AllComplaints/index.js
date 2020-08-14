@@ -291,7 +291,7 @@ class AllRequests extends Component {
   onToDateChange = e => {
     const toDate = e.target.value;
     this.setState({
-      toDate:toDate
+      toDate: toDate
     })
   }
 
@@ -312,7 +312,7 @@ class AllRequests extends Component {
 
   onSearch = () => {
     console.log('on this.props', this.props, this.state)
-    const { complaintNo, mobileNo, bookingType, applicationStatus ,fromDate, toDate} = this.state;
+    const { complaintNo, mobileNo, bookingType, applicationStatus, fromDate, toDate } = this.state;
     const { fetchApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
     queryObj.uuid = userInfo.uuid;
@@ -322,7 +322,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-      
+
     }
 
     if (applicationStatus) {
@@ -330,7 +330,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = '';
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-     
+
     }
 
     if (mobileNo) {
@@ -338,14 +338,14 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-     
+
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
-     
+
 
       console.log('bookingType', bookingType)
     }
@@ -356,7 +356,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
-     
+
       console.log('fromDate', fromDate)
     }
     if (toDate) {
@@ -365,7 +365,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
-    
+
       console.log('toDate', toDate)
     }
 
@@ -378,7 +378,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-     
+
     }
 
     if (searchForm && searchForm.toDate) {
@@ -387,7 +387,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-  
+
     }
 
     // if (complaintNo || mobileNo) {
@@ -420,9 +420,10 @@ class AllRequests extends Component {
     } else if (searchForm && searchForm.toDate) {
       fetchApplications(queryObj, true, true);
     }
-    else if (fromDate) {
 
-      if (fromDate > this.state.toDate){ 
+    else if (fromDate, toDate) {
+      if (fromDate > this.state.toDate) {
+
         toggleSnackbarAndSetText(
           true,
           {
@@ -432,8 +433,8 @@ class AllRequests extends Component {
           "warning"
         );
       }
-      else{
-      fetchApplications(queryObj, true, true);
+      else {
+        fetchApplications(queryObj, true, true);
       }
     } else if (toDate) {
       fetchApplications(queryObj, true, true);
@@ -656,7 +657,7 @@ class AllRequests extends Component {
         "mobileNumber": "", "bookingType": ""
       },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate:"", toDate:"", search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate: "", toDate: "", search: false });
   };
 
   //  getDropDownItem=()=>{
@@ -674,6 +675,14 @@ class AllRequests extends Component {
       currency: event.target.value
     })
   };
+
+
+  gotoWaterTanker = (e) => {
+
+    this.props.history.push(`/egov-services/applywatertanker`);
+  }
+
+
   render() {
     const dropbordernone = {
       border: "none",
@@ -684,7 +693,7 @@ class AllRequests extends Component {
 
     };
     console.log('this.props in render', this.props)
-    const { loading, history } = this.props;
+    const { loading, histor, userInfo } = this.props;
     const {
       mobileNo,
       bookingType,
@@ -883,7 +892,26 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
+
+
+       
+
+
+{/* <div className="col-xs-12"> */}
+        {userInfo && userInfo.roles && userInfo.roles[1].code == "MCC_HELPDESK_USER" ?
+          <button
+          primary={true} 
+          style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
+           onClick={() => this.gotoWaterTanker()
+           }>
+            <Label
+             label="MYBK_WATER_TANKER_REQUEST"
+            /></button> : ''
+        }
+        {/* </div> */}
+
         
+
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />
           </div> */}
@@ -970,13 +998,13 @@ class AllRequests extends Component {
                 </div>
 
 
-                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px',marginTop: '10px' }}>
-                 
-                 
-                 
-                <FormControl style={{width: '100%'}}>
-                    <InputLabel  shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Application Status</InputLabel>
-                    <Select 
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', marginTop: '10px' }}>
+
+
+
+                  <FormControl style={{ width: '100%' }}>
+                    <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
+                    <Select
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
@@ -987,14 +1015,14 @@ class AllRequests extends Component {
                       displayEmpty
                       onChange={(e, value) => this.onApplicationStatusChange(e)}
                     >
-                      <MenuItem value= "" disabled>Application Status</MenuItem>
+                      <MenuItem value="" disabled>Application Status</MenuItem>
                       <MenuItem value='PENDINGAPPROVAL'>Pending Approval</MenuItem>
                       <MenuItem value='PENDINGPAYMENT'>Pending Payment</MenuItem>
                       <MenuItem value='PENDINGUPDATE'>Pending Update</MenuItem>
                       <MenuItem value='PENDINGASSIGNMENTDRIVER'>Pending Assignment Driver</MenuItem>
                     </Select>
                   </FormControl>
-{/*                  
+                  {/*                  
                   <select
                     value={this.state.applicationStatus}
                     onChange={(e, value) => this.onApplicationStatusChange(e)}
@@ -1029,14 +1057,14 @@ class AllRequests extends Component {
                   </select> */}
 
 
-{/* <SelectBox
+                  {/* <SelectBox
 selectBoxOptions={['a','b','c']}
 /> */}
 
 
-                  <FormControl style={{width: '100%'}}>
-                    <InputLabel shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Booking Type</InputLabel>
-                    <Select 
+                  <FormControl style={{ width: '100%' }}>
+                    <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Booking Type</InputLabel>
+                    <Select
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
@@ -1047,94 +1075,94 @@ selectBoxOptions={['a','b','c']}
                       value={bookingType}
                       onChange={(e, value) => this.onbookingChange(e)}
                     >
-                      <MenuItem value= "" disabled>Booking Type</MenuItem>
+                      <MenuItem value="" disabled>Booking Type</MenuItem>
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                     </Select>
                   </FormControl>
 
 
-                  </div>
-                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
-                    <TextField
-                      id="from-Date"
-                      name="from-Date"
-                      value={fromDate}
-                      hintText={
-                        <Label
-                          color="rgba(0, 0, 0, 0.3799999952316284)"
-                          fontSize={16}
-                          labelStyle={hintTextStyle}
-                        />
-                      }
-                      // errorText={<Label label={errorText} color="red" />}
-                      floatingLabelText={
-                        <Label
-                          key={1}
-                          label="From Date"
-                          color="rgba(0,0,0,0.60)"
-                          fontSize="12px"
-                        />
-                      }
-                      onChange={(e, value) => this.onFromDateChange(e)}
-                      underlineStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      underlineFocusStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      hintStyle={{ width: "100%" }}
+                </div>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                  <TextField
+                    id="from-Date"
+                    name="from-Date"
+                    value={fromDate}
+                    hintText={
+                      <Label
+                        color="rgba(0, 0, 0, 0.3799999952316284)"
+                        fontSize={16}
+                        labelStyle={hintTextStyle}
+                      />
+                    }
+                    // errorText={<Label label={errorText} color="red" />}
+                    floatingLabelText={
+                      <Label
+                        key={1}
+                        label="From Date"
+                        color="rgba(0,0,0,0.60)"
+                        fontSize="12px"
+                      />
+                    }
+                    onChange={(e, value) => this.onFromDateChange(e)}
+                    underlineStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    underlineFocusStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    hintStyle={{ width: "100%" }}
 
-                      type="date"
-                      defaultValue="2017-05-24"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-                  </div>
-                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
-                    <TextField
-                      id="to-date"
-                      name="to-date"
-                      value={toDate}
-                      hintText={
-                        <Label
-                          color="rgba(0, 0, 0, 0.3799999952316284)"
-                          fontSize={16}
-                          labelStyle={hintTextStyle}
-                        />
-                      }
-                      // errorText={<Label label={errorText} color="red" />}
-                      floatingLabelText={
-                        <Label
-                          key={1}
-                          label="To Date"
-                          color="rgba(0,0,0,0.60)"
-                          fontSize="12px"
-                        />
-                      }
-                      onChange={(e, value) => this.onToDateChange(e)}
-                      underlineStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      underlineFocusStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      hintStyle={{ width: "100%" }}
+                    type="date"
+                    defaultValue="2017-05-24"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </div>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                  <TextField
+                    id="to-date"
+                    name="to-date"
+                    value={toDate}
+                    hintText={
+                      <Label
+                        color="rgba(0, 0, 0, 0.3799999952316284)"
+                        fontSize={16}
+                        labelStyle={hintTextStyle}
+                      />
+                    }
+                    // errorText={<Label label={errorText} color="red" />}
+                    floatingLabelText={
+                      <Label
+                        key={1}
+                        label="To Date"
+                        color="rgba(0,0,0,0.60)"
+                        fontSize="12px"
+                      />
+                    }
+                    onChange={(e, value) => this.onToDateChange(e)}
+                    underlineStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    underlineFocusStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    hintStyle={{ width: "100%" }}
 
-                      type="date"
-                      defaultValue="2017-05-24"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-                  </div>
-             
-           
+                    type="date"
+                    defaultValue="2017-05-24"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </div>
+
+
                 {/* <div
                   className="col-sm-6 col-xs-12 csr-action-buttons"
                   style={{ marginTop: 10, paddingRight: 8 }}
@@ -1152,9 +1180,9 @@ selectBoxOptions={['a','b','c']}
 
                 <div
                   className="col-sm-12 col-xs-12"
-                  style={{ marginTop: 10, paddingRight: 8 ,marginLeft:"16%"}}
+                  style={{ marginTop: 10, paddingRight: 8, marginLeft: "16%" }}
                 >
-                <Button
+                  <Button
                     label={
                       <Label
                         buttonLabel={true}
@@ -1188,7 +1216,7 @@ selectBoxOptions={['a','b','c']}
                     style={{ width: "30%" }}
                     onClick={() => this.clearSearch()}
                   />
-                    
+
                 </div>
               </div>
             }
@@ -1305,7 +1333,7 @@ selectBoxOptions={['a','b','c']}
                       className="col-sm-6 col-xs-12 csr-action-buttons"
                       style={{ marginTop: 10, paddingRight: 8 }}
                     >
-                    
+
                       <Button
                         label={
                           <Label
@@ -1323,7 +1351,7 @@ selectBoxOptions={['a','b','c']}
                         style={{ width: "36%" }}
                         onClick={() => this.clearSearch()}
                       />
-                        <Button
+                      <Button
                         label={
                           <Label
                             buttonLabel={true}
