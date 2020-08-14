@@ -10,19 +10,17 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { fetchComplaintSector } from "egov-ui-kit/redux/complaints/actions";
-
+import { fetchApplicaionSector } from "egov-ui-kit/redux/complaints/actions";
+import "./index.css";
 class BookingsDetails extends Component {
 
   state = {
     open: false, setOpen: false
   }
 
-
-
   componentDidMount = async () => {
-    let {fetchComplaintSector}=this.props;
-    fetchComplaintSector();
+    let {fetchApplicaionSector}=this.props;
+    fetchApplicaionSector();
   }
   continue = e => {
     e.preventDefault();
@@ -84,10 +82,10 @@ class BookingsDetails extends Component {
       overflow: "hidden"
     };
     return (
-      <div>
-           <div className="col-xs-12" style={{ padding: 0 }}>
-              <div className="col-sm-12 col-xs-12">
-
+      <div className="col-xs-12">
+      <div ClassName="row" style={{paddingTop:35}}>
+    <div className="col-sm-6 col-xs-12">
+      
         <TextField
           id="houseNo"
           name="houseNo"
@@ -115,6 +113,8 @@ class BookingsDetails extends Component {
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
         />
+            </div>
+          <div className="col-sm-6 col-xs-12">
         <TextField
           id="address"
           name="address"
@@ -141,32 +141,8 @@ class BookingsDetails extends Component {
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
         />
-        {/* <TextField
-          id="locality"
-          name="locality"
-          type="text"
-          value={locality}
-          hintText={
-            <Label
-              label="MYBK_NAME_CITIZEN_LOCALITY_PLACEHOLDER"
-              color="rgba(0, 0, 0, 0.3799999952316284)"
-              fontSize={16}
-              labelStyle={hintTextStyle}
-            />
-          }
-          floatingLabelText={
-            <Label
-              key={0}
-              label="MYBK_CREATE_CITIZEN_LAOCACITY"
-              color="rgba(0,0,0,0.60)"
-              fontSize="12px"
-            />
-          }
-          onChange={handleChange('locality')}
-          underlineStyle={{ bottom: 7 }}
-          underlineFocusStyle={{ bottom: 7 }}
-          hintStyle={{ width: "100%" }}
-        /> */}
+        </div>
+          <div className="col-sm-6 col-xs-12" style={{marginTop: 36,width: '48%',paddingTop: 22,background: 'white',marginLeft: 13}}>
 
         <FormControl style={{ width: '100%' }}>
           <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Locality</InputLabel>
@@ -192,6 +168,8 @@ class BookingsDetails extends Component {
             <MenuItem value='SECTOR-4'>Sector-4</MenuItem> */}
           </Select>
         </FormControl>
+           </div>
+          <div className="col-sm-6 col-xs-12" style={{marginTop: 36,width: '48%',paddingTop: 22,background: 'white',marginLeft: 28}}>
         <FormControl style={{ width: '100%' }}>
           <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Residentials/Commercials</InputLabel>
           <Select
@@ -205,86 +183,12 @@ class BookingsDetails extends Component {
             value={residenials}
             onChange={handleChange('residenials')}
           >
-            <MenuItem value="" disabled>Residentials/Commercial</MenuItem>
-            <MenuItem value='Residentials'>Residentials</MenuItem>
+            <MenuItem value="" disabled>Residential/Commercial</MenuItem>
+            <MenuItem value='Residential'>Residential</MenuItem>
             <MenuItem value='Commercial'>Commercial</MenuItem>
           </Select>
         </FormControl>
 
-
-
-
-
-
-        {/* <TextField
-          id="residenials"
-          name="residenials"
-          type="text"
-          value={residenials}
-          hintText={
-            <Label
-              label="MYBK_CITIZEN_RESIDENTIALS_PLACEHOLDER"
-              color="rgba(0, 0, 0, 0.3799999952316284)"
-              fontSize={16}
-              labelStyle={hintTextStyle}
-            />
-          }
-          floatingLabelText={
-            <Label
-              key={0}
-              label="MYBK_CREATE_CITIZEN_RESIDENTIALS"
-              color="rgba(0,0,0,0.60)"
-              fontSize="12px"
-            />
-          }
-          onChange={handleChange('residenials')}
-          underlineStyle={{ bottom: 7 }}
-          underlineFocusStyle={{ bottom: 7 }}
-          hintStyle={{ width: "100%" }}
-        /> */}
-
-
-        {/*                
-               
-                <label>
-                    <input 
-                        type="text"
-                        name="jobTitle"
-                        value={jobTitle}
-                        onChange={handleChange('jobTitle')}
-                        placeholder="Job Title"
-                    />
-                </label>
-                <label>
-                    <input 
-                        type="text"
-                        name="jobCompany"
-                        value={jobCompany}
-                        onChange={handleChange('jobCompany')}
-                        placeholder="Company"
-                    />
-                </label>
-                <label>
-                    <input 
-                        type="text"
-                        name="jobCompany"
-                        value={jobLocation}
-                        onChange={handleChange('jobLocation')}
-                        placeholder="Location"
-                    />
-                </label>
-              
-              
-               */}
-        {/* <div className="responsive-action-button-cont">
-          <Button
-            className="responsive-action-button"
-            primary={true}
-            label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
-            fullWidth={true}
-            onClick={this.back}
-          />
-        </div> */}
         </div></div>
         
 
@@ -322,10 +226,12 @@ class BookingsDetails extends Component {
 }
 const mapStateToProps = state => {
 
-
+  console.log('state======>>>>>', state)
   const { complaints, common, auth, form } = state;
   const { complaintSector } = complaints;
   console.log('complaintSector', complaintSector)
+  
+
   return {
     complaintSector
   }
@@ -334,7 +240,7 @@ const mapDispatchToProps = dispatch => {
   return {
       toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
-      fetchComplaintSector: criteria => dispatch(fetchComplaintSector(criteria)),
+      fetchApplicaionSector: criteria => dispatch(fetchApplicaionSector(criteria)),
   }
 }
 

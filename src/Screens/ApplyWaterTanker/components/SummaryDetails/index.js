@@ -5,6 +5,7 @@ import { createWaterTankerApplication } from "egov-ui-kit/redux/complaints/actio
 import { connect } from "react-redux";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import "./index.css";
 class SummaryDetails extends Component {
 
 
@@ -57,26 +58,26 @@ class SummaryDetails extends Component {
     }
     render() {
         const { firstName, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
-      console.log('propsData',propsData)
+        console.log('propsData', propsData)
+        // let typeOfRequest=
         return (
             <div>
-                <div>
+                <div className="col-xs-12">
                     <button
-                        // className="responsive-action-button"
+                        style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
                         primary={true}
-                        // label={<Label buttonLabel={true} label="CORE_COMMON_EDIt" />}
-                        // fullWidth={true}
                         onClick={this.firstStep}
-                        // style={{ marginRight: 18 }}
-                        // className="ViewDetailButton"
-                        >EDIT</button>
+                        className="ViewDetailButton"
+                    >EDIT</button>
                 </div>
 
-                <div>
-                    <Label label="MYBK_APPLICANTION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <div style={{
+                    marginLeft: "45px", paddingBottom: '5px'
+                }}>
+                    <Label label="MYBK_APPLICANT_DETAILS" labelClassName="dark-heading" />
                 </div>
 
-                <div className="col-xs-12" style={{ padding: 0 }}>
+                <div className="col-xs-12" style={{ paddingBottom: '50px' }}>
                     <div className="col-sm-12 col-xs-12">
 
                         <div className="complaint-detail-detail-section-status row">
@@ -114,11 +115,11 @@ class SummaryDetails extends Component {
 
 
 
-                <div>
-                    <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
+                    <Label label="MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
                 </div>
-                <div className="col-xs-12" style={{ padding: 0 }}>
-                    <div className="col-sm-12 col-xs-12">
+                <div className="col-xs-12" style={{marginLeft: '15px'}}>
+                    <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
 
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
@@ -186,8 +187,19 @@ class SummaryDetails extends Component {
                                     label={residenials}
                                 />
                             </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TYPE_OF_REQUEST" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label="MYBK_WATER_TANKER_REQUEST"
+                                />
+                            </div>
                         </div>
-                        {/* Name: <b>{firstName}</b><br />
+                    </div>
+                </div>
+                {/* Name: <b>{firstName}</b><br />
                 Email: <b>{email}</b><br />
                 Mobile number: <b>{mobileNo}</b><br />
                 houseNo: <b>{houseNo}</b><br />
@@ -195,32 +207,32 @@ class SummaryDetails extends Component {
                 locality: <b>{locality}</b><br />
                 residenials: <b>{residenials}</b><br /> */}
 
-                        <div className="responsive-action-button-cont">
-                            <Button
-                                className="responsive-action-button"
-                                primary={true}
-                                label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
-                                fullWidth={true}
-                                onClick={this.back}
-                                style={{ marginRight: 18 }}
-                                startIcon={<ArrowBackIosIcon />}
-                            />
+                <div className="responsive-action-button-cont">
+                    <Button
+                        className="responsive-action-button"
+                        primary={true}
+                        label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
+                        fullWidth={true}
+                        onClick={this.back}
+                        style={{ marginRight: 18 }}
+                        startIcon={<ArrowBackIosIcon />}
+                    />
 
 
-                            <Button
-                                className="responsive-action-button"
-                                primary={true}
-                                label={<Label buttonLabel={true} label="CORE_COMMON_SUBMIT" />}
-                                fullWidth={true}
-                                onClick={this.submit}
-                            />
-                        </div>
-                        {/* <button className="Back" onClick={this.submit}>
+                    <Button
+                        className="responsive-action-button"
+                        primary={true}
+                        label={<Label buttonLabel={true} label="CORE_COMMON_SUBMIT" />}
+                        fullWidth={true}
+                        onClick={this.submit}
+                    />
+                </div>
+                {/* <button className="Back" onClick={this.submit}>
                      Submit
                 </button> */}
 
-                    </div>
-                </div></div>
+
+            </div>
         );
     }
 }
@@ -228,6 +240,7 @@ class SummaryDetails extends Component {
 const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
+    console.log('state in summary',state)
     const { createWaterTankerApplication } = complaints;
     console.log('createWaterTankerApplication', createWaterTankerApplication)
     return {
@@ -240,7 +253,7 @@ const mapDispatchToProps = dispatch => {
 
         createWaterTankerApplication: criteria => dispatch(createWaterTankerApplication(criteria)),
         toggleSnackbarAndSetText: (open, message, error) =>
-        dispatch(toggleSnackbarAndSetText(open, message, error)),
+            dispatch(toggleSnackbarAndSetText(open, message, error)),
     }
 }
 
