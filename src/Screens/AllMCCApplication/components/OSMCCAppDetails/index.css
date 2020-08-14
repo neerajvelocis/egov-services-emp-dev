@@ -74,12 +74,3 @@ body[class^="complaint-details"] .map-container {
 .no-padding {
   padding-right: 0px !important;
   padding-left: 0px !important; }
-
-.MuiDivider {
-  height: 1px;
-  margin: 0;
-  border: none;
-  margin-top: 8px;
-  flex-shrink: 0;
-  margin-bottom: 24px;
-  background-color: rgba(0, 0, 0, 0.12); }
