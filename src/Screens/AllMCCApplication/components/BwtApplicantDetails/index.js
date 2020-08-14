@@ -22,7 +22,7 @@ const mapIconStyle = {
   borderRadius: "50%",
 };
 
-class PayDetails extends Component {
+class BwtApplicantDetails extends Component {
   navigateToComplaintType = () => {
     this.props.history.push("/complaint-type");
   };
@@ -50,11 +50,9 @@ class PayDetails extends Component {
   };
 
   render() {
-    const { bkPaymentDate,paymentDetails, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
+    const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
-    console.log('hello paymentDetails', paymentDetails)
-    console.log('bkPaymentReceiptNumber', bkPaymentReceiptNumber)
-    console.log('bkPaymentStatus', bkPaymentStatus)
+   
     // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
     // const icon = {};
     // icon.name = "location";
@@ -80,7 +78,7 @@ class PayDetails extends Component {
     //     statusKey = `CS_COMMON_${status.toUpperCase()}`;
     //   }
     // }
-    // const titleKey = applicationNo.toUpperCase();
+    const titleKey = applicationNo.toUpperCase();
 
     return (
       <div>
@@ -89,17 +87,9 @@ class PayDetails extends Component {
             <div>
               <div className="rainmaker-displayInline">
                 {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
-                <div className="col-md-4">
-                  <Label label="MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
-                </div>
-                <div className="col-md-4">
-                </div>
-                <div className="col-md-4">
-                  <h5>Total Amount</h5>                
-          <h3><b>Rs {paymentDetails?paymentDetails.totalAmount:'NA'}</b></h3>
-                </div>
+                <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
-              {/* <div key={10} className="complaint-detail-full-width"> */}
+              <div key={10} className="complaint-detail-full-width">
                 {/* <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} /> */}
                 {/* Dont delete !! */}
                 {/* {role && role == "ao" ? (
@@ -123,11 +113,11 @@ class PayDetails extends Component {
                     />
                   </div> */}
 
-                  {/* <div className="col-md-4">
+                  <div className="col-md-4">
                     <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                      label={bkPaymentDate}
+                      label={applicantName}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                     />
@@ -138,7 +128,7 @@ class PayDetails extends Component {
                       className="col-xs-6  col-sm-8 col-md-10  status-result-color"
                       id="complaint-details-current-status"
                       labelStyle={{ color: "inherit" }}
-                      label={bkPaymentReceiptNumber}
+                      label={bkEmail}
                     />
                   </div>
                   <div className="col-md-4">
@@ -148,90 +138,79 @@ class PayDetails extends Component {
                      
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bkPaymentStatus}
+                      label={bkMobileNumber}
                     />
-                  </div>              
-                </div> */}
-
-                  <div>
-                    {/* <div className="col-xs-12"> */}
-                    {/*first row */}
-                    <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
-                        <Label
-                          className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
-                          id="complaint-details-submission-date"
-                          labelStyle={{ color: "inherit" }}
-                          // label={bkPaymentStatus}
-                        />
-                      </div>
-                      <div className="col-sm-4 col-xs-12">
-                        <div >
-                      <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
-                      </div>
-                      </div>
-                      <div className="col-sm-4 col-xs-12">
-                      </div>
-                    </div>
-                    {/*second row */}
-                   <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
-                        <Label
-                          className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                          id="complaint-details-submission-date"
-                          labelStyle={{ color: "inherit" }}
-                          label={bkPaymentStatus}
-                        />
-                      </div>
-                      <div className="col-sm-4 col-xs-12">                      
-                      <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
-                      </div>                  
-                      <div className="col-sm-4 col-xs-12">
-                      </div>
-                    </div>
-                    {/*third row */}
-                    {/* <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_Round_Off" />
-                        <Label
-                          className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
-                          id="complaint-details-submission-date"
-                          labelStyle={{ color: "inherit" }}
-                          label={bkPaymentStatus}
-                        />
-                      </div>
-                      <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 40 }}>
-                        <h5>0.16</h5>
-                      </div>
-                      <div className="col-sm-4 col-xs-12">
-                      </div>
-                    </div>
-                    */}
-                    <hr class="MuiDivider" style={{marginbottom: "16px"}}></hr>
-                    <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TOTAL_AMOUNT" />
-                        <Label
-                          className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
-                          id="complaint-details-submission-date"
-                          labelStyle={{ color: "inherit" }}
-                          // label={paymentDetails.totalAmount}
-                        />
-                      </div>
-                      <div className="col-sm-4 col-xs-12">
-              <h5>{paymentDetails?paymentDetails.totalAmount:'NA'}</h5>
-                      </div>
-                      <div className="col-sm-4 col-xs-12">
-                      </div>
-                    </div>
                   </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                   
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={address}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                    
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={houseNo}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                    
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={sector}
+                    />
+                  </div>
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={areaRequired?areaRequired:'NA'}
+                    />
+                  </div> */}
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkConstructionType?bkConstructionType:'NA'}
+                    />
+                  </div> */}
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DURATION_LABEL" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkDuration?bkDuration:'NA'}
+                    />
+                  </div> */}
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_CATEGORY" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkCategory?bkCategory:'NA'}
+                    />
+                  </div> */}
                 </div>
-                {/* </div> */}
 
 
 
@@ -261,7 +240,7 @@ class PayDetails extends Component {
                     <Label label="MYBK_APPLICANT_DETAILS_ADDRESS_DETAILS" labelClassName="dark-heading" />
                   </div> */}
                 {/* )} */}
-
+               
                 {/* {landmark && (
                   <div className="complaint-detail-detail-section-status row">
                     <Label className="col-xs-6  col-sm-4 col-md-2 status-color" label={"CS_COMPLAINTDETAILS_LANDMARK"} />
@@ -320,7 +299,7 @@ class PayDetails extends Component {
                     />
                   </div>
                 )} */}
-              {/* </div> */}
+              </div>
             </div>
           }
         />
@@ -329,4 +308,4 @@ class PayDetails extends Component {
   }
 }
 
-export default PayDetails;
+export default BwtApplicantDetails;

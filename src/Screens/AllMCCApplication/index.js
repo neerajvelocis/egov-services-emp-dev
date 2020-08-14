@@ -250,12 +250,6 @@ class AllRequests extends Component {
     });
   };
 
-  //gotoMcc
-  // gotoMcc = () => {
-  //     this.props.history.push(`/egov-services/all-MccApplications`);
-  // };
-
-
   onComplaintClick = (complaintNo, bookingType) => {
     console.log('complaintNo in onComplaintClick', complaintNo, bookingType);
     if (bookingType && bookingType == "WATER_TANKERS") {
@@ -1056,7 +1050,6 @@ selectBoxOptions={['a','b','c']}
                       <MenuItem value= "" disabled>Booking Type</MenuItem>
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
-                      <MenuItem value='GROUND_FOR_COMMERCIAL_PURPOSE'>Commercial Ground</MenuItem>
                     </Select>
                   </FormControl>
 
@@ -1372,7 +1365,7 @@ selectBoxOptions={['a','b','c']}
                 complaintLocation={true}
               />
             </div>
-            {/* <Button
+            <Button
                         label={
                           <Label
                             buttonLabel={true}
@@ -1387,8 +1380,8 @@ selectBoxOptions={['a','b','c']}
                           color: "#fff"
                         }}
                         buttonStyle={{ border: 0 }}
-                        onClick={() => this.gotoMcc()}
-                      /> */}
+                        onClick={() => this.onSearch()}
+                      />
           </Screen>
         );
   }
