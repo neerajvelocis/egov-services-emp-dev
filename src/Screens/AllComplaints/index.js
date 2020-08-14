@@ -258,6 +258,14 @@ class AllRequests extends Component {
     if (bookingType && bookingType == "OSBM") {
       this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
+    if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
+      console.log("bookingType ",bookingType)
+      this.props.history.push(`/cg-application-details/${complaintNo}`);
+    }
+    if (bookingType && bookingType == "JURISDICTION") {
+      console.log("bookingType ",bookingType)
+      this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
+    }
   };
 
   onComplaintChange = e => {
@@ -412,8 +420,10 @@ class AllRequests extends Component {
     } else if (searchForm && searchForm.toDate) {
       fetchApplications(queryObj, true, true);
     }
+
     else if (fromDate, toDate) {
       if (fromDate > this.state.toDate) {
+
         toggleSnackbarAndSetText(
           true,
           {
@@ -666,10 +676,12 @@ class AllRequests extends Component {
     })
   };
 
+
   gotoWaterTanker = (e) => {
 
     this.props.history.push(`/egov-services/applywatertanker`);
   }
+
 
   render() {
     const dropbordernone = {
@@ -881,13 +893,8 @@ class AllRequests extends Component {
     ) : role === "employee" ? (
       <Screen loading={loading}>
 
-        {/* <Button
-          className="responsive-action-button"
-          primary={true}
-          label={<Label buttonLabel={true} label="CORE_COMMON_SUBMIT" />}
-          fullWidth={true}
-          onClick={this.gotoWaterTanker()}
-        /> */}
+
+       
 
 
 {/* <div className="col-xs-12"> */}
@@ -902,6 +909,9 @@ class AllRequests extends Component {
             /></button> : ''
         }
         {/* </div> */}
+
+        
+
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />
           </div> */}
