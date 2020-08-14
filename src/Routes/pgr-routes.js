@@ -45,6 +45,12 @@ const CGApplicationDetails = Loadable({
   loader: () => import("../Screens/CGApplicationDetails"),
   loading: Loading
 });
+
+const AllMCCApplication = Loadable({
+  loader: () => import("../Screens/AllMCCApplication"),
+  loading: Loading
+});
+
 const OSWMCCApplicationDetails = Loadable({
   loader: () => import("../Screens/OSWMCCApplicationDetails"),
   loading: Loading
@@ -241,6 +247,17 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "egov-services/all-MccApplications",
+    component: AllMCCApplication,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+
   {
     path: "osmcc-application-details/:applicationId",
     component: OSWMCCApplicationDetails,
