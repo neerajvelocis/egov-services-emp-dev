@@ -250,10 +250,9 @@ class AllRequests extends Component {
     });
   };
 
-  //gotoMcc
-  // gotoMcc = () => {
-  //     this.props.history.push(`/egov-services/all-MccApplications`);
-  // };
+  gotoMcc = () => {
+      this.props.history.push(`/egov-services/all-MccApplications`);
+  };
 
 
   onComplaintClick = (complaintNo, bookingType) => {
@@ -920,6 +919,28 @@ class AllRequests extends Component {
            onClick={() => this.gotoWaterTanker()
            }/> : ''
         }
+        {/* </div> */}
+        {userInfo && userInfo.roles && userInfo.roles[1].code == "OSBM_APPROVER" ?
+       <Button
+       label={
+         <Label
+           buttonLabel={true}
+           label="GO_TO_MCC"
+         />
+       }
+       style={{ marginRight: 28, width: "36%" }}
+       backgroundColor="#fe7a51"
+       labelStyle={{
+         letterSpacing: 0.7,
+         padding: 0,
+         color: "#fff"
+       }}
+       buttonStyle={{ border: 0 }}
+       onClick={() => this.gotoMcc()}
+     /> : ''  
+      }
+       
+
         
         <div className="form-without-button-cont-generic">
           {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
@@ -1242,6 +1263,10 @@ selectBoxOptions={['a','b','c']}
             complaintLocation={true}
           />
         </div>
+
+    {/*For MCC*/}
+                  
+
         {/* <div className="floating-button-cont csr-add-button">
           <FloatingActionButton
             id="mycomplaints-add"

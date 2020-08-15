@@ -6,6 +6,7 @@ import MenuButton from "egov-ui-framework/ui-molecules/MenuButton";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import { SortDialog, Screen } from "modules/common";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
+import { fetchMccApplications } from "egov-ui-kit/redux/complaints/actions";
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { transformComplaintForComponent } from "egov-ui-kit/utils/commons";
@@ -101,7 +102,7 @@ class AllRequests extends Component {
     if (rawRole === "PGR-ADMIN") {
       this.props.history.push("/report/rainmaker-pgr/DepartmentWiseReport");
     } else {
-      let { fetchApplications } = this.props;
+      let { fetchApplications,fetchMccApplications } = this.props;
 
       let complaintCountRequest = [
         { key: 'uuId', value: userInfo.uuid },
@@ -117,87 +118,9 @@ class AllRequests extends Component {
                 : "assigned,reassignrequested"
         }
       ];
-      // let payloadCount = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // console.log('payloadCount', payloadCount)
-      // if (role === "csr") {
-      //   payloadCount
-      //     ? payloadCount.count
-      //       ? renderCustomTitle(payloadCount.count)
-      //       : renderCustomTitle("0")
-      //     : renderCustomTitle("0");
-      // }
+    fetchMccApplications(
 
-      // complaintCountRequest = [
-      //   { key: "tenantId", value: getTenantId() },
-      //   {
-      //     key: "status",
-      //     value: "assigned,escalatedlevel1pending,escalatedlevel2pending"
-      //   }
-      // ];
-      // let assignedTotalComplaints = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // complaintCountRequest = [
-      //   { key: "tenantId", value: getTenantId() },
-      //   {
-      //     key: "status",
-      //     value: "open,reassignrequested"
-      //   }
-      // ];
-      // let unassignedTotalComplaints = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // prepareFinalObject("pgrComplaintCount", {
-      //   assignedTotalComplaints: assignedTotalComplaints.count,
-      //   unassignedTotalComplaints: unassignedTotalComplaints.count,
-      //   employeeTotalComplaints: payloadCount.count
-      // });
-
-      if (role === "ao") {
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "assigned,escalatedlevel1pending,escalatedlevel2pending"
-            }
-          ],
-          true,
-          false
-        );
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "open,reassignrequested"
-            }
-          ],
-          true,
-          false
-        );
-      } else if (role === "eo") {
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "escalatedlevel1pending,escalatedlevel2pending"
-            }
-          ],
-          true,
-          true
-        );
-      }
-      else {
-        fetchApplications(
-
-          {
+      {
             "uuid": userInfo.uuid, "applicationNumber": "",
             "applicationStatus": "",
             "mobileNumber": "", "bookingType": ""
@@ -206,7 +129,7 @@ class AllRequests extends Component {
           true,
           true
         );
-      }
+      
     }
     let inputType = document.getElementsByTagName("input");
     for (let input in inputType) {
@@ -250,22 +173,9 @@ class AllRequests extends Component {
     });
   };
 
-  onComplaintClick = (complaintNo, bookingType) => {
-    console.log('complaintNo in onComplaintClick', complaintNo, bookingType);
-    if (bookingType && bookingType == "WATER_TANKERS") {
-      this.props.history.push(`/egov-services/bwt-application-details/${complaintNo}`);
-    }
-    if (bookingType && bookingType == "OSBM") {
-      this.props.history.push(`/egov-services/application-details/${complaintNo}`);
-    }
-    if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
-      console.log("bookingType ",bookingType)
-      this.props.history.push(`/cg-application-details/${complaintNo}`);
-    }
-    if (bookingType && bookingType == "JURISDICTION") {
-      console.log("bookingType ",bookingType)
-      this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
-    }
+  onComplaintClick = (complaintNo) => {
+    console.log('complaintNo in onComplaintClick', complaintNo);
+    this.props.history.push(`/egov-services/newLocation-application-details/${complaintNo}`);
   };
 
   onComplaintChange = e => {
@@ -313,7 +223,7 @@ class AllRequests extends Component {
   onSearch = () => {
     console.log('on this.props', this.props, this.state)
     const { complaintNo, mobileNo, bookingType, applicationStatus ,fromDate, toDate} = this.state;
-    const { fetchApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
+    const { fetchApplications, fetchMccApplications,searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
     queryObj.uuid = userInfo.uuid;
 
@@ -390,13 +300,9 @@ class AllRequests extends Component {
   
     }
 
-    // if (complaintNo || mobileNo) {
-    //   fetchApplications(queryObj, true, true);
-    // }
-
     if (complaintNo) {
       if (complaintNo.length >= 6) {
-        fetchApplications(queryObj, true, true);
+        fetchMccApplications(queryObj, true, true);
       } else {
         toggleSnackbarAndSetText(
           true,
@@ -408,17 +314,17 @@ class AllRequests extends Component {
         );
       }
     } else if (bookingType) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     }
     else if (applicationStatus) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     }
     else if (mobileNo) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     } else if (searchForm && searchForm.fromDate) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     } else if (searchForm && searchForm.toDate) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     }
     else if (fromDate) {
 
@@ -433,10 +339,10 @@ class AllRequests extends Component {
         );
       }
       else{
-      fetchApplications(queryObj, true, true);
+        fetchMccApplications(queryObj, true, true);
       }
     } else if (toDate) {
-      fetchApplications(queryObj, true, true);
+      fetchMccApplications(queryObj, true, true);
     }
     this.setState({ search: true });
   };
@@ -648,8 +554,8 @@ class AllRequests extends Component {
 
       });
     }
-    const { fetchApplications } = this.props;
-    fetchApplications(
+    const { fetchMccApplications } = this.props;
+    fetchMccApplications(
       {
         "uuid": userInfo.uuid, "applicationNumber": "",
         "applicationStatus": "",
@@ -1412,7 +1318,7 @@ const mapStateToProps = state => {
   console.log('mapStateToProps', state)
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
-  const { fetchSuccess, applicationData } = complaints;
+  const { fetchSuccess, MccApplicationData } = complaints;
   const { preparedFinalObject = {} } = screenConfiguration;
   const { pgrComplaintCount = {} } = preparedFinalObject;
   const {
@@ -1444,10 +1350,10 @@ const mapStateToProps = state => {
     numCSRComplaint,
     transformedComplaints;
 
-  console.log('applicationData-->', applicationData)
-  if (applicationData != null || applicationData != undefined) {
-    transformedComplaints = applicationData.bookingsModelList;
-    console.log('transformedComplaints', transformedComplaints)
+  console.log('MccApplicationData-->', MccApplicationData)
+  if (MccApplicationData != null || MccApplicationData != undefined) {
+    transformedComplaints = MccApplicationData.osujmNewLocationModelList;
+    console.log('MccApplicationData', transformedComplaints)
 
     /*let transformedComplaints = transformComplaintForComponent(
       complaints,
@@ -1587,7 +1493,8 @@ const mapStateToProps = state => {
     );
     const numEmpComplaint = employeeComplaints.length;
     const numCSRComplaint = transformedComplaints.length;*/
-    csrComplaints = transformedComplaints;
+    csrComplaints = transformedComplaints; 
+    // csrComplaints = MccApplicationData;
     //  numCSRComplaint = transformedComplaints.length;
 
   }
@@ -1664,8 +1571,8 @@ const mapDispatchToProps = dispatch => {
     setSearchParams: (searchParams) => {
       dispatch({ type: "SET_SEARCH_PARAMS", searchParams });
     },
-    fetchApplications: (criteria, hasUsers, overWrite) =>
-      dispatch(fetchApplications(criteria, hasUsers, overWrite)),
+    fetchMccApplications: (criteria, hasUsers, overWrite) =>
+      dispatch(fetchMccApplications(criteria, hasUsers, overWrite)),
     toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
     prepareFinalObject: (jsonPath, value) =>
