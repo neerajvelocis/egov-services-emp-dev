@@ -26,7 +26,7 @@ import StepContent from "@material-ui/core/StepContent";
 import Divider from "@material-ui/core/Divider";
 import { getCurrentStatus } from "../TaskStatusComponents";
 import { LabelContainer } from "egov-ui-framework/ui-containers";
-
+import HistoryIcon from '@material-ui/icons/History';
 
 const styles = (theme) => ({
   root: {
@@ -168,8 +168,10 @@ class BookingDetails extends Component {
                   <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
-                  <button style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} onClick={() => { this.handleClickOpen() }}>
-                    VIEW HISTORY
+                  <button 
+                  style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} 
+                  onClick={() => { this.handleClickOpen() }}>
+                   <HistoryIcon/> VIEW HISTORY
                 </button>
                 </div>
               </div>
