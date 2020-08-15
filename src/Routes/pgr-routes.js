@@ -60,7 +60,11 @@ const ApplicationBWTSummary = Loadable({
   loader: () => import("../Screens/BwtApplicationDetails"),
   loading: Loading
 });
-
+//NewLocationApplicationDetails
+const NewLocationApplicationDetails = Loadable({
+  loader: () => import("../Screens/NewLocationApplicationDetails"),
+  loading: Loading
+});
 
 const ServiceHome = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
@@ -248,12 +252,22 @@ const routes = [
     }
   },
   {
+    path: "egov-services/newLocation-application-details/:applicationId",
+    component: NewLocationApplicationDetails,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+  {
     path: "egov-services/all-MccApplications",
     component: AllMCCApplication,
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      title: "CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
