@@ -367,10 +367,7 @@ class ApplicationDetails extends Component {
 
 	downloadApplicationFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
-
 		const { complaint } = transformedComplaint;
-
-
 		let bookingDataOsbm = {
             applicationNumber: complaint.applicationNo,
             houseNo: complaint.houseNo,
@@ -423,7 +420,10 @@ class ApplicationDetails extends Component {
                         paymentDetails === undefined
                             ? null
                             : paymentDetails.totalAmount,
-                },
+				},
+				generatedBy: {
+					generatedBy: userInfo.name,
+				}
             },
         ];
 
@@ -773,28 +773,31 @@ downloadPermissionLetterFunction = async (e) => {
 															labelKey: "MYBK_DOWNLOAD_RECEIPT"
 														},
 
-														link: () => this.downloadPaymentReceiptButton('Receipt')
+														link: () => this.downloadPaymentReceiptButton('Receipt'),
+														leftIcon: "receipt"
 													},
 													{
 														label: {
 															labelName: "PermissionLetter",
 															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
-														link: () => this.downloadPermissionLetterButton('PermissionLetter')
+														link: () => this.downloadPermissionLetterButton('PermissionLetter'),
+														leftIcon: "book"
 													},{
 														label: {
 															labelName: "Application",
 															labelKey: "MYBK_PRINT_APPLICATION"
 														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
 													}]:
 													[{
 														label: {
 															labelName: "Application",
 															labelKey: "MYBK_DOWNLOAD_APPLICATION"
 														},
-														link: () => this.downloadApplicationButton('Application')
+														link: () => this.downloadApplicationButton('Application'),
+														leftIcon: "assignment"
 													}]
 												}} />
 											</div>
@@ -813,28 +816,30 @@ downloadPermissionLetterFunction = async (e) => {
 															labelKey: "MYBK_PRINT_RECEIPT"
 														},
 
-														link: () => this.downloadPaymentReceiptButton('Receipt')
+														link: () => this.downloadPaymentReceiptButton('Receipt'),
+														leftIcon: "receipt"
 													},
 													{
 														label: {
 															labelName: "PermissionLetter",
 															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
-														 link: () => this.downloadPermissionLetterButton('state', "dispatch", 'REJECT')
+														 link: () => this.downloadPermissionLetterButton('state', "dispatch", 'REJECT'),
+														 leftIcon: "book"
 													},{
 														label: {
 															labelName: "Application",
 															labelKey: "MYBK_PRINT_APPLICATION"
 														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
 													}]:[{
 														label: {
 															labelName: "Application",
 															labelKey: "MYBK_PRINT_APPLICATION"
 														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
+														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
 													}]
 												}} />
 
