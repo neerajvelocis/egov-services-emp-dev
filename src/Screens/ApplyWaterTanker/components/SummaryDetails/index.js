@@ -15,6 +15,7 @@ class SummaryDetails extends Component {
     }
 
     submit = e => {
+       
         let { createWaterTankerApplication } = this.props;
         const { firstName, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
@@ -41,8 +42,12 @@ class SummaryDetails extends Component {
                 "tenantId": "ch",
                 "Booking": Booking
             });
+        	// setTimeout(() => {
+                // console.log('summary props in time', this.props);
+            this.props.history.push("/egov-services/create-success");
+        // }, 100);
+        console.log('summary props', this.props);
 
-        this.props.history.push("/egov-services/create-success");
     }
 
     firstStep = e => {
@@ -118,7 +123,7 @@ class SummaryDetails extends Component {
                 <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
                     <Label label="MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
                 </div>
-                <div className="col-xs-12" style={{marginLeft: '15px'}}>
+                <div className="col-xs-12" style={{marginLeft: '10px'}}>
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
 
                         <div className="complaint-detail-detail-section-status row">
@@ -241,10 +246,10 @@ const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
     console.log('state in summary',state)
-    const { createWaterTankerApplication } = complaints;
-    console.log('createWaterTankerApplication', createWaterTankerApplication)
+    const { createWaterTankerApplicationData } = complaints;
+    console.log('createWaterTankerApplicationData', createWaterTankerApplicationData)
     return {
-        createWaterTankerApplication
+        createWaterTankerApplicationData
     }
 
 }

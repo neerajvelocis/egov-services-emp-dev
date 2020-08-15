@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import { SuccessMessage } from "modules/common";
+import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
+
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 import "./index.css";
 
@@ -12,9 +14,10 @@ class AssignToDriverSuccess extends Component {
   render() {
     return (
       <div className="success-message-main-screen resolve-success">
-        <SuccessMessage
+        <CommonSuccessMessage
+          headermessage="ES_APPLICATION_HEADER_MESSAGE_ASSIGNED_DRIVER"
           successmessage="ES_ASSIGN_TO_DRIVER_SUCCESS_MESSAGE"
-          secondaryLabel="MYBK_SUCCESSFULLY_ASSIGNED"
+          secondaryLabel="MYBK_SUCCESSFULLY_ASSIGNED_DRIVER_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}

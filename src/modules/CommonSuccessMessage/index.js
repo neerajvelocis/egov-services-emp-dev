@@ -6,13 +6,13 @@ import "./index.css";
 
 class SuccessMessage extends Component {
   render() {
-    const { successmessage, employeeName, secondaryLabel, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
+    const { successmessage, employeeName, secondaryLabel,headermessage, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
     return (
       <div>
         <div class="container-fluid">
           <div class="row" style={{marginTop: '40px',marginBottom: '30px', marginLeft: '-6px'}}>
-            <div class="col-sm-3">  <Label label={"MYBK_WATER_TANKER_REQUEST"} /></div>
-            <div class="col-sm-4" > <Label label= {applicationNumber}/></div>
+            <div class="col-sm-3">  <Label label={headermessage} /></div>
+            {/* <div class="col-sm-4" > <Label label= {applicationNumber}/></div> */}
             <div class="col-sm-5">  </div>
           </div>
 
@@ -28,7 +28,7 @@ class SuccessMessage extends Component {
                 {icon}
               </FloatingActionButton></div>
             <div class="col-sm-8" >   <Label className="thankyou-text" label={successmessage} color="#767676" /><Label className="thankyou-text" label={secondaryLabel} color="#767676" /></div>
-            <div class="col-sm-3">  <Label label={"MYBK_WATER_TANKER_REQUESTNO"} /><Label label= {applicationNumber}/> </div>
+            {/* <div class="col-sm-3">  <Label label={"MYBK_WATER_TANKER_REQUESTNO"} /><Label label= {applicationNumber}/> </div> */}
           </div>
          
             </div>

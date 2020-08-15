@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-import { SuccessMessage } from "modules/common";
+import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 
 class ComplaintRejected extends Component {
@@ -12,8 +12,10 @@ class ComplaintRejected extends Component {
   render() {
     return (
       <div className="success-message-main-screen">
-        <SuccessMessage
+        <CommonSuccessMessage
+          headermessage="ES_APPLICATION_HEADER_MESSAGE_REJECT"
           successmessage="ES_COMPLAINT_REJECT_SUCCESS_MESSAGE"
+          secondaryLabel="CS_COMMON_SEND_MESSAGE_REJECTED"
           icon={<Icon action="navigation" name="close" />}
           backgroundColor={"#e74c3c"}
         />
