@@ -7,19 +7,40 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 
 class ApplicatInfo extends Component {
+ 
   continue = e => {
+    let re = /\S+@\S+\.\S+/;
+    let mb=/^\d{10}$/;
     e.preventDefault();
-    console.log('vlue of e',this.props,'e.target.value',e.target.value)
     if(this.props.firstName==""||this.props.email==""||this.props.mobileNo==""){
 
       this.props.toggleSnackbarAndSetText(
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `Error_Message_For_Water_tanker_Application`
+          labelKey: `ERROR_MESSAGE_EMAIL_VALIDATION`
         },
         "warning"
       );
+    }else if(!re.test(this.props.email)){
+      this.props.toggleSnackbarAndSetText(
+        true,
+        {
+          labelName: "Please enter valid email address",
+          labelKey: `ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
+        },
+        "warning"
+      );
+    }else if(!mb.test(this.props.mobileNo)){
+      this.props.toggleSnackbarAndSetText(
+        true,
+        {
+          labelName: "Please enter valid mobile number",
+          labelKey: `Please enter valid mobile number`
+        },
+        "warning"
+      );
+
     }
     else{this.props.nextStep();}
     

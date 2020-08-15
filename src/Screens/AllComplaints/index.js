@@ -899,28 +899,28 @@ class AllRequests extends Component {
     ) : role === "employee" ? (
       <Screen loading={loading}>
 
-
-       
+    {/* <Button
+          className="responsive-action-button"
+          primary={true}
+          label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
+          fullWidth={true}
+          onClick={this.gotoWaterTanker()}
+          style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
+        />  */}
 
 
 {/* <div className="col-xs-12"> */}
         {userInfo && userInfo.roles && userInfo.roles[1].code == "MCC_HELPDESK_USER" ?
-          <button
+          <Button
+          className="responsive-action-button"
+          label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
+          fullWidth={true}
           primary={true} 
           style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
            onClick={() => this.gotoWaterTanker()
-           }>
-            <Label
-             label="MYBK_WATER_TANKER_REQUEST"
-            /></button> : ''
+           }/> : ''
         }
-        {/* </div> */}
-
         
-
-        {/* <div style={{float: "right"}} className="quick-action-button">
-            <MenuButton data={buttonItems}  />
-          </div> */}
         <div className="form-without-button-cont-generic">
           {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
 
