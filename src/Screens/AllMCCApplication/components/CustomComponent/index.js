@@ -217,6 +217,7 @@ convertEpochToDate = (dateEpoch) => {
             return (
               <div id={"complaint-" + complaintIndex} className="complaints-card-main-cont" key={`complaint-${complaintIndex}`}>
                 <Card
+                 
                   className="complaint-card"
                   textChildren={
                     <div className="complaint-card-wrapper">

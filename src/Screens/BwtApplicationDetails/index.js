@@ -20,7 +20,6 @@ import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import BwtApplicationDriverDetailsfrom from "../AllComplaints/components/BwtApplicationDriverDetails"
 import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
 
@@ -42,7 +41,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
+	fetchApplications, fetchPayment, fetchHistory,fetchDataAfterPayment,
 	sendMessage,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
@@ -99,7 +98,7 @@ class BwtApplicationDetails extends Component {
 	componentDidMount = async () => {
 		let {
 			fetchApplications,
-			fetchHistory, fetchDataAfterPayment,
+			fetchHistory,fetchDataAfterPayment,
 			fetchPayment,
 			match,
 			resetFiles,
@@ -129,10 +128,10 @@ class BwtApplicationDetails extends Component {
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "BWT" }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
-		fetchDataAfterPayment(
-			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
-			])
-
+			fetchDataAfterPayment(
+				[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
+				])
+	
 		let { details } = this.state;
 
 	}
@@ -145,19 +144,19 @@ class BwtApplicationDetails extends Component {
 		}
 	}
 
-	btnOneOnClick = (value, complaintNo) => {
-		console.log('value===???', value)
+	btnOneOnClick = (value,complaintNo) => {
+		console.log('value===???',value)
 		if (value == 'APPROVED') {
 			this.setState({
 				actionTittle: "Assign To Driver"
 			})
-		} else if (value == 'REJECTED') {
+		} else if(value == 'REJECTED') {
 			this.setState({
 				actionTittle: "Reject Application"
 			})
-		} else if (value == 'DELIVERED') {
+		}else if(value == 'DELIVERED'){
 			this.setState({
-				actionTittle: "Delivered Application"
+				actionTittle: "Deliver Application"
 			})
 		}
 		this.setState({
@@ -176,7 +175,7 @@ class BwtApplicationDetails extends Component {
 		// else if (value == 'DELIVERED') {
 		// 	history.push(`/egov-services/deliver-application/${complaintNo}`);
 		// }
-
+		
 		// else if (value == 'NOTDELIVERED') {
 		// 	history.push(`/egov-services/not-deliver-application/${complaintNo}`);
 		// }
@@ -197,8 +196,8 @@ class BwtApplicationDetails extends Component {
 		}
 	};
 
-
-
+	
+	
 	handleClickOpen = () => {
 		this.setState({
 			open: true
@@ -287,7 +286,7 @@ class BwtApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails, match, userInfo } = this.props;
+		let { historyApiData, paymentDetails,match,userInfo } = this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -347,24 +346,19 @@ class BwtApplicationDetails extends Component {
 					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
-								<BookingDetails
+							<BookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
 								<BwtApplicantDetails
 									{...complaint}
 								/>
-								{(complaint.bkStatus).includes("Paid") &&
-									<PaymentDetails
-										paymentDetails={paymentDetails && paymentDetails}
-									/>
-								}
-								{complaint && (complaint.status != 'PENDINGASSIGNMENTDRIVER' || complaint.status != 'REJECTED') &&
-									<BwtApplicationDriverDetailsfrom
-										{...complaint}
-
-									/>
-								}
+{(complaint.bkStatus).includes("Paid")&&
+								<PaymentDetails
+									paymentDetails={paymentDetails && paymentDetails}
+								/>
+								
+					}
 								{/* <div style={{
 									height: "100px",
 									width: "100",
@@ -386,70 +380,69 @@ class BwtApplicationDetails extends Component {
 								paddingTop: "30px",
 								paddingRight: "30px"
 							}}>
-								{
+								  {
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGASSIGNMENTDRIVER" &&
-
-												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+											(complaint.status=="PENDINGASSIGNMENTDRIVER"&&
+											
+											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+												rightIcon: "arrow_drop_down",
+												props: {
+													variant: "outlined",
+													style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+												},
+												
+												menu: !(complaint.bkStatus).includes("Paid")?[{
+													label: {
+														labelName: "Approve",
+														labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
 													},
 
-													menu: !(complaint.bkStatus).includes("Paid") ? [{
-														label: {
-															labelName: "Approve",
-															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
-														},
-
-														link: () => this.btnOneOnClick('APPROVED', serviceRequestId)
+													link: () => this.btnOneOnClick('APPROVED',serviceRequestId)
+												},
+												{
+													label: {
+														labelName: "REJECT",
+														labelKey: "MYBK_REJECT_ACTION_BUTTON"
 													},
-													{
-														label: {
-															labelName: "REJECT",
-															labelKey: "MYBK_REJECT_ACTION_BUTTON"
-														},
 
-														link: () => this.btnOneOnClick('REJECTED', serviceRequestId)
-													}] : [{
-														label: {
-															labelName: "Approve",
-															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
-														},
+													link: () => this.btnOneOnClick('REJECTED',serviceRequestId)
+												}]:[{label: {
+													labelName: "Approve",
+													labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+												},
 
-														link: () => this.btnOneOnClick('APPROVED', serviceRequestId)
-													}]
-												}} />}></Footer>
+												link: () => this.btnOneOnClick('APPROVED',serviceRequestId)
+											}]
+											}} />}></Footer>
 
-
+											
 											)
 										)
 									)}
 
-								{
+{
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGUPDATE" &&
+											(complaint.status=="PENDINGUPDATE"&&
 
-												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+												rightIcon: "arrow_drop_down",
+												props: {
+													variant: "outlined",
+													style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+												},
+												menu: [{
+													label: {
+														labelName: "Approve",
+														labelKey: "MYBK_DELIVERED_ACTION_BUTTON"
 													},
-													menu: [{
-														label: {
-															labelName: "Approve",
-															labelKey: "MYBK_DELIVERED_ACTION_BUTTON"
-														},
 
-														link: () => this.btnOneOnClick('DELIVERED', serviceRequestId)
-													}]
-												}} />}></Footer>
+													link: () => this.btnOneOnClick('DELIVERED',serviceRequestId)
+												}]
+											}} />}></Footer>
 
 											)
 										)
@@ -482,7 +475,7 @@ class BwtApplicationDetails extends Component {
 									)} */}
 
 
-								<DialogContainer
+<DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.btnOneOnClick}
@@ -490,17 +483,17 @@ class BwtApplicationDetails extends Component {
 									children={this.state.actionOnApplication == 'APPROVED' ? <AssignTODriver
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
-									/> : this.state.actionOnApplication == 'REJECTED' ? <RejectBWTBooking
+									/> : this.state.actionOnApplication == 'REJECTED'?<RejectBWTBooking
+											applicationNumber={match.params.applicationId}
+											userInfo={userInfo}
+										/>:this.state.actionOnApplication == 'DELIVERED'?<DeliveredBWTBooking
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
-									/> : this.state.actionOnApplication == 'DELIVERED' ? <DeliveredBWTBooking
-										applicationNumber={match.params.applicationId}
-										userInfo={userInfo}
-									/> : ''}
+									/>:''}
 								/>
 
 
-								{/* <DialogContainer
+{/* <DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.assignToDiver}
@@ -596,7 +589,7 @@ const mapStateToProps = (state, ownProps) => {
 	// 	console.log('hel1')
 	// }
 
-	let documentMap = applicationData && applicationData.documentMap ? applicationData.documentMap : '';
+	let documentMap= applicationData&&applicationData.documentMap?applicationData.documentMap:'';
 	const { HistoryData } = complaints;
 
 	let historyObject = HistoryData ? HistoryData : ''
@@ -605,7 +598,7 @@ const mapStateToProps = (state, ownProps) => {
 
 	let paymentDetails;
 	// if (selectedComplaint && selectedComplaint.bkApplicationStatus!= "PENDINGASSIGNMENTDRIVER") {
-	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
+		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
 	// } else {
 	// 	paymentDetails = paymentData ? paymentData.Bill[0] : '';
 	// }
@@ -615,7 +608,7 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -647,11 +640,8 @@ const mapStateToProps = (state, ownProps) => {
 			constructionType: selectedComplaint.bkConstructionType,
 			villageCity: selectedComplaint.bkVillCity,
 			residentialCommercial: selectedComplaint.bkType,
-			bkStatus: selectedComplaint.bkStatus,
-			businessService: businessService,
-			driverName: selectedComplaint ? selectedComplaint.bkDriverName : "NA",
-			driverMobileNumber: selectedComplaint ? selectedComplaint.bkContactNo : 'NA',
-			approverName: selectedComplaint ? selectedComplaint.bkApproverName : 'NA'
+			bkStatus:selectedComplaint.bkStatus,
+			businessService: businessService
 		}
 
 
