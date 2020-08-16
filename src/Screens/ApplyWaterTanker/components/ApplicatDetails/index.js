@@ -4,6 +4,8 @@ import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Grid from '@material-ui/core/Grid';
+
 
 
 class ApplicatInfo extends Component {
@@ -59,9 +61,10 @@ class ApplicatInfo extends Component {
       overflow: "hidden"
     };
     return (
-      <div className="col-xs-12">
-        <div ClassName="row" style={{paddingTop:35}}>
-      <div className="col-sm-6 col-xs-12">
+      <div style={{float: 'left', width: '100%', padding: '36px 15px' }}>
+      <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
+        
+      <div className="col-sm-6 col-xs-6">
         
           <TextField
             id="name"
@@ -89,8 +92,9 @@ class ApplicatInfo extends Component {
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
           />
-          </div>
-          <div className="col-sm-6 col-xs-12">
+        </div>
+        
+        <div className="col-sm-6 col-xs-6">
           <TextField
             id="email"
             name="email"
@@ -117,8 +121,10 @@ class ApplicatInfo extends Component {
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
           />
-          </div>
-          <div className="col-sm-6 col-xs-12" style={{marginTop: 20}}>
+        
+        </div>
+        
+        <div className="col-sm-6 col-xs-6">
           <TextField
             id="mobile-no"
             name="mobile-no"
@@ -145,9 +151,11 @@ class ApplicatInfo extends Component {
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
           />
-        </div>
-        </div>
-        <div className="responsive-action-button-cont">
+        
+        </div>    
+        
+        
+      <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
           <Button
             className="responsive-action-button"
             primary={true}
@@ -156,7 +164,10 @@ class ApplicatInfo extends Component {
             onClick={this.continue}
             startIcon={<ArrowForwardIosIcon />}
           />
-        </div>
+        
+        </div> 
+      
+      </div> 
       </div>
     );
   }
