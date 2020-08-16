@@ -1,5 +1,5 @@
 {
-  "name": "egov-booking-employee-dev",
+  "name": "egov-services-emp-dev",
   "version": "0.0.2",
   "license": "egov",
   "private": true,
@@ -59,7 +59,7 @@
     "watch-css": "yarn run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "run-p watch-css start-js",
-    "transpile": "yarn run build-css && babel src -d ../../packages/egov-booking-employee --copy-files",
+    "transpile": "yarn run build-css && babel src -d ../../packages/egov-services-emp --copy-files",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

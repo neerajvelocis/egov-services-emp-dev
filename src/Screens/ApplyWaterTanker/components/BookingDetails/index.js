@@ -82,9 +82,11 @@ class BookingsDetails extends Component {
       overflow: "hidden"
     };
     return (
-      <div className="col-xs-12">
-      <div ClassName="row" style={{paddingTop:35}}>
-    <div className="col-sm-6 col-xs-12">
+      
+      <div style={{float: 'left', width: '100%', padding: '36px 15px' }}>
+      <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
+        
+      <div className="col-sm-6 col-xs-6">
       
         <TextField
           id="houseNo"
@@ -113,8 +115,9 @@ class BookingsDetails extends Component {
           underlineFocusStyle={{ bottom: 7 }}
           hintStyle={{ width: "100%" }}
         />
-            </div>
-          <div className="col-sm-6 col-xs-12">
+        </div>
+        
+        <div className="col-sm-6 col-xs-6">
         <TextField
           id="address"
           name="address"
@@ -142,7 +145,8 @@ class BookingsDetails extends Component {
           hintStyle={{ width: "100%" }}
         />
         </div>
-          <div className="col-sm-6 col-xs-12" style={{marginTop: 36,width: '48%',paddingTop: 22,background: 'white',marginLeft: 13}}>
+        
+        <div className="col-sm-6 col-xs-6">
 
         <FormControl style={{ width: '100%' }}>
           <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Locality</InputLabel>
@@ -168,8 +172,10 @@ class BookingsDetails extends Component {
             <MenuItem value='SECTOR-4'>Sector-4</MenuItem> */}
           </Select>
         </FormControl>
-           </div>
-          <div className="col-sm-6 col-xs-12" style={{marginTop: 36,width: '48%',paddingTop: 22,background: 'white',marginLeft: 28}}>
+        
+        </div>
+        
+        <div className="col-sm-6 col-xs-6">
         <FormControl style={{ width: '100%' }}>
           <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Residentials/Commercials</InputLabel>
           <Select
@@ -189,11 +195,12 @@ class BookingsDetails extends Component {
           </Select>
         </FormControl>
 
-        </div></div>
         
-
-
-        <div className="responsive-action-button-cont">
+        </div>
+        
+        
+        
+      <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
 
         <Button
             className="responsive-action-button"
@@ -221,6 +228,7 @@ class BookingsDetails extends Component {
           Next »
                 </button> */}
       </div>
+    </div>
     );
   }
 }

@@ -102,7 +102,7 @@ console.log('this.props in water tanker apply',this.props)
 
         return (
             <div>
-            <div className="col-xs-12" style={{ padding: 0 }}>
+            <div className="col-xs-12" style={{ padding: 0, float: 'left', width: '100%' }}>
               <div className="col-sm-12 col-xs-12">
                     <Stepper alternativeLabel activeStep={step}>
                         {this.state.childrenArray.map((child, index) => (
@@ -113,8 +113,8 @@ console.log('this.props in water tanker apply',this.props)
 
                     </Stepper>
                 </div>
+            </div>
                 {this.showStep()}
-                </div>
             </div>
         );
     }
