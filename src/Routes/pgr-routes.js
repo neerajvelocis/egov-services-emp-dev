@@ -430,7 +430,7 @@ const routes = [
     }
   },
   {
-    path: "complaint-rejected",
+    path: "egov-services/application-rejected",
     component: ComplaintRejected,
     needsAuthentication: true,
     options: {
