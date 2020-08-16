@@ -920,7 +920,7 @@ class AllRequests extends Component {
            }/> : ''
         }
         {/* </div> */}
-        {userInfo && userInfo.roles && userInfo.roles[1].code == "OSBM_APPROVER" ?
+        {/* {userInfo && userInfo.roles && userInfo.roles[1].code == "OSBM_APPROVER" ?
        <Button
        label={
          <Label
@@ -938,7 +938,7 @@ class AllRequests extends Component {
        buttonStyle={{ border: 0 }}
        onClick={() => this.gotoMcc()}
      /> : ''  
-      }
+      } */}
        
 
         
