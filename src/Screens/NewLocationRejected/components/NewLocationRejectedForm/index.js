@@ -35,7 +35,7 @@ console.log('formValue--->>',formValue)
        primary={true}
        {...submit}
        fullWidth={true}
-      >Approve</button>
+      >Reject</button>
     </div>
   );
 };
