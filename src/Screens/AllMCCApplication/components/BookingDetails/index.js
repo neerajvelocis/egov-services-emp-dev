@@ -127,7 +127,7 @@ class BookingDetails extends Component {
 
 
   render() {
-    const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, businessService, mapAction, images, action, role } = this.props;
     var ProcessInstances = [];
 
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
@@ -257,7 +257,7 @@ class BookingDetails extends Component {
                       label={submittedDate}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bookingType}
+                      label={businessService}
                     />
                   </div>
 

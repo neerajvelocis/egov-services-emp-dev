@@ -127,8 +127,9 @@ class CreateWBTApplicationSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
+         headermessage="ES_CREATE_WBT_HEADER_MESSAGE"
           successmessage="ES_APPLICATION_CREATED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_SEND_MESSAGE a notification has been sent on your email and mobile number for notify"
+          secondaryLabel="CS_COMMON_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
