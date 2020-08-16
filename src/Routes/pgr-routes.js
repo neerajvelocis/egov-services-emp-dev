@@ -118,6 +118,12 @@ const ResolveSuccess = Loadable({
   loader: () => import("../Screens/ResolveSuccess"),
   loading: Loading
 });
+
+const PublishSuccess = Loadable({
+  loader: () => import("../Screens/PublishSuccess"),
+  loading: Loading
+});
+
 const CreateSuccess= Loadable({
   loader: () => import("../Screens/CreateWBTApplicationSuccess"),
   loading: Loading
@@ -324,8 +330,20 @@ const routes = [
     }
   },
   {
-    path: "resolve-success",
+    path: "egov-services/resolve-success",
     component: ResolveSuccess,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+  {
+    path: "egov-services/publish-success",
+    component: PublishSuccess,
     needsAuthentication: true,
     options: {
       hideBackButton: true,

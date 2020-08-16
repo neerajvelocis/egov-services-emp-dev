@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import ComplaintResolvedForm from "./components/ComplaintResolvedForm";
-import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
+import NewLocationResolvedForm from "./components/NewLocationResolvedForm";
+import { fetchMccApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
 const ComplaintResolvedHOC = formHOC({
-  formKey: "approveBooking",
+  formKey: "approveLocation",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(ComplaintResolvedForm);
+})(NewLocationResolvedForm);
 
 
 class ComplaintResolved extends Component {
@@ -24,9 +24,9 @@ class ComplaintResolved extends Component {
   componentDidMount() {
     console.log('ComplaintResolvedHOC', ComplaintResolvedHOC)
 
-    let { fetchApplications, match, userInfo,applicationNumber } = this.props;
+    let { fetchMccApplications, match, userInfo,applicationNumber } = this.props;
     console.log('match.params.applicationId', this.props)
-    fetchApplications(
+    fetchMccApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
@@ -72,7 +72,7 @@ class ComplaintResolved extends Component {
       com2 = val.textVal;
     }
     let concatvalue = com1 + com2;
-    this.props.handleFieldChange("approveBooking", "comments", concatvalue);
+    this.props.handleFieldChange("approveLocation", "comments", concatvalue);
   };
 
   onSubmit = e => {
@@ -98,9 +98,9 @@ class ComplaintResolved extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in render', trasformData)
+    console.log('this in userInfo in new location', userInfo)
     return (
-      //<Screen className="background-white">
+      <Screen className="background-white">
         <ComplaintResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
@@ -111,26 +111,28 @@ class ComplaintResolved extends Component {
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}
           onSubmit={onSubmit}
-          bookingtype={trasformData.bkBookingType}
+          userInfo={userInfo}
+          // bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      // </Screen>
+      </Screen>
     );
   }
 }
 
 const mapStateToProps = state => {
   const { complaints = {} } = state || {};
-  const { applicationData } = complaints;
-  let trasformData = applicationData.bookingsModelList[0];
-  let businessServiceData = applicationData.businessService;
+  const { MccApplicationData } = complaints;
+  console.log('applicationData in new location',MccApplicationData)
+  let trasformData = MccApplicationData?MccApplicationData.osujmNewLocationModelList[0]:'';
+  let businessServiceData = MccApplicationData.businessService;
   return { trasformData, businessServiceData };
 }
 
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchApplications: criteria => dispatch(fetchApplications(criteria)),
+    fetchMccApplications: criteria => dispatch(fetchMccApplications(criteria)),
     handleFieldChange: (formKey, fieldKey, value) =>
       dispatch(handleFieldChange(formKey, fieldKey, value)),
     toggleSnackbarAndSetText: (open, message, error) =>

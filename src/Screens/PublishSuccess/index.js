@@ -6,7 +6,7 @@ import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 import "./index.css";
 import { connect } from "react-redux";
 
-class ResolveSuccess extends Component {
+class PublishSuccess extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,15 +14,15 @@ class ResolveSuccess extends Component {
     }
   };
   continueComplaintSubmit = () => {
-    this.props.history.push("/egov-services/all-applications");
+    this.props.history.push("/egov-services/all-MccApplications");
   };
   render() {
    
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
-          headermessage="ES_APPLICATION_HEADER_MESSAGE"
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
+          headermessage="ES_APPLICATION_HEADER_PUBLISH_MESSAGE"
+          successmessage="ES_APPLICATION_PUBLISH_SUCCESS_MESSAGE"
           secondaryLabel="CS_COMMON_SEND_MESSAGE_APPROVAL"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
@@ -58,4 +58,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResolveSuccess);
+)(PublishSuccess);

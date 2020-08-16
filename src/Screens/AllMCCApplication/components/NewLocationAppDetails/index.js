@@ -151,7 +151,7 @@ class AppDetails extends Component {
                       label={address}
                     />
                   </div>
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -160,7 +160,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={houseNo}
                     />
-                  </div>
+                  </div> */}
                   <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
                     <Label
@@ -180,7 +180,7 @@ class AppDetails extends Component {
                       label={areaRequired?areaRequired:'NA'}
                     />
                   </div>
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -209,7 +209,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={bkCategory?bkCategory:'NA'}
                     />
-                  </div>
+                  </div> */}
                 </div>
 
 

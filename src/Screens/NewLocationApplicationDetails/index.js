@@ -20,8 +20,9 @@ import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import ApproveBooking from "../ComplaintResolved";
-import RejectBooking from "../RejectComplaint";
+import NewLocationResolved from "../NewLocationResolved";
+import NewLocationRejected from "../NewLocationRejected";
+import NewLocationPublished from '../NewLocationPublished';
 
 import jp from "jsonpath";
 import {
@@ -202,7 +203,14 @@ class ApplicationDetails extends Component {
 			this.setState({
 				actionTittle: "Approve Application"
 			})
-		} else {
+		} else if(label == 'PUBLISH'){
+			this.setState({
+				actionTittle: "Publish Application"
+			})
+		}
+		
+		
+		else {
 			this.setState({
 				actionTittle: "Reject Application"
 			})
@@ -746,6 +754,11 @@ downloadPermissionLetterFunction = async (e) => {
 		if (timeLine && timeLine[0]) {
 			action = timeLine[0].action;
 		}
+		const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
+		const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
+		const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
+console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APPROVER'));
+
 		return (
 			<div>
 				<Screen>
@@ -760,7 +773,7 @@ downloadPermissionLetterFunction = async (e) => {
 										</div>
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
-												<ActionButtonDropdown data={{
+												{/* <ActionButtonDropdown data={{
 													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "cloud_download",
@@ -797,10 +810,10 @@ downloadPermissionLetterFunction = async (e) => {
 														},
 														link: () => this.downloadApplicationButton('Application')
 													}]
-												}} />
+												}} /> */}
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
-												<ActionButtonDropdown data={{
+												{/* <ActionButtonDropdown data={{
 													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "print",
@@ -837,7 +850,7 @@ downloadPermissionLetterFunction = async (e) => {
 														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
 
 													}]
-												}} />
+												}} /> */}
 
 											</div>
 										</div>
@@ -860,9 +873,9 @@ downloadPermissionLetterFunction = async (e) => {
 								// complaintLoc={complaintLoc}
 								/>
 
-								<PaymentDetails
+								{/* <PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
-								/>
+								/> */}
 								{/* {documentMap && (
 									<DownloadFileContainer
 									
@@ -898,10 +911,8 @@ downloadPermissionLetterFunction = async (e) => {
 											complaint.status.toLowerCase() === "assigned")) ||
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGAPPROVAL" &&
-												// <ActionButtonDropdown
-
-												// />
+											(complaint.status == "PENDINGAPPROVAL"  &&foundFirstLavel&&
+										
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
@@ -926,6 +937,62 @@ downloadPermissionLetterFunction = async (e) => {
 														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 													}]
 												}} />}></Footer>
+
+											)
+										))}
+{(role === "employee" &&
+
+												(complaint.status == "PENDINGAPPROVALOSD" &&foundSecondLavel&&
+												
+												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													rightIcon: "arrow_drop_down",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+													},
+													menu: [{
+														label: {
+															labelName: "Approve",
+															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+														},
+
+														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
+													},
+													{
+														label: {
+															labelName: "Reject",
+															labelKey: "MYBK_REJECT_ACTION_BUTTON"
+														},
+														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+													}]
+												}} />}></Footer>
+
+												)
+)}
+{(role === "employee" &&
+												(complaint.status == "PENDINGPUBLISH" &&foundthirdLavel&&
+												
+												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													rightIcon: "arrow_drop_down",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+													},
+													menu: [{
+														label: {
+															labelName: "Publish",
+															labelKey: "MYBK_PUBLISH_ACTION_BUTTON"
+														},
+
+														link: () => this.actionButtonOnClick('state', "dispatch", 'PUBLISH')
+													},
+													]
+												}} />}></Footer>
+
+												)
+
 
 												// 	<FormControl style={{width: '100%'}}>
 												// 	<Select 
@@ -978,19 +1045,22 @@ downloadPermissionLetterFunction = async (e) => {
 												// 		color: "gray"
 												// 	}} value="REJECTED">Reject</option>
 												// </select>
-											)
+											
 
-										)
+
 									)}
 
 								<DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.actionButtonOnClick}
-									children={this.state.actionOnApplication == 'APPROVED' ? <ApproveBooking
+									children={this.state.actionOnApplication == 'APPROVED'? <NewLocationResolved
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
-									/> : <RejectBooking
+									/> :this.state.actionOnApplication=='PUBLISH'? <NewLocationPublished
+									applicationNumber={match.params.applicationId}
+									userInfo={userInfo}
+								/>: <NewLocationRejected
 											applicationNumber={match.params.applicationId}
 											userInfo={userInfo}
 										/>}
@@ -1112,23 +1182,23 @@ const mapStateToProps = (state, ownProps) => {
 	if (selectedComplaint && businessService) {
 
 		let details = {
-			applicantName: selectedComplaint.bkApplicantName,
-			status: selectedComplaint.bkApplicationStatus,
-			applicationNo: selectedComplaint.bkApplicationNumber,
-			address: selectedComplaint.bkCompleteAddress,
+			applicantName: selectedComplaint.applicantName,
+			status: selectedComplaint.applicationStatus,
+			applicationNo: selectedComplaint.applicationNumber,
+			address: selectedComplaint.applicantAddress,
 			bookingType: selectedComplaint.bkBookingType,
-			sector: selectedComplaint.bkSector,
-			bkEmail: selectedComplaint.bkEmail,
-			bkMobileNumber: selectedComplaint.bkMobileNumber,
+			sector: selectedComplaint.sector,
+			bkEmail: selectedComplaint.mailAddress,
+			bkMobileNumber: selectedComplaint.contact,
 			houseNo: selectedComplaint.bkHouseNo,
-			dateCreated: selectedComplaint.bkDateCreated,
-			areaRequired: selectedComplaint.bkAreaRequired,
+			dateCreated: selectedComplaint.dateCreated,
+			areaRequired: selectedComplaint.areaRequirement,
 			bkDuration: selectedComplaint.bkDuration,
 			bkCategory: selectedComplaint.bkCategory,
 			constructionType: selectedComplaint.bkConstructionType,
 			villageCity: selectedComplaint.bkVillCity,
 			residentialCommercial: selectedComplaint.bkType,
-			businessService: businessService,
+			businessService: selectedComplaint.businessService,
 			bkConstructionType: selectedComplaint.bkConstructionType,
 			bkFromDate: selectedComplaint.bkFromDate,
 			bkToDate: selectedComplaint.bkToDate
