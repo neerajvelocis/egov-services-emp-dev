@@ -252,57 +252,6 @@ downloadPaymentReceiptFunction = async (e) => {
 	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
 	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
 		console.log('compalint in downloadpayament',complaint,paymentDetails)
-
-	// let BookingInfo = [{
-	// 	"applicantDetail": {
-	// 		"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-	// 		"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
-	// 		"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
-	// 		"permanentAddress": complaint && complaint.address ? complaint.address : '',
-	// 		"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
-	// 		"sector": complaint && complaint.sector ? complaint.sector : ''
-	// 	},
-	// 	"booking": {
-	// 		"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
-	// 	},
-	// 	"paymentInfo": {
-	// 		"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
-	// 		"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
-	// 		"bookingPeriod": getDurationDate(
-	// 			complaint.bkFromDate,
-	// 			complaint.bkToDate
-	// 		),
-	// 		"bookingItem": "Online Payment Against Booking of Commercial Ground",
-	// 		"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-	// 			(el) => !el.taxHeadCode.includes("TAX")
-	// 		)[0].amount,
-	// 		"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-	// 			(el) => el.taxHeadCode.includes("TAX")
-	// 		)[0].amount,
-	// 		"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
-	// 		"amountInWords": this.NumInWords(
-	// 			paymentDetailsForReceipt.Payments[0].totalAmountPaid
-	// 		),
-	// 		paymentItemExtraColumnLabel: "Booking Period",
-	// 		paymentMode:
-	// 			paymentDetailsForReceipt.Payments[0].paymentMode,
-	// 		receiptNo:
-	// 			paymentDetailsForReceipt.Payments[0].paymentDetails[0]
-	// 				.receiptNumber,
-	// 		// name: paymentDetailsForReceipt.Payments[0].payerName,
-	// 		//     mobileNumber:
-	// 		//         paymentDetailsForReceipt.Payments[0].mobileNumber,
-	// 	},
-	// 	payerInfo: {
-	// 		payerName: paymentDetailsForReceipt.Payments[0].payerName,
-	// 		payerMobile:
-	// 			paymentDetailsForReceipt.Payments[0].mobileNumber,
-	// 	},
-	// 	generatedBy: {
-	// 		generatedBy: userInfo.name,
-	// 	},
-	// }
-	// ]
 console.log("cgappno--",complaint.applicationNo,complaint.sector,complaint.dateCreated,complaint.bkFromDate,
 complaint.bkToDate)
 
@@ -334,6 +283,17 @@ complaint.bkToDate)
 			generatedBy: {
 				generatedBy: userInfo.name,
 			},
+			approvedBy: {
+				approvedBy: "Renil Commissioner",
+				role: "Additional Commissioner"
+			  },
+			  tenantInfo: {
+				municipalityName: "Municipal Corporation Chandigarh",
+				address: "New Deluxe Building, Sector 17, Chandigarh",
+				contactNumber: "+91-172-2541002, 0172-2541003",
+				logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
+				webSite: "http://mcchandigarh.gov.in"
+			  }
 		}]
 	downloadPaymentReceiptforCG({BookingInfo:receiptData})
 }
