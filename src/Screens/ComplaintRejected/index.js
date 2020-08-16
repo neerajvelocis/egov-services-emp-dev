@@ -6,7 +6,7 @@ import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 
 class ComplaintRejected extends Component {
   handleComplaintReassigned = () => {
-    this.props.history.push("/all-complaints");
+    this.props.history.push("/egov-services/all-applications");
   };
 
   render() {
