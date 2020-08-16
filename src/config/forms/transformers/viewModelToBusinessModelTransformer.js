@@ -76,7 +76,15 @@ const transformer = (formKey, form = {}, state = {}) => {
       return updateComplaintStatus(state, form);
     },
     rejectBooking: () => {
-     
+      return updateComplaintStatus(state, form);
+    },
+    approveLocation: () => {
+      return updateComplaintStatus(state, form);
+    },
+    rejectNewLocation: () => {
+      return updateComplaintStatus(state, form);
+    },
+    publishNewLocation: () => {
       return updateComplaintStatus(state, form);
     },
     deliveredWBTBooking: () => {

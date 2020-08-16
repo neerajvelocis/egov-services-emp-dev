@@ -174,7 +174,7 @@ class AllRequests extends Component {
   };
 
   onComplaintClick = (complaintNo) => {
-    console.log('complaintNo in onComplaintClick', complaintNo);
+    console.log('complaintNo in onComplaintClick all mcc', complaintNo);
     this.props.history.push(`/egov-services/newLocation-application-details/${complaintNo}`);
   };
 

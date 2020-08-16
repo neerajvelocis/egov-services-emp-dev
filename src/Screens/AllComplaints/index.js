@@ -251,7 +251,7 @@ class AllRequests extends Component {
   };
 
   gotoMcc = () => {
-      this.props.history.push(`/egov-services/all-MccApplications`);
+    this.props.history.push(`/egov-services/all-MccApplications`);
   };
 
 
@@ -264,11 +264,11 @@ class AllRequests extends Component {
       this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
-      console.log("bookingType ",bookingType)
+      console.log("bookingType ", bookingType)
       this.props.history.push(`/cg-application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "JURISDICTION") {
-      console.log("bookingType ",bookingType)
+      console.log("bookingType ", bookingType)
       this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
     }
   };
@@ -751,6 +751,11 @@ class AllRequests extends Component {
       props: { variant: "outlined", style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" } },
       menu: downloadMenu
     }
+    const foundWaterTanker = userInfo && userInfo.roles.some(el => el.code === 'MCC_HELPDESK_USER');
+    const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
+    const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
+    const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
+    console.log('foundFirstLavel',foundFirstLavel,'foundSecondLavel',foundSecondLavel)
     return role === "ao" ? (
       <div>
         <div
@@ -897,51 +902,38 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
-
-    {/* <Button
-          className="responsive-action-button"
+        {/* <Button
           primary={true}
           label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
           fullWidth={true}
           onClick={this.gotoWaterTanker()}
           style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
         />  */}
-
-
-{/* <div className="col-xs-12"> */}
-        {userInfo && userInfo.roles && userInfo.roles[1].code == "MCC_HELPDESK_USER" ?
+        {/* <div className="col-xs-12"> */}
+        {foundWaterTanker ?
+          <Button
+            className="responsive-action-button"
+            label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
+            fullWidth={true}
+            primary={true}
+            style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
+            onClick={() => this.gotoWaterTanker()
+            } /> : ''
+        }
+        {foundFirstLavel || foundSecondLavel || foundthirdLavel ?
           <Button
           className="responsive-action-button"
-          label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
-          fullWidth={true}
-          primary={true} 
-          style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
-           onClick={() => this.gotoWaterTanker()
-           }/> : ''
+            label={<Label buttonLabel={true} label="NEW_LOCATION" />}
+            style={{  float: 'right', marginRight: '50px', marginTop: '40px' }}
+            backgroundColor="#fe7a51"
+            // labelStyle={{ letterSpacing: 0.7, padding: 0, color: "#fff" }}
+            // buttonStyle={{ border: 0 }}
+            fullWidth={true}
+            primary={true}
+            onClick={() => this.gotoMcc()}
+          /> : ''
         }
-        {/* </div> */}
-        {userInfo && userInfo.roles && userInfo.roles[1].code == "OSBM_APPROVER" ?
-       <Button
-       label={
-         <Label
-           buttonLabel={true}
-           label="GO_TO_MCC"
-         />
-       }
-       style={{ marginRight: 28, width: "36%" }}
-       backgroundColor="#fe7a51"
-       labelStyle={{
-         letterSpacing: 0.7,
-         padding: 0,
-         color: "#fff"
-       }}
-       buttonStyle={{ border: 0 }}
-       onClick={() => this.gotoMcc()}
-     /> : ''  
-      }
-       
 
-        
         <div className="form-without-button-cont-generic">
           {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
 
@@ -1264,8 +1256,8 @@ selectBoxOptions={['a','b','c']}
           />
         </div>
 
-    {/*For MCC*/}
-                  
+        {/*For MCC*/}
+
 
         {/* <div className="floating-button-cont csr-add-button">
           <FloatingActionButton
