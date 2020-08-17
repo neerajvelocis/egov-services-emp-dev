@@ -168,6 +168,7 @@ const mapStateToProps = state => {
   console.log('state in summary', state)
   const { createWaterTankerApplicationData, DownloadBWTApplicationDetails } = complaints;
   console.log('createWaterTankerApplicationData IN SUCESS', createWaterTankerApplicationData, 'DownloadBWTApplicationDetails', DownloadBWTApplicationDetails)
+  
   return {
     createWaterTankerApplicationData, DownloadBWTApplicationDetails
   }

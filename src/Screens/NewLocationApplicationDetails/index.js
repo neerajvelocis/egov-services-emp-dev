@@ -1141,13 +1141,14 @@ const mapStateToProps = (state, ownProps) => {
 	const serviceRequestId = ownProps.match.params.applicationId;
 	let selectedComplaint = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : ''
 	let businessService = MccApplicationData ? MccApplicationData.osujmNewLocationModelList : "";
-	let bookingDocs;
+	//let bookingDocs;
 
-	//console.log('businessService=====', businessService)
-	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
-	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// }
+	console.log('MccApplicationData in mapstate',MccApplicationData);
 	let documentMap = MccApplicationData && MccApplicationData.documentMap ? MccApplicationData.documentMap : '';
+	
+	let bookingDocs = MccApplicationData && MccApplicationData.documentList.lenght > 0 ? MccApplicationData.documentList : '';
+	console.log('documentmap in new loction', bookingDocs);
+
 	const { HistoryData } = complaints;	
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
