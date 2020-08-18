@@ -16,6 +16,7 @@ import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import OSMCCAppDetails from "../AllComplaints/components/OSMCCAppDetails"
 import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
+import OSMCCMainBookingDetails from "../AllComplaints/components/OSMCCMainBookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
@@ -41,14 +42,15 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
-	sendMessage,
-	sendMessageMedia
+	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
+	sendMessage,downloadPermissionLetter,downloadMccPL,downloadReceiptforCG,
+	sendMessageMedia,downloadMccApp
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 import DialogContainer from '../../modules/DialogContainer';
 import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
+import { convertEpochToDate, getDurationDate } from '../../modules/commonFunction'
 import "./index.css";
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -127,7 +129,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			fetchDataAfterPayment, 
+			fetchDataAfterPayment, downloadPaymentReceipt,downloadMccApp,downloadMccPL,downloadReceiptforCG,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -138,7 +140,6 @@ class ApplicationDetails extends Component {
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
-		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -160,8 +161,32 @@ class ApplicationDetails extends Component {
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
+		let BookingInfo = [{
+			"applicantDetail": {
+				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+				"mobileNumber": "9138912806",
+				"houseNo": "555",
+				"permanentAddress": null,
+				"permanentCity": "ch.chandigarh",
+				"sector": "7"
+			},
+			"booking": {
+				"bkApplicationNumber": "CH-BK-2020-07-25-000183"
+			},
+			"paymentInfo": {
+				"paymentDate": "13th Augest 2020",
+				"transactionId": "EDR654GF35",
+				"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
+				"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
+				"amount": 3000,
+				"tax": 540,
+				"grandTotal": 3540,
+				"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
+			}
+		}
+		]
+		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
 		let { details } = this.state;
-
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
@@ -188,7 +213,6 @@ class ApplicationDetails extends Component {
 		})
 	};
 
-
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
 		let { history } = this.props;
@@ -205,7 +229,6 @@ class ApplicationDetails extends Component {
 		}
 	};
 
-
 	handleClickOpen = () => {
 		this.setState({
 			open: true
@@ -217,6 +240,397 @@ class ApplicationDetails extends Component {
 			openPopup: false
 		})
 	};
+
+	NumInWords = (number) => {
+		const first = [
+			"",
+			"One ",
+			"Two ",
+			"Three ",
+			"Four ",
+			"Five ",
+			"Six ",
+			"Seven ",
+			"Eight ",
+			"Nine ",
+			"Ten ",
+			"Eleven ",
+			"Twelve ",
+			"Thirteen ",
+			"Fourteen ",
+			"Fifteen ",
+			"Sixteen ",
+			"Seventeen ",
+			"Eighteen ",
+			"Nineteen ",
+		];
+		const tens = [
+			"",
+			"",
+			"Twenty",
+			"Thirty",
+			"Forty",
+			"Fifty",
+			"Sixty",
+			"Seventy",
+			"Eighty",
+			"Ninety",
+		];
+		const mad = ["", "Thousand", "Million", "Billion", "Trillion"];
+		let word = "";
+
+		for (let i = 0; i < mad.length; i++) {
+			let tempNumber = number % (100 * Math.pow(1000, i));
+			if (Math.floor(tempNumber / Math.pow(1000, i)) !== 0) {
+				if (Math.floor(tempNumber / Math.pow(1000, i)) < 20) {
+					word =
+						first[Math.floor(tempNumber / Math.pow(1000, i))] +
+						mad[i] +
+						" " +
+						word;
+				} else {
+					word =
+						tens[Math.floor(tempNumber / (10 * Math.pow(1000, i)))] +
+						first[Math.floor(tempNumber / Math.pow(1000, i)) % 10] +
+						mad[i] +
+						" " +
+						word;
+				}
+			}
+
+			tempNumber = number % Math.pow(1000, i + 1);
+			if (Math.floor(tempNumber / (100 * Math.pow(1000, i))) !== 0)
+				word =
+					first[Math.floor(tempNumber / (100 * Math.pow(1000, i)))] +
+					"Hunderd " +
+					word;
+		}
+		return word + "Rupees Only";
+	};
+
+	//PaymentReceipt
+	downloadReceiptButton = async (e) => {
+	
+		await this.downloadReceiptFunction();
+	
+		console.log('DownloadReceiptDetailsforCG this.props',this.props)
+		let documentsPreviewData;
+		const { DownloadReceiptDetailsforCG } = this.props;
+		
+		var documentsPreview = [];
+		if (DownloadReceiptDetailsforCG && DownloadReceiptDetailsforCG.filestoreIds.length > 0) {
+	
+			console.log('DownloadReceiptDetailsforCG',DownloadReceiptDetailsforCG.filestoreIds[0])
+			 documentsPreviewData=DownloadReceiptDetailsforCG.filestoreIds[0];
+			
+			// let keys = Object.keys(documentMap);
+			// let values = Object.values(documentMap);
+			// let id = keys[0], fileName = values[0];
+	
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: documentsPreviewData,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+	
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			console.log('documentsPreview',documentsPreview)
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+	}
+
+	downloadReceiptFunction = async (e) => {
+		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG,downloadReceiptforCG, userInfo, paymentDetails } = this.props;
+		const { complaint } = transformedComplaint;
+		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+		console.log("bkApplicationNumberPayment ",complaint.applicationNo)
+			console.log('compalint in downloadpayament',complaint,paymentDetails)
+	
+		let BookingInfo = [{
+			"applicantDetail": {
+				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+				"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
+				"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
+				"permanentAddress": complaint && complaint.address ? complaint.address : '',
+				"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
+				"sector": complaint && complaint.sector ? complaint.sector : ''
+			},
+			"booking": {
+				"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
+			},
+			"paymentInfo": {
+				"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
+				"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
+				"bookingPeriod": getDurationDate(
+					complaint.bkFromDate,
+					complaint.bkToDate
+				),
+				"bookingItem": "Online Payment Against Booking of Open Space WithIn MCC",
+				"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+					(el) => !el.taxHeadCode.includes("TAX")
+				)[0].amount,
+				"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+					(el) => el.taxHeadCode.includes("TAX")
+				)[0].amount,
+				"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+				"amountInWords": this.NumInWords(
+					paymentDetailsForReceipt.Payments[0].totalAmountPaid
+				),
+				paymentItemExtraColumnLabel: "Booking Period",
+				paymentMode:
+					paymentDetailsForReceipt.Payments[0].paymentMode,
+				receiptNo:
+					paymentDetailsForReceipt.Payments[0].paymentDetails[0]
+						.receiptNumber,
+				// name: paymentDetailsForReceipt.Payments[0].payerName,
+				//     mobileNumber:
+				//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+			},
+			payerInfo: {
+				payerName: paymentDetailsForReceipt.Payments[0].payerName,
+				payerMobile:
+					paymentDetailsForReceipt.Payments[0].mobileNumber,
+			},
+			generatedBy: {
+				generatedBy: userInfo.name,
+			},
+		}
+		]
+		downloadReceiptforCG({BookingInfo: BookingInfo})
+	}
+
+//Application
+	downloadApplicationMCCButton = async (e) => {
+	
+		await this.downloadApplicationFunction();
+	
+		console.log('DownloadMccAppp this.props',this.props)
+		let documentsPreviewData;
+		const { DownloadMccAppp } = this.props;
+		
+		var documentsPreview = [];
+		if (DownloadMccAppp && DownloadMccAppp.filestoreIds.length > 0) {
+	
+			console.log('DownloadMccAppp',DownloadMccAppp.filestoreIds[0])
+			 documentsPreviewData=DownloadMccAppp.filestoreIds[0];
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: documentsPreviewData,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+	
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			console.log('documentsPreview',documentsPreview)
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+	
+	
+	
+	}
+	downloadApplicationFunction = async (e) => {
+		const { transformedComplaint,paymentDetailsForReceipt,paymentDetails,downloadPermissionLetter, downloadMccApp, userInfo} = this.props;
+		const {complaint} = transformedComplaint;
+		let receiptData = [
+			{
+				applicantDetail: {
+					name: complaint.applicantName,
+					mobileNumber: complaint.bkMobileNumber,
+					email: complaint.bkEmail,
+					permanentAddress: complaint.address,
+					permanentCity: "Chandigarh",
+					sector: complaint.sector,
+					fatherName: complaint.bkFatherName
+				},
+				bookingDetail: {
+					applicationNumber:
+					complaint.applicationNo,
+					applicationDate: convertEpochToDate(
+						complaint.dateCreated,"dayend"
+					),
+					bookingPeriod: getDurationDate(
+						complaint.bkFromDate,
+						complaint.bkToDate
+					),
+					venueName : complaint.bkBookingVenue,
+					sector: complaint.sector,
+					bookingPurpose : complaint.bkBookingPurpose,
+				},
+				"feeDetail": {
+					"baseCharge": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+						(el) => !el.taxHeadCode.includes("TAX")
+					)[0].amount,
+					"taxes": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+						(el) => el.taxHeadCode.includes("TAX")
+					)[0].amount,
+					"totalAmount": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+				},
+				generatedBy: {
+					generatedBy: userInfo.name,
+				},
+			}]
+	
+			downloadMccApp({BookingInfo:receiptData})
+	}
+
+//permissionLeter	
+	downloadPLButton = async (e) => {
+	
+		await this.downloadPLFunction();
+	
+		console.log('DownloadMccPermissionLetter this.props',this.props)
+		let documentsPreviewData;
+		const { DownloadMccPermissionLetter } = this.props;
+		
+		var documentsPreview = [];
+		if (DownloadMccPermissionLetter && DownloadMccPermissionLetter.filestoreIds.length > 0) {
+	
+			console.log('DownloadMccPermissionLetter',DownloadMccPermissionLetter.filestoreIds[0])
+			 documentsPreviewData=DownloadMccPermissionLetter.filestoreIds[0];
+			
+			// let keys = Object.keys(documentMap);
+			// let values = Object.values(documentMap);
+			// let id = keys[0], fileName = values[0];
+	
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: documentsPreviewData,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+	
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			console.log('documentsPreview',documentsPreview)
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+	}
+	downloadPLFunction = async (e) => {
+		const { transformedComplaint, paymentDetailsForReceipt,downloadMccPL,downloadPaymentReceiptforCG, userInfo, paymentDetails } = this.props;
+		const { complaint } = transformedComplaint;
+		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+		console.log("bkApplicationNumberPayment ",complaint.applicationNo)
+			console.log('compalint in downloadpayament',complaint,paymentDetails)
+	console.log("cgappno--",complaint.applicationNo,complaint.sector,complaint.dateCreated,complaint.bkFromDate,
+	complaint.bkToDate)
+	
+	let receiptData = [
+		{
+			applicantDetail: {
+				name: complaint.applicantName,
+				mobileNumber: complaint.bkMobileNumber,
+				email: complaint.bkEmail,
+				permanentAddress: complaint.address,
+				permanentCity: "Chandigarh",
+				sector: complaint.sector,
+				fatherName: complaint.bkFatherName
+			},
+			bookingDetail: {
+				applicationNumber:
+				complaint.applicationNo,
+				applicationDate: convertEpochToDate(
+					complaint.dateCreated,"dayend"
+				),
+				bookingPeriod: getDurationDate(
+					complaint.bkFromDate,
+					complaint.bkToDate
+				),
+				venueName : complaint.bkBookingVenue,
+				sector: complaint.sector,
+				bookingPurpose : complaint.bkBookingPurpose,
+			},
+			generatedBy: {
+				generatedBy: userInfo.name,
+			},
+			approvedBy: {
+				approvedBy: "Renil Commissioner",
+				role: "Additional Commissioner"
+			  },
+			  tenantInfo: {
+				municipalityName: "Municipal Corporation Chandigarh",
+				address: "New Deluxe Building, Sector 17, Chandigarh",
+				contactNumber: "+91-172-2541002, 0172-2541003",
+				logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
+				webSite: "http://mcchandigarh.gov.in"
+			  }
+		}]
+		downloadMccPL({BookingInfo:receiptData})
+	}
 
 	callApiForDocumentData = async (e) => {
 		const { documentMap } = this.props;
@@ -333,80 +747,114 @@ class ApplicationDetails extends Component {
 		return (
 			<div>
 				<Screen>
-				{complaint && !openMap && (
+					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
 								<div className="container" >
 									<div className="row">
-										<div className="col-12 col-md-6" style={{fontSize: 'x-large'}}>
-											
-Application Details
+										<div className="col-12 col-md-6" style={{ fontSize: 'x-large' }}>
+
+											Application Details
 										</div>
 										<div className="col-12 col-md-6 row">
-										<div class="col-12 col-md-6 col-sm-3" >
-										<ActionButtonDropdown data={{
-									label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-									rightIcon: "arrow_drop_down",
-									leftIcon: "cloud_download",
-									props: {
-										variant: "outlined",
-										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
-									},
-									menu: [{
-										label: {
-											labelName: "Receipt",
-											labelKey: "MYBK_DOWNLOAD_RECEIPT"
-										},
+											<div class="col-12 col-md-6 col-sm-3" >
+												<ActionButtonDropdown data={{
+													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "cloud_download",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+													},
+													menu: (complaint.status=='APPROVED')?[{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+														},
+														leftIcon: "receipt",
 
-										link: () => this.downloadPaymentReceiptButton('Receipt')
-									},
-									{
-										label: {
-											labelName: "Application",
-											labelKey: "MYBK_DOWNLOAD_APPLICATION"
-										},
-										 link: () => this.downloadApplicationButton('Application')
-									}]
-								}} />
-								</div>
-								<div class="col-12 col-md-6 col-sm-3" >
-										<ActionButtonDropdown data={{
-									label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
-									rightIcon: "arrow_drop_down",
-									leftIcon: "print",
-									props: {
-										variant: "outlined",
-										style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
-									},
-									menu: [{
-										label: {
-											labelName: "Receipt",
-											labelKey: "MYBK_PRINT_RECEIPT"
-										},
+														link: () => this.downloadReceiptButton('Receipt'),
+				
+													},
+													{
+														label: {
+															labelName: "PermissionLetter",
+															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+														},
+														leftIcon: "book",
+														link: () => this.downloadPLButton('PermissionLetter'),
+													},{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
+													}]:
+													[{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_DOWNLOAD_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('Application'),
+														leftIcon: "assignment"
+													}]
+												}} />
+											</div>
+											<div class="col-12 col-md-6 col-sm-3" >
+												<ActionButtonDropdown data={{
+													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "print",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+													},
+													menu:  (complaint.status=='APPROVED')?[{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_PRINT_RECEIPT"
+														},
 
-										link: () => this.downloadPaymentReceiptButton('Receipt')
-									},
-									{
-										label: {
-											labelName: "Application",
-											labelKey: "MYBK_PRINT_APPLICATION"
-										},
-										// link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
-									}]
-								}} />
+														link: () => this.downloadReceiptButton('Receipt'),
+														leftIcon: "receipt"
+													},
+													{
+														label: {
+															labelName: "PermissionLetter",
+															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+														},
+														 link: () => this.downloadPLButton('state', "dispatch", 'REJECT'),
+														 leftIcon: "book"
+													},{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
+													}]:[{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
+													}]
+												}} />
 
-</div>
+											</div>
 										</div>
 									</div>
 								</div>
-					
-								
+
+
 
 								<OSMCCBookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<OSMCCAppDetails
+<OSMCCAppDetails
 									{...complaint}
 								// role={role}
 								// history={history}
@@ -416,6 +864,11 @@ Application Details
 								// complaintLoc={complaintLoc}
 								/>
 
+								<OSMCCMainBookingDetails 
+								{...complaint}
+								historyApiData={historyApiData && historyApiData}
+								/>
+								
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
@@ -542,7 +995,8 @@ Application Details
 								<DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
-									togglepopup={this.actionButtonOnClick}
+									togglepopup={this.actionButtonOnClick}									
+									maxWidth={'md'}
 									children={this.state.actionOnApplication == 'APPROVED' ? <ApproveBooking
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
@@ -614,8 +1068,8 @@ let gro = "";
 
 const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
-	const { applicationData } = complaints;
-	const { DownloadPaymentReceiptDetails } = complaints;
+	const { applicationData,DownloadMccAppp,DownloadReceiptDetailsforCG } = complaints;
+	const { DownloadPaymentReceiptDetails,DownloadApplicationDetails,DownloadPermissionLetterDetails,DownloadMccPermissionLetter } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
@@ -629,37 +1083,22 @@ const mapStateToProps = (state, ownProps) => {
 	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
 
-	console.log('businessService=====', businessService)
+	//console.log('businessService=====', businessService)
 	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// 	console.log('hel1')
 	// }
 	let documentMap = applicationData && applicationData.documentMap ? applicationData.documentMap : '';
-
-	const { HistoryData } = complaints;
-	let temp;
-	// if(applicationData && applicationData.documentMap){
-	// 	temp=applicationData;
-	// }
-	console.log('temp===', temp)
+	const { HistoryData } = complaints;	
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
 
-	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
-
-
-	// let paymentDetails;
-	// if (selectedComplaint && selectedComplaint.bkApplicationStatus == "PENDINGAPPROVAL") {
-	// 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
-	// } else {
-	// 	paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	// }
+	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
-	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "PENDINGAPPROVAL") {
-		paymentDetails = paymentData ? paymentData.Bill[0] : '';	
-	} else {
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
+	} else {
+		paymentDetails = paymentData ? paymentData.Bill[0] : '';
 	}
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
@@ -700,7 +1139,11 @@ const mapStateToProps = (state, ownProps) => {
 			villageCity: selectedComplaint.bkVillCity,
 			residentialCommercial: selectedComplaint.bkType,
 			businessService: businessService,
-			bkConstructionType: selectedComplaint.bkConstructionType
+			bkConstructionType: selectedComplaint.bkConstructionType,
+			bkFromDate: selectedComplaint.bkFromDate,
+			bkToDate: selectedComplaint.bkToDate,
+			bkFatherName: selectedComplaint.bkFatherName,
+			bkBookingVenue:selectedComplaint.bkBookingVenue
 
 		}
 
@@ -723,12 +1166,15 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
+			DownloadMccAppp,
+			DownloadReceiptDetailsforCG,
 			DownloadPaymentReceiptDetails,
-			// documentMapDataValues,
+			paymentDetailsForReceipt,DownloadApplicationDetails,DownloadPermissionLetterDetails,
 			documentMap,
 			form,
 			transformedComplaint,
 			role,
+			DownloadMccPermissionLetter,
 			serviceRequestId,
 			isAssignedToEmployee,
 			complaintTypeLocalised,
@@ -737,9 +1183,14 @@ const mapStateToProps = (state, ownProps) => {
 	} else {
 		return {
 			paymentDetails,
+			DownloadMccAppp,
 			historyApiData,
+			DownloadReceiptDetailsforCG,
 			DownloadPaymentReceiptDetails,
-			// documentMapDataValues,
+			DownloadMccPermissionLetter,
+			paymentDetailsForReceipt,
+			DownloadApplicationDetails,
+			DownloadPermissionLetterDetails,
 			documentMap,
 			form,
 			transformedComplaint: {},
@@ -755,9 +1206,14 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),//downloadMCCPLComplete
+		downloadMccPL: criteria => dispatch(downloadMccPL(criteria)),
 
-		// downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
+		downloadMccApp: criteria => dispatch(downloadMccApp(criteria)),
+		downloadReceiptforCG: criteria => dispatch(downloadReceiptforCG(criteria)),
+		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
+        downloadPermissionLetter: criteria => dispatch(downloadPermissionLetter(criteria)),
+		downloadApplication: criteria => dispatch(downloadApplication(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),

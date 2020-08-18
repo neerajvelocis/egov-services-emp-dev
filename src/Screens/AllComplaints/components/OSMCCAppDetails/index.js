@@ -50,7 +50,7 @@ class AppDetails extends Component {
   };
 
   render() {
-    const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status, applicantName,bkFatherName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
    
     // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
@@ -123,6 +123,15 @@ class AppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_FATHER_NAME" />
+                    <Label
+                      className="col-xs-6  col-sm-8 col-md-10  status-result-color"
+                      id="complaint-details-current-status"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkFatherName}
+                    />
+                  </div>
+                  <div className="col-md-4">
                     <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
                     <Label
                       className="col-xs-6  col-sm-8 col-md-10  status-result-color"
@@ -151,7 +160,7 @@ class AppDetails extends Component {
                       label={address}
                     />
                   </div>
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -160,7 +169,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={houseNo}
                     />
-                  </div>
+                  </div> */}
                   <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
                     <Label
@@ -171,16 +180,7 @@ class AppDetails extends Component {
                       label={sector}
                     />
                   </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={areaRequired?areaRequired:'NA'}
-                    />
-                  </div>
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -189,8 +189,8 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={bkConstructionType?bkConstructionType:'NA'}
                     />
-                  </div>
-                  <div className="col-md-4">
+                  </div> */}
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DURATION_LABEL" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -199,8 +199,8 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={bkDuration?bkDuration:'NA'}
                     />
-                  </div>
-                  <div className="col-md-4">
+                  </div> */}
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_CATEGORY" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -209,7 +209,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={bkCategory?bkCategory:'NA'}
                     />
-                  </div>
+                  </div> */}
                 </div>
 
 

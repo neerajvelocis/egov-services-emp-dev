@@ -299,62 +299,6 @@ complaint.bkToDate)
 }
 
 
-//new letter  function
-downloadLetterFunction = async (e) => {
-	const { transformedComplaint, paymentDetailsForReceipt, downloadLetterforCG, userInfo } = this.props;
-	const { complaint } = transformedComplaint;
-	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-
-	let BookingInfo = [{
-		"applicantDetail": {
-			"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-			"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
-			"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
-			"permanentAddress": complaint && complaint.address ? complaint.address : '',
-			"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
-			"sector": complaint && complaint.sector ? complaint.sector : ''
-		},
-		"booking": {
-			"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
-		},
-		"paymentInfo": {
-			"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
-			"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
-			"bookingPeriod": getDurationDate(
-				complaint.bkFromDate,
-				complaint.bkToDate
-			),
-			"bookingItem": "Online Payment Against Booking of Commercial Ground",
-			"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-				(el) => !el.taxHeadCode.includes("TAX")
-			)[0].amount,
-			"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-				(el) => el.taxHeadCode.includes("TAX")
-			)[0].amount,
-			"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
-			"amountInWords": this.NumInWords(
-				paymentDetailsForReceipt.Payments[0].totalAmountPaid
-			),
-			paymentItemExtraColumnLabel: "Booking Period",
-			paymentMode:
-				paymentDetailsForReceipt.Payments[0].paymentMode,
-			receiptNo:
-				paymentDetailsForReceipt.Payments[0].paymentDetails[0]
-					.receiptNumber,
-		},
-		payerInfo: {
-			payerName: paymentDetailsForReceipt.Payments[0].payerName,
-			payerMobile:
-				paymentDetailsForReceipt.Payments[0].mobileNumber,
-		},
-		generatedBy: {
-			generatedBy: userInfo.name,
-		},
-	}
-	]
-	downloadLetterforCG({ BookingInfo: BookingInfo })
-}
-
 downloadApplicationFunction = async (e) => {
 const { transformedComplaint,paymentDetails,downloadApplicationforCG,paymentDetailsForReceipt,userInfo } = this.props;
 
@@ -454,119 +398,7 @@ downloadApplicationButton = async (e) => {
 		}, 100);
 		prepareFinalObject('documentsPreview', documentsPreview)
 	}
-
-
-
 }
-
-// downloadPermissionLetterButton = async (e) => {
-	
-// 	await this.downloadPermissionLetterFunction();
-
-// 	console.log('DownloadPermissionLetterDetailsforCG this.props',this.props)
-// 	let documentsPreviewData;
-// 	const { DownloadPermissionLetterDetailsforCG } = this.props;
-	
-// 	var documentsPreview = [];
-// 	if (DownloadPermissionLetterDetailsforCG && DownloadPermissionLetterDetailsforCG.filestoreIds.length > 0) {
-
-// 		console.log('DownloadPermissionLetterDetailsforCG',DownloadPermissionLetterDetailsforCG.filestoreIds[0])
-// 		 documentsPreviewData=DownloadPermissionLetterDetailsforCG.filestoreIds[0];
-		
-// 		// let keys = Object.keys(documentMap);
-// 		// let values = Object.values(documentMap);
-// 		// let id = keys[0], fileName = values[0];
-
-// 		documentsPreview.push({
-// 			title: "DOC_DOC_PICTURE",
-// 			fileStoreId: documentsPreviewData,
-// 			linkText: "View",
-// 		});
-// 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
-// 		let fileUrls =
-// 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-// 		console.log("fileUrls", fileUrls);
-
-// 		documentsPreview = documentsPreview.map(function (doc, index) {
-// 			doc["link"] =
-// 				(fileUrls &&
-// 					fileUrls[doc.fileStoreId] &&
-// 					fileUrls[doc.fileStoreId].split(",")[0]) ||
-// 				"";
-// 			//doc["name"] = doc.fileStoreId;
-// 			doc["name"] =
-// 				(fileUrls[doc.fileStoreId] &&
-// 					decodeURIComponent(
-// 						fileUrls[doc.fileStoreId]
-// 							.split(",")[0]
-// 							.split("?")[0]
-// 							.split("/")
-// 							.pop()
-// 							.slice(13)
-// 					)) ||
-// 				`Document - ${index + 1}`;
-// 			return doc;
-// 		});
-// 		console.log('documentsPreview',documentsPreview)
-// 		setTimeout(() => {
-// 			window.open(documentsPreview[0].link);
-// 		}, 100);
-// 		prepareFinalObject('documentsPreview', documentsPreview)
-// 	}
-// }
-
-//NEW PERMISSIONLETTER FUNCTION
-downloadLetterButton = async (e) => {
-	
-	await this.downloadLetterFunction();
-
-	console.log('DownloadPermissionLetterDetailsforCG this.props',this.props)
-	let documentsPreviewData;
-	const { DownloadPermissionLetterDetailsforCG } = this.props;
-	
-	var documentsPreview = [];
-	if (DownloadPermissionLetterDetailsforCG && DownloadPermissionLetterDetailsforCG.filestoreIds.length > 0) {
-
-		console.log('DownloadPermissionLetterDetailsforCG',DownloadPermissionLetterDetailsforCG.filestoreIds[0])
-		 documentsPreviewData=DownloadPermissionLetterDetailsforCG.filestoreIds[0];
-		documentsPreview.push({
-			title: "DOC_DOC_PICTURE",
-			fileStoreId: documentsPreviewData,
-			linkText: "View",
-		});
-		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
-		let fileUrls =
-			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
-
-		documentsPreview = documentsPreview.map(function (doc, index) {
-			doc["link"] =
-				(fileUrls &&
-					fileUrls[doc.fileStoreId] &&
-					fileUrls[doc.fileStoreId].split(",")[0]) ||
-				"";
-			//doc["name"] = doc.fileStoreId;
-			doc["name"] =
-				(fileUrls[doc.fileStoreId] &&
-					decodeURIComponent(
-						fileUrls[doc.fileStoreId]
-							.split(",")[0]
-							.split("?")[0]
-							.split("/")
-							.pop()
-							.slice(13)
-					)) ||
-				`Document - ${index + 1}`;
-			return doc;
-		});
-		console.log('documentsPreview',documentsPreview)
-		setTimeout(() => {
-			window.open(documentsPreview[0].link);
-		}, 100);
-		prepareFinalObject('documentsPreview', documentsPreview)
-	}
-}
-
 
 //new paymentReceipt
 downloadReceiptButton = async (e) => {
@@ -1091,13 +923,16 @@ Application Details
 										</div>
 									</div>
 								</div>
-                              <CGBookingDetails
-									{...complaint}
-								/>
+
 
 								<CGAppDetails
 									{...complaint}
 								/>
+
+                              <CGBookingDetails
+									{...complaint}
+								/>
+
 
                                   <PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
