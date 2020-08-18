@@ -15,7 +15,9 @@ import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import AppDetails from "../AllMCCApplication/components/NewLocationAppDetails"
+import NewLocationFieldsDetails from '../AllMCCApplication/components/NewLocationFieldsDetails'
 import BookingDetails from "../AllMCCApplication/components/NewLocationBookingDetails"
+import ImageListDetails from '../AllMCCApplication/components/Image'
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
@@ -42,8 +44,8 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchMccApplications,fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
-	sendMessage,downloadPermissionLetter,
+	fetchApplications, fetchMccApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
+	sendMessage, downloadPermissionLetter,
 	sendMessageMedia
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
@@ -107,7 +109,8 @@ class ApplicationDetails extends Component {
 			togglepopup: false,
 			actionOnApplication: '',
 			actionTittle: '',
-			actionOpen: false
+			actionOpen: false,
+			imageData: [],
 		};
 	};
 
@@ -124,7 +127,7 @@ class ApplicationDetails extends Component {
 	};
 
 
-	componentDidMount = async () => {
+	componentDidMount = () => {
 		let {
 			fetchApplications,
 			fetchMccApplications,
@@ -162,36 +165,12 @@ class ApplicationDetails extends Component {
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
-		let BookingInfo = [{
-			"applicantDetail": {
-				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-				"mobileNumber": "9138912806",
-				"houseNo": "555",
-				"permanentAddress": null,
-				"permanentCity": "ch.chandigarh",
-				"sector": "7"
-			},
-			"booking": {
-				"bkApplicationNumber": "CH-BK-2020-07-25-000183"
-			},
-			"paymentInfo": {
-				"paymentDate": "13th Augest 2020",
-				"transactionId": "EDR654GF35",
-				"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
-				"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-				"amount": 3000,
-				"tax": 540,
-				"grandTotal": 3540,
-				"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
-			}
-		}
-		]
-		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
 		let { details } = this.state;
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
 		console.log('this.props123', this.props)
+		this.getImegeDocument();
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -203,13 +182,13 @@ class ApplicationDetails extends Component {
 			this.setState({
 				actionTittle: "Approve Application"
 			})
-		} else if(label == 'PUBLISH'){
+		} else if (label == 'PUBLISH') {
 			this.setState({
 				actionTittle: "Publish Application"
 			})
 		}
-		
-		
+
+
 		else {
 			this.setState({
 				actionTittle: "Reject Application"
@@ -375,69 +354,69 @@ class ApplicationDetails extends Component {
 	}
 
 	downloadApplicationFunction = async (e) => {
-		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
+		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication, paymentDetails, userInfo } = this.props;
 
 		const { complaint } = transformedComplaint;
 
 
 		let bookingDataOsbm = {
-            applicationNumber: complaint.applicationNo,
-            houseNo: complaint.houseNo,
-            locality: complaint.sector,
-            address: complaint.address,
-            applicationDate: complaint.dateCreated,
-            villageOrCity: complaint.villageCity,
-            propertyType: complaint.residentialCommercial,
-            storageAreaRequired: complaint.areaRequired,
-            category: complaint.bkCategory,
-            typeOfConstruction: complaint.bkConstructionType,
-            // permissionPeriod: "From 18-03-2020 To 17-04-2020",
-            duration:
-                complaint.bkDuration == "1"
-                    ? `${complaint.bkDuration} Month`
-                    : `${complaint.bkDuration} Months`,
-            categoryImage: "",
-            // categoryImage: applicationData.bkCategory === "Cat-A" ? "http://3.6.65.87:3000/static/media/cat-a.4e1bc5ec.jpeg" : applicationData.bkCategory === "Cat-B" ? "" : "http://3.6.65.87:3000/static/media/cat-c.4e1bc5ec.jpeg"
-        };
+			applicationNumber: complaint.applicationNo,
+			houseNo: complaint.houseNo,
+			locality: complaint.sector,
+			address: complaint.address,
+			applicationDate: complaint.dateCreated,
+			villageOrCity: complaint.villageCity,
+			propertyType: complaint.residentialCommercial,
+			storageAreaRequired: complaint.areaRequired,
+			category: complaint.bkCategory,
+			typeOfConstruction: complaint.bkConstructionType,
+			// permissionPeriod: "From 18-03-2020 To 17-04-2020",
+			duration:
+				complaint.bkDuration == "1"
+					? `${complaint.bkDuration} Month`
+					: `${complaint.bkDuration} Months`,
+			categoryImage: "",
+			// categoryImage: applicationData.bkCategory === "Cat-A" ? "http://3.6.65.87:3000/static/media/cat-a.4e1bc5ec.jpeg" : applicationData.bkCategory === "Cat-B" ? "" : "http://3.6.65.87:3000/static/media/cat-c.4e1bc5ec.jpeg"
+		};
 		const queryStr = [
-            {
-                key: "key",
-                value:"bk-osbm-app-form"
-            },
-            { key: "tenantId", value: "ch" },
+			{
+				key: "key",
+				value: "bk-osbm-app-form"
+			},
+			{ key: "tenantId", value: "ch" },
 		];
-		
+
 		let appData = [
-            {
-                applicantDetail: {
-                    name: complaint.applicantName,
-                    mobileNumber: complaint.bkMobileNumber,
-                    houseNo: complaint.houseNo,
-                    permanentAddress: complaint.address,
-                    // permanentCity: tenantId,
-                    sector: complaint.sector,
-                    email: complaint.bkEmail,
-                },
-                bookingDetail:bookingDataOsbm,
-                feeDetail: {
-                    baseCharge:
-                        paymentDetails === undefined
-                            ? null
-                            : paymentDetails.billDetails[0].billAccountDetails.filter(el => !el.taxHeadCode.includes("TAX"))[0].amount,
-                    taxes:
-                        paymentDetails === undefined
-                            ? null
-                            : paymentDetails.billDetails[0].billAccountDetails.filter(el => el.taxHeadCode.includes("TAX"))[0].amount,
-                    totalAmount:
-                        paymentDetails === undefined
-                            ? null
-                            : paymentDetails.totalAmount,
-                },
-            },
-        ];
+			{
+				applicantDetail: {
+					name: complaint.applicantName,
+					mobileNumber: complaint.bkMobileNumber,
+					houseNo: complaint.houseNo,
+					permanentAddress: complaint.address,
+					// permanentCity: tenantId,
+					sector: complaint.sector,
+					email: complaint.bkEmail,
+				},
+				bookingDetail: bookingDataOsbm,
+				feeDetail: {
+					baseCharge:
+						paymentDetails === undefined
+							? null
+							: paymentDetails.billDetails[0].billAccountDetails.filter(el => !el.taxHeadCode.includes("TAX"))[0].amount,
+					taxes:
+						paymentDetails === undefined
+							? null
+							: paymentDetails.billDetails[0].billAccountDetails.filter(el => el.taxHeadCode.includes("TAX"))[0].amount,
+					totalAmount:
+						paymentDetails === undefined
+							? null
+							: paymentDetails.totalAmount,
+				},
+			},
+		];
 
 
-		downloadApplication( { BookingInfo: appData })
+		downloadApplication({ BookingInfo: appData })
 	}
 	// Download Application 
 	downloadApplicationButton = async (e) => {
@@ -446,164 +425,164 @@ class ApplicationDetails extends Component {
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
-		if (DownloadApplicationDetails && DownloadApplicationDetails.filestoreIds.length > 0) {	
+		if (DownloadApplicationDetails && DownloadApplicationDetails.filestoreIds.length > 0) {
 			documentsPreviewData = DownloadApplicationDetails.filestoreIds[0];
-				documentsPreview.push({
-					title: "DOC_DOC_PICTURE",
-					fileStoreId: documentsPreviewData,
-					linkText: "View",
-				});
-				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
-				let fileUrls =
-					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				console.log("fileUrls", fileUrls);
-	
-				documentsPreview = documentsPreview.map(function (doc, index) {
-					doc["link"] =
-						(fileUrls &&
-							fileUrls[doc.fileStoreId] &&
-							fileUrls[doc.fileStoreId].split(",")[0]) ||
-						"";
-					//doc["name"] = doc.fileStoreId;
-					doc["name"] =
-						(fileUrls[doc.fileStoreId] &&
-							decodeURIComponent(
-								fileUrls[doc.fileStoreId]
-									.split(",")[0]
-									.split("?")[0]
-									.split("/")
-									.pop()
-									.slice(13)
-							)) ||
-						`Document - ${index + 1}`;
-					return doc;
-				});
-				console.log('documentsPreview', documentsPreview)
-				setTimeout(() => {
-					window.open(documentsPreview[0].link);
-				}, 100);
-				prepareFinalObject('documentsPreview', documentsPreview)
-			}
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: documentsPreviewData,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
+
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			console.log('documentsPreview', documentsPreview)
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
 
 	}
 
-//*****Download Permission letter for OSBM application*****//
-downloadPermissionLetterButton = async (e) => {
-	await this.downloadPermissionLetterFunction();
-	let documentsPreviewData;
-	const { DownloadPermissionLetterDetails } = this.props;
-	var documentsPreview = [];
-	if (DownloadPermissionLetterDetails && DownloadPermissionLetterDetails.filestoreIds.length > 0) {
-		 documentsPreviewData=DownloadPermissionLetterDetails.filestoreIds[0];
-		documentsPreview.push({
-			title: "DOC_DOC_PICTURE",
-			fileStoreId: documentsPreviewData,
-			linkText: "View",
-		});
-		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
-		let fileUrls =
-			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+	//*****Download Permission letter for OSBM application*****//
+	downloadPermissionLetterButton = async (e) => {
+		await this.downloadPermissionLetterFunction();
+		let documentsPreviewData;
+		const { DownloadPermissionLetterDetails } = this.props;
+		var documentsPreview = [];
+		if (DownloadPermissionLetterDetails && DownloadPermissionLetterDetails.filestoreIds.length > 0) {
+			documentsPreviewData = DownloadPermissionLetterDetails.filestoreIds[0];
+			documentsPreview.push({
+				title: "DOC_DOC_PICTURE",
+				fileStoreId: documentsPreviewData,
+				linkText: "View",
+			});
+			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+			let fileUrls =
+				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+			console.log("fileUrls", fileUrls);
 
-		documentsPreview = documentsPreview.map(function (doc, index) {
-			doc["link"] =
-				(fileUrls &&
-					fileUrls[doc.fileStoreId] &&
-					fileUrls[doc.fileStoreId].split(",")[0]) ||
-				"";
-			//doc["name"] = doc.fileStoreId;
-			doc["name"] =
-				(fileUrls[doc.fileStoreId] &&
-					decodeURIComponent(
-						fileUrls[doc.fileStoreId]
-							.split(",")[0]
-							.split("?")[0]
-							.split("/")
-							.pop()
-							.slice(13)
-					)) ||
-				`Document - ${index + 1}`;
-			return doc;
-		});
-		console.log('documentsPreview',documentsPreview)
-		setTimeout(() => {
-			window.open(documentsPreview[0].link);
-		}, 100);
-		prepareFinalObject('documentsPreview', documentsPreview)
+			documentsPreview = documentsPreview.map(function (doc, index) {
+				doc["link"] =
+					(fileUrls &&
+						fileUrls[doc.fileStoreId] &&
+						fileUrls[doc.fileStoreId].split(",")[0]) ||
+					"";
+				//doc["name"] = doc.fileStoreId;
+				doc["name"] =
+					(fileUrls[doc.fileStoreId] &&
+						decodeURIComponent(
+							fileUrls[doc.fileStoreId]
+								.split(",")[0]
+								.split("?")[0]
+								.split("/")
+								.pop()
+								.slice(13)
+						)) ||
+					`Document - ${index + 1}`;
+				return doc;
+			});
+			console.log('documentsPreview', documentsPreview)
+			setTimeout(() => {
+				window.open(documentsPreview[0].link);
+			}, 100);
+			prepareFinalObject('documentsPreview', documentsPreview)
+		}
+
 	}
 
-}
+	downloadPermissionLetterFunction = async (e) => {
+		const { transformedComplaint, paymentDetails, downloadPermissionLetter, userInfo } = this.props;
+		const { complaint } = transformedComplaint;
+		let receiptData = [
+			{
+				applicantDetail: {
+					name: complaint.applicantName,
+					mobileNumber: complaint.bkMobileNumber,
+					houseNo: complaint.houseNo,
+					permanentAddress: complaint.address,
+					permanentCity: complaint.villageCity,
+					sector: complaint.sector,
+				},
+				bookingDetail: {
+					applicationNumber:
+						complaint.applicationNo,
+					applicationDate: convertEpochToDate(
+						complaint.dateCreated, "dayend"
+					),
+					bookingPeriod: getDurationDate(
+						complaint.bkFromDate,
+						complaint.bkToDate
+					),
 
-downloadPermissionLetterFunction = async (e) => {
-	const { transformedComplaint,paymentDetails,downloadPermissionLetter ,userInfo} = this.props;
-	const {complaint} = transformedComplaint;
-	let receiptData = [
-		{
-			applicantDetail: {
-				name: complaint.applicantName,
-				mobileNumber: complaint.bkMobileNumber,
-				houseNo: complaint.houseNo,
-				permanentAddress: complaint.address,
-				permanentCity: complaint.villageCity,
-				sector: complaint.sector,
-			},
-			bookingDetail: {
-				applicationNumber:
-				complaint.applicationNo,
-				applicationDate: convertEpochToDate(
-					complaint.dateCreated,"dayend"
-				),
-				bookingPeriod: getDurationDate(
-					complaint.bkFromDate,
-					complaint.bkToDate
-				),
-				
-				villageOrCity: complaint.villageCity,
-				residentialOrCommercial: complaint.residentialCommercial,
-				areaRequired: complaint.areaRequired,
-				category: complaint.bkCategory,
-				typeOfConstruction: complaint.bkConstructionType,
-				permissionPeriod: getDurationDate(
-					complaint.bkFromDate,
-					complaint.bkToDate
-				),
+					villageOrCity: complaint.villageCity,
+					residentialOrCommercial: complaint.residentialCommercial,
+					areaRequired: complaint.areaRequired,
+					category: complaint.bkCategory,
+					typeOfConstruction: complaint.bkConstructionType,
+					permissionPeriod: getDurationDate(
+						complaint.bkFromDate,
+						complaint.bkToDate
+					),
 
-				duration:
-				complaint.bkDuration == "1"
-					? `${complaint.bkDuration} Month`
-					: `${complaint.bkDuration} Months`,
-			categoryImage: "",
-				groundName:complaint.sector
-			},
+					duration:
+						complaint.bkDuration == "1"
+							? `${complaint.bkDuration} Month`
+							: `${complaint.bkDuration} Months`,
+					categoryImage: "",
+					groundName: complaint.sector
+				},
 
 
 
-			approvedBy:{
-				approvedBy: "Renil Commissioner",
-				role: "Additional Commissioner"
-			},
-			tenantInfo:{
-				municipalityName: "Municipal Corporation Chandigarh",
-				address: "New Deluxe Building, Sector 17, Chandigarh",
-				contactNumber: "+91-172-2541002, 0172-2541003",
-				logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
-				webSite: "http://mcchandigarh.gov.in"
-			},
-			generatedBy: {
-				generatedBy: userInfo.name,
-			}
-		}]
+				approvedBy: {
+					approvedBy: "Renil Commissioner",
+					role: "Additional Commissioner"
+				},
+				tenantInfo: {
+					municipalityName: "Municipal Corporation Chandigarh",
+					address: "New Deluxe Building, Sector 17, Chandigarh",
+					contactNumber: "+91-172-2541002, 0172-2541003",
+					logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
+					webSite: "http://mcchandigarh.gov.in"
+				},
+				generatedBy: {
+					generatedBy: userInfo.name,
+				}
+			}]
 
-	downloadPermissionLetter({BookingInfo:receiptData})
-}
-//****end*****//
+		downloadPermissionLetter({ BookingInfo: receiptData })
+	}
+	//****end*****//
 	downloadPaymentReceiptButton = async (e) => {
 		this.downloadPaymentReceiptFunction();
 		let documentsPreviewData;
 		const { DownloadPaymentReceiptDetails } = this.props;
 		var documentsPreview = [];
-		if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {	
-		documentsPreviewData = DownloadPaymentReceiptDetails.filestoreIds[0];
+		if (DownloadPaymentReceiptDetails && DownloadPaymentReceiptDetails.filestoreIds.length > 0) {
+			documentsPreviewData = DownloadPaymentReceiptDetails.filestoreIds[0];
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
 				fileStoreId: documentsPreviewData,
@@ -643,13 +622,13 @@ downloadPermissionLetterFunction = async (e) => {
 	}
 
 	callApiForDocumentData = async (e) => {
-		const { documentMap } = this.props;
+		const { part1 } = this.props;
 		var documentsPreview = [];
-		if (documentMap && Object.keys(documentMap).length > 0) {
-			let keys = Object.keys(documentMap);
-			let values = Object.values(documentMap);
-			let id = keys[0],
-				fileName = values[0];
+		if (part1 && part1.length > 0) {
+			let keys = part1[0].fileStoreId;
+			let values = part1[0].fileName;
+			let id = keys,
+				fileName = values;
 
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
@@ -686,9 +665,37 @@ downloadPermissionLetterFunction = async (e) => {
 			}, 100);
 			prepareFinalObject('documentsPreview', documentsPreview)
 		}
+	}
+	getImegeDocument = async () => {
+		console.log('this.props in get', this.props)
+		const { bookingDocs } = this.props;
+		if (bookingDocs.length > 0) {
+			console.log('par2 in get', bookingDocs)
+			let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
+
+			const fileUrlPayload = fileStoreIds && (await getFileUrlFromAPI(fileStoreIds));
+			let newLocationImagesPreview = [];
+			bookingDocs && bookingDocs.forEach((item, index) => {
+
+				newLocationImagesPreview[index] = {
+					fileName: item.fileName ||
+						`Document - ${index + 1}`,
+					fileStoreId: item.fileStoreId,
+					fileUrl: Object.values(fileUrlPayload)[index].split(",")[0],
+					documentType: item.documentType,
+
+				};
+
+			});
+			let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
+
+			prepareFinalObject('locationImages', part2)
+			console.log('part22222', part2);
+
+			this.setState({ imageData: part2 })
 
 
-
+		}
 	}
 	render() {
 		const dropbordernone = {
@@ -697,12 +704,18 @@ downloadPermissionLetterFunction = async (e) => {
 
 		};
 		let { shareCallback } = this;
-		let { comments, openMap } = this.state;
-		let { complaint, timeLine } = this.props.transformedComplaint;
-		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
+		let { comments, openMap, imageData } = this.state;
 
+		let { complaint, timeLine } = this.props.transformedComplaint;
+		let { documentMap, part1, part2 } = this.props;
+		let { historyApiData, paymentDetails, match, userInfo } = this.props;
+		console.log('state in render123==', this.state)
+		let imageDetails;
+		if (imageData.length != 0) {
+			imageDetails = imageData;
+			console.log('imageData in render', imageData)
+		}
+		console.log('imageDetails in render', imageDetails)
 		let {
 			role,
 			serviceRequestId,
@@ -757,7 +770,7 @@ downloadPermissionLetterFunction = async (e) => {
 		const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
 		const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
 		const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
-console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APPROVER'));
+		console.log('userInfo.roles=====', userInfo.roles.some(el => el.code === 'MCC_APPROVER'));
 
 		return (
 			<div>
@@ -813,44 +826,7 @@ console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APP
 												}} /> */}
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
-												{/* <ActionButtonDropdown data={{
-													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "print",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
-													},
-													menu:  (complaint.status=='APPROVED')?[{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_PRINT_RECEIPT"
-														},
 
-														link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														 link: () => this.downloadPermissionLetterButton('state', "dispatch", 'REJECT')
-													},{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
-													}]:[{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
-													}]
-												}} /> */}
 
 											</div>
 										</div>
@@ -865,13 +841,27 @@ console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APP
 								/>
 								<AppDetails
 									{...complaint}
-								// role={role}
-								// history={history}
-								// mapAction={true}
-								// redirectToMap={this.redirectToMap}
-								// action={action}
-								// complaintLoc={complaintLoc}
+
 								/>
+
+								<NewLocationFieldsDetails
+									{...complaint}
+								/>
+								{/* {(() => {
+									if (imageDetails&&imageDetails.length>0) {
+									return <ImageListDetails
+											data={imageDetails}
+										/>
+									}
+
+								})()}
+
+								{(() => {
+									if (this.state && this.state.imageData.length > 0) {
+										return <img size="medium" width={200} height={154} src={this.state.imageData[0].fileUrl} />
+									}
+								})()} */}
+
 
 								{/* <PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
@@ -889,8 +879,9 @@ console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APP
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
-									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
-									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
+									{/* {part1 && part1[0] && part1[0].fileName ? part1[0].fileName : "Not found"} */}
+									document.pdf
+									<button className="ViewDetailButton" onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
 
 								<Comments
@@ -911,8 +902,8 @@ console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APP
 											complaint.status.toLowerCase() === "assigned")) ||
 									(role === "employee" &&
 										(
-											(complaint.status == "PENDINGAPPROVAL"  &&foundFirstLavel&&
-										
+											(complaint.status == "PENDINGAPPROVAL" && foundFirstLavel &&
+
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
@@ -940,130 +931,110 @@ console.log('userInfo.roles=====',userInfo.roles.some(el => el.code === 'MCC_APP
 
 											)
 										))}
-{(role === "employee" &&
+								{(role === "employee" &&
 
-												(complaint.status == "PENDINGAPPROVALOSD" &&foundSecondLavel&&
-												
-												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
-													},
-													menu: [{
-														label: {
-															labelName: "Approve",
-															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
-														},
+									(complaint.status == "PENDINGAPPROVALOSD" && foundSecondLavel &&
 
-														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
-													},
-													{
-														label: {
-															labelName: "Reject",
-															labelKey: "MYBK_REJECT_ACTION_BUTTON"
-														},
-														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
-													}]
-												}} />}></Footer>
+										<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+											label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+											rightIcon: "arrow_drop_down",
+											props: {
+												variant: "outlined",
+												style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+											},
+											menu: [{
+												label: {
+													labelName: "Approve",
+													labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+												},
 
-												)
-)}
-{(role === "employee" &&
-												(complaint.status == "PENDINGPUBLISH" &&foundthirdLavel&&
-												
-												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
-													},
-													menu: [{
-														label: {
-															labelName: "Publish",
-															labelKey: "MYBK_PUBLISH_ACTION_BUTTON"
-														},
+												link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
+											},
+											{
+												label: {
+													labelName: "Reject",
+													labelKey: "MYBK_REJECT_ACTION_BUTTON"
+												},
+												link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
+											}]
+										}} />}></Footer>
 
-														link: () => this.actionButtonOnClick('state', "dispatch", 'PUBLISH')
-													},
-													]
-												}} />}></Footer>
+									)
+								)}
+								{(role === "employee" &&
+									(complaint.status == "PENDINGPUBLISH" && foundthirdLavel &&
 
-												)
+										<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
+											label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+											rightIcon: "arrow_drop_down",
+											props: {
+												variant: "outlined",
+												style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
+											},
+											menu: [{
+												label: {
+													labelName: "Publish",
+													labelKey: "MYBK_PUBLISH_ACTION_BUTTON"
+												},
 
+												link: () => this.actionButtonOnClick('state', "dispatch", 'PUBLISH')
+											},
+											]
+										}} />}></Footer>
 
-												// 	<FormControl style={{width: '100%'}}>
-												// 	<Select 
-												// 	  labelId="demo-controlled-open-select-label-button"
-												// 	  id="demo-controlled-open-select"
-												// 	  open={this.state.actionOpen}
-												// 	  displayEmpty
-												// 	  onClose={() => this.handleActionButtonClose()}
-												// 	  onOpen={() => this.handleActionButtonOpen()}
-												// 	  value={this.state.bookingType}
-												// 	  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 		style={{
-												// 			backgroundColor: "#FE7A51",
-												// 			width: "200px",
-												// 			textAlign: "center",
-												// 		}}
-												// 	>
-												// 	  <MenuItem value="" disabled>Take Action </MenuItem>
-												// 	  <MenuItem value="APPROVED">Approve</MenuItem>
-												// 	  <MenuItem value='REJECT'>Reject</MenuItem>
-												// 	</Select>
-												//   </FormControl>
+									)
 
 
-												// <select
-												// 	value={this.state.bookingType}
-												// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 	style={{
-												// 		marginRight: "15",
-												// 		backgroundColor: "#FE7A51",
-												// 		color: "#fff",
-												// 		border: "none",
-												// 		height: "60px",
-												// 		width: "200px",
-												// 		float: "right", paddingLeft: "50px"
-
-												// 	}}
-
-												// >
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="">Take Action</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="APPROVED">Approve</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="REJECTED">Reject</option>
-												// </select>
-											
 
 
-									)}
+
+									// <select
+									// 	value={this.state.bookingType}
+									// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
+									// 	style={{
+									// 		marginRight: "15",
+									// 		backgroundColor: "#FE7A51",
+									// 		color: "#fff",
+									// 		border: "none",
+									// 		height: "60px",
+									// 		width: "200px",
+									// 		float: "right", paddingLeft: "50px"
+
+									// 	}}
+
+									// >
+									// 	<option style={{
+									// 		background: "white",
+									// 		color: "gray"
+									// 	}} value="">Take Action</option>
+									// 	<option style={{
+									// 		background: "white",
+									// 		color: "gray"
+									// 	}} value="APPROVED">Approve</option>
+									// 	<option style={{
+									// 		background: "white",
+									// 		color: "gray"
+									// 	}} value="REJECTED">Reject</option>
+									// </select>
+
+
+
+								)}
 
 								<DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.actionButtonOnClick}
-									children={this.state.actionOnApplication == 'APPROVED'? <NewLocationResolved
+									children={this.state.actionOnApplication == 'APPROVED' ? <NewLocationResolved
 										applicationNumber={match.params.applicationId}
 										userInfo={userInfo}
-									/> :this.state.actionOnApplication=='PUBLISH'? <NewLocationPublished
-									applicationNumber={match.params.applicationId}
-									userInfo={userInfo}
-								/>: <NewLocationRejected
-											applicationNumber={match.params.applicationId}
-											userInfo={userInfo}
-										/>}
+									/> : this.state.actionOnApplication == 'PUBLISH' ? <NewLocationPublished
+										applicationNumber={match.params.applicationId}
+										userInfo={userInfo}
+									/> : <NewLocationRejected
+												applicationNumber={match.params.applicationId}
+												userInfo={userInfo}
+											/>}
 								/>
 
 							</div>
@@ -1129,7 +1100,7 @@ let gro = "";
 const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { MccApplicationData } = complaints;
-	const { DownloadPaymentReceiptDetails,DownloadApplicationDetails,DownloadPermissionLetterDetails } = complaints;
+	const { DownloadPaymentReceiptDetails, DownloadApplicationDetails, DownloadPermissionLetterDetails } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'MccApplicationData', MccApplicationData)
 	const { id } = auth.userInfo;
@@ -1143,13 +1114,31 @@ const mapStateToProps = (state, ownProps) => {
 	let businessService = MccApplicationData ? MccApplicationData.osujmNewLocationModelList : "";
 	//let bookingDocs;
 
-	console.log('MccApplicationData in mapstate',MccApplicationData);
+	console.log('MccApplicationData in mapstate', MccApplicationData);
 	let documentMap = MccApplicationData && MccApplicationData.documentMap ? MccApplicationData.documentMap : '';
-	
-	let bookingDocs = MccApplicationData && MccApplicationData.documentList.lenght > 0 ? MccApplicationData.documentList : '';
+
+	let bookingDocs = MccApplicationData && MccApplicationData.documentList ? MccApplicationData.documentList : '';
 	console.log('documentmap in new loction', bookingDocs);
 
-	const { HistoryData } = complaints;	
+	let newLocationImagesPreview = [];
+	bookingDocs && bookingDocs.forEach((item, index) => {
+		console.log('[item-->>', item)
+		newLocationImagesPreview[index] = {
+			fileName: item.fileName ||
+				`Document - ${index + 1}`,
+			fileStoreId: item.fileStoreId,
+			documentType: item.documentType,
+
+		};
+
+	});
+	console.log('newLocationImagesPreview', newLocationImagesPreview)
+	let part1 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType == "IDPROOF");
+	console.log('part1111', part1)
+	let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
+	// console.log('part1222', part2)
+
+	const { HistoryData } = complaints;
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
@@ -1202,7 +1191,10 @@ const mapStateToProps = (state, ownProps) => {
 			businessService: selectedComplaint.businessService,
 			bkConstructionType: selectedComplaint.bkConstructionType,
 			bkFromDate: selectedComplaint.bkFromDate,
-			bkToDate: selectedComplaint.bkToDate
+			bkToDate: selectedComplaint.bkToDate,
+			localityAddress: selectedComplaint.localityAddress,
+			landmark: selectedComplaint.landmark,
+			areaRequirement: selectedComplaint.areaRequirement
 
 		}
 
@@ -1223,10 +1215,10 @@ const mapStateToProps = (state, ownProps) => {
 		);
 		// let documentMapDataValues = [];
 		return {
-			paymentDetails,
+			paymentDetails, part1, bookingDocs, part2,
 			historyApiData,
 			DownloadPaymentReceiptDetails,
-			paymentDetailsForReceipt,DownloadApplicationDetails,DownloadPermissionLetterDetails,
+			paymentDetailsForReceipt, DownloadApplicationDetails, DownloadPermissionLetterDetails,
 			documentMap,
 			form,
 			transformedComplaint,
@@ -1238,10 +1230,10 @@ const mapStateToProps = (state, ownProps) => {
 		};
 	} else {
 		return {
-			paymentDetails,
+			paymentDetails, part1, bookingDocs, part2,
 			historyApiData,
 			DownloadPaymentReceiptDetails,
-			paymentDetailsForReceipt,DownloadApplicationDetails,DownloadPermissionLetterDetails,
+			paymentDetailsForReceipt, DownloadApplicationDetails, DownloadPermissionLetterDetails,
 			documentMap,
 			form,
 			transformedComplaint: {},
@@ -1257,10 +1249,10 @@ const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)), 
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 		fetchMccApplications: criteria => dispatch(fetchMccApplications(criteria)),
 		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
-        downloadPermissionLetter: criteria => dispatch(downloadPermissionLetter(criteria)),
+		downloadPermissionLetter: criteria => dispatch(downloadPermissionLetter(criteria)),
 		downloadApplication: criteria => dispatch(downloadApplication(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
