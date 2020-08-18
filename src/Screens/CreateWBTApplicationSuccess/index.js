@@ -13,9 +13,15 @@ import {
 } from "egov-ui-framework/ui-utils/commons";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 import "./index.css";
-
+import { SortDialog, Screen } from "modules/common";
+import isEmpty from "lodash/isEmpty";
 class CreateWBTApplicationSuccess extends Component {
   continueComplaintSubmit = () => {
+   
+    let { createWaterTankerApplicationData,downloadBWTApplication,userInfo,fetchSuccess } = this.props;
+    createWaterTankerApplicationData={}
+   console.log('fetchSuccess1',fetchSuccess)
+    fetchSuccess=false;
     this.props.history.push("/egov-services/all-applications");
   };
   componentDidMount = async () => {
@@ -54,7 +60,7 @@ class CreateWBTApplicationSuccess extends Component {
           "propertyType": applicationDetails.bkType,
           "date": applicationDetails.bkDate,
           "time": applicationDetails.bkTime,
-          "applicationStatus": "Driver Assigned",
+          "applicationStatus": applicationDetails.bkApplicationStatus,
           "applicationType": applicationDetails.bkStatus
         },
         "feeDetail": {
@@ -69,11 +75,12 @@ class CreateWBTApplicationSuccess extends Component {
     ]
 
     downloadBWTApplication({ BookingInfo: BookingInfo })
-
+    console.log('hello2 in success')
   };
 
   downloadApplicationButton = async (e) => {
    await this.downloadApplicationFunction();
+   console.log('hello1 in success')
     const {DownloadBWTApplicationDetails}=this.props;
   //  let fileStoreId=DownloadBWTApplicationDetails&&DownloadBWTApplicationDetails.filestoreIds[0];
     console.log('downloadApplicationButton this.DownloadApplicationDetails',DownloadBWTApplicationDetails)
@@ -122,12 +129,13 @@ class CreateWBTApplicationSuccess extends Component {
   
   }
   render() {
-    const { createWaterTankerApplicationData,downloadBWTApplication } = this.props;
+    const { createWaterTankerApplicationData,downloadBWTApplication,loading } = this.props;
 
     return (
+      <Screen loading={loading}>
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
-         headermessage="ES_CREATE_WBT_HEADER_MESSAGE"
+         headermessage="MYBK_APPLY_SPECIAL_REQUEST_HEADER"
           successmessage="ES_APPLICATION_CREATED_SUCCESS_MESSAGE"
           secondaryLabel="CS_COMMON_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
@@ -157,6 +165,7 @@ class CreateWBTApplicationSuccess extends Component {
           />
         </div>
       </div>
+      </Screen>
     );
   }
 }
@@ -165,11 +174,19 @@ class CreateWBTApplicationSuccess extends Component {
 const mapStateToProps = state => {
 
   const { complaints, common, auth, form } = state;
-  console.log('state in summary', state)
-  const { createWaterTankerApplicationData, DownloadBWTApplicationDetails } = complaints;
+  console.log('state in sucess', state)
+  const { createWaterTankerApplicationData, DownloadBWTApplicationDetails,fetchSuccess } = complaints;
   console.log('createWaterTankerApplicationData IN SUCESS', createWaterTankerApplicationData, 'DownloadBWTApplicationDetails', DownloadBWTApplicationDetails)
+  console.log('fetchSuccess2',fetchSuccess)
+  const loading = !isEmpty(createWaterTankerApplicationData)
+  ? fetchSuccess
+    ? false
+    : true
+  : true;
+
+  console.log('fetchSuccess2',fetchSuccess,'loading',loading)
   return {
-    createWaterTankerApplicationData, DownloadBWTApplicationDetails
+    createWaterTankerApplicationData, DownloadBWTApplicationDetails,loading,fetchSuccess
   }
 
 }

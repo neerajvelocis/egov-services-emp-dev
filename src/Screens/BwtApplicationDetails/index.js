@@ -22,6 +22,8 @@ import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
 import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
+import BwtApplicationDriverDetailsfrom from "../AllComplaints/components/BwtApplicationDriverDetails"
+
 
 import jp from "jsonpath";
 import {
@@ -163,22 +165,6 @@ class BwtApplicationDetails extends Component {
 			togglepopup: !this.state.togglepopup,
 			actionOnApplication: value
 		})
-
-		//console.log('complaintNo in  btnone',value, complaintNo)
-		//Action for first button
-		// let { history } = this.props;
-		// if (value == "REJECTED") {
-		// 	history.push(`/egov-services/reject-bwt-booking/${complaintNo}`);
-		// } else if (value == 'APPROVED') {
-		// 	history.push(`/egov-services/assignto-driver/${complaintNo}`);
-		// }
-		// else if (value == 'DELIVERED') {
-		// 	history.push(`/egov-services/deliver-application/${complaintNo}`);
-		// }
-
-		// else if (value == 'NOTDELIVERED') {
-		// 	history.push(`/egov-services/not-deliver-application/${complaintNo}`);
-		// }
 	};
 	btnTwoOnClick = (complaintNo, label) => {
 		//Action for second button
@@ -359,6 +345,13 @@ class BwtApplicationDetails extends Component {
 									/>
 
 								}
+								{complaint && (complaint.status != 'PENDINGASSIGNMENTDRIVER' || complaint.status != 'REJECTED') &&
+									<BwtApplicationDriverDetailsfrom
+										{...complaint}
+
+									/>
+								}
+
 								{/* <div style={{
 									height: "100px",
 									width: "100",
@@ -641,7 +634,10 @@ const mapStateToProps = (state, ownProps) => {
 			villageCity: selectedComplaint.bkVillCity,
 			residentialCommercial: selectedComplaint.bkType,
 			bkStatus: selectedComplaint.bkStatus,
-			businessService: businessService
+			businessService: businessService,
+			driverName: selectedComplaint ? selectedComplaint.bkDriverName : "NA",
+			driverMobileNumber: selectedComplaint ? selectedComplaint.bkContactNo : 'NA',
+			approverName: selectedComplaint ? selectedComplaint.bkApproverName : 'NA'
 		}
 
 

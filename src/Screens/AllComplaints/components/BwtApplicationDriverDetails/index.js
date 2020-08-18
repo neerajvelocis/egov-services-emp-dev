@@ -22,7 +22,7 @@ const mapIconStyle = {
   borderRadius: "50%",
 };
 
-class AppDetails extends Component {
+class BwtApplicantDetails extends Component {
   navigateToComplaintType = () => {
     this.props.history.push("/complaint-type");
   };
@@ -50,34 +50,9 @@ class AppDetails extends Component {
   };
 
   render() {
-    const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status,driverName, applicationNo, driverMobileNumber,approverName, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
    
-    // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
-    // const icon = {};
-    // icon.name = "location";
-    // icon.style = {
-    //   display: "block",
-    // };
-    // let statusKey = "";
-
-    // if (status) {
-    //   if (status.toLowerCase() == "open") {
-    //     if (action && action === "reopen") {
-    //       statusKey = `CS_COMMON_REOPENED`;
-    //     } else {
-    //       statusKey = `CS_COMMON_SUBMITTED`;
-    //     }
-    //   } else if (status.toLowerCase() == "reassignrequested") {
-    //     if (role === "citizen") {
-    //       statusKey = `CS_COMMON_${status.toUpperCase()}`;
-    //     } else {
-    //       statusKey = `CS_COMMON_CITIZEN_REQUEST_REASSIGN`;
-    //     }
-    //   } else {
-    //     statusKey = `CS_COMMON_${status.toUpperCase()}`;
-    //   }
-    // }
     const titleKey = applicationNo.toUpperCase();
 
     return (
@@ -87,68 +62,43 @@ class AppDetails extends Component {
             <div>
               <div className="rainmaker-displayInline">
                 {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
-                <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <Label label="MYBK_DRIVER_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
                 {/* <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} /> */}
                 {/* Dont delete !! */}
-                {/* {role && role == "ao" ? (
-                  <div className="rainmaker-displayInline">
-                    <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} />
-                    <div onClick={this.navigateToComplaintType}>
-                      <Icon action="editor" name="mode-edit" style={{ height: 18, width: 18, marginLeft: 16 }} color="#767676" />
-                    </div>
-                  </div>
-                ) : (
-                  <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} />
-                )} */}
+             
                 <div className="complaint-detail-detail-section-status row">
-                  {/* <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_COMMON_APPLICATION_NO" />
-                    <Label
-                      labelStyle={{ color: "inherit" }}
-                      className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                      id="complaint-details-complaint-number"
-                      label={applicationNo}
-                    />
-                  </div> */}
+                
 
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_DRIVER_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                      label={applicantName}
+                      label={driverName?driverName:'NA'}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                     />
                   </div>
+                
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
-                    <Label
-                      className="col-xs-6  col-sm-8 col-md-10  status-result-color"
-                      id="complaint-details-current-status"
-                      labelStyle={{ color: "inherit" }}
-                      label={bkEmail}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_DRIVER_MOBILE_NUMBER" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                      
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bkMobileNumber}
+                      label={driverMobileNumber?driverMobileNumber:'NA'}
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_APPROVER_NAME" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                    
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={address}
+                      label={approverName?approverName:"NA"}
                     />
                   </div>
                   {/* <div className="col-md-4">
@@ -161,7 +111,7 @@ class AppDetails extends Component {
                       label={houseNo}
                     />
                   </div> */}
-                  <div className="col-md-4">
+                  {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
@@ -170,7 +120,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={sector}
                     />
-                  </div>
+                  </div> */}
                   {/* <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
                     <Label
@@ -180,7 +130,36 @@ class AppDetails extends Component {
                       label={areaRequired?areaRequired:'NA'}
                     />
                   </div> */}
-                
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkConstructionType?bkConstructionType:'NA'}
+                    />
+                  </div> */}
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DURATION_LABEL" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkDuration?bkDuration:'NA'}
+                    />
+                  </div> */}
+                  {/* <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_CATEGORY" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkCategory?bkCategory:'NA'}
+                    />
+                  </div> */}
                 </div>
 
 
@@ -279,4 +258,4 @@ class AppDetails extends Component {
   }
 }
 
-export default AppDetails;
+export default BwtApplicantDetails;
