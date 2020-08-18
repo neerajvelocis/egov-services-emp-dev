@@ -100,7 +100,7 @@ class ComplaintResolved extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
     console.log('this in userInfo in new location', userInfo)
     return (
-      <Screen className="background-white">
+      
         <ComplaintResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
@@ -115,7 +115,7 @@ class ComplaintResolved extends Component {
           // bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      </Screen>
+      
     );
   }
 }
