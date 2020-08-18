@@ -27,7 +27,7 @@ class SuccessMessage extends Component {
             <div class="col-sm-1"> <FloatingActionButton className="floating-button" style={{ boxShadow: 0, marginTop: 30 }} backgroundColor={backgroundColor}>
                 {icon}
               </FloatingActionButton></div>
-            <div class="col-sm-8" >   <Label className="thankyou-text" label={successmessage} color="#767676" /><Label className="thankyou-text" label={secondaryLabel} color="#767676" /></div>
+            <div class="col-sm-8" >   <Label className="thankyou-text"  label={successmessage} color="#767676" /><Label className="thankyou-text" label={secondaryLabel} color="#767676" /></div>
             <div class="col-sm-3">  <Label label={"MYBK_WATER_TANKER_REQUESTNO"} /><Label label= {applicationNumber}/> </div>
           </div>
          

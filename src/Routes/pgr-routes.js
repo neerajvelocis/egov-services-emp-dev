@@ -212,12 +212,12 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "Apply for Water Tanker",
+      title: "MYBK_APPLY_SPECIAL_REQUEST_HEADER",
       hideTitle: false,
       redirectionUrl,
       hideFor: "ao",
       customFor: "employee",
-      customTitle: "Apply for Water Tanker"
+      customTitle: "MYBK_APPLY_SPECIAL_REQUEST_HEADER"
     }
   },
   {

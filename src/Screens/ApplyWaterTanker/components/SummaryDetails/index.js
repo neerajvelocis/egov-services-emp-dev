@@ -247,7 +247,7 @@ const mapStateToProps = state => {
     const { complaints, common, auth, form } = state;
     console.log('state in summary',state)
     const { createWaterTankerApplicationData } = complaints;
-    console.log('createWaterTankerApplicationData', createWaterTankerApplicationData)
+    console.log('createWaterTankerApplicationData in summary', createWaterTankerApplicationData)
     return {
         createWaterTankerApplicationData
     }
