@@ -994,7 +994,7 @@ class AllRequests extends Component {
                         labelStyle={hintTextStyle}
                       />
                     }
-                    errorText={<Label label={errorText} color="red" />}
+                    // errorText={<Label label={errorText} color="red" />}
                     floatingLabelText={
                       <Label
                         key={1}
@@ -1098,6 +1098,7 @@ selectBoxOptions={['a','b','c']}
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                       <MenuItem value='GROUND_FOR_COMMERCIAL_PURPOSE'>Commercial Ground</MenuItem>
+                      <MenuItem value='JURISDICTION'>Open Space WithIn MCC</MenuItem>
                     </Select>
                   </FormControl>
 
