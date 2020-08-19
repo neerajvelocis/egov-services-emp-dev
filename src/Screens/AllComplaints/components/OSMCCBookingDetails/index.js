@@ -24,7 +24,6 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import Divider from "@material-ui/core/Divider";
-import { getCurrentStatus } from "../TaskStatusComponents";
 import { LabelContainer } from "egov-ui-framework/ui-containers";
 import HistoryIcon from '@material-ui/icons/History';
 
@@ -97,6 +96,24 @@ class BookingDetails extends Component {
     this.setState({
       open: false
     })
+  };
+
+  getCurrentStatus = status => {
+    console.log('status',status)
+    switch (status) {
+      case "INITIATED":
+        return "Initiated";
+      case "APPLIED":
+        return "Pending for Document verification";
+      case "FIELDINSPECTION":
+        return "Pending for Field inspection";
+      case "PENDINGPAYMENT":
+        return "Pending payment";
+      case "PENDINGAPPROVAL":
+        return "Pending approval";
+      case "APPROVED":
+        return "Approved";
+    }
   };
 
   convertEpochToDate = (dateEpoch) => {
@@ -180,7 +197,7 @@ class BookingDetails extends Component {
                               <Step key={index} active={true}>
                                 <StepLabel>
                                   <LabelContainer
-                                    labelName={getCurrentStatus(item.state.applicationStatus)}
+                                    labelName={this.getCurrentStatus(item.state.applicationStatus)}
                                     labelKey={
                                        item.businessService
                                         ? `WF_${item.businessService.toUpperCase()}_${
@@ -245,10 +262,23 @@ class BookingDetails extends Component {
             body2: "body2-word-wrap"
           }}
         >
-<LabelContainer
+        {/*<LabelContainer
             labelName={ProcessInstances && ProcessInstances.length>0 && 
               ProcessInstances[0].state? ProcessInstances[0].state.state: ''
             }
+          />*/}
+<LabelContainer
+            labelName={ProcessInstances && ProcessInstances.length>0 && 
+              ProcessInstances[0].state? this.getCurrentStatus(ProcessInstances[0].state.state): ''
+            }
+
+ labelKey={
+  ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].businessService
+                ? `WF_${ProcessInstances[0].businessService.toUpperCase()}_${
+                  ProcessInstances[0]. state.state          
+                  }`
+                : ""
+            }           
           />
 
           {/* <LabelContainer
