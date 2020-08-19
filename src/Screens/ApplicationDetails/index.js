@@ -2,14 +2,8 @@ import React, { Component } from "react";
 import { Details } from "modules/common";
 import { ComplaintTimeLine } from "modules/common";
 import { Comments } from "modules/common";
-import { ActionButton } from "modules/common";
-import { Icon, MapLocation, ShareButton } from "components";
-import CommonShare from "egov-ui-kit/components/CommonShare";
 import { Screen } from "modules/common";
-import pinIcon from "egov-ui-kit/assets/Location_pin.svg";
 import { resetFiles } from "egov-ui-kit/redux/form/actions";
-import Button from "@material-ui/core/Button";
-import ShareIcon from "@material-ui/icons/Share";
 import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
@@ -25,10 +19,7 @@ import RejectBooking from "../RejectComplaint";
 
 import jp from "jsonpath";
 import {
-	getQueryArg,
-	setBusinessServiceDataToLocalStorage,
 	getFileUrlFromAPI,
-	setDocuments
 } from "egov-ui-framework/ui-utils/commons";
 import {
 	getDateFromEpoch,
@@ -59,9 +50,6 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 
 
 

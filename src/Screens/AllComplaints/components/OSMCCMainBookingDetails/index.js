@@ -24,6 +24,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import Divider from "@material-ui/core/Divider";
+import { getCurrentStatus } from "../TaskStatusComponents";
 import { LabelContainer } from "egov-ui-framework/ui-containers";
 import HistoryIcon from '@material-ui/icons/History';
 
@@ -98,24 +99,6 @@ class BookingDetails extends Component {
     })
   };
 
-  getCurrentStatus = status => {
-    console.log('status',status)
-    switch (status) {
-      case "INITIATED":
-        return "Initiated";
-      case "APPLIED":
-        return "Pending for Document verification";
-      case "FIELDINSPECTION":
-        return "Pending for Field inspection";
-      case "PENDINGPAYMENT":
-        return "Pending payment";
-      case "PENDINGAPPROVAL":
-        return "Pending approval";
-      case "APPROVED":
-        return "Approved";
-    }
-  };
-
   convertEpochToDate = (dateEpoch) => {
     const dateFromApi = new Date(dateEpoch);
     let month = dateFromApi.getMonth() + 1;
@@ -155,15 +138,34 @@ class BookingDetails extends Component {
 
 
   render() {
-    const { status, historyApiData, bkBookingVenue,bkFromDate, bkToDate,applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status, historyApiData, areaRequired,bkBookingVenue,bkFromDate, bkToDate,applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
     var ProcessInstances = [];
 
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
-    } 
+    }
+  //  if(ProcessInstances&&ProcessInstances.auditDetails&&ProcessInstances.auditDetails.lastModifiedTime){
+  //   ProcessInstances= ProcessInstances.sort(ProcessInstances&&ProcessInstances.auditDetails.lastModifiedTime)
+  //  }
+   
    console.log('ProcessInstances',ProcessInstances)
-   console.log('processInstanceZero',ProcessInstances[0])
-  //  var lastModifiedTime = ProcessInstances[0].auditDetails.lastModifiedTime;
+   
+    // let currentObj =
+    // ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
+    // if(currentObj && currentObj.businessService && currentObj.businessService === "OSBM"){
+    //   let assigness = [];
+    //     if(currentObj.assignes) {
+    //       currentObj.assignes.forEach(user => {
+    //         assigness.push(user.name);
+    //       });
+    //       currentObj.assignee={};
+    //       currentObj.assignee.name = assigness.join(',');
+    //     }
+    //     console.log('in task status currentObj',currentObj)
+
+    // }
+
+    // console.log('popupData in booking', currentObj)
 
     return (
       <div>
@@ -171,25 +173,31 @@ class BookingDetails extends Component {
           textChildren={
             <div>
                 <div className="rainmaker-displayInline row">
-
+              {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
+              
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
-                  <button 
+                  {/* <button 
                   style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} 
                   onClick={() => { this.handleClickOpen() }}>
                    <HistoryIcon/> VIEW HISTORY
-                </button>
+                </button> */}
                 </div>
               </div>
               <div key={10} className="complaint-detail-full-width">
                 <Dialog maxWidth={false} style={{ zIndex: 2000 }} onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.open} >
-                  <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
+                  {/* <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
                     <b>Task Status</b>
-                  </DialogTitle>
+                  </DialogTitle> */}
                   <DialogContent>
                     <Typography>
+                      {/* <TaskStatusComponents> */}
+                      {/* { ProcessInstances.length > 0 &&  <TaskStatusContainer ProcessInstances={ProcessInstances} /> } */}
+                      {/* </TaskStatusComponents> */}
+
+
                       <Stepper orientation="vertical">
                         {ProcessInstances.map(
                           (item, index) =>
@@ -197,7 +205,7 @@ class BookingDetails extends Component {
                               <Step key={index} active={true}>
                                 <StepLabel>
                                   <LabelContainer
-                                    labelName={this.getCurrentStatus(item.state.applicationStatus)}
+                                    labelName={getCurrentStatus(item.state.applicationStatus)}
                                     labelKey={
                                        item.businessService
                                         ? `WF_${item.businessService.toUpperCase()}_${
@@ -215,129 +223,18 @@ class BookingDetails extends Component {
                             )
                         )}
                       </Stepper>
+
+
+                      {/* <TaskStatusComponents
+                    currentObj={currentObj}
+                    index={ProcessInstances.length - 1}
+                  />  */}
                     </Typography>
                   </DialogContent>
                 </Dialog>
 
-  <div className="complaint-detail-detail-section-status row">
-  <div className="col-md-2">
-     <Typography variant="caption">
-     <LabelContainer labelName="Date" labelKey="TL_DATE_LABEL" />
-        </Typography>
-        <Typography variant="body2">
-          {/* <LabelContainer  complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-            labelName={this.convertEpochToDate(lastModifiedTime,"dayend")}
-          /> */}
-<LabelContainer
 
-            labelName={ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].auditDetails?
-              this.convertEpochToDate(ProcessInstances[0].auditDetails.lastModifiedTime): ''}
-          /> 
-
-        </Typography>
-        </div>
-        <div className="col-md-3">
-        <Typography variant="caption">
-          <LabelContainer
-            labelName="Updated By"
-            labelKey="TL_UPDATED_BY_LABEL"
-          />
-        </Typography>
-        <Typography variant="body2">
-          
-          <LabelContainer labelName={ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].assigner? ProcessInstances[0].assigner.name : ''} />
-        </Typography>
-          </div>
-          <div className="col-md-3">
-
-          <Typography variant="caption">
-          <LabelContainer
-            labelName="Status"
-            labelKey="TL_COMMON_TABLE_COL_STATUS"
-          />
-        </Typography>
-        <Typography
-          variant="body2"
-          classes={{
-            body2: "body2-word-wrap"
-          }}
-        >
-        {/*<LabelContainer
-            labelName={ProcessInstances && ProcessInstances.length>0 && 
-              ProcessInstances[0].state? ProcessInstances[0].state.state: ''
-            }
-          />*/}
-<LabelContainer
-            labelName={ProcessInstances && ProcessInstances.length>0 && 
-              ProcessInstances[0].state? this.getCurrentStatus(ProcessInstances[0].state.state): ''
-            }
-
- labelKey={
-  ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].businessService
-                ? `WF_${ProcessInstances[0].businessService.toUpperCase()}_${
-                  ProcessInstances[0]. state.state          
-                  }`
-                : ""
-            }           
-          />
-
-          {/* <LabelContainer
-            labelName={getCurrentStatus(ProcessInstances[0].state.state)}
-            labelKey={
-              ProcessInstances[0].businessService
-                ? `WF_${ProcessInstances[0].businessService.toUpperCase()}_${
-                  ProcessInstances[0],
-                  state.state
-                  }`
-                : ""
-            }
-          /> */}
-        </Typography>
-          </div>
-          <div className="col-md-2">
-          <Typography variant="caption">
-          <LabelContainer
-            labelName="Current Owner"
-            labelKey="TL_CURRENT_OWNER_LABEL"
-          />
-        </Typography>
-        <Typography
-          variant="body2"
-          classes={{
-            body2: "body2-word-wrap"
-          }}
-        >
-          <LabelContainer
-            labelName={ ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].assignee?
-                ProcessInstances[0].assignee.name
-                : "NA"
-            }
-          />
-        </Typography>          
-            </div>
-            <div className="col-md-2">
-            <Typography variant="caption">
-          <LabelContainer
-            labelName="Comments"
-            labelKey="TL_APPROVAL_CHECKLIST_COMMENTS_LABEL"
-          />
-        </Typography>
-        <Typography
-          variant="body2"
-          classes={{
-            body2: "body2-word-wrap"
-          }}
-        >
-          <LabelContainer   
-            labelName= {
-              ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].comment ?
-              ProcessInstances[0].comment : ''}
-           />
-        </Typography>
-              </div>
-</div>
-
-                {/* <div className="complaint-detail-detail-section-status row">
+                <div className="complaint-detail-detail-section-status row">
                   <div className="col-md-4">
                     <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_COMMON_APPLICATION_NO" />
                     <Label
@@ -412,8 +309,17 @@ class BookingDetails extends Component {
                       label={bookingType}
                     />
                   </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
+                    <Label
+                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={areaRequired?areaRequired:'NA'}
+                    />
+                  </div>
 
-                </div> */}
+                </div>
               </div>
             </div>
           }
