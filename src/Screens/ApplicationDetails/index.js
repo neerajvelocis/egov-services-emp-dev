@@ -368,13 +368,12 @@ class ApplicationDetails extends Component {
             storageAreaRequired: complaint.areaRequired,
             category: complaint.bkCategory,
             typeOfConstruction: complaint.bkConstructionType,
-            // permissionPeriod: "From 18-03-2020 To 17-04-2020",
+            
             duration:
                 complaint.bkDuration == "1"
                     ? `${complaint.bkDuration} Month`
                     : `${complaint.bkDuration} Months`,
             categoryImage: "",
-            // categoryImage: applicationData.bkCategory === "Cat-A" ? "http://3.6.65.87:3000/static/media/cat-a.4e1bc5ec.jpeg" : applicationData.bkCategory === "Cat-B" ? "" : "http://3.6.65.87:3000/static/media/cat-c.4e1bc5ec.jpeg"
         };
 		const queryStr = [
             {

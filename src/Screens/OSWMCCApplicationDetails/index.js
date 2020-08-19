@@ -507,14 +507,19 @@ class ApplicationDetails extends Component {
 					sector: complaint.sector,
 					bookingPurpose : complaint.bkBookingPurpose,
 				},
-				"feeDetail": {
-					"baseCharge": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-						(el) => !el.taxHeadCode.includes("TAX")
-					)[0].amount,
-					"taxes": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-						(el) => el.taxHeadCode.includes("TAX")
-					)[0].amount,
-					"totalAmount": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+				feeDetail: {
+                    baseCharge:
+                        paymentDetails === undefined
+                            ? null
+                            : paymentDetails.billDetails[0].billAccountDetails.filter(el => !el.taxHeadCode.includes("TAX"))[0].amount,
+                    taxes:
+                        paymentDetails === undefined
+                            ? null
+                            : paymentDetails.billDetails[0].billAccountDetails.filter(el => el.taxHeadCode.includes("TAX"))[0].amount,
+                    totalAmount:
+                        paymentDetails === undefined
+                            ? null
+                            : paymentDetails.totalAmount,
 				},
 				generatedBy: {
 					generatedBy: userInfo.name,
