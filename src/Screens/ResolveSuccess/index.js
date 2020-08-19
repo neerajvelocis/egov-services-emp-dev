@@ -15,6 +15,7 @@ class ResolveSuccess extends Component {
   };
   continueComplaintSubmit = () => {
     console.log('this.props in resolve success',this.props);
+    let {userInfo}=this.props;
     const foundFirstLavel = userInfo&&userInfo.roles.some(el => el.code === 'MCC_APPROVER');
 
     if(foundFirstLavel){
