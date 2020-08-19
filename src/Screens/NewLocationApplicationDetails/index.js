@@ -65,6 +65,7 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { httpRequest } from "egov-ui-kit/utils/api";
 
 
 
@@ -111,6 +112,7 @@ class ApplicationDetails extends Component {
 			actionTittle: '',
 			actionOpen: false,
 			imageData: [],
+			ImageList: [],
 		};
 	};
 
@@ -127,7 +129,7 @@ class ApplicationDetails extends Component {
 	};
 
 
-	componentDidMount = () => {
+	async componentDidMount() {
 		let {
 			fetchApplications,
 			fetchMccApplications,
@@ -148,6 +150,42 @@ class ApplicationDetails extends Component {
 		prepareFormData("complaints", transformedComplaint);
 
 		const { complaint } = transformedComplaint;
+
+		let requestbody = {
+			"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+			"applicationStatus": "",
+			"mobileNumber": "", "bookingType": "","tenantId":"ch"
+		}
+
+		let imageListFromAPI = await httpRequest(
+			"bookings/newLocation/employee/osujm/_search",
+			"_search",[],
+			requestbody
+		);
+		console.log('imageListFromAPI', imageListFromAPI)
+		let bookingDocs = imageListFromAPI && imageListFromAPI.documentList;
+		let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
+
+		const fileUrlPayload = fileStoreIds && (await getFileUrlFromAPI(fileStoreIds));
+		let newLocationImagesPreview = [];
+		bookingDocs && bookingDocs.forEach((item, index) => {
+
+			newLocationImagesPreview[index] = {
+				fileName: item.fileName ||
+					`Document - ${index + 1}`,
+				fileStoreId: item.fileStoreId,
+				fileUrl: Object.values(fileUrlPayload)[index].split(",")[0],
+				documentType: item.documentType,
+
+			};
+
+		});
+		let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
+console.log('part 2 in componentdid mount',part2)
+		this.setState({
+			ImageList: part2
+		})
+
 		fetchMccApplications(
 			{
 				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
@@ -155,6 +193,8 @@ class ApplicationDetails extends Component {
 				"mobileNumber": "", "bookingType": ""
 			}
 		);
+
+
 		fetchHistory([
 			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
 		//complaint.businessService
@@ -847,18 +887,21 @@ class ApplicationDetails extends Component {
 								<NewLocationFieldsDetails
 									{...complaint}
 								/>
+								{/* {(() => { */}
+								{/* if (imageDetails&&imageDetails.length>0) { */}
+								{/* <ImageListDetails
+									data={this.state && this.state.ImageList}
+								/> */}
+								{/* } */}
+
+								{/* })()} */}
+
 								{/* {(() => {
-									if (imageDetails&&imageDetails.length>0) {
-									return <ImageListDetails
-											data={imageDetails}
-										/>
-									}
-
-								})()}
-
-								{(() => {
-									if (this.state && this.state.imageData.length > 0) {
-										return <img size="medium" width={200} height={154} src={this.state.imageData[0].fileUrl} />
+									if (this.state && this.state.ImageList.length > 0) {
+										this.state.ImageList.map((item, index) => { 
+											console.log('item in render',item)
+											return <img size="medium" width={200} height={154} src={item.fileUrl} />	
+										})
 									}
 								})()} */}
 
