@@ -1,3 +1,18 @@
+// import React, { Component } from "react";
+// import { connect } from "react-redux";
+// class LocationSummaryComponent extends Component {
+//     render() {
+//         return "No Document Available."
+
+//     }
+// }
+
+// const mapStateToProps = (state, ownProps) => {
+    
+//    return {}
+// };
+
+// export default connect(mapStateToProps, null)(LocationSummaryComponent);
 import React, { Component } from "react";
 import { Details } from "modules/common";
 import { ComplaintTimeLine } from "modules/common";
@@ -14,7 +29,6 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import NewLocationTaskStatus from "../AllMCCApplication/components/NewLocationTaskStatus"
 import AppDetails from "../AllMCCApplication/components/NewLocationAppDetails"
 import NewLocationFieldsDetails from '../AllMCCApplication/components/NewLocationFieldsDetails'
 import BookingDetails from "../AllMCCApplication/components/NewLocationBookingDetails"
@@ -23,9 +37,9 @@ import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import NewLocationResolved from "../NewLocationResolved";
-import NewLocationRejected from "../NewLocationRejected";
-import NewLocationPublished from '../NewLocationPublished';
+ import NewLocationResolved from "../NewLocationResolved";
+ import NewLocationRejected from "../NewLocationRejected";
+ import NewLocationPublished from '../NewLocationPublished';
 
 import jp from "jsonpath";
 import {
@@ -874,21 +888,16 @@ console.log('part 2 in componentdid mount',part2)
 									</div>
 								</div>
 
-								<NewLocationTaskStatus
-									{...complaint}
-									historyApiData={historyApiData && historyApiData}
-								/>
 
-                                <AppDetails
-									{...complaint}
-
-								/>
 
 								<BookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								
+								<AppDetails
+									{...complaint}
+
+								/>
 
 								<NewLocationFieldsDetails
 									{...complaint}
@@ -912,14 +921,12 @@ console.log('part 2 in componentdid mount',part2)
                                        
 										return this.state.ImageList.map((item, index) => { 
 											console.log('item in render',item)
-											return <div style={{marginRight: "20px",display: 'inline-block'}}><img size="medium" width={200} height={154} src={item.fileUrl} />	</div>
+											return <img size="medium" width={200} height={154} src={item.fileUrl} />	
 										})
 									}
 								})()}
 								</div>
 </div>
-
-								
 
 								{/* <PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
@@ -929,11 +936,7 @@ console.log('part 2 in componentdid mount',part2)
 									
 									/> */}
 								{/* )} */}
-								<div style={{
-									height: "100px",
-									width: "100",
-									backgroundColor: "white",
-									border: "2px solid white",
+								<div style={{height: "100px",width: "100",backgroundColor: "white",	border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
@@ -1079,7 +1082,7 @@ console.log('part 2 in componentdid mount',part2)
 
 								)}
 
-								<DialogContainer
+								{/* <DialogContainer
 									toggle={this.state.togglepopup}
 									actionTittle={this.state.actionTittle}
 									togglepopup={this.actionButtonOnClick}
@@ -1093,7 +1096,7 @@ console.log('part 2 in componentdid mount',part2)
 												applicationNumber={match.params.applicationId}
 												userInfo={userInfo}
 											/>}
-								/>
+								/> */}
 
 							</div>
 						</div>

@@ -53,7 +53,7 @@ class SuccessMessage extends Component {
             }
             .wt-app-details .application-number-div .application-text-one div.label-text{float:right;font-weight:400;font-size:16px !important}
             .wt-app-details .application-number-div .application-text-two div.label-text{float:right;font-weight:500;font-size:24px !important}
-            .wt-app-details .spl-application-header .spl-app-header-text div.label-text{font-size: 24px;font-weight: 400; !important}
+            .wt-app-details .spl-application-header .spl-app-header-text div.label-text{font-size: 24px !important;font-weight: 400;}
             .wt-app-details .spl-application-header .spl-app-header-number{ background-color: rgba(0, 0, 0, 0.6);
               color: rgba(255, 255, 255, 0.87);
               margin-left: 8px;
