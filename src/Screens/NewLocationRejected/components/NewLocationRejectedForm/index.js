@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "components";
 import { ImageUpload } from "modules/common";
 import { TextArea } from "modules/common";
+import { withStyles } from "@material-ui/core/styles";
 
 
 const styles = theme => ( {

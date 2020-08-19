@@ -40,6 +40,10 @@ const ApplicationSummary = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
   loading: Loading
 });
+const LocationSummary = Loadable({
+  loader: () => import("../Screens/LocationSummaryComponent"),
+  loading: Loading
+});
 
 const CGApplicationDetails = Loadable({
   loader: () => import("../Screens/CGApplicationDetails"),
@@ -247,6 +251,17 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "egov-services/new-location-details/:applicationId",
+    component: LocationSummary,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+ 
   {
     path: "cg-application-details/:applicationId",
     component: CGApplicationDetails,
