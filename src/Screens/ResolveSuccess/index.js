@@ -14,7 +14,14 @@ class ResolveSuccess extends Component {
     }
   };
   continueComplaintSubmit = () => {
+    console.log('this.props in resolve success',this.props);
+    const foundFirstLavel = userInfo&&userInfo.roles.some(el => el.code === 'MCC_APPROVER');
+
+    if(foundFirstLavel){
+      this.props.history.push("/egov-services/all-MccApplications");
+    }else{
     this.props.history.push("/egov-services/all-applications");
+  }
   };
   render() {
    
