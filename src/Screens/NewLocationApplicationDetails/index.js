@@ -14,6 +14,7 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
+import NewLocationTaskStatus from "../AllMCCApplication/components/NewLocationTaskStatus"
 import AppDetails from "../AllMCCApplication/components/NewLocationAppDetails"
 import NewLocationFieldsDetails from '../AllMCCApplication/components/NewLocationFieldsDetails'
 import BookingDetails from "../AllMCCApplication/components/NewLocationBookingDetails"
@@ -873,16 +874,21 @@ console.log('part 2 in componentdid mount',part2)
 									</div>
 								</div>
 
+								<NewLocationTaskStatus
+									{...complaint}
+									historyApiData={historyApiData && historyApiData}
+								/>
 
+                                <AppDetails
+									{...complaint}
+
+								/>
 
 								<BookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<AppDetails
-									{...complaint}
-
-								/>
+								
 
 								<NewLocationFieldsDetails
 									{...complaint}

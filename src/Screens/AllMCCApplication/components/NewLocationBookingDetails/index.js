@@ -167,17 +167,17 @@ class BookingDetails extends Component {
                 <div className="col-8" style={{paddingLeft:"10px"}}>
                   <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
-                <div style={{ position: "absolute", right: "100px" }} className="col-4">
+                {/* <div style={{ position: "absolute", right: "100px" }} className="col-4">
                   <button style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} onClick={() => { this.handleClickOpen() }}>
                     VIEW HISTORY
                 </button>
-                </div>
+                </div> */}
               </div>
               <div key={10} className="complaint-detail-full-width">
                 <Dialog maxWidth={false} style={{ zIndex: 2000 }} onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.open} >
-                  <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
+                  {/* <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
                     <b>Task Status</b>
-                  </DialogTitle>
+                  </DialogTitle> */}
                   <DialogContent>
                     <Typography>
                       {/* <TaskStatusComponents> */}

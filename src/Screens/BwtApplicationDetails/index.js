@@ -14,6 +14,7 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
+import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
 import BwtApplicantDetails from "../AllComplaints/components/BwtApplicantDetails"
 import BookingDetails from "../AllComplaints/components/BookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
@@ -332,13 +333,21 @@ class BwtApplicationDetails extends Component {
 					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
+
+							<OSMCCBookingDetails
+									{...complaint}
+									historyApiData={historyApiData && historyApiData}
+								/>
+
+                                <BwtApplicantDetails
+									{...complaint}
+								/>
+
 								<BookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<BwtApplicantDetails
-									{...complaint}
-								/>
+								
 								{(complaint.bkStatus).includes("Paid") &&
 									<PaymentDetails
 										paymentDetails={paymentDetails && paymentDetails}
