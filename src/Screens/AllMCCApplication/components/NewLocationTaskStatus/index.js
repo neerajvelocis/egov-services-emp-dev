@@ -109,10 +109,19 @@ class BookingDetails extends Component {
         return "Pending for Field inspection";
       case "PENDINGPAYMENT":
         return "Pending payment";
-      case "PENDINGAPPROVAL":
-        return "Pending approval";
+      case "WF_NLUJM_PENDINGAPPROVAL":
+        return "Panding for Approval 1st level";
       case "APPROVED":
         return "Approved";
+      case "WF_NLUJM_PUBLISHED":
+        return "Published";
+      case "WF_NLUJM_PENDINGPUBLISH":
+        return "Panding for Published";
+      case "WF_NLUJM_PENDINGAPPROVALOSD":
+        return "Panding for Approval 2ndlevel";
+
+
+
     }
   };
 

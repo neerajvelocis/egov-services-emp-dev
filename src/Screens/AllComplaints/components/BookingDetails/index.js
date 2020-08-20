@@ -133,28 +133,8 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
-  //  if(ProcessInstances&&ProcessInstances.auditDetails&&ProcessInstances.auditDetails.lastModifiedTime){
-  //   ProcessInstances= ProcessInstances.sort(ProcessInstances&&ProcessInstances.auditDetails.lastModifiedTime)
-  //  }
    
    console.log('ProcessInstances',ProcessInstances)
-   
-    // let currentObj =
-    // ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
-    // if(currentObj && currentObj.businessService && currentObj.businessService === "OSBM"){
-    //   let assigness = [];
-    //     if(currentObj.assignes) {
-    //       currentObj.assignes.forEach(user => {
-    //         assigness.push(user.name);
-    //       });
-    //       currentObj.assignee={};
-    //       currentObj.assignee.name = assigness.join(',');
-    //     }
-    //     console.log('in task status currentObj',currentObj)
-
-    // }
-
-    // console.log('popupData in booking', currentObj)
 
     return (
       <div>
@@ -162,30 +142,15 @@ class BookingDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline row">
-              {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
 
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
-                </div>
-                <div style={{ position: "absolute", right: "100px" }} className="col-4">
-                  <button 
-                  style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} 
-                  onClick={() => { this.handleClickOpen() }}>
-                   <HistoryIcon/> VIEW HISTORY
-                </button>
+                  <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
               </div>
               <div key={10} className="complaint-detail-full-width">
                 <Dialog maxWidth={false} style={{ zIndex: 2000 }} onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.open} >
-                  <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
-                    <b>Task Status</b>
-                  </DialogTitle>
                   <DialogContent>
                     <Typography>
-                      {/* <TaskStatusComponents> */}
-                      {/* { ProcessInstances.length > 0 &&  <TaskStatusContainer ProcessInstances={ProcessInstances} /> } */}
-                      {/* </TaskStatusComponents> */}
-
 
                       <Stepper orientation="vertical">
                         {ProcessInstances.map(
@@ -212,12 +177,6 @@ class BookingDetails extends Component {
                             )
                         )}
                       </Stepper>
-
-
-                      {/* <TaskStatusComponents
-                    currentObj={currentObj}
-                    index={ProcessInstances.length - 1}
-                  />  */}
                     </Typography>
                   </DialogContent>
                 </Dialog>
