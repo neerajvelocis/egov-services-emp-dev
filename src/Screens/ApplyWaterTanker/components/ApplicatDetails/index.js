@@ -156,14 +156,14 @@ class ApplicatInfo extends Component {
         
         
       <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
-          <button
+          <Button
             className="responsive-action-button"
             primary={true}
             label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
             fullWidth={true}
             onClick={this.continue}
             startIcon={<ArrowForwardIosIcon />}
-          ></button>
+          />
         
         </div> 
       
