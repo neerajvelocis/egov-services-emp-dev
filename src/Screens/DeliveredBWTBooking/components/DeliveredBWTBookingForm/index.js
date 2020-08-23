@@ -1,8 +1,9 @@
 import React from "react";
-import { Button } from "components";
+import { Button,TextField } from "components";
 import { Question } from "modules/common";
 import { TextArea } from "modules/common";
 import { withStyles } from "@material-ui/core/styles";
+import Label from "egov-ui-kit/utils/translationNode";
 
 const styles = theme => ( {
   root: {
@@ -43,7 +44,7 @@ const styles = theme => ( {
     }
   }
 });
-const RejectComplaintForm = ({ form, options,classes, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+const RejectComplaintForm = ({ form, options,classes,driverFullName,mobileNumber,approverName, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
   console.log(' RejectComplaintForm form',form)
 // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
@@ -55,7 +56,10 @@ formValue.createdBy.value=createdBy;
 formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 formValue.bookingType.value=bookingtype;
-formValue.businessService.value=bookingservice
+formValue.businessService.value=bookingservice;
+formValue.driverName.value = driverFullName;
+formValue.mobileNumber.value = mobileNumber;
+formValue.approverName.value = approverName;
 console.log('formValue--->>',formValue)
   }
 
@@ -72,7 +76,42 @@ console.log('formValue--->>',formValue)
           <Question options={options} label={"ES_REJECT_COMPLAINT_QUESTION"} handleChange={handleOptionChange} valueSelected={optionSelected} />
         </div> */}
         <div className="reject-complaint-textArea">
-          <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
+
+
+
+        <TextField
+              id="comment-value"
+              name="comment-value"
+              type="string"
+              value={commentValue}
+              hintText={
+                <Label
+                  label="MYBK_ADD_COMMENTS_PLACEHOLDER"
+                  color="rgba(0, 0, 0, 0.3799999952316284)"
+                  fontSize={16}
+                  labelStyle={{
+                    letterSpacing: "0.7px",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    width: "90%",
+                    overflow: "hidden"
+                  }}
+                />
+              }
+              // floatingLabelText={
+              //   <Label
+              //     key={0}
+              //     label="MYBK_COMMON_COMMENTS_VALUE"
+              //     color="rgba(0,0,0,0.60)"
+              //     fontSize="12px"
+              //   />
+              // }
+              onChange={ontextAreaChange}
+              underlineStyle={{ bottom: 7 }}
+              underlineFocusStyle={{ bottom: 7 }}
+              hintStyle={{ width: "100%" }}
+            />
+          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
         </div>
       </div>
       <div className={classes.btnWrapper}>

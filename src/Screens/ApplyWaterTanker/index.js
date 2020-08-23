@@ -21,6 +21,8 @@ export class StepForm extends Component {
         address: '',
         locality: '',
         residenials: '',
+        approverName:'',
+        comment:'',
         childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" }, { label: "SUMMARY" }]
 
     }
@@ -53,7 +55,7 @@ export class StepForm extends Component {
     }
 
     showStep = () => {
-        const { step, firstName, lastName, jobTitle, jobCompany, jobLocation, mobileNo, email, houseNo, address, locality, residenials } = this.state;
+        const { step, firstName, lastName, jobTitle, jobCompany, approverName,comment,jobLocation, mobileNo, email, houseNo, address, locality, residenials } = this.state;
         let propsData =this.props
         if (step === 0)
             return (<PersonalInfo
@@ -76,9 +78,13 @@ export class StepForm extends Component {
                 jobTitle={jobTitle}
                 jobCompany={jobCompany}
                 jobLocation={jobLocation}
+                approverName={approverName}
+                comment={comment}
             />);
         if (step === 2)
             return (<AllInfo
+                approverName={approverName}
+                comment={comment}
                 firstName={firstName}
                 lastName={lastName}
                 jobTitle={jobTitle}

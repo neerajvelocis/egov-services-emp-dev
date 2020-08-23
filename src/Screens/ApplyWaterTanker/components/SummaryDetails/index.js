@@ -5,6 +5,7 @@ import { createWaterTankerApplication } from "egov-ui-kit/redux/complaints/actio
 import { connect } from "react-redux";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import EditIcon from '@material-ui/icons/Edit';
 import "./index.css";
 class SummaryDetails extends Component {
 
@@ -17,8 +18,12 @@ class SummaryDetails extends Component {
     submit = e => {
        
         let { createWaterTankerApplication } = this.props;
-        const { firstName, email, mobileNo, houseNo, address, locality, residenials } = this.props;
+        const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
+            "bkApproverName":approverName,
+            "bookingsRemarks": [{"bkRemarks": comment}],
+            "comment":comment,
+            "action":"DELIVER",
             "bkApplicantName": firstName,
             "bkMobileNumber": mobileNo,
             "bkEmail": email,
@@ -31,7 +36,7 @@ class SummaryDetails extends Component {
             "bkStatus": "Request due to water supply failure",
             "bkBookingType": "WATER_TANKERS",
             "tenantId": "ch",
-            "bkAction": "SPECIALAPPLY",
+            "bkAction": "DELIVER",
             "businessService": "BWT"
         }
         createWaterTankerApplication(
@@ -62,27 +67,26 @@ class SummaryDetails extends Component {
         this.props.prevStep();
     }
     render() {
-        const { firstName, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
+        const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
         console.log('propsData', propsData)
         // let typeOfRequest=
         return (
             <div>
+                <div classsName="container">
                 <div className="col-xs-12">
-                    <button
+                  <button
                         style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
                         primary={true}
                         onClick={this.firstStep}
                         className="ViewDetailButton"
                     >EDIT</button>
                 </div>
-
-                <div style={{
-                    marginLeft: "45px", paddingBottom: '5px'
-                }}>
+                </div>
+                <div style={{marginLeft: "20px", paddingBottom: '5px',paddingLeft:25}}>
                     <Label label="MYBK_APPLICANT_DETAILS" labelClassName="dark-heading" />
                 </div>
 
-                <div className="col-xs-12" style={{ paddingBottom: '50px' }}>
+                <div className="col-xs-12" style={{ paddingBottom: '50px',paddingLeft:25 }}>
                     <div className="col-sm-12 col-xs-12">
 
                         <div className="complaint-detail-detail-section-status row">
@@ -193,6 +197,25 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_APPROVER_NAME" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={approverName}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_COMMENT" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={comment}
+                                />
+                            </div>
+
+                            <div className="col-md-4">
                                 <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TYPE_OF_REQUEST" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -214,7 +237,7 @@ class SummaryDetails extends Component {
 
                 <div className="responsive-action-button-cont">
                     <Button
-                        className="responsive-action-button"
+                         className="responsive-action-button"
                         primary={true}
                         label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
                         fullWidth={true}
@@ -230,6 +253,7 @@ class SummaryDetails extends Component {
                         label={<Label buttonLabel={true} label="CORE_COMMON_SUBMIT" />}
                         fullWidth={true}
                         onClick={this.submit}
+                     style={{rightIcon:"arrow_drop_down"}}
                     />
                 </div>
                 {/* <button className="Back" onClick={this.submit}>

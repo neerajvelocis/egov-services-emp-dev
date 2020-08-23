@@ -45,7 +45,7 @@ class DialogContainer extends React.Component {
   }
   render() {
     const { toggle, maxWidth, children, togglepopup,actionTittle } = this.props;
-    console.log('togglepopup', togglepopup)
+   // console.log('togglepopup', togglepopup)
     return (
       <Dialog open={toggle} maxWidth={maxWidth} onClose={togglepopup} fullWidth={true}>
         <DialogTitle id="customized-dialog-title" onClose= {togglepopup}>
