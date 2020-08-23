@@ -13,9 +13,21 @@ class ResolveSuccess extends Component {
       bkData: {}
     }
   };
+  // continueComplaintSubmit = () => {
+  //   console.log('this.props in resolve success',this.props);
+  //   let {userInfo}=this.props;
+  //   const foundFirstLavel = userInfo&&userInfo.roles.some(el => el.code === 'MCC_APPROVER');
+
+  //   if(foundFirstLavel){
+  //     this.props.history.push("/egov-services/all-MccApplications");
+  //   }else{
+  //   this.props.history.push("/egov-services/all-applications");
+  // }
+  // };
+
   continueComplaintSubmit = () => {
-    //console.log('this.props in resolve success',this.props);
-   // let {userInfo}=this.props;
+    // console.log('this.props in resolve success',this.props);
+    // let {userInfo}=this.props;
     // const foundFirstLavel = userInfo&&userInfo.roles.some(el => el.code === 'MCC_APPROVER');
 
     // if(foundFirstLavel){
@@ -24,6 +36,7 @@ class ResolveSuccess extends Component {
     this.props.history.push("/egov-services/all-applications");
   // }
   };
+
   render() {
    
     return (

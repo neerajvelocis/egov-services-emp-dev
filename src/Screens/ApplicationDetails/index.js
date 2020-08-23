@@ -8,6 +8,7 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
+import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
 import AppDetails from "../AllComplaints/components/AppDetails"
 import BookingDetails from "../AllComplaints/components/BookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
@@ -367,13 +368,12 @@ class ApplicationDetails extends Component {
             storageAreaRequired: complaint.areaRequired,
             category: complaint.bkCategory,
             typeOfConstruction: complaint.bkConstructionType,
-            // permissionPeriod: "From 18-03-2020 To 17-04-2020",
+            
             duration:
                 complaint.bkDuration == "1"
                     ? `${complaint.bkDuration} Month`
                     : `${complaint.bkDuration} Months`,
             categoryImage: "",
-            // categoryImage: applicationData.bkCategory === "Cat-A" ? "http://3.6.65.87:3000/static/media/cat-a.4e1bc5ec.jpeg" : applicationData.bkCategory === "Cat-B" ? "" : "http://3.6.65.87:3000/static/media/cat-c.4e1bc5ec.jpeg"
         };
 		const queryStr = [
             {
@@ -836,21 +836,21 @@ downloadPermissionLetterFunction = async (e) => {
 									</div>
 								</div>
 
+								<OSMCCBookingDetails
+									{...complaint}
+									historyApiData={historyApiData && historyApiData}
+								/>
 
+                                <AppDetails
+									{...complaint}
+
+								/>
 
 								<BookingDetails
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								<AppDetails
-									{...complaint}
-								// role={role}
-								// history={history}
-								// mapAction={true}
-								// redirectToMap={this.redirectToMap}
-								// action={action}
-								// complaintLoc={complaintLoc}
-								/>
+								
 
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
