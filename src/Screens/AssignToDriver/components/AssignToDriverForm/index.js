@@ -69,6 +69,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
 
   const fields = form.fields || {};
   const submit = form.submit;
+  console.log('submit in assign dric',submit)
   return (
     <div>
       {/* <div className="custom-padding-for-screens">
@@ -228,6 +229,10 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
             >Assign</button>
              }else{
+              if(mobileNumber.lenght!=10){
+                return console.log('hello number')
+              // return alert('enter valid mobile number')
+              }else{
               return <button
               onClick={handleValidation}
               className={classes.button}
@@ -237,6 +242,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
               disabled
             >Assign</button>
+              }
              }
           }
          

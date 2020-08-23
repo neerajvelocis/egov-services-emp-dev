@@ -72,7 +72,41 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
       </div> */}
       <div className="custom-padding-for-screens">
         <div className="reject-complaint-textArea">
-          <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
+
+        <TextField
+              id="comment-value"
+              name="comment-value"
+              type="string"
+              value={commentValue}
+              hintText={
+                <Label
+                  label="MYBK_ADD_COMMENTS_PLACEHOLDER"
+                  color="rgba(0, 0, 0, 0.3799999952316284)"
+                  fontSize={16}
+                  labelStyle={{
+                    letterSpacing: "0.7px",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    width: "90%",
+                    overflow: "hidden"
+                  }}
+                />
+              }
+              // floatingLabelText={
+              //   <Label
+              //     key={0}
+              //     label="MYBK_COMMON_COMMENTS_VALUE"
+              //     color="rgba(0,0,0,0.60)"
+              //     fontSize="12px"
+              //   />
+              // }
+              onChange={ontextAreaChange}
+              underlineStyle={{ bottom: 7 }}
+              underlineFocusStyle={{ bottom: 7 }}
+              hintStyle={{ width: "100%" }}
+            />
+          
+          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
         </div>
         {(bkStatus != 'Paid' &&
           <div className="reject-complaint-textArea"
@@ -85,7 +119,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               value={approverName}
               hintText={
                 <Label
-                  label="MYBK_APPROVER_NAME_PLACEHOLDER"
+                  label="MYBK_REJECTOR_NAME_PLACEHOLDER_TEXT"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={{
@@ -100,7 +134,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               floatingLabelText={
                 <Label
                   key={0}
-                  label="MYBK_CREATE_APPROVER_NAME"
+                  label="MYBK_CREATE_REJECTOR_NAME_TEXT"
                   color="rgba(0,0,0,0.60)"
                   fontSize="12px"
                 />

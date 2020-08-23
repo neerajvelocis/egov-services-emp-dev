@@ -11,7 +11,7 @@ class SuccessMessage extends Component {
       <div className="wt-app-details">
         <div className="container-fluid">
           <div className="row spl-application-header" style={{ marginTop: '40px', marginBottom: '30px', marginLeft: '-6px' }}>
-            <div className="col-sm-3 spl-app-header-text">  <Label label={"MYBK_WATER_TANKER_REQUEST"} /></div>
+            <div className="col-sm-6 spl-app-header-text">  <Label label={"MYBK_WATER_TANKER_REQUEST"} /></div>
             <div className="col-sm-3 spl-app-header-number" > <Label label={applicationNumber} /></div>
             {/* <div class="col-sm-5">  </div> */}
           </div>
@@ -29,11 +29,11 @@ class SuccessMessage extends Component {
                 <div class="col-sm-1"> <FloatingActionButton className="floating-button" style={{ boxShadow: 0, marginTop: 15 }} backgroundColor={backgroundColor}>
                   {icon}
                 </FloatingActionButton></div>
-                <div class="col-sm-8" >
+                <div class="col-sm-7" >
                   <Label className="thankyou-text" style={{ fontSize: 30, fontWeight: 'bold' }} label={successmessage} color="#767676" />
                   <Label className="thankyou-text-message" label={secondaryLabel} color="#767676" /></div>
-                <div class="col-sm-3 application-number-div">
-                    <Label  className="application-text-one" label={"MYBK_WATER_TANKER_REQUESTNO"} />
+                <div class="col-sm-4 application-number-div">
+                    <Label  className="application-text-one" style={{float:'right'}}label={"MYBK_WATER_TANKER_REQUESTNO"} />
                     <Label className="application-text-two" label={applicationNumber} />
                      </div>
               </div>
@@ -51,8 +51,8 @@ class SuccessMessage extends Component {
               letter-spacing: 0.7px;
               font-size:14px !important;
             }
-            .wt-app-details .application-number-div .application-text-one div.label-text{float:right;font-weight:400;font-size:16px !important}
-            .wt-app-details .application-number-div .application-text-two div.label-text{float:right;font-weight:500;font-size:24px !important}
+            .wt-app-details .application-number-div .application-text-one div.label-text{float:right !important;font-weight:400;font-size:16px !important}
+            .wt-app-details .application-number-div .application-text-two div.label-text{float:right !important;font-weight:500;font-size:24px !important}
             .wt-app-details .spl-application-header .spl-app-header-text div.label-text{font-size: 24px !important;font-weight: 400;}
             .wt-app-details .spl-application-header .spl-app-header-number{ background-color: rgba(0, 0, 0, 0.6);
               color: rgba(255, 255, 255, 0.87);

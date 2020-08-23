@@ -66,6 +66,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { httpRequest } from "egov-ui-kit/utils/api";
+import Label from "egov-ui-kit/utils/translationNode";
 
 
 
@@ -899,7 +900,7 @@ console.log('part 2 in componentdid mount',part2)
 								<div style={{height: "250px", marginBottom:'15px',width: "100",backgroundColor: "white",	border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}>
-                                     <div style={{marginTop:30}}><b>New Locations Images</b></div><br></br>
+                                     <div style={{marginTop:30}}> <Label  label="NEW_LOCATION_IMAGES" /></div><br></br>
 							<div>
 								{(() => {
 									if (this.state && this.state.ImageList.length > 0) {
