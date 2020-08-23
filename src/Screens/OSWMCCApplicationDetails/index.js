@@ -20,7 +20,7 @@ import OSMCCMainBookingDetails from "../AllComplaints/components/OSMCCMainBookin
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import OSBMPaymentDetails from "../AllComplaints/components/OSBMPaymentDetails"
 import ApproveBooking from "../ComplaintResolved";
 import RejectBooking from "../RejectComplaint";
 
@@ -42,7 +42,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
+	fetchApplications, OSBMfetchperDayRate, OSBMfetchPayment,fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
 	sendMessage,downloadPermissionLetter,downloadMccPL,downloadReceiptforCG,
 	sendMessageMedia,downloadMccApp
 } from "egov-ui-kit/redux/complaints/actions";
@@ -126,9 +126,10 @@ class ApplicationDetails extends Component {
 
 	componentDidMount = async () => {
 		let {
-			fetchApplications,
+			fetchApplications,OSBMfetchperDayRate,
 			fetchHistory,
 			fetchPayment,
+			OSBMfetchPayment,
 			fetchDataAfterPayment, downloadPaymentReceipt,downloadMccApp,downloadMccPL,downloadReceiptforCG,
 			match,
 			resetFiles,
@@ -160,6 +161,35 @@ class ApplicationDetails extends Component {
 		fetchDataAfterPayment(
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
+
+			let complaintCountRequest = 
+			{
+				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+				"applicationStatus": "",
+				"mobileNumber": "", "bookingType": "","tenantId" : userInfo.tenantId
+			}
+
+			console.log("complaintCountRequest123",complaintCountRequest)
+
+			let dataforSectorAndCategory = await httpRequest( 	
+				"bookings/api/employee/_search",
+				"_search",[],
+				complaintCountRequest
+			  );
+			console.log("dataforSectorAndCategory123",dataforSectorAndCategory)
+
+		let venueData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkBookingVenue : 'NA'
+        let categoryData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkCategory : 'NA'
+		//fetch baserate
+
+		console.log("dataforSectorAndCategory123",dataforSectorAndCategory)
+		console.log("venueData123--",venueData)
+		console.log("categoryData123---",categoryData)
+
+		OSBMfetchperDayRate({	
+				bookingVenue:venueData ,
+	          	category:categoryData
+			});
 
 		let BookingInfo = [{
 			"applicantDetail": {
@@ -695,7 +725,7 @@ class ApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails, match, userInfo } = this.props;
+		let { historyApiData, paymentDetails, perDayRupees, match, userInfo } = this.props;
 		console.log('props in render123==', this.props)
 
 		let {
@@ -758,7 +788,6 @@ class ApplicationDetails extends Component {
 								<div className="container" >
 									<div className="row">
 										<div className="col-12 col-md-6" style={{ fontSize: 'x-large' }}>
-
 											Application Details
 										</div>
 										<div className="col-12 col-md-6 row">
@@ -859,7 +888,7 @@ class ApplicationDetails extends Component {
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-<OSMCCAppDetails
+                                <OSMCCAppDetails
 									{...complaint}
 								// role={role}
 								// history={history}
@@ -873,9 +902,11 @@ class ApplicationDetails extends Component {
 								{...complaint}
 								historyApiData={historyApiData && historyApiData}
 								/>
-								
-								<PaymentDetails
+								{console.log("MyRatePerDay--",perDayRupees)}
+
+								<OSBMPaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
+									perDayRupees={perDayRupees && perDayRupees}
 								/>
 								{/* {documentMap && (
 									<DownloadFileContainer
@@ -1097,13 +1128,17 @@ const mapStateToProps = (state, ownProps) => {
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
-
+	const { OSBMperDayRate } = complaints;
+	console.log("OSBMperDayRate--",OSBMperDayRate)
 	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
+	let perDayRupees;
 	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
+	    perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerDay : '';
 	} else {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
+		perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerDay : '';
 	}
 
 	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
@@ -1111,7 +1146,9 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('paymentDetails in map state to props', paymentDetails)
+	console.log('perDayRupees in map state to props', paymentDetails)
+	console.log('OSBMperDayRate in map state to props--',OSBMperDayRate)
+
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -1148,7 +1185,8 @@ const mapStateToProps = (state, ownProps) => {
 			bkFromDate: selectedComplaint.bkFromDate,
 			bkToDate: selectedComplaint.bkToDate,
 			bkFatherName: selectedComplaint.bkFatherName,
-			bkBookingVenue:selectedComplaint.bkBookingVenue
+			bkBookingVenue:selectedComplaint.bkBookingVenue, //bkBookingPurpose
+			bkBookingPurpose: selectedComplaint.bkBookingPurpose,
 
 		}
 
@@ -1177,6 +1215,7 @@ const mapStateToProps = (state, ownProps) => {
 			paymentDetailsForReceipt,DownloadApplicationDetails,DownloadPermissionLetterDetails,
 			documentMap,
 			form,
+			perDayRupees,
 			transformedComplaint,
 			role,
 			DownloadMccPermissionLetter,
@@ -1190,6 +1229,7 @@ const mapStateToProps = (state, ownProps) => {
 			paymentDetails,
 			DownloadMccAppp,
 			historyApiData,
+			perDayRupees,
 			DownloadReceiptDetailsforCG,
 			DownloadPaymentReceiptDetails,
 			DownloadMccPermissionLetter,
@@ -1209,11 +1249,12 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
-		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
-		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),//downloadMCCPLComplete
+		fetchApplications: criteria => dispatch(fetchApplications(criteria)),  //OSBMfetchperDayRate
+		OSBMfetchperDayRate: criteria => dispatch(OSBMfetchperDayRate(criteria)),
+		fetchPayment: criteria => dispatch(fetchPayment(criteria)), 
+		OSBMfetchPayment: criteria => dispatch(OSBMfetchPayment(criteria)),
+		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 		downloadMccPL: criteria => dispatch(downloadMccPL(criteria)),
-
 		downloadMccApp: criteria => dispatch(downloadMccApp(criteria)),
 		downloadReceiptforCG: criteria => dispatch(downloadReceiptforCG(criteria)),
 		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),

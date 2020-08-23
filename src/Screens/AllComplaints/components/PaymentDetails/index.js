@@ -198,7 +198,6 @@ class PayDetails extends Component {
                         <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_Round_Off" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
                           id="complaint-details-submission-date"
                           labelStyle={{ color: "inherit" }}
                           label={bkPaymentStatus}

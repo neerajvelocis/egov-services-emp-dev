@@ -12,10 +12,12 @@ import Button from "@material-ui/core/Button";
 import ShareIcon from "@material-ui/icons/Share";
 import get from "lodash/get";
 import isEqual from "lodash/isEqual";
+import { httpRequest } from "egov-ui-kit/utils/api";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import CGAppDetails from "../AllComplaints/components/CGAppDetails"
 import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import CGPaymentDetails from "../AllComplaints/components/CGPaymentDetails"
 import CGBookingDetails from "../AllComplaints/components/CGBookingDetails"
 import DocumentPreview from "../AllComplaints/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
@@ -38,7 +40,7 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,downloadPaymentReceiptforCG,downloadReceiptforCG,
+	fetchApplications, fetchPayment, fetchperDayRate,fetchHistory, fetchDataAfterPayment,downloadPaymentReceiptforCG,downloadReceiptforCG,
 	sendMessage,downloadLetterforCG,
 	sendMessageMedia,downloadPermissionLetterforCG,downloadApplicationforCG
 } from "egov-ui-kit/redux/complaints/actions";
@@ -55,6 +57,8 @@ class CGApplicationDetails extends Component {
 			openMap: false,
 			docFileData: [],
 			bookingType:'',
+			rSector:'',
+            rCategormy:''
 		};
 	};
 
@@ -62,7 +66,7 @@ class CGApplicationDetails extends Component {
 		let {
 			fetchApplications,
 			fetchHistory,
-			fetchPayment,
+			fetchPayment,fetchperDayRate,
 			fetchDataAfterPayment,downloadReceiptforCG,downloadPaymentReceiptforCG,downloadLetterforCG,downloadPermissionLetterforCG,downloadApplicationforCG,
 			match,
 			resetFiles,
@@ -75,11 +79,28 @@ class CGApplicationDetails extends Component {
 
 		console.log('match.params.serviceRequestId---', this.props)
 		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
+		console.log('paramDetails--',match.params)
+		console.log('transformedComplaintbyME--',this.props.transformedComplaint)
+		console.log('matchbyME--',this.props.match)
 
 		prepareFormData("complaints", transformedComplaint);
 
 		const { complaint } = transformedComplaint;
-		fetchApplications(
+
+	// 	let SingleAppDlicationata =  {
+	// 		"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+	// 		"applicationStatus": "",
+	// 		"mobileNumber": "", "bookingType": ""
+	// 	}
+
+	// 	console.log("SingleAppDlicationata ",SingleAppDlicationata)
+	// 	let SingleApplication = await httpRequest( 
+	// 	    "bookings/api/employee/_search",
+	// 	    "_search",[],
+	// 	    SingleAppDlicationata
+	// 	  );
+    //    console.log("SingleApplication--",SingleApplication)
+    await fetchApplications(
 			{
 				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
 				"applicationStatus": "",
@@ -88,20 +109,47 @@ class CGApplicationDetails extends Component {
 		);
 		fetchHistory([
 			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
-		//complaint.businessService
+		
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "GFCP" }, { key: "tenantId", value: userInfo.tenantId }
 			])
 		fetchDataAfterPayment(
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
+		
+		let complaintCountRequest = 
+			{
+				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
+				"applicationStatus": "",
+				"mobileNumber": "", "bookingType": "","tenantId" : userInfo.tenantId
+			}
+		  
+		  
+		console.log("complaintCountRequest ",complaintCountRequest)
+  
+  //"bookings/commercial/ground/fee/_search",
+		let dataforSectorAndCategory = await httpRequest( 	
+			"bookings/api/employee/_search",
+		    "_search",[],
+		    complaintCountRequest
+		  );
+		console.log("dataforSectorAndCategory",dataforSectorAndCategory)
+// complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+		let venueData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkBookingVenue : 'NA'
+        let categoryData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkCategory : 'NA'
+		//fetch baserate
 
+		console.log("dataforSectorAndCategory",dataforSectorAndCategory)
+		console.log("venueData--",venueData)
+		console.log("categoryData---",categoryData)
 
-			
-
-		let { details } = this.state;
-
+    fetchperDayRate({	
+				bookingVenue:venueData ,
+	          	category:categoryData
+			});
 	}
+	
+	
 
 	componentWillReceiveProps = async (nextProps) =>  {
 		console.log('this.props123', this.props)
@@ -578,90 +626,12 @@ downloadPaymentReceiptButton = async (e) => {
 
 }
 
-	// ShareButtonOnClick = () => {
-	//   const complaintData = this.props.transformedComplaint.complaint;
-	//   const name = complaintData.filedBy ? complaintData.filedBy : "NA";
-	//   const moblileNo = complaintData.filedUserMobileNumber
-	//     ? complaintData.filedUserMobileNumber
-	//     : "NA";
-	//   const complaintNo = complaintData.applicationNo
-	//     ? complaintData.applicationNo
-	//     : "NA";
-	//   const complaintType = this.props.complaintTypeLocalised
-	//     ? this.props.complaintTypeLocalised
-	//     : "NA";
-	//   const address = complaintData.address ? complaintData.address : "NA";
-	//   const { sendMessage } = this.props;
-
-	//   const shareMetaData = {
-	//     tenantId: getTenantId(),
-	//     shareSource: "WEB",
-	//     shareMedia: "SMS",
-	//     shareContent: [
-	//       {
-	//         to: "",
-	//         content: { name, moblileNo, complaintNo, complaintType, address },
-	//         expiredIn: "",
-	//         documents: []
-	//       }
-	//     ],
-	//     shareTemplate: "complaintDetails"
-	//   };
-	//   sendMessage(shareMetaData);
-
-	//   // const messageStr =
-	//   //   "Name: " + name + "\nMobile: " + moblileNo + "\nComplaint No: " + complaintNo + "\nComplaint Type: " + complaintType + "\nAddress: " + address;
-	// };
-
-	// shareCallback = () => {
-	//   let { complaint } = this.props.transformedComplaint;
-
-	//   navigator
-	//     .share({
-	//       title: "Complaint Summary",
-	//       text: `Dear Sir/Madam,\nPlease find complaint detail given below :\n${get(
-	//         complaint,
-	//         "filedBy",
-	//         ""
-	//       )}, ${get(complaint, "filedUserMobileNumber", "")},\n${get(
-	//         complaint,
-	//         "complaint",
-	//         ""
-	//       )}, ${get(complaint, "description", "")}\nAddress: ${get(
-	//         complaint,
-	//         "addressDetail.houseNoAndStreetName",
-	//         ""
-	//       )},\n${get(complaint, "addressDetail.locality", "")},\n${get(
-	//         complaint,
-	//         "addressDetail.landMark",
-	//         ""
-	//       )}\nSLA: ${get(
-	//         complaint,
-	//         "timelineSLAStatus.slaStatement",
-	//         ""
-	//       )}\nThanks`,
-	//       url: ""
-	//     })
-	//     .then(() => console.log("Successful share"))
-	//     .catch(error => console.log("Error sharing", error));
-	// };
-
-
-
 callApiDorData = async (e) =>  {
 		console.log('e.target.dataset',e.target.dataset.doc,this.props)
-// 		if(e.target.dataset){
 
-// 		var object = {};
-// 		 {object[key] = object[value]};
-// var json = JSON.stringify(object);
-// console.log('documentMap in new function',json)
-// }
 const {documentMap}=this.props;
-		// let documentMap={"93e71d9f-6eb0-461a-b3cd-9a5c2220950d":"Screenshot (14)_small.png"}
 
 		var documentsPreview = [];
-		// const {documentMap}=this.props;
 		if (documentMap && Object.keys(documentMap).length > 0) {
 			let keys = Object.keys(documentMap);
 			let values = Object.values(documentMap);
@@ -776,7 +746,7 @@ const {documentMap}=this.props;
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails, match, userInfo } = this.props;
+		let { historyApiData, paymentDetails, perDayRupees, match, userInfo } = this.props;
 		console.log('props in render123==', this.props)
 console.log("complaintsToAddress ",complaint)
 		let {
@@ -932,11 +902,16 @@ Application Details
                               <CGBookingDetails
 									{...complaint}
 								/>
-
-
-                                  <PaymentDetails
+                                  {/* <PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
-								/>
+								/> */}
+								{console.log("MyRatePerDay--",perDayRupees)}
+
+<CGPaymentDetails
+	paymentDetails={paymentDetails && paymentDetails}
+	perDayRupees={perDayRupees && perDayRupees}
+
+/>
 
                              <div style={{
 									height: "100px",
@@ -1029,39 +1004,34 @@ const mapStateToProps = (state, ownProps) => {
 	let bookingDocs;
 
 	console.log('businessService=====', businessService)
-	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
-	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// 	console.log('hel1')
-	// }
 	const { documentMap } = applicationData;
 	const { HistoryData } = complaints;
 	let temp;
-	// if(applicationData && applicationData.documentMap){
-	// 	temp=applicationData;
-	// }
 console.log('temp===',temp)
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
-
-	// console.log('fetchPaymentAfterPayment in map state to props', fetchPaymentAfterPayment)
-
+	const { perDayRate } = complaints;
+console.log("perDayRate--",perDayRate)
 	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
-	// let paymentDetails;
 	let paymentDetails;
+	let perDayRupees;
 	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPLIED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill ;
+		perDayRupees = perDayRate && perDayRate ? perDayRate.data.ratePerDay : '';
 	} 
 	else {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
+		perDayRupees = perDayRate && perDayRate ? perDayRate.data.ratePerDay : '';
 	} 
 
-	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
 	console.log('paymentDetails in map state to props', paymentDetails)
+	console.log('perDayRate in map state to props--',perDayRate)
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -1099,7 +1069,6 @@ console.log('temp===',temp)
 		    bkBookingPurpose: selectedComplaint.bkBookingPurpose,
 		    bkFromDate: selectedComplaint.bkFromDate,
 		    bkToDate: selectedComplaint.bkToDate
-
 		}
 
 
@@ -1126,6 +1095,7 @@ console.log('temp===',temp)
 			DownloadPermissionLetterDetailsforCG,
 			DownloadApplicationDetailsforCG,
 			paymentDetailsForReceipt,
+			perDayRupees,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -1145,6 +1115,7 @@ console.log('temp===',temp)
 			DownloadPermissionLetterDetailsforCG,
 			DownloadApplicationDetailsforCG,
 			paymentDetailsForReceipt,
+			perDayRupees,
 			// documentMapDataValues,
 			documentMap,
 			form,
@@ -1160,7 +1131,8 @@ console.log('temp===',temp)
 const mapDispatchToProps = dispatch => {
 	return {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
-		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
+		fetchPayment: criteria => dispatch(fetchPayment(criteria)), 
+		fetchperDayRate: criteria => dispatch(fetchperDayRate(criteria)),
 		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 
 		downloadPaymentReceiptforCG: criteria => dispatch(downloadPaymentReceiptforCG(criteria)),
@@ -1173,7 +1145,7 @@ const mapDispatchToProps = dispatch => {
 		sendMessage: message => dispatch(sendMessage(message)),
 		sendMessageMedia: message => dispatch(sendMessageMedia(message)),
 		prepareFormData: (jsonPath, value) =>
-			dispatch(prepareFormData(jsonPath, value)),
+		dispatch(prepareFormData(jsonPath, value)),
 		prepareFinalObject: (jsonPath, value) =>
 			dispatch(prepareFinalObject(jsonPath, value))
 	};
