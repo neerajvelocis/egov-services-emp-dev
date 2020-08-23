@@ -3,8 +3,7 @@ import { Card, Image, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import isEmpty from "lodash/isEmpty";
 import "./index.css";
-// import HistoryIcon from "@material-ui/icons/History";
-// import { LabelContainer } from "egov-ui-framework/ui-containers";
+
 import DialogContainer from "../../../../modules/DialogContainer"
 
 import { withStyles } from '@material-ui/core/styles';
@@ -123,9 +122,6 @@ class BookingDetails extends Component {
     window.open(this.getImageSource(source, "large"), 'Image');
     // this.props.history.push(`/image?source=${source}`);
   };
-
-
-
   render() {
     const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
     var ProcessInstances = [];
@@ -133,8 +129,6 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
-   
-   console.log('ProcessInstances',ProcessInstances)
 
     return (
       <div>
