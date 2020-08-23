@@ -46,7 +46,7 @@ import {
 import {
 	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
 	sendMessage,
-	sendMessageMedia
+	sendMessageMedia,downloadReceiptforCG,downloadBWTApplication
 } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 
@@ -109,7 +109,8 @@ class BwtApplicationDetails extends Component {
 			prepareFormData,
 			userInfo,
 			documentMap,
-			prepareFinalObject
+			prepareFinalObject,
+			downloadReceiptforCG,downloadBWTApplication
 		} = this.props;
 
 		console.log('match.params.serviceRequestId---', this.props)
@@ -146,6 +147,223 @@ class BwtApplicationDetails extends Component {
 			prepareFormData("complaints", nextProps.transformedComplaint);
 		}
 	}
+
+//Payment Receipt
+downloadReceiptButton = async (e) => {
+	
+	await this.downloadReceiptFunction();
+
+	console.log('DownloadReceiptDetailsforCG this.props',this.props)
+	let documentsPreviewData;
+	const { DownloadReceiptDetailsforCG } = this.props;
+	
+	var documentsPreview = [];
+	if (DownloadReceiptDetailsforCG && DownloadReceiptDetailsforCG.filestoreIds.length > 0) {
+
+		console.log('DownloadReceiptDetailsforCG',DownloadReceiptDetailsforCG.filestoreIds[0])
+		 documentsPreviewData=DownloadReceiptDetailsforCG.filestoreIds[0];
+		
+		// let keys = Object.keys(documentMap);
+		// let values = Object.values(documentMap);
+		// let id = keys[0], fileName = values[0];
+
+		documentsPreview.push({
+			title: "DOC_DOC_PICTURE",
+			fileStoreId: documentsPreviewData,
+			linkText: "View",
+		});
+		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+		let fileUrls =
+			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+		console.log("fileUrls", fileUrls);
+
+		documentsPreview = documentsPreview.map(function (doc, index) {
+			doc["link"] =
+				(fileUrls &&
+					fileUrls[doc.fileStoreId] &&
+					fileUrls[doc.fileStoreId].split(",")[0]) ||
+				"";
+			//doc["name"] = doc.fileStoreId;
+			doc["name"] =
+				(fileUrls[doc.fileStoreId] &&
+					decodeURIComponent(
+						fileUrls[doc.fileStoreId]
+							.split(",")[0]
+							.split("?")[0]
+							.split("/")
+							.pop()
+							.slice(13)
+					)) ||
+				`Document - ${index + 1}`;
+			return doc;
+		});
+		console.log('documentsPreview',documentsPreview)
+		setTimeout(() => {
+			window.open(documentsPreview[0].link);
+		}, 100);
+		prepareFinalObject('documentsPreview', documentsPreview)
+	}
+}
+
+downloadReceiptFunction = async (e) => {
+	const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG,downloadReceiptforCG, userInfo, paymentDetails } = this.props;
+	const { complaint } = transformedComplaint;
+	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
+		console.log('compalint in downloadpayament',complaint,paymentDetails)
+
+	let BookingInfo = [{
+		"applicantDetail": {
+			"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+			"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
+			"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
+			"permanentAddress": complaint && complaint.address ? complaint.address : '',
+			"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
+			"sector": complaint && complaint.sector ? complaint.sector : ''
+		},
+		"booking": {
+			"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
+		},
+		"paymentInfo": {
+			"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
+			"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
+			"bookingPeriod": getDurationDate(
+				complaint.bkFromDate,
+				complaint.bkToDate
+			),
+			"bookingItem": "Online Payment Against Booking of Open Space WithIn MCC",
+			"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+				(el) => !el.taxHeadCode.includes("TAX")
+			)[0].amount,
+			"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
+				(el) => el.taxHeadCode.includes("TAX")
+			)[0].amount,
+			"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
+			"amountInWords": this.NumInWords(
+				paymentDetailsForReceipt.Payments[0].totalAmountPaid
+			),
+			paymentItemExtraColumnLabel: "Booking Period",
+			paymentMode:
+				paymentDetailsForReceipt.Payments[0].paymentMode,
+			receiptNo:
+				paymentDetailsForReceipt.Payments[0].paymentDetails[0]
+					.receiptNumber,
+			// name: paymentDetailsForReceipt.Payments[0].payerName,
+			//     mobileNumber:
+			//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+		},
+		payerInfo: {
+			payerName: paymentDetailsForReceipt.Payments[0].payerName,
+			payerMobile:
+				paymentDetailsForReceipt.Payments[0].mobileNumber,
+		},
+		generatedBy: {
+			generatedBy: userInfo.name,
+		},
+	}
+	]
+	downloadReceiptforCG({BookingInfo: BookingInfo})
+}
+//Payment Receipt
+
+//ApplicationDownload
+downloadApplicationMCCButton = async (e) => {
+	await this.downloadApplicationFunction();
+	console.log('hello1 in success')
+	 const {DownloadBWTApplicationDetails}=this.props;
+   //  let fileStoreId=DownloadBWTApplicationDetails&&DownloadBWTApplicationDetails.filestoreIds[0];
+	 console.log('downloadApplicationMCCButton this.DownloadApplicationDetails',DownloadBWTApplicationDetails)
+		 var documentsPreview = [];
+		 let documentsPreviewData;
+		 if (DownloadBWTApplicationDetails && DownloadBWTApplicationDetails.filestoreIds.length > 0) {	
+			 documentsPreviewData = DownloadBWTApplicationDetails.filestoreIds[0];
+				 documentsPreview.push({
+					 title: "DOC_DOC_PICTURE",
+					 fileStoreId: documentsPreviewData,
+					 linkText: "View",
+				 });
+				 let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+				 let fileUrls =
+					 fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
+				 console.log("fileUrls", fileUrls);
+	 
+				 documentsPreview = documentsPreview.map(function (doc, index) {
+					 doc["link"] =
+						 (fileUrls &&
+							 fileUrls[doc.fileStoreId] &&
+							 fileUrls[doc.fileStoreId].split(",")[0]) ||
+						 "";
+					 //doc["name"] = doc.fileStoreId;
+					 doc["name"] =
+						 (fileUrls[doc.fileStoreId] &&
+							 decodeURIComponent(
+								 fileUrls[doc.fileStoreId]
+									 .split(",")[0]
+									 .split("?")[0]
+									 .split("/")
+									 .pop()
+									 .slice(13)
+							 )) ||
+						 `Document - ${index + 1}`;
+					 return doc;
+				 });
+				 console.log('documentsPreview', documentsPreview)
+				 setTimeout(() => {
+					 window.open(documentsPreview[0].link);
+				 }, 100);
+				 // prepareFinalObject('documentsPreview', documentsPreview)
+			 } 
+   }
+
+   downloadApplicationFunction = async (e) => {
+    console.log('this.props in success message form', this.props)
+    const { createWaterTankerApplicationData,downloadBWTApplication,userInfo } = this.props;
+    let applicationDetails = createWaterTankerApplicationData ? createWaterTankerApplicationData.data : '';
+    console.log('applicationDetails in function',applicationDetails)
+    let BookingInfo = [
+      {
+        "applicantDetail": {
+          "name":applicationDetails.bkApplicantName,
+          "mobileNumber":applicationDetails.bkMobileNumber,
+          "houseNo":applicationDetails.bkHouseNo,
+          "permanentAddress":applicationDetails.bkCompleteAddress,
+          "permanentCity":applicationDetails.bkVillCity,
+          "sector":applicationDetails.bkSector,
+          "fatherName":applicationDetails.bkFatherName,
+          "DOB":applicationDetails.bkDate,
+          "email":applicationDetails.bkEmail
+        },
+        "bookingDetail": {
+          "applicationNumber": applicationDetails.bkApplicationNumber,
+          "name": applicationDetails.bkApplicantName,
+          "mobileNumber":applicationDetails.bkMobileNumber,
+          "email": applicationDetails.bkEmail,
+          "houseNo":applicationDetails.bkHouseNo,
+          "locality": applicationDetails.bkSector,
+          "completeAddress": applicationDetails.bkCompleteAddress,
+          "applicationDate": applicationDetails.bkDateCreated,
+          "applicationDate": applicationDetails.bkDateCreated,
+          "propertyType": applicationDetails.bkType,
+          "date": applicationDetails.bkDate,
+          "time": applicationDetails.bkTime,
+          "applicationStatus": applicationDetails.bkApplicationStatus,
+          "applicationType": applicationDetails.bkStatus
+        },
+        "feeDetail": {
+          "baseCharge": 'NA',
+          "taxes": 'NA',
+          "totalAmount": 'NA'
+        },
+        "generatedBy": {
+          "generatedBy": userInfo.name
+        }
+      }
+    ]
+
+    downloadBWTApplication({ BookingInfo: BookingInfo })
+    console.log('hello2 in success')
+  };
+//ApplicationDownload
 
 	btnOneOnClick = (value, complaintNo) => {
 		console.log('value===???', value)
@@ -333,6 +551,108 @@ class BwtApplicationDetails extends Component {
 					{complaint && !openMap && (
 						<div>
 							<div className="form-without-button-cont-generic">
+
+							<div className="container" >
+									<div className="row">
+										<div className="col-12 col-md-6" style={{ fontSize: 'x-large' }}>
+
+											Application Details
+										</div>
+										<div className="col-12 col-md-6 row">
+											<div class="col-12 col-md-6 col-sm-3" >
+												<ActionButtonDropdown data={{
+													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "cloud_download",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+													},
+													menu:[{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+														},
+														leftIcon: "receipt",
+
+														link: () => this.downloadReceiptButton('Receipt'),
+				
+													},
+													// {
+													// 	label: {
+													// 		labelName: "PermissionLetter",
+													// 		labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+													// 	},
+													// 	leftIcon: "book",
+													// 	link: () => this.downloadPLButton('PermissionLetter'),
+													// },
+													{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
+													}]
+													[{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_DOWNLOAD_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('Application'),
+														leftIcon: "assignment"
+													}]
+												}} />
+											</div>
+											<div class="col-12 col-md-6 col-sm-3" >
+												<ActionButtonDropdown data={{
+													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+													rightIcon: "arrow_drop_down",
+													leftIcon: "print",
+													props: {
+														variant: "outlined",
+														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
+													},
+													menu:[{
+														label: {
+															labelName: "Receipt",
+															labelKey: "MYBK_PRINT_RECEIPT"
+														},
+
+														link: () => this.downloadReceiptButton('Receipt'),
+														leftIcon: "receipt"
+													},
+													// {
+													// 	label: {
+													// 		labelName: "PermissionLetter",
+													// 		labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+													// 	},
+													// 	 link: () => this.downloadPLButton('state', "dispatch", 'REJECT'),
+													// 	 leftIcon: "book"
+													// },
+													{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
+													}]
+													// [{
+													// 	label: {
+													// 		labelName: "Application",
+													// 		labelKey: "MYBK_PRINT_APPLICATION"
+													// 	},
+													// 	link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+													// 	leftIcon: "assignment"
+													// }]
+												}} />
+
+											</div>
+										</div>
+									</div>
+								</div>
+
 
 							<OSMCCBookingDetails
 									{...complaint}
@@ -569,6 +889,7 @@ let gro = "";
 const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
+	const { DownloadReceiptDetailsforCG,DownloadBWTApplicationDetails } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
@@ -667,7 +988,9 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
+			DownloadReceiptDetailsforCG,
 			documentMap,
+			DownloadBWTApplicationDetails,
 			form,
 			transformedComplaint,
 			role,
@@ -680,6 +1003,8 @@ const mapStateToProps = (state, ownProps) => {
 		return {
 			paymentDetails,
 			historyApiData,
+			DownloadReceiptDetailsforCG,
+			DownloadBWTApplicationDetails,
 			documentMap,
 			form,
 			transformedComplaint: {},
@@ -696,7 +1021,8 @@ const mapDispatchToProps = dispatch => {
 		fetchApplications: criteria => dispatch(fetchApplications(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
 		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
-
+		downloadReceiptforCG: criteria => dispatch(downloadReceiptforCG(criteria)),
+		downloadBWTApplication: criteria => dispatch(downloadBWTApplication(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),

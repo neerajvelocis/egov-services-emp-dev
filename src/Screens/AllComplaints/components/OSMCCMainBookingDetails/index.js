@@ -310,7 +310,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MCC_LOCATION_AREA" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-submission-date"
