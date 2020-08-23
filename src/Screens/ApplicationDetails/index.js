@@ -361,7 +361,7 @@ class ApplicationDetails extends Component {
             applicationNumber: complaint.applicationNo,
             houseNo: complaint.houseNo,
             locality: complaint.sector,
-            address: complaint.address,
+            completeAddress: complaint.address,
             applicationDate: complaint.dateCreated,
             villageOrCity: complaint.villageCity,
             propertyType: complaint.residentialCommercial,

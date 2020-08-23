@@ -103,9 +103,12 @@ class RejectComplaint extends Component {
     return false;
   }
   onSubmit = e => {
-    const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
-    const { toggleSnackbarAndSetText } = this.props;
+
+    // console.log('this.stat in on submite', this.state)
+// return 0
+    // const { valueSelected, commentValue } = this.state;
+    // console.log('this.stat in on submite', this.state)
+    // const { toggleSnackbarAndSetText } = this.props;
   };
 
   render() {

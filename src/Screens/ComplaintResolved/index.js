@@ -50,35 +50,35 @@ class ComplaintResolved extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log(' e.target.value')
+    console.log(' e.target.value',e.target.value)
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
     });
-    this.concatComments(this.commentsValue);
+    // this.concatComments(this.commentsValue);
   };
   handleOptionsChange = (event, value) => {
-    this.setState({ valueSelected: value });
-    this.commentsValue.radioValue = value;
-    this.concatComments(this.commentsValue);
+    // this.setState({ valueSelected: value });
+    // this.commentsValue.radioValue = value;
+    // this.concatComments(this.commentsValue);
   };
   concatComments = val => {
-    let com1 = "";
-    let com2 = "";
-    if (val.radioValue) {
-      com1 = val.radioValue + ";";
-    }
-    if (val.textVal) {
-      com2 = val.textVal;
-    }
-    let concatvalue = com1 + com2;
-    this.props.handleFieldChange("approveBooking", "comments", concatvalue);
+    // let com1 = "";
+    // let com2 = "";
+    // if (val.radioValue) {
+    //   com1 = val.radioValue + ";";
+    // }
+    // if (val.textVal) {
+    //   com2 = val.textVal;
+    // }
+    // let concatvalue = com1 + com2;
+    this.props.handleFieldChange("approveBooking", "comments", this.state.commentValue);
   };
 
   onSubmit = e => {
-    const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
-    const { toggleSnackbarAndSetText } = this.props;
+    // const { valueSelected, commentValue } = this.state;
+    // console.log('this.stat in on submite', this.state)
+    // const { toggleSnackbarAndSetText } = this.props;
     // if (valueSelected === "Other" && !commentValue) {
     //   e.preventDefault();
     //   toggleSnackbarAndSetText(
