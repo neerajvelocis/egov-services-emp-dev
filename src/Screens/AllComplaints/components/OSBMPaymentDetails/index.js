@@ -49,18 +49,48 @@ class PayDetails extends Component {
 
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
+   
   };
+
+  diffDates = (fromDate,toDate) => {
+    
+   
+    var date1 = new Date(fromDate);
+    var date2 = new Date(toDate);
+
+     
+     var Difference_In_Time = date2.getTime() - date1.getTime();
+
+    
+     var Difference_In_Days = (Difference_In_Time / (1000 * 3600 * 24)) + 1;
+
+    
+    return Difference_In_Days
+  }
 
 
   render() {
-    const { bkPaymentDate,paymentDetails, perDayRupees, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
-
-    console.log('hello paymentDetails', perDayRupees)  //RatePerDay
-    console.log('bkPaymentReceiptNumber', bkPaymentReceiptNumber)
-    console.log('bkPaymentStatus', bkPaymentStatus)
+    const { bkPaymentDate,paymentDetails,area, fromDate, toDate,perDayRupees, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
+// var str = `Base Charges ${area} sqft X ${this.diffDates(fromDate,toDate)} days (@Rs.${perDayRupees}/sqft)`
     
-const level2 = `Base Charges for XYZ sqft X 2 days (@Rs.${perDayRupees}/sqft)`
+// const level2 = `Base Charges 
+// ${area} sqft X ${this.diffDates(fromDate,toDate)} days (@Rs.${perDayRupees}/sqft)`
+
+//console.log('Fifteen is ' + (a + b) + ' and\nnot ' + (2 * a + b) + '.');
+
+// const level3 = 'Base Charges' +'<br />' + (area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.' +  (perDayRupees) +'/sqft)'
+
+
+let str = 'Base Charges' + (area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.' +  (perDayRupees) +'/sqft)'
+let str1 = str .substring(0,11) + "\r\n" + str.substring(12,str.length);
+const level2 = str1
+
+
+let first = 'Base Charges'
+const second = +(area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.' +  (perDayRupees) +'/sqft)'
+
+
+// const strlevel = str.substring(0,11) +"\r"+"\n" + str.substring(12,level2.length);
 
     return (
       <div>
@@ -81,27 +111,31 @@ const level2 = `Base Charges for XYZ sqft X 2 days (@Rs.${perDayRupees}/sqft)`
                 <div className="complaint-detail-detail-section-status row">
                   <div>
                     <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">{/*"MYBK_REGISTRATION_RENT"*/}
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" 
-                        label={level2 }/>
+                      <div className="col-sm-4 col-xs-12">
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color"                       
+                        label={first }
+                        />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color"                       
+                        label={second }
+                        />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
 
                           id="complaint-details-submission-date"
                           labelStyle={{ color: "inherit" }}
-                          // label={bkPaymentStatus}
+                          
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
                         <div >
                       <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
-                      {/* <h5 style={{align : "right"}}>{perDayRate && perDayRate ? perDayRate.data.ratePerDay : ''}</h5> */}
+                     
                       </div>
                       </div>
                       <div className="col-sm-4 col-xs-12">
                       </div>
                     </div>
-                    {/*second row */}
+                    
                    <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
                         <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />

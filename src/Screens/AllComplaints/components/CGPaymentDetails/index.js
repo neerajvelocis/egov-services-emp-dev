@@ -46,17 +46,14 @@ class PayDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
+  
   };
 
   render() {
     const { bkPaymentDate,paymentDetails, perDayRupees, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
 
-    console.log('hello paymentDetails', paymentDetails)  //RatePerDay
-    console.log('hello RatePerDay', perDayRupees)
-    console.log('bkPaymentReceiptNumber', bkPaymentReceiptNumber)
-    console.log('bkPaymentStatus', bkPaymentStatus)
-    
+   
+   
     const label1 = `Base Charges@ Rs.${perDayRupees}/day`
     const perRates = perDayRupees;
 
@@ -79,7 +76,7 @@ class PayDetails extends Component {
                 <div className="complaint-detail-detail-section-status row">
                   <div>
                     <div className="col-xs-12">
-                      <div className="col-sm-4 col-xs-12">{/*label="MYBK_REGISTRATION_RENT@"{perDayRupees}"/day"*/}
+                      <div className="col-sm-4 col-xs-12">
                         <Label className="col-xs-12  col-sm-12 col-md-12 status-color" 
                         label={label1} />
                         <Label
@@ -87,12 +84,12 @@ class PayDetails extends Component {
 
                           id="complaint-details-submission-date"
                           labelStyle={{ color: "inherit" }}
-                          // label={bkPaymentStatus}
+                      
                         />
                       </div>
                       <div className="col-sm-4 col-xs-12">
                         <div >
-                      {/* <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5> */}
+                     
                       <h5 style={{align : "right"}}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
                       </div>
                       </div>

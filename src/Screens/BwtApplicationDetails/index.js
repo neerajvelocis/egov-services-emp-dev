@@ -62,7 +62,7 @@ import Typography from '@material-ui/core/Typography';
 import AssignTODriver from "../AssignToDriver";
 import RejectBWTBooking from "../RejectBWTBooking";
 import DeliveredBWTBooking from "../DeliveredBWTBooking";
-
+import { convertEpochToDate, getDurationDate} from '../../modules/commonFunction'
 
 
 const styles = (theme) => ({
@@ -96,6 +96,7 @@ class BwtApplicationDetails extends Component {
 			togglepopup: false,
 			actionOnApplication: '',
 			actionTittle: '',
+			tentantData:''
 		};
 	};
 	componentDidMount = async () => {
@@ -136,6 +137,12 @@ class BwtApplicationDetails extends Component {
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
+		  let mdmsData =  await this.getMdmsTenantsData();
+		  console.log("MDMSData--",mdmsData)
+		  this.setState({
+		tentantData :mdmsData  
+		  })
+
 		let { details } = this.state;
 
 	}
@@ -147,6 +154,76 @@ class BwtApplicationDetails extends Component {
 			prepareFormData("complaints", nextProps.transformedComplaint);
 		}
 	}
+
+
+
+	NumInWords = (number) => {
+		const first = [
+			"",
+			"One ",
+			"Two ",
+			"Three ",
+			"Four ",
+			"Five ",
+			"Six ",
+			"Seven ",
+			"Eight ",
+			"Nine ",
+			"Ten ",
+			"Eleven ",
+			"Twelve ",
+			"Thirteen ",
+			"Fourteen ",
+			"Fifteen ",
+			"Sixteen ",
+			"Seventeen ",
+			"Eighteen ",
+			"Nineteen ",
+		];
+		const tens = [
+			"",
+			"",
+			"Twenty",
+			"Thirty",
+			"Forty",
+			"Fifty",
+			"Sixty",
+			"Seventy",
+			"Eighty",
+			"Ninety",
+		];
+		const mad = ["", "Thousand", "Million", "Billion", "Trillion"];
+		let word = "";
+
+		for (let i = 0; i < mad.length; i++) {
+			let tempNumber = number % (100 * Math.pow(1000, i));
+			if (Math.floor(tempNumber / Math.pow(1000, i)) !== 0) {
+				if (Math.floor(tempNumber / Math.pow(1000, i)) < 20) {
+					word =
+						first[Math.floor(tempNumber / Math.pow(1000, i))] +
+						mad[i] +
+						" " +
+						word;
+				} else {
+					word =
+						tens[Math.floor(tempNumber / (10 * Math.pow(1000, i)))] +
+						first[Math.floor(tempNumber / Math.pow(1000, i)) % 10] +
+						mad[i] +
+						" " +
+						word;
+				}
+			}
+
+			tempNumber = number % Math.pow(1000, i + 1);
+			if (Math.floor(tempNumber / (100 * Math.pow(1000, i))) !== 0)
+				word =
+					first[Math.floor(tempNumber / (100 * Math.pow(1000, i)))] +
+					"Hunderd " +
+					word;
+		}
+		return word + "Rupees Only";
+	};
+
 
 //Payment Receipt
 downloadReceiptButton = async (e) => {
@@ -231,7 +308,7 @@ downloadReceiptFunction = async (e) => {
 				complaint.bkFromDate,
 				complaint.bkToDate
 			),
-			"bookingItem": "Online Payment Against Booking of Open Space WithIn MCC",
+			"bookingItem": "Online Payment Against Booking of Water Tanker",
 			"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
 				(el) => !el.taxHeadCode.includes("TAX")
 			)[0].amount,
@@ -248,9 +325,6 @@ downloadReceiptFunction = async (e) => {
 			receiptNo:
 				paymentDetailsForReceipt.Payments[0].paymentDetails[0]
 					.receiptNumber,
-			// name: paymentDetailsForReceipt.Payments[0].payerName,
-			//     mobileNumber:
-			//         paymentDetailsForReceipt.Payments[0].mobileNumber,
 		},
 		payerInfo: {
 			payerName: paymentDetailsForReceipt.Payments[0].payerName,
@@ -317,43 +391,60 @@ downloadApplicationMCCButton = async (e) => {
 
    downloadApplicationFunction = async (e) => {
     console.log('this.props in success message form', this.props)
-    const { createWaterTankerApplicationData,downloadBWTApplication,userInfo } = this.props;
+	const { transformedComplaint,paymentDetails,downloadApplicationforCG,paymentDetailsForReceipt,userInfo } = this.props;
+	const {complaint} = transformedComplaint;
+	const { createWaterTankerApplicationData,downloadBWTApplication } = this.props;
     let applicationDetails = createWaterTankerApplicationData ? createWaterTankerApplicationData.data : '';
-    console.log('applicationDetails in function',applicationDetails)
+	console.log('applicationDetails in function',applicationDetails)
+	console.log("Complaints in WAterTanker--",complaint)
+	let paymentData = paymentDetails;
+	console.log("paymentDataInWaterTanker123--",paymentData)
     let BookingInfo = [
       {
-        "applicantDetail": {
-          "name":applicationDetails.bkApplicantName,
-          "mobileNumber":applicationDetails.bkMobileNumber,
-          "houseNo":applicationDetails.bkHouseNo,
-          "permanentAddress":applicationDetails.bkCompleteAddress,
-          "permanentCity":applicationDetails.bkVillCity,
-          "sector":applicationDetails.bkSector,
-          "fatherName":applicationDetails.bkFatherName,
-          "DOB":applicationDetails.bkDate,
-          "email":applicationDetails.bkEmail
-        },
+        applicantDetail: {
+			name: complaint.applicantName,
+			mobileNumber: complaint.bkMobileNumber,
+			houseNo: complaint.houseNo,
+			permanentAddress: complaint.address,
+			permanentCity: this.state.tentantData,
+			sector: complaint.sector,
+			email: complaint.bkEmail,
+			fatherName: complaint.bkFatherName ?complaint.bkFatherName:'NA',
+			DOB: null,
+		},
         "bookingDetail": {
-          "applicationNumber": applicationDetails.bkApplicationNumber,
-          "name": applicationDetails.bkApplicantName,
-          "mobileNumber":applicationDetails.bkMobileNumber,
-          "email": applicationDetails.bkEmail,
-          "houseNo":applicationDetails.bkHouseNo,
-          "locality": applicationDetails.bkSector,
-          "completeAddress": applicationDetails.bkCompleteAddress,
-          "applicationDate": applicationDetails.bkDateCreated,
-          "applicationDate": applicationDetails.bkDateCreated,
-          "propertyType": applicationDetails.bkType,
-          "date": applicationDetails.bkDate,
-          "time": applicationDetails.bkTime,
-          "applicationStatus": applicationDetails.bkApplicationStatus,
-          "applicationType": applicationDetails.bkStatus
+          "applicationNumber": complaint.applicationNo,
+          "name": complaint.applicantName,
+          "mobileNumber":complaint.bkMobileNumber,
+          "email": complaint.bkEmail,
+          "houseNo":complaint.houseNo,
+          "locality": complaint.sector,
+          "completeAddress": complaint.address,
+          "applicationDate": complaint.dateCreated,
+          "propertyType": complaint.residentialCommercial,
+          "date": complaint.bkDate,
+          "time": complaint.bkTime,
+          "applicationStatus": complaint.status,
+          "applicationType": complaint.bkStatus
         },
-        "feeDetail": {
-          "baseCharge": 'NA',
-          "taxes": 'NA',
-          "totalAmount": 'NA'
-        },
+        feeDetail: {
+			baseCharge:
+				paymentData === undefined
+					? null
+					: paymentData.billDetails[0].billAccountDetails.filter(
+						(el) => !el.taxHeadCode.includes("TAX")
+					)[0].amount,
+			taxes:
+				paymentData === undefined
+					? null
+					: paymentData.billDetails[0].billAccountDetails.filter(
+						(el) => el.taxHeadCode.includes("TAX")
+					)[0].amount,
+			totalAmount:
+				paymentData === undefined
+					? null
+					: paymentData.totalAmount,
+		},
         "generatedBy": {
           "generatedBy": userInfo.name
         }
@@ -481,6 +572,38 @@ downloadApplicationMCCButton = async (e) => {
 
 
 	}
+
+ getMdmsTenantsData = async () => {
+		let tenantId = getTenantId().split(".")[0];
+		let mdmsBody = {
+			MdmsCriteria: {
+				tenantId: tenantId,
+				moduleDetails: [
+					{
+						moduleName: "tenant",
+						masterDetails: [
+							{
+								name: "tenants",
+							},
+						],
+					}
+				],
+			},
+		};
+		try {
+			let payload = await httpRequest(
+				"post",
+				"/egov-mdms-service/v1/_search",
+				"_search",
+				[],
+				mdmsBody
+			);
+			return payload.MdmsRes.tenant 
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	render() {
 		const dropbordernone = {
 			float: "right",
@@ -493,6 +616,7 @@ downloadApplicationMCCButton = async (e) => {
 		let { documentMap } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
 		console.log('props in render123==', this.props)
+		console.log("myWATERtAnker--",complaint)
 
 		let {
 			role,
@@ -505,9 +629,6 @@ downloadApplicationMCCButton = async (e) => {
 		let btnTwoLabel = "";
 		let action;
 		let complaintLoc = {};
-		// if (complaint && complaint.latitude) {
-		//   complaintLoc = { lat: complaint.latitude, lng: complaint.longitude };
-		// }
 		if (complaint) {
 			if (role === "ao") {
 				if (complaint.complaintStatus.toLowerCase() === "unassigned") {
@@ -555,7 +676,6 @@ downloadApplicationMCCButton = async (e) => {
 							<div className="container" >
 									<div className="row">
 										<div className="col-12 col-md-6" style={{ fontSize: 'x-large' }}>
-
 											Application Details
 										</div>
 										<div className="col-12 col-md-6 row">
@@ -568,7 +688,7 @@ downloadApplicationMCCButton = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu:[{
+													menu:  (complaint.bkStatus).includes("Paid") ?[{
 														label: {
 															labelName: "Receipt",
 															labelKey: "MYBK_DOWNLOAD_RECEIPT"
@@ -578,14 +698,6 @@ downloadApplicationMCCButton = async (e) => {
 														link: () => this.downloadReceiptButton('Receipt'),
 				
 													},
-													// {
-													// 	label: {
-													// 		labelName: "PermissionLetter",
-													// 		labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-													// 	},
-													// 	leftIcon: "book",
-													// 	link: () => this.downloadPLButton('PermissionLetter'),
-													// },
 													{
 														label: {
 															labelName: "Application",
@@ -593,13 +705,13 @@ downloadApplicationMCCButton = async (e) => {
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
-													}]
+													}]:
 													[{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_DOWNLOAD_APPLICATION"
+															labelKey: "MYBK_PRINT_APPLICATION"
 														},
-														link: () => this.downloadApplicationMCCButton('Application'),
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
 													}]
 												}} />
@@ -613,23 +725,16 @@ downloadApplicationMCCButton = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu:[{
+													menu:  (complaint.bkStatus).includes("Paid") ?[{
 														label: {
 															labelName: "Receipt",
-															labelKey: "MYBK_PRINT_RECEIPT"
+															labelKey: "MYBK_DOWNLOAD_RECEIPT"
 														},
+														leftIcon: "receipt",
 
 														link: () => this.downloadReceiptButton('Receipt'),
-														leftIcon: "receipt"
+				
 													},
-													// {
-													// 	label: {
-													// 		labelName: "PermissionLetter",
-													// 		labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-													// 	},
-													// 	 link: () => this.downloadPLButton('state', "dispatch", 'REJECT'),
-													// 	 leftIcon: "book"
-													// },
 													{
 														label: {
 															labelName: "Application",
@@ -637,15 +742,15 @@ downloadApplicationMCCButton = async (e) => {
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
+													}]:
+													[{
+														label: {
+															labelName: "Application",
+															labelKey: "MYBK_PRINT_APPLICATION"
+														},
+														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
+														leftIcon: "assignment"
 													}]
-													// [{
-													// 	label: {
-													// 		labelName: "Application",
-													// 		labelKey: "MYBK_PRINT_APPLICATION"
-													// 	},
-													// 	link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
-													// 	leftIcon: "assignment"
-													// }]
 												}} />
 
 											</div>
@@ -680,18 +785,6 @@ downloadApplicationMCCButton = async (e) => {
 
 									/>
 								}
-
-								{/* <div style={{
-									height: "100px",
-									width: "100",
-									backgroundColor: "white",
-									border: "2px solid white",
-									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
-								}}><b>Documents</b><br></br>
-
-									{documentMap && Object.values(documentMap) ? Object.values(documentMap) : "Not found"}
-									<button className="ViewDetailButton" data-doc={documentMap} onClick={(e) => { this.callApiDorData(e) }}>VIEW</button>
-								</div> */}
 								<Comments
 									comments={comments}
 									role={role}
@@ -768,33 +861,7 @@ downloadApplicationMCCButton = async (e) => {
 
 										)
 									)
-								)}
-
-								{/* {
-
-									(role === "employee" &&
-										(
-											complaint.bkStatus.includes("Paid")  && complaint.status=="PENDINGASSIGNMENTDRIVER"&&
-												
-												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
-													rightIcon: "arrow_drop_down",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
-													},
-													menu: [{
-														label: {
-															labelName: "Approve",
-															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
-														},
-
-														link: () => this.assignToDiver(serviceRequestId)
-													}]
-												}} />}></Footer>
-
-										)
-									)} */}
+								)}	
 
 
 								<DialogContainer
@@ -815,17 +882,6 @@ downloadApplicationMCCButton = async (e) => {
 								/>
 
 
-								{/* <DialogContainer
-									toggle={this.state.togglepopup}
-									actionTittle={this.state.actionTittle}
-									togglepopup={this.assignToDiver}
-									children={<AssignTODriver
-										applicationNumber={match.params.applicationId}
-										userInfo={userInfo}
-									/>}
-								/> */}
-
-
 							</div>
 						</div>
 					)}
@@ -844,8 +900,6 @@ const roleFromUserInfo = (roles = [], role) => {
 		: false;
 };
 
-
-//Don't Delete this
 const getLatestStatus = status => {
 	let transformedStatus = "";
 	switch (status.toLowerCase()) {
@@ -890,7 +944,6 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
 	const { DownloadReceiptDetailsforCG,DownloadBWTApplicationDetails } = complaints;
-	// complaint=applicationData?applicationData.bookingsModelList:'';
 	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
@@ -907,10 +960,6 @@ const mapStateToProps = (state, ownProps) => {
 	let bookingDocs;
 
 
-	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
-	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// 	console.log('hel1')
-	// }
 
 	let documentMap = applicationData && applicationData.documentMap ? applicationData.documentMap : '';
 	const { HistoryData } = complaints;
@@ -918,15 +967,11 @@ const mapStateToProps = (state, ownProps) => {
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
-
+console.log("paymentDataInWaterTanker--",paymentData)
+let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
-	// if (selectedComplaint && selectedComplaint.bkApplicationStatus!= "PENDINGASSIGNMENTDRIVER") {
 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
-	// } else {
-	// 	paymentDetails = paymentData ? paymentData.Bill[0] : '';
-	// }
-
-	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
@@ -976,7 +1021,7 @@ const mapStateToProps = (state, ownProps) => {
 		if (applicationData != null && applicationData != undefined) {
 
 			transformedComplaint = {
-				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
+				complaint: details,
 			};
 		}
 
@@ -997,7 +1042,8 @@ const mapStateToProps = (state, ownProps) => {
 			serviceRequestId,
 			isAssignedToEmployee,
 			complaintTypeLocalised,
-			// reopenValidChecker
+			paymentDetailsForReceipt
+			
 		};
 	} else {
 		return {
@@ -1006,12 +1052,13 @@ const mapStateToProps = (state, ownProps) => {
 			DownloadReceiptDetailsforCG,
 			DownloadBWTApplicationDetails,
 			documentMap,
+			paymentDetailsForReceipt,
 			form,
 			transformedComplaint: {},
 			role,
 			serviceRequestId,
 			isAssignedToEmployee,
-			// reopenValidChecker
+			
 		};
 	}
 };
