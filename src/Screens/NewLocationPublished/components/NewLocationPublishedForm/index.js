@@ -45,9 +45,7 @@ const styles = theme => ( {
   }
 });
 
-const ComplaintResolvedForm = ({ form, options,userInfo, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
-  console.log('submit commentValue',commentValue);
-
+const NewLocationForm = ({ form, options,userInfo, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
  
   if(form && form.fields){
     let formValue={...form.fields};
@@ -74,10 +72,10 @@ formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 // formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
-console.log('formValue--->>',formValue)
+
   }
 
-  console.log('submit button2',form)
+  
   const fields = form.fields || {};
   const submit = form.submit;
   return (
@@ -101,5 +99,5 @@ console.log('formValue--->>',formValue)
   );
 };
 
-export default withStyles( styles )( ComplaintResolvedForm );
+export default withStyles( styles )( NewLocationForm );
 

@@ -2,30 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import DeliveredBWTForm from "./components/DeliveredBWTBookingForm";
+import ApplicationResolvedForm from "./components/ApplicationResolvedForm";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const DeliveredBWTBookingHOC = formHOC({
-  formKey: "deliveredWBTBooking",
+const ApplicationResolvedHOC = formHOC({
+  formKey: "approveBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(DeliveredBWTForm);
+})(ApplicationResolvedForm);
 
 
-class DeliveredBWTBooking extends Component {
+class ApplicationResolved extends Component {
   state = {
     valueSelected: "",
     commentValue: ""
   };
   componentDidMount() {
- 
-
-    let { fetchApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
+     let { fetchApplications, match, userInfo,applicationNumber } = this.props;
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
@@ -50,36 +47,35 @@ class DeliveredBWTBooking extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log('e and values',e,'valllllll',value)
+    
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
     });
-    this.concatComments(this.commentsValue);
+    // this.concatComments(this.commentsValue);
   };
   handleOptionsChange = (event, value) => {
-    this.setState({ valueSelected: value });
-    this.commentsValue.radioValue = value;
-    this.concatComments(this.commentsValue);
+    // this.setState({ valueSelected: value });
+    // this.commentsValue.radioValue = value;
+    // this.concatComments(this.commentsValue);
   };
   concatComments = val => {
-    let com1 = "";
-    let com2 = "";
-    if (val.radioValue) {
-      com1 = val.radioValue + ";";
-    }
-    if (val.textVal) {
-      com2 = val.textVal;
-    }
-    let concatvalue = com1 + com2;
-    this.props.handleFieldChange("deliveredWBTBooking", "comments", concatvalue);
+    // let com1 = "";
+    // let com2 = "";
+    // if (val.radioValue) {
+    //   com1 = val.radioValue + ";";
+    // }
+    // if (val.textVal) {
+    //   com2 = val.textVal;
+    // }
+    // let concatvalue = com1 + com2;
+    this.props.handleFieldChange("approveBooking", "comments", this.state.commentValue);
   };
 
   onSubmit = e => {
-
-    const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
-    const { toggleSnackbarAndSetText } = this.props;
+    // const { valueSelected, commentValue } = this.state;
+  
+    // const { toggleSnackbarAndSetText } = this.props;
     // if (valueSelected === "Other" && !commentValue) {
     //   e.preventDefault();
     //   toggleSnackbarAndSetText(
@@ -99,10 +95,10 @@ class DeliveredBWTBooking extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in render', trasformData)
+  
     return (
-      // <Screen className="background-white">
-        <DeliveredBWTBookingHOC
+      //<Screen className="background-white">
+        <ApplicationResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -114,9 +110,6 @@ class DeliveredBWTBooking extends Component {
           onSubmit={onSubmit}
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
-          driverFullName={trasformData.bkDriverName}
-          mobileNumber={trasformData.bkContactNo}
-          approverName={trasformData.bkApproverName}
         />
       // </Screen>
     );
@@ -145,4 +138,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeliveredBWTBooking);
+)(ApplicationResolved);

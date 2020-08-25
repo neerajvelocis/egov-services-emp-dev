@@ -24,12 +24,12 @@ const AllComplaints = Loadable({
   loading: Loading
 });
 const AllRequests = Loadable({
-  loader: () => import("../Screens/AllComplaints"),
+  loader: () => import("../Screens/AllApplications"),
   loading: Loading
 });
 
-const ComplaintResolved = Loadable({
-  loader: () => import("../Screens/ComplaintResolved"),
+const ApplicationResolved = Loadable({
+  loader: () => import("../Screens/ApplicationResolved"),
   loading: Loading
 });
 const ComplaintCreated = Loadable({
@@ -110,8 +110,8 @@ const AssignToDriver= Loadable({
   loader: () => import("../Screens/AssignToDriver"),
   loading: Loading
 });
-const ComplaintRejected = Loadable({
-  loader: () => import("../Screens/ComplaintRejected"),
+const ApplicationRejected = Loadable({
+  loader: () => import("../Screens/ApplicationRejected"),
   loading: Loading
 });
 const ComplaintAssigned = Loadable({
@@ -232,7 +232,7 @@ const routes = [
   },
   {
     path: "egov-services/booking-resolved/:applicationId?",
-    component: ComplaintResolved,
+    component: ApplicationResolved,
     needsAuthentication: true,
     options: {
       hideFooter: true,
@@ -446,7 +446,7 @@ const routes = [
   },
   {
     path: "egov-services/application-rejected",
-    component: ComplaintRejected,
+    component: ApplicationRejected,
     needsAuthentication: true,
     options: {
       title: "ES_COMPLAINT_REJECTED_HEADER",

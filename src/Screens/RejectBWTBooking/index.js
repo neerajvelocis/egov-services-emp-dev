@@ -9,7 +9,7 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const RejectComplaintHOC = formHOC({
+const RejectBWTBokingHOC = formHOC({
   formKey: "rejectBWTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
@@ -108,7 +108,7 @@ class RejectBWTBooking extends Component {
     // console.log('this in render', trasformData)
     return (
       // <Screen className="background-white">
-        <RejectComplaintHOC
+        <RejectBWTBokingHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
           commentValue={commentValue}

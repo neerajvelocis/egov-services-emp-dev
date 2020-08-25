@@ -1,9 +1,10 @@
 import React from "react";
+import { withStyles } from "@material-ui/core/styles";
 import { Button,TextField } from "components";
 import { ImageUpload } from "modules/common";
 import { TextArea } from "modules/common";
-import { withStyles } from "@material-ui/core/styles";
 import Label from "egov-ui-kit/utils/translationNode";
+
 const styles = theme => ( {
   root: {
     width: "100%",
@@ -43,7 +44,9 @@ const styles = theme => ( {
     }
   }
 });
-const NewLocationRejectForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
+
+const ApplicationResolvedForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
+  
   if(form && form.fields){
     let formValue={...form.fields};
 formValue.applicationNumber.value=applicationNumber;
@@ -51,18 +54,15 @@ formValue.tenantId.value=tenantId;
 formValue.createdBy.value=createdBy;
 formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
-// formValue.bookingType.value=bookingtype;
+formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
   }
-
-   const fields = form.fields || {};
+  const fields = form.fields || {};
   const submit = form.submit;
   return (
     <div>
        <div className="custom-padding-for-screens">
         <div className="complaint-resolved-main-container">
-
-
         <TextField
               id="comment-value"
               name="comment-value"
@@ -94,7 +94,8 @@ formValue.businessService.value=bookingservice
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
-            /> 
+            />
+
           {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
         </div>
       </div>
@@ -102,14 +103,15 @@ formValue.businessService.value=bookingservice
         <button 
         onClick={onSubmit}
         className={classes.button}
-       id="rejectcomplaint-submit-action"
-       primary={true}
-       {...submit}
-       fullWidth={true}
-      >Reject</button>
+        id="rejectcomplaint-submit-action"
+        primary={true}
+        {...submit}
+        fullWidth={true}
+        >Approve</button>
       </div>
     </div>
   );
 };
 
-export default withStyles( styles )( NewLocationRejectForm );
+export default withStyles( styles )( ApplicationResolvedForm );
+

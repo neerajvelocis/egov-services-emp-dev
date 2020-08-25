@@ -46,13 +46,11 @@ class BwtApplicantDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
   };
 
   render() {
-    const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
- 
-  
+    const { status, applicantName, applicationNo, bkEmail, bkConstructionType, areaRequired, bkDuration, bkCategory, submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+
     const titleKey = applicationNo.toUpperCase();
 
     return (
@@ -61,14 +59,10 @@ class BwtApplicantDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
                 <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
-             
-               
                 <div className="complaint-detail-detail-section-status row">
-                 
                   <div className="col-md-4">
                     <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
                     <Label
@@ -91,7 +85,7 @@ class BwtApplicantDetails extends Component {
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                     
+
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={bkMobileNumber}
@@ -101,7 +95,7 @@ class BwtApplicantDetails extends Component {
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                   
+
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={address}
@@ -111,7 +105,7 @@ class BwtApplicantDetails extends Component {
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                    
+
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={houseNo}
@@ -121,13 +115,19 @@ class BwtApplicantDetails extends Component {
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                    
+
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={sector}
                     />
                   </div>
+              
+                 
                 </div>
+
+
+               
+               
               </div>
             </div>
           }

@@ -9,21 +9,19 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const ComplaintResolvedHOC = formHOC({
+const NewLocationHOC = formHOC({
   formKey: "publishNewLocation",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
 })(NewLocationPublishedForm);
 
 
-class ComplaintResolved extends Component {
+class NewLocationComment extends Component {
   state = {
     valueSelected: "",
     commentValue: ""
   };
   componentDidMount() {
-    console.log('ComplaintResolvedHOC', ComplaintResolvedHOC)
-
     let { fetchMccApplications, match, userInfo,applicationNumber } = this.props;
     console.log('match.params.applicationId', this.props)
     fetchMccApplications(
@@ -101,7 +99,7 @@ class ComplaintResolved extends Component {
     console.log('this in userInfo in new location', userInfo)
     return (
       
-        <ComplaintResolvedHOC
+        <NewLocationHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -142,4 +140,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ComplaintResolved);
+)(NewLocationComment);
