@@ -28,28 +28,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
 
 
-
-//import ShowField from "C:/latest_project/frontend/web/rainmaker/packages/employee/src/modules/employee/reports/showField";
 
 class AllRequests extends Component {
   state = {
@@ -94,7 +74,7 @@ class AllRequests extends Component {
       renderCustomTitle,
       prepareFinalObject
     } = this.props;
-    console.log('this.props userInfo', userInfo)
+
     let rawRole =
       userInfo && userInfo.roles && userInfo.roles[0].code.toUpperCase();
     //const numberOfComplaints = role === "employee" ? numEmpComplaint : role === "csr" ? numCSRComplaint : 0;
@@ -102,65 +82,7 @@ class AllRequests extends Component {
       this.props.history.push("/report/rainmaker-pgr/DepartmentWiseReport");
     } else {
       let { fetchApplications } = this.props;
-
-      let complaintCountRequest = [
-        { key: 'uuId', value: userInfo.uuid },
-
-        { key: "tenantId", value: getTenantId() },
-        {
-          key: "status",
-          value:
-            role === "csr"
-              ? "assigned,open,reassignrequested"
-              : role === "eo"
-                ? "escalatedlevel1pending,escalatedlevel2pending"
-                : "assigned,reassignrequested"
-        }
-      ];
-      // let payloadCount = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // console.log('payloadCount', payloadCount)
-      // if (role === "csr") {
-      //   payloadCount
-      //     ? payloadCount.count
-      //       ? renderCustomTitle(payloadCount.count)
-      //       : renderCustomTitle("0")
-      //     : renderCustomTitle("0");
-      // }
-
-      // complaintCountRequest = [
-      //   { key: "tenantId", value: getTenantId() },
-      //   {
-      //     key: "status",
-      //     value: "assigned,escalatedlevel1pending,escalatedlevel2pending"
-      //   }
-      // ];
-      // let assignedTotalComplaints = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // complaintCountRequest = [
-      //   { key: "tenantId", value: getTenantId() },
-      //   {
-      //     key: "status",
-      //     value: "open,reassignrequested"
-      //   }
-      // ];
-      // let unassignedTotalComplaints = await httpRequest(
-      //   "rainmaker-pgr/v1/requests/_count",
-      //   "_search",
-      //   complaintCountRequest
-      // );
-      // prepareFinalObject("pgrComplaintCount", {
-      //   assignedTotalComplaints: assignedTotalComplaints.count,
-      //   unassignedTotalComplaints: unassignedTotalComplaints.count,
-      //   employeeTotalComplaints: payloadCount.count
-      // });
-
+      
       if (role === "ao") {
         fetchApplications(
           [
@@ -196,7 +118,6 @@ class AllRequests extends Component {
       }
       else {
         fetchApplications(
-
           {
             "uuid": userInfo.uuid, "applicationNumber": "",
             "applicationStatus": "",
@@ -219,9 +140,7 @@ class AllRequests extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
-
     const { role, renderCustomTitle } = this.props;
-    console.log('this.props role--', role)
     if (
       !isEqual(
         this.props.transformedComplaints,
@@ -256,7 +175,7 @@ class AllRequests extends Component {
 
 
   onComplaintClick = (complaintNo, bookingType) => {
-    console.log('complaintNo in onComplaintClick', complaintNo, bookingType);
+
     if (bookingType && bookingType == "WATER_TANKERS") {
       this.props.history.push(`/egov-services/bwt-application-details/${complaintNo}`);
     }
@@ -264,11 +183,11 @@ class AllRequests extends Component {
       this.props.history.push(`/egov-services/application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
-      console.log("bookingType ", bookingType)
+
       this.props.history.push(`/cg-application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "JURISDICTION") {
-      console.log("bookingType ", bookingType)
+
       this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
     }
   };
@@ -447,14 +366,8 @@ class AllRequests extends Component {
     this.setState({ search: true });
   };
   handleFormFields = () => {
-    console.log('this.props handleFormFields1', this.props)
     let { metaData, searchForm, labels } = this.props;
-    console.log('searchForm-=', searchForm)
-
-
-    console.log('this.state.fromDate--', this.state.fromDate, this.state.toDate)
-
-    if (!_.isEmpty(metaData) && metaData.reportDetails && metaData.reportDetails.searchParams && metaData.reportDetails.searchParams.length > 0) {
+     if (!_.isEmpty(metaData) && metaData.reportDetails && metaData.reportDetails.searchParams && metaData.reportDetails.searchParams.length > 0) {
       return metaData.reportDetails.searchParams.map((item, index) => {
         item["value"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
         if (item.type === "epoch" && item.minValue && item.maxValue && typeof item.minValue !== "object" && typeof item.maxValue !== "object") {
@@ -466,10 +379,6 @@ class AllRequests extends Component {
         if (item.type === "singlevaluelist") {
           item["searchText"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
         }
-        console.log('showFields--')
-        console.log('{item["value"]}--', item["value"])
-
-        // console.log('this.state.fromDate--',this.state.fromDate,this.state.toDate)
 
 
         return (
@@ -508,16 +417,15 @@ class AllRequests extends Component {
       } else if (property === "toDate" && fromDateIndex !== undefined) {
         searchParams[fromDateIndex].maxValue = new Date(e.target.value);
       }
-      console.log('searchParams===', searchParams)
+
       setSearchParams(searchParams);
     }
   };
   handleChange = (e, property, isRequired, pattern) => {
-    console.log('this.props in handleChange1', this.props)
     const { metaData, setMetaData, handleChange, searchForm } = this.props;
     const selectedValue = e.target.value;
     //const selectedValue = e.target.value;
-    console.log('selectedValue---', selectedValue, property)
+   
     if (property === "fromDate" || property === "toDate") {
       this.handleDateSelect(metaData, e, property);
       this.checkDate(selectedValue, property, isRequired, pattern);
@@ -665,15 +573,9 @@ class AllRequests extends Component {
     this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate: "", toDate: "", search: false });
   };
 
-  //  getDropDownItem=()=>{
-
-  //   console.log('item----')
-  //  }
-
   onChange = value => {
     this.setState({ value });
   };
-
 
   handleSelectChange = (event) => {
     this.setState({
@@ -681,12 +583,10 @@ class AllRequests extends Component {
     })
   };
 
-
   gotoWaterTanker = (e) => {
 
     this.props.history.push(`/egov-services/applywatertanker`);
   }
-
 
   render() {
     const dropbordernone = {
@@ -755,7 +655,7 @@ class AllRequests extends Component {
     const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
     const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
     const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
-    console.log('foundFirstLavel',foundFirstLavel,'foundSecondLavel',foundSecondLavel)
+    console.log('foundFirstLavel', foundFirstLavel, 'foundSecondLavel', foundSecondLavel)
     return role === "ao" ? (
       <div>
         <div
@@ -822,17 +722,7 @@ class AllRequests extends Component {
                     label={`ES_ALL_COMPLAINTS_UNASSIGNED_TAB_LABEL2`}
                     labelStyle={tabStyle}
                   />
-                  {/*<Label
-                    labelClassName={
-                      this.state.value === 0
-                        ? "selected-tab-label-text"
-                        : "unselected-tab-label-text"
-                    }
-                    //color={this.state.value === 0 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
-                    bold={true}
-                    label={`(${unassignedComplaints.length})`}
-                    labelStyle={tabStyle}
-                  />*/}
+                  
                 </div>
               ),
               children: (
@@ -902,13 +792,7 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
-        {/* <Button
-          primary={true}
-          label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
-          fullWidth={true}
-          onClick={this.gotoWaterTanker()}
-          style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
-        />  */}
+
         {/* <div className="col-xs-12"> */}
         {foundWaterTanker ?
           <Button
@@ -922,9 +806,9 @@ class AllRequests extends Component {
         }
         {foundFirstLavel || foundSecondLavel || foundthirdLavel ?
           <Button
-          className="responsive-action-button"
+            className="responsive-action-button"
             label={<Label buttonLabel={true} label="NEW_LOCATION_LIST" />}
-            style={{  float: 'right', marginRight: '50px', marginTop: '40px' }}
+            style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
             backgroundColor="#fe7a51"
             // labelStyle={{ letterSpacing: 0.7, padding: 0, color: "#fff" }}
             // buttonStyle={{ border: 0 }}
@@ -1041,45 +925,10 @@ class AllRequests extends Component {
                       <MenuItem value='PENDINGASSIGNMENTDRIVER'>Pending Assignment Driver</MenuItem>
                     </Select>
                   </FormControl>
-                  {/*                  
-                  <select
-                    value={this.state.applicationStatus}
-                    onChange={(e, value) => this.onApplicationStatusChange(e)}
-                    className="form-control"
-                    style={dropbordernone}
-                  >
-                    <option value="">Application Status</option>
-                    <option value="PENDINGAPPROVAL">Pending Approval</option>
-                    <option value="PENDINGPAYMENT">Pending Payment</option>
-                    <option value="PENDINGUPDATE">Pending Update</option>
-                    <option value="PENDINGASSIGNMENTDRIVER">Pending Assignment Driver</option>
-                    <option value="WATER_TANKERS">Pending Update</option>
-                  </select> */}
+                  
                 </div>
                 <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "18px", paddingLeft: "8px" }}>
-                  {/* <select
-                    value={bookingType}
-                    onChange={(e, value) => this.onbookingChange(e)}
-                    className="form-control"
-                    style={dropbordernone}
-                  >
-                    <Label
-                      label="MYBK_APPLICATION_STATUS"
-                      color="rgba(0, 0, 0, 0.3799999952316284)"
-                      fontSize={12}
-                      dark={true}
-                      labelStyle={hintTextStyle}
-                    />
-                    <option value="">Application Type</option>
-                    <option value="OSBM">Open Space To Store Building Material</option>
-                    <option value="WATER_TANKERS">Water Tankers</option>
-                  </select> */}
-
-
-                  {/* <SelectBox
-selectBoxOptions={['a','b','c']}
-/> */}
-
+                 
 
                   <FormControl style={{ width: '100%' }}>
                     <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Booking Type</InputLabel>
@@ -1184,18 +1033,6 @@ selectBoxOptions={['a','b','c']}
                 </div>
 
 
-                {/* <div
-                  className="col-sm-6 col-xs-12 csr-action-buttons"
-                  style={{ marginTop: 10, paddingRight: 8 }}
-                >
-              </div> */}
-                {/* <div
-                  className="col-sm-8 col-xs-12 csr-action-buttons"
-                  style={{ marginTop: 10 }}
-                >
-                  <Grid container spacing={8}>{this.handleFormFields()}</Grid>
-                </div> */}
-
 
 
 
@@ -1260,18 +1097,7 @@ selectBoxOptions={['a','b','c']}
         {/*For MCC*/}
 
 
-        {/* <div className="floating-button-cont csr-add-button">
-          <FloatingActionButton
-            id="mycomplaints-add"
-            onClick={e => {
-              history.push("/create-complaint");
-            }}
-            className="floating-button"
-            backgroundColor="#fe7a51"
-          >
-            <Icon action="content" name="add" />
-          </FloatingActionButton>
-        </div> */}
+        
       </Screen>
     ) : (
           <Screen loading={loading}>
@@ -1418,23 +1244,7 @@ selectBoxOptions={['a','b','c']}
                 complaintLocation={true}
               />
             </div>
-            {/* <Button
-                        label={
-                          <Label
-                            buttonLabel={true}
-                            label="GO_TO_MCC"
-                          />
-                        }
-                        style={{ marginRight: 28, width: "36%" }}
-                        backgroundColor="#fe7a51"
-                        labelStyle={{
-                          letterSpacing: 0.7,
-                          padding: 0,
-                          color: "#fff"
-                        }}
-                        buttonStyle={{ border: 0 }}
-                        onClick={() => this.gotoMcc()}
-                      /> */}
+         
           </Screen>
         );
   }
@@ -1497,173 +1307,16 @@ const mapStateToProps = state => {
     numCSRComplaint,
     transformedComplaints;
 
-  console.log('applicationData-->', applicationData)
+
   if (applicationData != null || applicationData != undefined) {
     transformedComplaints = applicationData.bookingsModelList;
-    console.log('transformedComplaints', transformedComplaints)
-
-    /*let transformedComplaints = transformComplaintForComponent(
-      complaints,
-      role,
-      employeeById,
-      citizenById,
-      categoriesById,
-      displayStatus
-    );
-    console.log('transformedComplaints',transformedComplaints)
-    let assignedComplaints = [],
-      unassignedComplaints = [],
-      employeeComplaints = [],
-      csrComplaints = [];
-  
-    let filteredEmployeeComplaints;
-    if (role === "eo") {
-      filteredEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.rawStatus === "escalatedlevel1pending" ||
-          complaint.rawStatus === "escalatedlevel2pending" ||
-          complaint.rawStatus === "assigned"
-      );
-    } else {
-      filteredEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-  
-          complaint.complaintStatus === "ASSIGNED" ||
-          complaint.rawStatus === "reassignrequested"
-      );
-    }
-  
-  
-    let searchFilterEmployeeComplaints;
-    if (role === "eo") {
-      searchFilterEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.rawStatus === "escalatedlevel1pending" ||
-          complaint.rawStatus === "escalatedlevel2pending" ||
-          complaint.rawStatus === "assigned"
-      );
-    }
-    else {
-      searchFilterEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.complaintStatus === "ASSIGNED" ||
-          complaint.rawStatus === "reassignrequested" ||
-  
-          complaint.complaintStatus === "CLOSED"
-      );
-    }
-  
-  
-    let filteredAssignedComplaints = transformedComplaints.filter(
-      complaint => complaint.complaintStatus === "ASSIGNED" || complaint.complaintStatus === "ESCALATED"
-    );
-    let filteredUnassignedComplaints = transformedComplaints.filter(
-      complaint => complaint.complaintStatus === "UNASSIGNED"
-    );
-  
-    if (role === "ao") {
-      if (order === "Old to New") {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-      } else {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    } else if (role === "csr") {
-      if (order === "Old to New") {
-        csrComplaints = orderby(
-          transformedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-         csrComplaints = orderby(transformedComplaints, ["SLA"], ["asc"]);
-      } else {
-        csrComplaints = orderby(
-          transformedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    } else {
-      if (order === "Old to New") {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-      } else {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    }
-    transformedComplaints = orderby(
-      transformedComplaints,
-      ["latestCreationTime"],
-      ["desc"]
-    );
-    const numEmpComplaint = employeeComplaints.length;
-    const numCSRComplaint = transformedComplaints.length;*/
     csrComplaints = transformedComplaints;
-    //  numCSRComplaint = transformedComplaints.length;
-
   }
-  //const searchForm;
-  // if(state&&state.formtemp&&state.formtemp.form)
-  //   const searchForm= state.formtemp.form;
-
-  //   if(state&&state.formtemp&&state.formtemp.form){
-  //     searchForm= state.formtemp.form;
-  //  }
-  // const metaData;
-  //if(state&&state.report&&state.report.metaData)
-  // const metaData= state.report.form;
 
 
 
-  //   const metaValues= {};
-  //   metaValues={
-  //   "reportDetails":{"reportName": "TradeLicenseRegistryReport"},
-  //   "tenantId": "ch.chandigarh",
-  //   "requestInfo":{"apiId": "emp","msgId": "20170310130900","resMsgId": "uief87324","status": "200",ts: "Thu Jun 11 12:18:18 GMT 2020",ver: "1.0"}
-  // }
-  console.log('RequestData csrComplaints', csrComplaints)
+
+
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
     // metaData: {
@@ -1679,26 +1332,17 @@ const mapStateToProps = state => {
     assignedComplaints,
     unassignedComplaints,
     csrComplaints,
-    //numEmpComplaint,
-    //  numCSRComplaint,
+   
     employeeComplaints,
     role,
     loading,
     transformedComplaints
-    // searchFilterEmployeeComplaints,
-    // assignedTotalComplaints,
-    //unassignedTotalComplaints,
-    // employeeTotalComplaints
+   
   };
 };
 
-
 const mapDispatchToProps = dispatch => {
   return {
-
-
-    // setRoute: url => dispatch(setRoute(url)),
-
     resetForm: () => {
       dispatch({ type: "RESET_FORM" });
     },
@@ -1725,10 +1369,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(prepareFinalObject(jsonPath, value))
   };
 };
-
-
-
-
 
 export default connect(
   mapStateToProps,

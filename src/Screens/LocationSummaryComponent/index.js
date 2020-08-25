@@ -33,10 +33,10 @@ import AppDetails from "../AllMCCApplication/components/NewLocationAppDetails"
 import NewLocationFieldsDetails from '../AllMCCApplication/components/NewLocationFieldsDetails'
 import BookingDetails from "../AllMCCApplication/components/NewLocationBookingDetails"
 import ImageListDetails from '../AllMCCApplication/components/Image'
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
  import NewLocationResolved from "../NewLocationResolved";
  import NewLocationRejected from "../NewLocationRejected";
  import NewLocationPublished from '../NewLocationPublished';

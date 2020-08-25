@@ -14,16 +14,16 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import OSMCCAppDetails from "../AllComplaints/components/OSMCCAppDetails"
-import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
-import OSMCCMainBookingDetails from "../AllComplaints/components/OSMCCMainBookingDetails"
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import OSMCCAppDetails from "../AllApplications/components/OSMCCAppDetails"
+import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetails"
+import OSMCCMainBookingDetails from "../AllApplications/components/OSMCCMainBookingDetails"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
-import OSBMPaymentDetails from "../AllComplaints/components/OSBMPaymentDetails"
-import ApproveBooking from "../ComplaintResolved";
+import OSBMPaymentDetails from "../AllApplications/components/OSBMPaymentDetails"
+import ApproveBooking from "../ApplicationResolved";
 import RejectBooking from "../RejectComplaint";
-
+import { httpRequest } from "egov-ui-kit/utils/api";
 import jp from "jsonpath";
 import {
 	getQueryArg,

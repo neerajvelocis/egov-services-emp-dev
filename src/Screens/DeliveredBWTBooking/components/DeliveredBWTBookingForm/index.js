@@ -44,8 +44,8 @@ const styles = theme => ( {
     }
   }
 });
-const RejectComplaintForm = ({ form, options,classes,driverFullName,mobileNumber,approverName, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  console.log(' RejectComplaintForm form',form)
+const DeliveredBWTForm = ({ form, options,classes,driverFullName,mobileNumber,approverName, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+
 // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
   if(form && form.fields){
@@ -128,4 +128,4 @@ console.log('formValue--->>',formValue)
   );
 };
 
-export default withStyles( styles )( RejectComplaintForm );
+export default withStyles( styles )( DeliveredBWTForm );

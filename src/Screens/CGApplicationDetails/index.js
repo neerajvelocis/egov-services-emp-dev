@@ -15,11 +15,11 @@ import isEqual from "lodash/isEqual";
 import { httpRequest } from "egov-ui-kit/utils/api";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import CGAppDetails from "../AllComplaints/components/CGAppDetails"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import CGPaymentDetails from "../AllComplaints/components/CGPaymentDetails"
-import CGBookingDetails from "../AllComplaints/components/CGBookingDetails"
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import CGAppDetails from "../AllApplications/components/CGAppDetails"
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
+import CGPaymentDetails from "../AllApplications/components/CGPaymentDetails"
+import CGBookingDetails from "../AllApplications/components/CGBookingDetails"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import DownloadFileContainer from "../../modules/DownloadFileContainer"
 import jp from "jsonpath";

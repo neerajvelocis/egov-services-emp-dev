@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import RejectComplaintForm from "./components/DeliveredBWTBookingForm";
+import DeliveredBWTForm from "./components/DeliveredBWTBookingForm";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
@@ -13,7 +13,7 @@ const DeliveredBWTBookingHOC = formHOC({
   formKey: "deliveredWBTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(RejectComplaintForm);
+})(DeliveredBWTForm);
 
 
 class DeliveredBWTBooking extends Component {
@@ -22,7 +22,7 @@ class DeliveredBWTBooking extends Component {
     commentValue: ""
   };
   componentDidMount() {
-    console.log('DeliveredBWTBookingHOC', DeliveredBWTBookingHOC)
+ 
 
     let { fetchApplications, match, userInfo,applicationNumber } = this.props;
     console.log('match.params.applicationId', this.props)

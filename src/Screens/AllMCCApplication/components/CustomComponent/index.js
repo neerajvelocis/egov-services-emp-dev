@@ -257,34 +257,9 @@ convertEpochToDate = (dateEpoch) => {
                         </div>
                       </div>
                      
-                      {/* <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_MOBILENUMBER"} />
-                          <Label fontSize="12px" className="col-md-6"   label={complaint.bkMobileNumber} className="complaint-complaint-number" />
-                        </div>
-                      </div> */}
-                      {/* // <div className="complaint-number-cont row">
-                      //   <div className="complaint-number complaint-date">
-                      //     <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_NAME"} />
-                      //     <Label fontSize="12px" className="col-md-6"   label={complaint.bkApplicantName} className="complaint-complaint-number" />
-                      //   </div>
-                      // </div> */}
-
-
-                      {/* // <div className="complaint-number-cont row">
-                      //   <div className="complaint-number complaint-date">
-                      //     <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_ADDRESS"} />
-                      //     <Label fontSize="12px" className="col-md-6"  label={complaint.bkCompleteAddress} className="complaint-complaint-number" />
-                      //   </div>
-                      // </div> */}
-
+                 
                      
-                      {/* <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_HOUSENO"} />
-                          <Label fontSize="12px" className="col-md-6"  label={complaint.bkHouseNo} className="complaint-complaint-number" />
-                        </div>
-                      </div> */}
+                
 
 {/* 
                       <div className="complaint-number-cont row">

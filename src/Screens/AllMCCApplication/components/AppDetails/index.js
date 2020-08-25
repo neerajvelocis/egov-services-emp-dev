@@ -52,32 +52,6 @@ class AppDetails extends Component {
   render() {
     const { status, applicantName, applicationNo, bkEmail,bkConstructionType, areaRequired,bkDuration,bkCategory,submittedDate, bkMobileNumber, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
 
-   
-    // const { houseNoAndStreetName, landmark, mohalla, city, locality } = addressDetail || "";
-    // const icon = {};
-    // icon.name = "location";
-    // icon.style = {
-    //   display: "block",
-    // };
-    // let statusKey = "";
-
-    // if (status) {
-    //   if (status.toLowerCase() == "open") {
-    //     if (action && action === "reopen") {
-    //       statusKey = `CS_COMMON_REOPENED`;
-    //     } else {
-    //       statusKey = `CS_COMMON_SUBMITTED`;
-    //     }
-    //   } else if (status.toLowerCase() == "reassignrequested") {
-    //     if (role === "citizen") {
-    //       statusKey = `CS_COMMON_${status.toUpperCase()}`;
-    //     } else {
-    //       statusKey = `CS_COMMON_CITIZEN_REQUEST_REASSIGN`;
-    //     }
-    //   } else {
-    //     statusKey = `CS_COMMON_${status.toUpperCase()}`;
-    //   }
-    // }
     const titleKey = applicationNo.toUpperCase();
 
     return (
@@ -86,12 +60,12 @@ class AppDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
+             
                 <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
                 {/* <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} /> */}
-                {/* Dont delete !! */}
+               
                 {/* {role && role == "ao" ? (
                   <div className="rainmaker-displayInline">
                     <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} />

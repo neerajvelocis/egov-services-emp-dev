@@ -8,14 +8,14 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
-import AppDetails from "../AllComplaints/components/AppDetails"
-import BookingDetails from "../AllComplaints/components/BookingDetails"
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetails"
+import AppDetails from "../AllApplications/components/AppDetails"
+import BookingDetails from "../AllApplications/components/BookingDetails"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import ApproveBooking from "../ComplaintResolved";
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
+import ApproveBooking from "../ApplicationResolved";
 import RejectBooking from "../RejectComplaint";
 
 import jp from "jsonpath";
@@ -127,7 +127,7 @@ class ApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
+	
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -178,7 +178,7 @@ class ApplicationDetails extends Component {
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		console.log('this.props123', this.props)
+	
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -299,7 +299,7 @@ class ApplicationDetails extends Component {
 	downloadPaymentReceiptFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
 		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+		
 
 		let BookingInfo = [{
 			"applicantDetail": {
@@ -421,7 +421,7 @@ class ApplicationDetails extends Component {
 	// Download Application 
 	downloadApplicationButton = async (e) => {
 		this.downloadApplicationFunction();
-		console.log('downloadApplicationButton this.DownloadApplicationDetails', this.props)
+	
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -435,7 +435,7 @@ class ApplicationDetails extends Component {
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				console.log("fileUrls", fileUrls);
+				
 	
 				documentsPreview = documentsPreview.map(function (doc, index) {
 					doc["link"] =
@@ -457,7 +457,7 @@ class ApplicationDetails extends Component {
 						`Document - ${index + 1}`;
 					return doc;
 				});
-				console.log('documentsPreview', documentsPreview)
+			
 				setTimeout(() => {
 					window.open(documentsPreview[0].link);
 				}, 100);
@@ -482,7 +482,7 @@ downloadPermissionLetterButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+	
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -504,7 +504,7 @@ downloadPermissionLetterButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
+		
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -591,7 +591,7 @@ downloadPermissionLetterFunction = async (e) => {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -613,7 +613,7 @@ downloadPermissionLetterFunction = async (e) => {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview', documentsPreview)
+			
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -638,7 +638,7 @@ downloadPermissionLetterFunction = async (e) => {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -680,7 +680,7 @@ downloadPermissionLetterFunction = async (e) => {
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
+	
 
 		let {
 			role,
@@ -723,7 +723,7 @@ downloadPermissionLetterFunction = async (e) => {
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
+		
 				//  if () {
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
@@ -1066,7 +1066,7 @@ const mapStateToProps = (state, ownProps) => {
 	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
 
-	//console.log('businessService=====', businessService)
+	
 	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
 	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
 	// }
@@ -1089,7 +1089,7 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('paymentDetails in map state to props', paymentDetails)
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")

@@ -2,30 +2,27 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import ComplaintResolvedForm from "./components/ComplaintResolvedForm";
+import ApplicationResolvedForm from "./components/ApplicationResolvedForm";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const ComplaintResolvedHOC = formHOC({
+const ApplicationResolvedHOC = formHOC({
   formKey: "approveBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(ComplaintResolvedForm);
+})(ApplicationResolvedForm);
 
 
-class ComplaintResolved extends Component {
+class ApplicationResolved extends Component {
   state = {
     valueSelected: "",
     commentValue: ""
   };
   componentDidMount() {
-    console.log('ComplaintResolvedHOC', ComplaintResolvedHOC)
-
-    let { fetchApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
+     let { fetchApplications, match, userInfo,applicationNumber } = this.props;
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
@@ -50,7 +47,7 @@ class ComplaintResolved extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log(' e.target.value',e.target.value)
+    
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -77,7 +74,7 @@ class ComplaintResolved extends Component {
 
   onSubmit = e => {
     // const { valueSelected, commentValue } = this.state;
-    // console.log('this.stat in on submite', this.state)
+  
     // const { toggleSnackbarAndSetText } = this.props;
     // if (valueSelected === "Other" && !commentValue) {
     //   e.preventDefault();
@@ -98,10 +95,10 @@ class ComplaintResolved extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in render', trasformData)
+  
     return (
       //<Screen className="background-white">
-        <ComplaintResolvedHOC
+        <ApplicationResolvedHOC
           // options={this.options}
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -141,4 +138,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ComplaintResolved);
+)(ApplicationResolved);

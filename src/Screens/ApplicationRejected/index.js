@@ -4,7 +4,7 @@ import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 //import "modules/common/common/SuccessMessage/components/successmessage/index.css";
 
-class ComplaintRejected extends Component {
+class ApplicationRejected extends Component {
   handleComplaintReassigned = () => {
     this.props.history.push("/egov-services/all-applications");
   };
@@ -34,4 +34,4 @@ class ComplaintRejected extends Component {
   }
 }
 
-export default ComplaintRejected;
+export default ApplicationRejected;
