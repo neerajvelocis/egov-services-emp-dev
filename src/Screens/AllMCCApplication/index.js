@@ -1352,10 +1352,10 @@ const mapStateToProps = state => {
     numCSRComplaint,
     transformedComplaints;
 
-  console.log('MccApplicationData-->', MccApplicationData)
+ 
   if (MccApplicationData != null || MccApplicationData != undefined) {
     transformedComplaints = MccApplicationData.osujmNewLocationModelList;
-    console.log('MccApplicationData', transformedComplaints)
+  
 
     /*let transformedComplaints = transformComplaintForComponent(
       complaints,
