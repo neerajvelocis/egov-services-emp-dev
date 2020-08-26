@@ -99,7 +99,7 @@ class BookingDetails extends Component {
   };
 
   getCurrentStatus = status => {
-    console.log('status',status)
+   // console.log('status',status)
     switch (status) {
       case "INITIATED":
         return "Initiated";
@@ -159,8 +159,8 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     } 
-   console.log('ProcessInstances',ProcessInstances)
-   console.log('processInstanceZero',ProcessInstances[0])
+  //  console.log('ProcessInstances',ProcessInstances)
+  // console.log('processInstanceZero',ProcessInstances[0])
   //  var lastModifiedTime = ProcessInstances[0].auditDetails.lastModifiedTime;
 
     return (
