@@ -39,7 +39,9 @@ class NewLocationResolved extends Component {
 			"_search",
 			requestbody
     );
-    
+    this.setState({
+			assignToMe: AssigneeFromAPI
+		})
   }
 
   options = [
@@ -114,8 +116,9 @@ class NewLocationResolved extends Component {
     let { match, userInfo } = this.props;
 
     const { handleCommentsChange, handleOptionsChange, onSubmit,handleChangeAssigneeData ,handleOpen,handleClose} = this;
-    const { valueSelected, commentValue ,assignee} = this.state;
+    const { valueSelected, commentValue ,assignee,assignToMe} = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
+    const foundFirstLavels = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
    
     return (
       
@@ -128,7 +131,9 @@ class NewLocationResolved extends Component {
           handleOptionChange={handleOptionsChange}
           // optionSelected={valueSelected}
           commentValue={commentValue}
+          foundFirstLavels={foundFirstLavels}
           assignee={assignee}
+          assignToMe={assignToMe}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}

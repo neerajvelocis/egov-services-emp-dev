@@ -10,7 +10,6 @@ import get from "lodash/get";
 import "./index.css";
 
 export const getCurrentStatus = status => {
-  
   switch (status) {
     case "INITIATED":
       return "Initiated";

@@ -1319,16 +1319,6 @@ const mapStateToProps = state => {
 
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
-    // metaData: {
-    //   "reportDetails": {
-    //     "reportName": "TradeLicenseRegistryReport", searchParams: [{ localisationRequired: false, name: "fromDate", label: "reports.tl.fromDate", type: "epoch", defaultValue: null },
-    //     { localisationRequired: false, name: "toDate", label: "reports.tl.toDate", type: "epoch", defaultValue: null },
-    //     { localisationRequired: false, name: "collectorname", label: "reports.uc.collectorname", type: "singlevaluelist", defaultValue: {}, }
-    //     ]
-    //   },
-    //   "tenantId": "ch.chandigarh",
-    //   "requestInfo": { "apiId": "emp", "msgId": "20170310130900", "resMsgId": "uief87324", "status": "200", ts: "Thu Jun 11 12:18:18 GMT 2020", ver: "1.0" }
-    // }, //state && state.report && state.report.metaData ? state.report.metaData : '',
     assignedComplaints,
     unassignedComplaints,
     csrComplaints,

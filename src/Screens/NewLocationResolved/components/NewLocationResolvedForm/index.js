@@ -50,8 +50,8 @@ const styles = theme => ({
   }
 });
 
-const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignee,handleOpen,handleClose, options,setOpen, userInfo, classes, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  
+const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignToMe,foundFirstLavels,assignee,handleOpen,handleClose, options,setOpen, userInfo, classes, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
+ 
 
 
   if (form && form.fields) {
@@ -61,6 +61,8 @@ const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignee,handleOpen
     if (foundFirstLavel) {
       formValue.action.value = 'APPROVE';
     }
+ 
+
     const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
 
     if (foundSecondLavel) {
@@ -77,17 +79,18 @@ const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignee,handleOpen
     formValue.createdBy.value = createdBy;
     formValue.remarks.value = commentValue;
     formValue.createdOn.value = new Date();
-    // formValue.bookingType.value=bookingtype;
+     formValue.assignee.value=assignee;
     formValue.businessService.value = bookingservice
 
   }
   const fields = form.fields || {};
   const submit = form.submit;
+  // console.log('foundFirstLavel',foundFirstLavel)
   return (
     <div>
       <div className="custom-padding-for-screens">
         <div className="complaint-resolved-main-container">
-{/* {(foundFirstLavel && */}
+{(foundFirstLavels &&
           <FormControl style={{ width: '100%' }}>
             <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Assignee</InputLabel>
             <Select
@@ -101,18 +104,19 @@ const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignee,handleOpen
               displayEmpty
               onChange={handleChangeAssignee}
             >
-              {/* {arrayData.map((child, index) => (
-            <MenuItem value={child.name}>{child.name}</MenuItem>
-            ))} */}
-              <MenuItem value='sumit kumar'>sumit kumar</MenuItem>
+              {assignToMe.map((child, index) => (
+               // console.log('child',child)
+            <MenuItem value={child.uuid}>{child.userName}</MenuItem>
+            ))}
+              {/* <MenuItem value='sumit kumar'>sumit kumar</MenuItem>
               <MenuItem value='sonu kumar'>sonu kumar</MenuItem>
-              <MenuItem value='rahul kumar'>rahul kumar</MenuItem>
+              <MenuItem value='rahul kumar'>rahul kumar</MenuItem> */}
 
             </Select>
           </FormControl>
 
 
-{/* )} */}
+ )} 
 
 
           <TextField

@@ -99,7 +99,6 @@ class BookingDetails extends Component {
   };
 
   getCurrentStatus = status => {
-   
     switch (status) {
       case "INITIATED":
         return "Initiated";
