@@ -24,7 +24,6 @@ const styles = theme => ( {
     borderRadius: "5px",
     backgroundColor: '#FE7A51',
     textTransform: 'uppercase',
-    // display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: "pointer",
@@ -46,8 +45,8 @@ const styles = theme => ( {
 });
 
 const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, driverFullName, onDriverNameChange, approverName, onApproverNameChange, onMobileChange, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  console.log('submit mobileNumber', bkStatus)
-  // let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
+  
+  
 
   if (form && form.fields) {
     let formValue = { ...form.fields };
@@ -57,8 +56,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
     formValue.remarks.value = commentValue;
     formValue.createdOn.value = new Date();
     formValue.bookingType.value = bookingtype;
-    // formValue.driverName.value=driverFullName;
-    // formValue.mobileNumber.value=mobileNumber;
+    
     formValue.approverName.value = approverName;
     formValue.businessService.value = bookingservice
   }
@@ -67,9 +65,6 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
   const submit = form.submit;
   return (
     <div>
-      {/* <div className="custom-padding-for-screens">
-        <b>Application Number: </b>{applicationNumber}
-      </div> */}
       <div className="custom-padding-for-screens">
         <div className="reject-complaint-textArea">
 
@@ -92,21 +87,13 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
                   }}
                 />
               }
-              // floatingLabelText={
-              //   <Label
-              //     key={0}
-              //     label="MYBK_COMMON_COMMENTS_VALUE"
-              //     color="rgba(0,0,0,0.60)"
-              //     fontSize="12px"
-              //   />
-              // }
               onChange={ontextAreaChange}
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
           
-          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
+         
         </div>
         {(bkStatus != 'Paid' &&
           <div className="reject-complaint-textArea"

@@ -37,15 +37,14 @@ const DialogTitle = withStyles(styles)((props) => {
 
 class DialogContainer extends React.Component {
   handleClose = () => {
-    //  const {togglepopup}=this.props;
+    
 
   };
   componentDidMount() {
-    //alert('Enter')
+   
   }
   render() {
     const { toggle, maxWidth, children, togglepopup,actionTittle } = this.props;
-   // console.log('togglepopup', togglepopup)
     return (
       <Dialog open={toggle} maxWidth={maxWidth} onClose={togglepopup} fullWidth={true}>
         <DialogTitle id="customized-dialog-title" onClose= {togglepopup}>
@@ -56,25 +55,4 @@ class DialogContainer extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = (state, ownProps) => {
-//   const { screenConfiguration } = state;
-//   const { screenKey } = ownProps;
-//   const { screenConfig } = screenConfiguration;
-//   const open = get(
-//     screenConfig,
-//     `${screenKey}.components.adhocDialog.props.open`
-//   );
-
-//   return {
-//     open,
-//     screenKey,
-//     screenConfig
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return { handleField: (a, b, c, d) => dispatch(handleField(a, b, c, d)) };
-// };
-
 export default DialogContainer;

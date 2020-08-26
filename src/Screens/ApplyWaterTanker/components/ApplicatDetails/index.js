@@ -29,7 +29,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Please enter valid email address",
-          labelKey: `ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
+          labelKey: `ERROR_MESSAGE_EMAIL_VALIDATION`
         },
         "warning"
       );
@@ -38,7 +38,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Please enter valid mobile number",
-          labelKey: `Please enter valid mobile number`
+          labelKey: `ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
         },
         "warning"
       );

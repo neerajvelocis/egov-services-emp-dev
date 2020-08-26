@@ -114,8 +114,6 @@ class BwtApplicationDetails extends Component {
 			downloadReceiptforCG,downloadBWTApplication
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
-
 		prepareFormData("complaints", transformedComplaint);
 
 		const { complaint } = transformedComplaint;
@@ -138,7 +136,6 @@ class BwtApplicationDetails extends Component {
 			])
 
 		  let mdmsData =  await this.getMdmsTenantsData();
-		  console.log("MDMSData--",mdmsData)
 		  this.setState({
 		tentantData :mdmsData  
 		  })
@@ -148,7 +145,7 @@ class BwtApplicationDetails extends Component {
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		console.log('this.props123', this.props)
+		
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -230,20 +227,17 @@ downloadReceiptButton = async (e) => {
 	
 	await this.downloadReceiptFunction();
 
-	console.log('DownloadReceiptDetailsforCG this.props',this.props)
+	
 	let documentsPreviewData;
 	const { DownloadReceiptDetailsforCG } = this.props;
 	
 	var documentsPreview = [];
 	if (DownloadReceiptDetailsforCG && DownloadReceiptDetailsforCG.filestoreIds.length > 0) {
 
-		console.log('DownloadReceiptDetailsforCG',DownloadReceiptDetailsforCG.filestoreIds[0])
+		
 		 documentsPreviewData=DownloadReceiptDetailsforCG.filestoreIds[0];
 		
-		// let keys = Object.keys(documentMap);
-		// let values = Object.values(documentMap);
-		// let id = keys[0], fileName = values[0];
-
+		
 		documentsPreview.push({
 			title: "DOC_DOC_PICTURE",
 			fileStoreId: documentsPreviewData,
@@ -252,7 +246,7 @@ downloadReceiptButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+		
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -274,7 +268,7 @@ downloadReceiptButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
+		
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -285,9 +279,7 @@ downloadReceiptButton = async (e) => {
 downloadReceiptFunction = async (e) => {
 	const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG,downloadReceiptforCG, userInfo, paymentDetails } = this.props;
 	const { complaint } = transformedComplaint;
-	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-		console.log('compalint in downloadpayament',complaint,paymentDetails)
+	
 
 	let BookingInfo = [{
 		"applicantDetail": {
@@ -304,10 +296,7 @@ downloadReceiptFunction = async (e) => {
 		"paymentInfo": {
 			"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
 			"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
-			"bookingPeriod": getDurationDate(
-				complaint.bkFromDate,
-				complaint.bkToDate
-			),
+			"Date & Time": `${complaint.bkDate} , ${complaint.bkTime} `,
 			"bookingItem": "Online Payment Against Booking of Water Tanker",
 			"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
 				(el) => !el.taxHeadCode.includes("TAX")
@@ -343,10 +332,10 @@ downloadReceiptFunction = async (e) => {
 //ApplicationDownload
 downloadApplicationMCCButton = async (e) => {
 	await this.downloadApplicationFunction();
-	console.log('hello1 in success')
+	
 	 const {DownloadBWTApplicationDetails}=this.props;
    //  let fileStoreId=DownloadBWTApplicationDetails&&DownloadBWTApplicationDetails.filestoreIds[0];
-	 console.log('downloadApplicationMCCButton this.DownloadApplicationDetails',DownloadBWTApplicationDetails)
+	
 		 var documentsPreview = [];
 		 let documentsPreviewData;
 		 if (DownloadBWTApplicationDetails && DownloadBWTApplicationDetails.filestoreIds.length > 0) {	
@@ -359,7 +348,7 @@ downloadApplicationMCCButton = async (e) => {
 				 let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				 let fileUrls =
 					 fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				 console.log("fileUrls", fileUrls);
+				 
 	 
 				 documentsPreview = documentsPreview.map(function (doc, index) {
 					 doc["link"] =
@@ -381,7 +370,7 @@ downloadApplicationMCCButton = async (e) => {
 						 `Document - ${index + 1}`;
 					 return doc;
 				 });
-				 console.log('documentsPreview', documentsPreview)
+				 
 				 setTimeout(() => {
 					 window.open(documentsPreview[0].link);
 				 }, 100);
@@ -390,15 +379,13 @@ downloadApplicationMCCButton = async (e) => {
    }
 
    downloadApplicationFunction = async (e) => {
-    console.log('this.props in success message form', this.props)
+    
 	const { transformedComplaint,paymentDetails,downloadApplicationforCG,paymentDetailsForReceipt,userInfo } = this.props;
 	const {complaint} = transformedComplaint;
 	const { createWaterTankerApplicationData,downloadBWTApplication } = this.props;
     let applicationDetails = createWaterTankerApplicationData ? createWaterTankerApplicationData.data : '';
-	console.log('applicationDetails in function',applicationDetails)
-	console.log("Complaints in WAterTanker--",complaint)
 	let paymentData = paymentDetails;
-	console.log("paymentDataInWaterTanker123--",paymentData)
+	
     let BookingInfo = [
       {
         applicantDetail: {
@@ -452,12 +439,12 @@ downloadApplicationMCCButton = async (e) => {
     ]
 
     downloadBWTApplication({ BookingInfo: BookingInfo })
-    console.log('hello2 in success')
+    
   };
 //ApplicationDownload
 
 	btnOneOnClick = (value, complaintNo) => {
-		console.log('value===???', value)
+		
 		if (value == 'APPROVED') {
 			this.setState({
 				actionTittle: "Assign To Driver"
@@ -532,11 +519,11 @@ downloadApplicationMCCButton = async (e) => {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 
 			//  window.open(response.file);
-			console.log("documentsPreview", documentsPreview);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -556,7 +543,7 @@ downloadApplicationMCCButton = async (e) => {
 								.slice(13)
 						)) ||
 					`Document - ${index + 1}`;
-				console.log('doc====', doc)
+				
 				return doc;
 			});
 
@@ -565,7 +552,7 @@ downloadApplicationMCCButton = async (e) => {
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
-			console.log('documentsPreview1--', documentsPreview)
+			
 			prepareFinalObject('documentsPreview', documentsPreview)
 		}
 
@@ -615,8 +602,7 @@ downloadApplicationMCCButton = async (e) => {
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
-		console.log("myWATERtAnker--",complaint)
+		
 
 		let {
 			role,
@@ -656,7 +642,7 @@ downloadApplicationMCCButton = async (e) => {
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
+				
 				//  if () {
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
@@ -688,7 +674,7 @@ downloadApplicationMCCButton = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu:  (complaint.bkStatus).includes("Paid") ?[{
+													menu:(complaint.bkStatus=="Normal Request(Paid Booking)")?[{
 														label: {
 															labelName: "Receipt",
 															labelKey: "MYBK_DOWNLOAD_RECEIPT"
@@ -725,7 +711,7 @@ downloadApplicationMCCButton = async (e) => {
 														variant: "outlined",
 														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
 													},
-													menu:  (complaint.bkStatus).includes("Paid") ?[{
+													menu: (complaint.bkStatus=="Normal Request(Paid Booking)")?[{
 														label: {
 															labelName: "Receipt",
 															labelKey: "MYBK_DOWNLOAD_RECEIPT"
@@ -808,7 +794,7 @@ downloadApplicationMCCButton = async (e) => {
 														style: { marginLeft: 5, marginRight: 15, backgroundColor: "#FE7A51", color: "#fff", border: "none", height: "60px", width: "250px" }
 													},
 
-													menu: !(complaint.bkStatus).includes("Paid") ? [{
+													menu: !(complaint.bkStatus=="Normal Request(Paid Booking)")? [{
 														label: {
 															labelName: "Approve",
 															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
@@ -944,7 +930,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
 	const { DownloadReceiptDetailsforCG,DownloadBWTApplicationDetails } = complaints;
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
+	
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 
@@ -967,7 +953,7 @@ const mapStateToProps = (state, ownProps) => {
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
-console.log("paymentDataInWaterTanker--",paymentData)
+
 let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
 	paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;

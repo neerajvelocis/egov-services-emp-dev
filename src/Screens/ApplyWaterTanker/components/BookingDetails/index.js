@@ -73,7 +73,7 @@ class BookingsDetails extends Component {
 
 
     
-    console.log('arrayData',arrayData,'complaintSector',complaintSector)
+    
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -162,14 +162,9 @@ class BookingsDetails extends Component {
             onChange={handleChange('locality')}
           >
              {arrayData.map((child, index) => (
-
-           
             <MenuItem value={child.name}>{child.name}</MenuItem>
             ))}
-            {/* <MenuItem value='SECTOR-1'>Sector-1</MenuItem>
-            <MenuItem value='SECTOR-2'>Sector-2</MenuItem>
-            <MenuItem value='SECTOR-3'>Sector-3</MenuItem>
-            <MenuItem value='SECTOR-4'>Sector-4</MenuItem> */}
+           
           </Select>
         </FormControl>
         
@@ -279,13 +274,6 @@ class BookingsDetails extends Component {
             startIcon={<ArrowForwardIosIcon />}
           />
         </div>
-
-        {/* <button className="Back" onClick={this.back}>
-          « Previous
-                </button> */}
-        {/* <button className="Next" onClick={this.continue}>
-          Next »
-                </button> */}
       </div>
     </div>
     );
@@ -293,10 +281,10 @@ class BookingsDetails extends Component {
 }
 const mapStateToProps = state => {
 
-  console.log('state======>>>>>', state)
+  
   const { complaints, common, auth, form } = state;
   const { complaintSector } = complaints;
-  console.log('complaintSector', complaintSector)
+  
   
 
   return {

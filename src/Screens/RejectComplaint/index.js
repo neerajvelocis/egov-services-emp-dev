@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
-import RejectComplaintForm from "./components/RejectComplaintForm";
+import RejectApplicationForm from "./components/RejectApplicationForm";
 import { fetchApplications } from "egov-ui-kit/redux/complaints/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const RejectComplaintHOC = formHOC({
+const RejectApplicationHOC = formHOC({
   formKey: "rejectBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
-})(RejectComplaintForm);
+})(RejectApplicationForm);
 
 
 class RejectComplaint extends Component {
@@ -22,15 +22,12 @@ class RejectComplaint extends Component {
     commentValue: ""
   };
   componentDidMount() {
-    console.log('RejectComplaintHOC', RejectComplaintHOC)
-
-    let { fetchApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
+     let { fetchApplications, match, userInfo,applicationNumber } = this.props;
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
+      
     );
   }
 
@@ -77,19 +74,8 @@ class RejectComplaint extends Component {
   onSubmit = e => {
 
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
   };
 
   render() {
@@ -98,14 +84,14 @@ class RejectComplaint extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in render', trasformData)
+    
     return (
-      // <Screen className="background-white">
-        <RejectComplaintHOC
-          // options={this.options}
+      
+        <RejectApplicationHOC
+          
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
-          // optionSelected={valueSelected}
+          
           commentValue={commentValue}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
@@ -114,7 +100,7 @@ class RejectComplaint extends Component {
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      // </Screen>
+      
     );
   }
 }

@@ -65,20 +65,15 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
     formValue.approverName.value = approverName;
     formValue.businessService.value = bookingservice
   }
-
-
   const fields = form.fields || {};
   const submit = form.submit;
-  console.log('submit in assign dric',submit)
   return (
     <div>
       {/* <div className="custom-padding-for-screens">
         <b>Application Number: </b>{applicationNumber}
       </div> */}
       <div className="custom-padding-for-screens">
-        {/* <div className="reject-complaint-textArea">
-          <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} />
-        </div> */}
+       
         {(!bkStatus.includes("Paid") &&
           <div className="reject-complaint-textArea"
             style={{ paddingLeft: 8 }}
@@ -231,7 +226,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
              }else{
               if(mobileNumber.lenght!=10){
                 return console.log('hello number')
-              // return alert('enter valid mobile number')
+              
               }else{
               return <button
               onClick={handleValidation}

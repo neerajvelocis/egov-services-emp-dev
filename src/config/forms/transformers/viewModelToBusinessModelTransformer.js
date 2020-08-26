@@ -9,7 +9,6 @@ const updateComplaintStatus = (state, form) => {
 
 
   const formData = prepareFormData(form);
-  console.log('formData--- in view model',formData)
 
   const serviceRequestId = decodeURIComponent(
     window.location.pathname.split("/").pop()
@@ -21,7 +20,7 @@ const updateComplaintStatus = (state, form) => {
   } else {
     formData.services[0] = { ...formData.services[0], ...complaint };
   }
-console.log('formData--- in view model',formData)
+
   return formData;
 };
 
@@ -32,7 +31,6 @@ const filterObjByKey = (obj, predicate) => {
 };
 
 const transformer = (formKey, form = {}, state = {}) => {
-  console.log('in transfer-->>>>',formKey)
   const transformers = {
     assignComplaint: () => {
       const formData = prepareFormData(form);

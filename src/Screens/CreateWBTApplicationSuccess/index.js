@@ -11,7 +11,7 @@ import {
 	getFileUrlFromAPI,
 	setDocuments
 } from "egov-ui-framework/ui-utils/commons";
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 import "./index.css";
 import { SortDialog, Screen } from "modules/common";
 import isEmpty from "lodash/isEmpty";
@@ -20,20 +20,20 @@ class CreateWBTApplicationSuccess extends Component {
    
     let { createWaterTankerApplicationData,downloadBWTApplication,userInfo,fetchSuccess } = this.props;
     createWaterTankerApplicationData={}
-   console.log('fetchSuccess1',fetchSuccess)
+  
     fetchSuccess=false;
     this.props.history.push("/egov-services/all-applications");
   };
   componentDidMount = async () => {
-    console.log('summary create success details', this.props);
+   
   }
 
 
   downloadApplicationFunction = async (e) => {
-    console.log('this.props in success message form', this.props)
+   
     const { createWaterTankerApplicationData,downloadBWTApplication,userInfo } = this.props;
     let applicationDetails = createWaterTankerApplicationData ? createWaterTankerApplicationData.data : '';
-    console.log('applicationDetails in function',applicationDetails)
+    
     let BookingInfo = [
       {
         "applicantDetail": {
@@ -75,15 +75,15 @@ class CreateWBTApplicationSuccess extends Component {
     ]
 
     downloadBWTApplication({ BookingInfo: BookingInfo })
-    console.log('hello2 in success')
+   
   };
 
   downloadApplicationButton = async (e) => {
    await this.downloadApplicationFunction();
-   console.log('hello1 in success')
+ 
     const {DownloadBWTApplicationDetails}=this.props;
-  //  let fileStoreId=DownloadBWTApplicationDetails&&DownloadBWTApplicationDetails.filestoreIds[0];
-    console.log('downloadApplicationButton this.DownloadApplicationDetails',DownloadBWTApplicationDetails)
+  
+  
 		var documentsPreview = [];
 		let documentsPreviewData;
 		if (DownloadBWTApplicationDetails && DownloadBWTApplicationDetails.filestoreIds.length > 0) {	
@@ -96,7 +96,7 @@ class CreateWBTApplicationSuccess extends Component {
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				console.log("fileUrls", fileUrls);
+				
 	
 				documentsPreview = documentsPreview.map(function (doc, index) {
 					doc["link"] =
@@ -104,7 +104,7 @@ class CreateWBTApplicationSuccess extends Component {
 							fileUrls[doc.fileStoreId] &&
 							fileUrls[doc.fileStoreId].split(",")[0]) ||
 						"";
-					//doc["name"] = doc.fileStoreId;
+					
 					doc["name"] =
 						(fileUrls[doc.fileStoreId] &&
 							decodeURIComponent(
@@ -118,11 +118,11 @@ class CreateWBTApplicationSuccess extends Component {
 						`Document - ${index + 1}`;
 					return doc;
 				});
-				console.log('documentsPreview', documentsPreview)
+		
 				setTimeout(() => {
 					window.open(documentsPreview[0].link);
 				}, 100);
-				// prepareFinalObject('documentsPreview', documentsPreview)
+				
 			}
   
   
@@ -174,17 +174,17 @@ class CreateWBTApplicationSuccess extends Component {
 const mapStateToProps = state => {
 
   const { complaints, common, auth, form } = state;
-  console.log('state in sucess', state)
+ 
   const { createWaterTankerApplicationData, DownloadBWTApplicationDetails,fetchSuccess } = complaints;
-  console.log('createWaterTankerApplicationData IN SUCESS', createWaterTankerApplicationData, 'DownloadBWTApplicationDetails', DownloadBWTApplicationDetails)
-  console.log('fetchSuccess2',fetchSuccess)
+  
+  
   const loading = !isEmpty(createWaterTankerApplicationData)
   ? fetchSuccess
     ? false
     : true
   : true;
 
-  console.log('fetchSuccess2',fetchSuccess,'loading',loading)
+  
   return {
     createWaterTankerApplicationData, DownloadBWTApplicationDetails,loading,fetchSuccess
   }

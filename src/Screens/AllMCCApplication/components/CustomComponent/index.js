@@ -4,7 +4,7 @@ import Label from "egov-ui-kit/utils/translationNode";
 import { getDateFromEpoch } from "egov-ui-kit/utils/commons";
 import isEmpty from "lodash/isEmpty";
 import "./index.css";
-console.log('in CustomComplaints1');
+
 const imageStyles = {
   maxHeight: "100px",
   minHeight: "100px",
@@ -204,14 +204,14 @@ convertEpochToDate = (dateEpoch) => {
 
     render(){
         const {complaints, complaintLocation, role, onComplaintClick, noComplaintMessage, heightOffset} = this.props
-        console.log('new mcc complaints in get status',complaints)
+        
         return complaints===null || complaints.length === 0 ? (
           <div className="no-complaints-message-cont" style={heightOffset && { height: `calc(100vh - ${heightOffset})` }}>
             <Label label={noComplaintMessage} dark={true} fontSize={"16px"} labelStyle={{ letterSpacing: "0.7px" }} />
           </div>
         ) : (
           complaints.map((complaint, complaintIndex) => {
-          //  console.log('complaint for getstatus',complaint);
+          
             const { bkCompleteAddress, bkHouseNo, bkSector, bkAreaRequired, bkEmail } = complaint || "";
             const complaintHeader = complaint.header && "SERVICEDEFS." + complaint.header.toUpperCase();
             return (
@@ -257,34 +257,9 @@ convertEpochToDate = (dateEpoch) => {
                         </div>
                       </div>
                      
-                      {/* <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_MOBILENUMBER"} />
-                          <Label fontSize="12px" className="col-md-6"   label={complaint.bkMobileNumber} className="complaint-complaint-number" />
-                        </div>
-                      </div> */}
-                      {/* // <div className="complaint-number-cont row">
-                      //   <div className="complaint-number complaint-date">
-                      //     <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICANT_NAME"} />
-                      //     <Label fontSize="12px" className="col-md-6"   label={complaint.bkApplicantName} className="complaint-complaint-number" />
-                      //   </div>
-                      // </div> */}
-
-
-                      {/* // <div className="complaint-number-cont row">
-                      //   <div className="complaint-number complaint-date">
-                      //     <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_ADDRESS"} />
-                      //     <Label fontSize="12px" className="col-md-6"  label={complaint.bkCompleteAddress} className="complaint-complaint-number" />
-                      //   </div>
-                      // </div> */}
-
+                 
                      
-                      {/* <div className="complaint-number-cont row">
-                        <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_HOUSENO"} />
-                          <Label fontSize="12px" className="col-md-6"  label={complaint.bkHouseNo} className="complaint-complaint-number" />
-                        </div>
-                      </div> */}
+                
 
 {/* 
                       <div className="complaint-number-cont row">

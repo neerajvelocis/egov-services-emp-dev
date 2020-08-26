@@ -4859,17 +4859,7 @@ class Employee extends Component {
           <div style={{ textAlign: 'center' }}>
             {self.state.screenType != 'view' ? (
                <RaisedButton type="submit" label={translate('ui.framework.submit')} primary={true} disabled={!self.props.isFormValid} />
-              // <div className="responsive-action-button-cont">
-              //   <Button
-              //     type="submit"
-              //     className="responsive-action-button"
-              //     primary={true}
-              //     label={<Label buttonLabel={true} label="SUBMIT" />}
-              //     fullWidth={true}
-              //     disabled={!self.props.isFormValid}
-              //     onClick={this.handleComplaintReassigned}
-              //   />
-              // </div>
+              
             ) : (
               ''
             )}

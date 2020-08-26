@@ -9,14 +9,14 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const RejectComplaintHOC = formHOC({
+const AssignToDiverHOC = formHOC({
   formKey: "approveWBTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
 })(AssignToDriverForm);
 
 
-class RejectComplaint extends Component {
+class AssignToDiver extends Component {
   state = {
     valueSelected: "",
     commentValue: "",
@@ -94,21 +94,13 @@ class RejectComplaint extends Component {
 
   }
   handleValidation = e => {
-    
-    console.log('is valid---  ',this.state)
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     if (driverFullName != '' && mobileNo != '' && approverName != '') {
-    //  return this.onSubmit()
+    
     }
     return false;
   }
   onSubmit = e => {
-
-    // console.log('this.stat in on submite', this.state)
-// return 0
-    // const { valueSelected, commentValue } = this.state;
-    // console.log('this.stat in on submite', this.state)
-    // const { toggleSnackbarAndSetText } = this.props;
   };
 
   render() {
@@ -117,10 +109,9 @@ class RejectComplaint extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit,handleValidation, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    // console.log('this in render', trasformData)
+ 
     return (
-      // <Screen className="background-white">
-        <RejectComplaintHOC
+        <AssignToDiverHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
           commentValue={commentValue}
@@ -139,7 +130,6 @@ class RejectComplaint extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      // </Screen>
     );
   }
 }
@@ -166,4 +156,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RejectComplaint);
+)(AssignToDiver);

@@ -4,8 +4,6 @@ import { ImageUpload } from "modules/common";
 import { TextArea } from "modules/common";
 import { withStyles } from "@material-ui/core/styles";
 import Label from "egov-ui-kit/utils/translationNode";
-
-
 const styles = theme => ( {
   root: {
     width: "100%",
@@ -45,11 +43,7 @@ const styles = theme => ( {
     }
   }
 });
-
-
-const ComplaintResolvedForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
-  console.log('submit commentValue',commentValue);
-  
+const NewLocationRejectForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
   if(form && form.fields){
     let formValue={...form.fields};
 formValue.applicationNumber.value=applicationNumber;
@@ -59,11 +53,9 @@ formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 // formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
-console.log('formValue--->>',formValue)
   }
 
-  console.log('submit button2',form)
-  const fields = form.fields || {};
+   const fields = form.fields || {};
   const submit = form.submit;
   return (
     <div>
@@ -120,4 +112,4 @@ console.log('formValue--->>',formValue)
   );
 };
 
-export default withStyles( styles )( ComplaintResolvedForm );
+export default withStyles( styles )( NewLocationRejectForm );

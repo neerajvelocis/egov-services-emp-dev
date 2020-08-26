@@ -8,30 +8,38 @@ import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
+import { httpRequest } from "egov-ui-kit/utils/api";
 
-const ComplaintResolvedHOC = formHOC({
+const NewLocationResolvedHOC = formHOC({
   formKey: "approveLocation",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
 })(NewLocationResolvedForm);
 
 
-class ComplaintResolved extends Component {
+class NewLocationResolved extends Component {
   state = {
     valueSelected: "",
-    commentValue: ""
+    commentValue: "",
+    assignee:"",
+    assignToMe:[],
+    setOpen: false
   };
-  componentDidMount() {
-    console.log('ComplaintResolvedHOC', ComplaintResolvedHOC)
-
-    let { fetchMccApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
+  async componentDidMount() {
+    let { fetchMccApplications, match, userInfo,applicationNumber,trasformData } = this.props;
+    
     fetchMccApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
     );
+    let requestbody=[{key: "applicationNumber",value: applicationNumber},{key: "tenantId",value:userInfo.tenantId},{key: "action",value:trasformData.action}]
+    let AssigneeFromAPI = await httpRequest(
+			"bookings/api/employee/assignee/_search",
+			"_search",
+			requestbody
+    );
+    
   }
 
   options = [
@@ -50,13 +58,33 @@ class ComplaintResolved extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log(' e.target.value')
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
     });
     this.concatComments(this.commentsValue);
   };
+
+  handleChangeAssigneeData= (e, value) => {
+    this.setState({
+      assignee: e.target.value
+    });
+
+  }
+  handleClose = () => {
+    this.setState({
+      setOpen: false
+    })
+  };
+
+  handleOpen = () => {
+    this.setState({
+      setOpen: true
+    })
+  };
+
+
+
   handleOptionsChange = (event, value) => {
     this.setState({ valueSelected: value });
     this.commentsValue.radioValue = value;
@@ -77,36 +105,30 @@ class ComplaintResolved extends Component {
 
   onSubmit = e => {
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+    
   };
 
   render() {
     let { match, userInfo } = this.props;
 
-    const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
-    const { valueSelected, commentValue } = this.state;
+    const { handleCommentsChange, handleOptionsChange, onSubmit,handleChangeAssigneeData ,handleOpen,handleClose} = this;
+    const { valueSelected, commentValue ,assignee} = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in userInfo in new location', userInfo)
+   
     return (
       
-        <ComplaintResolvedHOC
+        <NewLocationResolvedHOC
           // options={this.options}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          handleChangeAssignee={handleChangeAssigneeData}
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
           // optionSelected={valueSelected}
           commentValue={commentValue}
+          assignee={assignee}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
           tenantId={userInfo.tenantId}
@@ -114,6 +136,7 @@ class ComplaintResolved extends Component {
           userInfo={userInfo}
           // bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
+          setOpen={this.state.setOpen}
         />
       
     );
@@ -123,7 +146,7 @@ class ComplaintResolved extends Component {
 const mapStateToProps = state => {
   const { complaints = {} } = state || {};
   const { MccApplicationData } = complaints;
-  console.log('applicationData in new location',MccApplicationData)
+ 
   let trasformData = MccApplicationData?MccApplicationData.osujmNewLocationModelList[0]:'';
   let businessServiceData = MccApplicationData.businessService;
   return { trasformData, businessServiceData };
@@ -143,4 +166,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ComplaintResolved);
+)(NewLocationResolved);

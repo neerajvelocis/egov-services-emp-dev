@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 import "./index.css";
 import { connect } from "react-redux";
 
@@ -43,7 +43,7 @@ class PublishSuccess extends Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('state in resolve success', state);
+ 
   const { complaints, common, auth, form } = state;
   const { applicationData } = complaints;
   let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';

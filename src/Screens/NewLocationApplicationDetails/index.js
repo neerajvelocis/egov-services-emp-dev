@@ -19,10 +19,10 @@ import AppDetails from "../AllMCCApplication/components/NewLocationAppDetails"
 import NewLocationFieldsDetails from '../AllMCCApplication/components/NewLocationFieldsDetails'
 import BookingDetails from "../AllMCCApplication/components/NewLocationBookingDetails"
 import ImageListDetails from '../AllMCCApplication/components/Image'
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 // import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
 import NewLocationResolved from "../NewLocationResolved";
 import NewLocationRejected from "../NewLocationRejected";
 import NewLocationPublished from '../NewLocationPublished';
@@ -147,7 +147,7 @@ class ApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
+	
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -164,7 +164,7 @@ class ApplicationDetails extends Component {
 			"_search",[],
 			requestbody
 		);
-		console.log('imageListFromAPI', imageListFromAPI)
+		
 		let bookingDocs = imageListFromAPI && imageListFromAPI.documentList;
 		let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
 
@@ -183,7 +183,7 @@ class ApplicationDetails extends Component {
 
 		});
 		let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
-console.log('part 2 in componentdid mount',part2)
+
 		this.setState({
 			ImageList: part2
 		})
@@ -211,7 +211,7 @@ console.log('part 2 in componentdid mount',part2)
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		console.log('this.props123', this.props)
+		
 		this.getImegeDocument();
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
@@ -340,7 +340,7 @@ console.log('part 2 in componentdid mount',part2)
 	downloadPaymentReceiptFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
 		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+	
 
 		let BookingInfo = [{
 			"applicantDetail": {
@@ -463,7 +463,7 @@ console.log('part 2 in componentdid mount',part2)
 	// Download Application 
 	downloadApplicationButton = async (e) => {
 		this.downloadApplicationFunction();
-		console.log('downloadApplicationButton this.DownloadApplicationDetails', this.props)
+	
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -477,7 +477,7 @@ console.log('part 2 in componentdid mount',part2)
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -499,7 +499,7 @@ console.log('part 2 in componentdid mount',part2)
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview', documentsPreview)
+		
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -524,7 +524,7 @@ console.log('part 2 in componentdid mount',part2)
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -546,7 +546,7 @@ console.log('part 2 in componentdid mount',part2)
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview', documentsPreview)
+			
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -633,7 +633,7 @@ console.log('part 2 in componentdid mount',part2)
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -655,7 +655,7 @@ console.log('part 2 in componentdid mount',part2)
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview', documentsPreview)
+			
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -680,7 +680,7 @@ console.log('part 2 in componentdid mount',part2)
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -709,10 +709,10 @@ console.log('part 2 in componentdid mount',part2)
 		}
 	}
 	getImegeDocument = async () => {
-		console.log('this.props in get', this.props)
+	
 		const { bookingDocs } = this.props;
 		if (bookingDocs.length > 0) {
-			console.log('par2 in get', bookingDocs)
+		
 			let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
 
 			const fileUrlPayload = fileStoreIds && (await getFileUrlFromAPI(fileStoreIds));
@@ -732,11 +732,8 @@ console.log('part 2 in componentdid mount',part2)
 			let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
 
 			prepareFinalObject('locationImages', part2)
-			console.log('part22222', part2);
-
-			this.setState({ imageData: part2 })
-
-
+	
+			this.setState({ imageData: part2 })			
 		}
 	}
 	render() {
@@ -751,13 +748,13 @@ console.log('part 2 in componentdid mount',part2)
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap, part1, part2 } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		console.log('state in render123==', this.state)
+		
 		let imageDetails;
 		if (imageData.length != 0) {
 			imageDetails = imageData;
-			console.log('imageData in render', imageData)
+			
 		}
-		console.log('imageDetails in render', imageDetails)
+		
 		let {
 			role,
 			serviceRequestId,
@@ -799,7 +796,7 @@ console.log('part 2 in componentdid mount',part2)
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
+			
 				//  if () {
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
@@ -812,7 +809,7 @@ console.log('part 2 in componentdid mount',part2)
 		const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
 		const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
 		const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
-		console.log('userInfo.roles=====', userInfo.roles.some(el => el.code === 'MCC_APPROVER'));
+		
 
 		return (
 			<div>
@@ -828,44 +825,7 @@ console.log('part 2 in componentdid mount',part2)
 										</div>
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
-												{/* <ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
-													},
-													menu: (complaint.status=='APPROVED')?[{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
-
-														link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														link: () => this.downloadPermissionLetterButton('PermissionLetter')
-													},{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
-													}]:
-													[{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_DOWNLOAD_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('Application')
-													}]
-												}} /> */}
+												
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
 
@@ -894,14 +854,7 @@ console.log('part 2 in componentdid mount',part2)
 								<NewLocationFieldsDetails
 									{...complaint}
 								/>
-								{/* {(() => { */}
-								{/* if (imageDetails&&imageDetails.length>0) { */}
-								{/* <ImageListDetails
-									data={this.state && this.state.ImageList}
-								/> */}
-								{/* } */}
-
-								{/* })()} */}
+								
 
 								<div style={{height: "250px", marginBottom:'15px',width: "100",backgroundColor: "white",	border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
@@ -912,7 +865,7 @@ console.log('part 2 in componentdid mount',part2)
 									if (this.state && this.state.ImageList.length > 0) {
                                        
 										return this.state.ImageList.map((item, index) => { 
-											console.log('item in render',item)
+											
 											return <div style={{marginRight: "20px",display: 'inline-block'}}><img size="medium" width={200} height={154} src={item.fileUrl} />	</div>
 										})
 									}
@@ -922,14 +875,7 @@ console.log('part 2 in componentdid mount',part2)
 
 								
 
-								{/* <PaymentDetails
-									paymentDetails={paymentDetails && paymentDetails}
-								/> */}
-								{/* {documentMap && (
-									<DownloadFileContainer
-									
-									/> */}
-								{/* )} */}
+								
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -938,7 +884,7 @@ console.log('part 2 in componentdid mount',part2)
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
-									{/* {part1 && part1[0] && part1[0].fileName ? part1[0].fileName : "Not found"} */}
+									
 									document.pdf
 									<button className="ViewDetailButton" onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
@@ -1043,41 +989,6 @@ console.log('part 2 in componentdid mount',part2)
 
 									)
 
-
-
-
-
-									// <select
-									// 	value={this.state.bookingType}
-									// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-									// 	style={{
-									// 		marginRight: "15",
-									// 		backgroundColor: "#FE7A51",
-									// 		color: "#fff",
-									// 		border: "none",
-									// 		height: "60px",
-									// 		width: "200px",
-									// 		float: "right", paddingLeft: "50px"
-
-									// 	}}
-
-									// >
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="">Take Action</option>
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="APPROVED">Approve</option>
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="REJECTED">Reject</option>
-									// </select>
-
-
-
 								)}
 
 								<DialogContainer
@@ -1161,7 +1072,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { MccApplicationData } = complaints;
 	const { DownloadPaymentReceiptDetails, DownloadApplicationDetails, DownloadPermissionLetterDetails } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'MccApplicationData', MccApplicationData)
+	
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =
@@ -1173,15 +1084,15 @@ const mapStateToProps = (state, ownProps) => {
 	let businessService = MccApplicationData ? MccApplicationData.osujmNewLocationModelList : "";
 	//let bookingDocs;
 
-	console.log('MccApplicationData in mapstate', MccApplicationData);
+	
 	let documentMap = MccApplicationData && MccApplicationData.documentMap ? MccApplicationData.documentMap : '';
 
 	let bookingDocs = MccApplicationData && MccApplicationData.documentList ? MccApplicationData.documentList : '';
-	console.log('documentmap in new loction', bookingDocs);
+
 
 	let newLocationImagesPreview = [];
 	bookingDocs && bookingDocs.forEach((item, index) => {
-		console.log('[item-->>', item)
+	
 		newLocationImagesPreview[index] = {
 			fileName: item.fileName ||
 				`Document - ${index + 1}`,
@@ -1191,11 +1102,11 @@ const mapStateToProps = (state, ownProps) => {
 		};
 
 	});
-	console.log('newLocationImagesPreview', newLocationImagesPreview)
+	
 	let part1 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType == "IDPROOF");
-	console.log('part1111', part1)
+	
 	let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
-	// console.log('part1222', part2)
+	
 
 	const { HistoryData } = complaints;
 	let historyObject = HistoryData ? HistoryData : ''
@@ -1215,7 +1126,7 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('paymentDetails in map state to props', paymentDetails)
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")

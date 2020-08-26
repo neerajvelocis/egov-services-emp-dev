@@ -145,14 +145,14 @@ class BookingDetails extends Component {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
 
-    //  console.log('ProcessInstances',ProcessInstances)
+    
     return (
       <div>
         <Card
           textChildren={
             <div>
               <div className="rainmaker-displayInline row">
-                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
+               
 
                 <div className="col-8" style={{ paddingLeft: "10px" }}>
                   <Label label="MCC_NEW_LOCATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />

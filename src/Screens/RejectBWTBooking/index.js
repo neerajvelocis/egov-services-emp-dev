@@ -9,7 +9,7 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
 import "./index.css";
 
-const RejectComplaintHOC = formHOC({
+const RejectBWTBokingHOC = formHOC({
   formKey: "rejectBWTBooking",
   isCoreConfiguration: true,
   path: "pgr/pgr-employee"
@@ -105,10 +105,10 @@ class RejectBWTBooking extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    // console.log('this in render', trasformData)
+    
     return (
-      // <Screen className="background-white">
-        <RejectComplaintHOC
+      
+        <RejectBWTBokingHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
           commentValue={commentValue}
@@ -126,7 +126,7 @@ class RejectBWTBooking extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      // </Screen>
+      
     );
   }
 }

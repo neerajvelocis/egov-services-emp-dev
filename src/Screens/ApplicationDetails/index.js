@@ -8,14 +8,13 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
-import AppDetails from "../AllComplaints/components/AppDetails"
-import BookingDetails from "../AllComplaints/components/BookingDetails"
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetails"
+import AppDetails from "../AllApplications/components/AppDetails"
+import BookingDetails from "../AllApplications/components/BookingDetails"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
-// import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
-import ApproveBooking from "../ComplaintResolved";
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
+import ApproveBooking from "../ApplicationResolved";
 import RejectBooking from "../RejectComplaint";
 
 import jp from "jsonpath";
@@ -127,7 +126,7 @@ class ApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
+	
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -141,7 +140,7 @@ class ApplicationDetails extends Component {
 		);
 		fetchHistory([
 			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
-		//complaint.businessService
+		
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
@@ -173,12 +172,12 @@ class ApplicationDetails extends Component {
 			}
 		}
 		]
-		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
+		
 		let { details } = this.state;
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		console.log('this.props123', this.props)
+	
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -202,7 +201,7 @@ class ApplicationDetails extends Component {
 	};
 
 	btnTwoOnClick = (complaintNo, label) => {
-		//Action for second button
+		
 		let { history } = this.props;
 		switch (label) {
 			case "ES_COMMON_ASSIGN":
@@ -299,7 +298,7 @@ class ApplicationDetails extends Component {
 	downloadPaymentReceiptFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
 		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
+		
 
 		let BookingInfo = [{
 			"applicantDetail": {
@@ -337,9 +336,7 @@ class ApplicationDetails extends Component {
 				receiptNo:
 					paymentDetailsForReceipt.Payments[0].paymentDetails[0]
 						.receiptNumber,
-				// name: paymentDetailsForReceipt.Payments[0].payerName,
-				//     mobileNumber:
-				//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+				
 			},
 			payerInfo: {
 				payerName: paymentDetailsForReceipt.Payments[0].payerName,
@@ -390,7 +387,7 @@ class ApplicationDetails extends Component {
                     mobileNumber: complaint.bkMobileNumber,
                     houseNo: complaint.houseNo,
                     permanentAddress: complaint.address,
-                    // permanentCity: tenantId,
+                    
                     sector: complaint.sector,
                     email: complaint.bkEmail,
                 },
@@ -418,10 +415,10 @@ class ApplicationDetails extends Component {
 
 		downloadApplication( { BookingInfo: appData })
 	}
-	// Download Application 
+	
 	downloadApplicationButton = async (e) => {
 		this.downloadApplicationFunction();
-		console.log('downloadApplicationButton this.DownloadApplicationDetails', this.props)
+	
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -435,7 +432,7 @@ class ApplicationDetails extends Component {
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				console.log("fileUrls", fileUrls);
+				
 	
 				documentsPreview = documentsPreview.map(function (doc, index) {
 					doc["link"] =
@@ -443,7 +440,7 @@ class ApplicationDetails extends Component {
 							fileUrls[doc.fileStoreId] &&
 							fileUrls[doc.fileStoreId].split(",")[0]) ||
 						"";
-					//doc["name"] = doc.fileStoreId;
+					
 					doc["name"] =
 						(fileUrls[doc.fileStoreId] &&
 							decodeURIComponent(
@@ -457,7 +454,7 @@ class ApplicationDetails extends Component {
 						`Document - ${index + 1}`;
 					return doc;
 				});
-				console.log('documentsPreview', documentsPreview)
+			
 				setTimeout(() => {
 					window.open(documentsPreview[0].link);
 				}, 100);
@@ -466,7 +463,7 @@ class ApplicationDetails extends Component {
 
 	}
 
-//*****Download Permission letter for OSBM application*****//
+
 downloadPermissionLetterButton = async (e) => {
 	await this.downloadPermissionLetterFunction();
 	let documentsPreviewData;
@@ -482,7 +479,7 @@ downloadPermissionLetterButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+	
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -490,7 +487,7 @@ downloadPermissionLetterButton = async (e) => {
 					fileUrls[doc.fileStoreId] &&
 					fileUrls[doc.fileStoreId].split(",")[0]) ||
 				"";
-			//doc["name"] = doc.fileStoreId;
+			
 			doc["name"] =
 				(fileUrls[doc.fileStoreId] &&
 					decodeURIComponent(
@@ -504,7 +501,7 @@ downloadPermissionLetterButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
+		
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -575,7 +572,7 @@ downloadPermissionLetterFunction = async (e) => {
 
 	downloadPermissionLetter({BookingInfo:receiptData})
 }
-//****end*****//
+
 	downloadPaymentReceiptButton = async (e) => {
 		this.downloadPaymentReceiptFunction();
 		let documentsPreviewData;
@@ -591,7 +588,7 @@ downloadPermissionLetterFunction = async (e) => {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -599,7 +596,7 @@ downloadPermissionLetterFunction = async (e) => {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+				
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -613,7 +610,7 @@ downloadPermissionLetterFunction = async (e) => {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview', documentsPreview)
+			
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -638,7 +635,7 @@ downloadPermissionLetterFunction = async (e) => {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -646,7 +643,7 @@ downloadPermissionLetterFunction = async (e) => {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+				
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -680,7 +677,7 @@ downloadPermissionLetterFunction = async (e) => {
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
+	
 
 		let {
 			role,
@@ -693,9 +690,7 @@ downloadPermissionLetterFunction = async (e) => {
 		let btnTwoLabel = "";
 		let action;
 		let complaintLoc = {};
-		// if (complaint && complaint.latitude) {
-		//   complaintLoc = { lat: complaint.latitude, lng: complaint.longitude };
-		// }
+		
 		if (complaint) {
 			if (role === "ao") {
 				if (complaint.complaintStatus.toLowerCase() === "unassigned") {
@@ -723,11 +718,11 @@ downloadPermissionLetterFunction = async (e) => {
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
-				//  if () {
+		
+				
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
-				//  }
+				
 			}
 		}
 		if (timeLine && timeLine[0]) {
@@ -855,11 +850,7 @@ downloadPermissionLetterFunction = async (e) => {
 								<PaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 								/>
-								{/* {documentMap && (
-									<DownloadFileContainer
-									
-									/> */}
-								{/* )} */}
+								
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -891,9 +882,7 @@ downloadPermissionLetterFunction = async (e) => {
 									(role === "employee" &&
 										(
 											(complaint.status == "PENDINGAPPROVAL" &&
-												// <ActionButtonDropdown
-
-												// />
+												
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
@@ -918,58 +907,6 @@ downloadPermissionLetterFunction = async (e) => {
 														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 													}]
 												}} />}></Footer>
-
-												// 	<FormControl style={{width: '100%'}}>
-												// 	<Select 
-												// 	  labelId="demo-controlled-open-select-label-button"
-												// 	  id="demo-controlled-open-select"
-												// 	  open={this.state.actionOpen}
-												// 	  displayEmpty
-												// 	  onClose={() => this.handleActionButtonClose()}
-												// 	  onOpen={() => this.handleActionButtonOpen()}
-												// 	  value={this.state.bookingType}
-												// 	  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 		style={{
-												// 			backgroundColor: "#FE7A51",
-												// 			width: "200px",
-												// 			textAlign: "center",
-												// 		}}
-												// 	>
-												// 	  <MenuItem value="" disabled>Take Action </MenuItem>
-												// 	  <MenuItem value="APPROVED">Approve</MenuItem>
-												// 	  <MenuItem value='REJECT'>Reject</MenuItem>
-												// 	</Select>
-												//   </FormControl>
-
-
-												// <select
-												// 	value={this.state.bookingType}
-												// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 	style={{
-												// 		marginRight: "15",
-												// 		backgroundColor: "#FE7A51",
-												// 		color: "#fff",
-												// 		border: "none",
-												// 		height: "60px",
-												// 		width: "200px",
-												// 		float: "right", paddingLeft: "50px"
-
-												// 	}}
-
-												// >
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="">Take Action</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="APPROVED">Approve</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="REJECTED">Reject</option>
-												// </select>
 											)
 
 										)
@@ -1008,7 +945,7 @@ const roleFromUserInfo = (roles = [], role) => {
 };
 
 
-//Don't Delete this
+
 const getLatestStatus = status => {
 	let transformedStatus = "";
 	switch (status.toLowerCase()) {
@@ -1053,8 +990,6 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
 	const { DownloadPaymentReceiptDetails,DownloadApplicationDetails,DownloadPermissionLetterDetails } = complaints;
-	// complaint=applicationData?applicationData.bookingsModelList:'';
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =
@@ -1066,10 +1001,6 @@ const mapStateToProps = (state, ownProps) => {
 	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
 
-	//console.log('businessService=====', businessService)
-	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
-	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// }
 	let documentMap = applicationData && applicationData.documentMap ? applicationData.documentMap : '';
 	const { HistoryData } = complaints;	
 	let historyObject = HistoryData ? HistoryData : ''
@@ -1084,12 +1015,11 @@ const mapStateToProps = (state, ownProps) => {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
 	}
 
-	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('paymentDetails in map state to props', paymentDetails)
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -1134,7 +1064,7 @@ const mapStateToProps = (state, ownProps) => {
 		if (applicationData != null && applicationData != undefined) {
 
 			transformedComplaint = {
-				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
+				complaint: details,
 			};
 		}
 
@@ -1143,7 +1073,7 @@ const mapStateToProps = (state, ownProps) => {
 			`SERVICEDEFS.${transformedComplaint.complaint.complaint}`.toUpperCase(),
 			localizationLabels
 		);
-		// let documentMapDataValues = [];
+		
 		return {
 			paymentDetails,
 			historyApiData,
@@ -1156,7 +1086,7 @@ const mapStateToProps = (state, ownProps) => {
 			serviceRequestId,
 			isAssignedToEmployee,
 			complaintTypeLocalised,
-			// reopenValidChecker
+			
 		};
 	} else {
 		return {
@@ -1170,7 +1100,7 @@ const mapStateToProps = (state, ownProps) => {
 			role,
 			serviceRequestId,
 			isAssignedToEmployee,
-			// reopenValidChecker
+			
 		};
 	}
 };
