@@ -40,7 +40,7 @@ class TastStatusContainer extends React.Component {
   };
 
   render() {
-    console.log('in task status container',this.props)
+    
     const { classes, ProcessInstances } = this.props;
     let currentObj =
       ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
@@ -53,7 +53,7 @@ class TastStatusContainer extends React.Component {
             currentObj.assignee={};
             currentObj.assignee.name = assigness.join(',');
           }
-          console.log('in task status currentObj',currentObj)
+          
 
       }
       // return "hello task status container"

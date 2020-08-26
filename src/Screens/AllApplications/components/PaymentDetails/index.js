@@ -46,13 +46,10 @@ class PayDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
   };
 
   render() {
     const { bkPaymentDate, paymentDetails, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
-
-
 
     return (
       <div>
@@ -60,7 +57,6 @@ class PayDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
                 <div className="col-md-4">
                   <Label label="MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
@@ -73,13 +69,7 @@ class PayDetails extends Component {
               </div>
 
               <div className="complaint-detail-detail-section-status row">
-
-
-
-
                 <div>
-                  {/* <div className="col-xs-12"> */}
-                  {/*first row */}
                   <div className="col-xs-12">
                     <div className="col-sm-4 col-xs-12">
                       <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
@@ -88,7 +78,6 @@ class PayDetails extends Component {
 
                         id="complaint-details-submission-date"
                         labelStyle={{ color: "inherit" }}
-                      // label={bkPaymentStatus}
                       />
                     </div>
                     <div className="col-sm-4 col-xs-12">
@@ -99,7 +88,6 @@ class PayDetails extends Component {
                     <div className="col-sm-4 col-xs-12">
                     </div>
                   </div>
-                  {/*second row */}
                   <div className="col-xs-12">
                     <div className="col-sm-4 col-xs-12">
                       <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
@@ -126,7 +114,6 @@ class PayDetails extends Component {
 
                         id="complaint-details-submission-date"
                         labelStyle={{ color: "inherit" }}
-                      // label={paymentDetails.totalAmount}
                       />
                     </div>
                     <div className="col-sm-4 col-xs-12">
@@ -137,13 +124,6 @@ class PayDetails extends Component {
                   </div>
                 </div>
               </div>
-              {/* </div> */}
-
-
-
-
-
-
             </div>
           }
         />

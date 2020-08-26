@@ -166,7 +166,6 @@ class AllComplaints extends Component {
 
   componentWillReceiveProps = nextProps => {
     const { role, renderCustomTitle } = this.props;
-    console.log('this.props--',this.props)
     if (
       !isEqual(
         this.props.transformedComplaints,

@@ -1,11 +1,5 @@
 export function translate(locale_text) {
-  // if (locale_text && localStorageGet(`localization_${getLocale()}`)) {
-  //   var langresult = JSON.parse(localStorageGet(`localization_${getLocale()}`)).filter(function(obj) {
-  //     return obj.code == locale_text;
-  //   });
-  //   if (langresult[0]) return Object.values(langresult[0])[1];
-  //   else return localStorage.locale == 'mr_IN' ? localization_MR_Data[locale_text] || locale_text : localization_EN_Data[locale_text] || locale_text;
-  // }
+  
   return locale_text;
 }
 
@@ -41,7 +35,6 @@ export function format_lat_long(latorlong) {
   var minutes = parseFloat(loc_arry[1]);
   var seconds = parseFloat(loc_arry[2]);
 
-  //formula is degree+((minutes*60)+seconds/3600)
   var formatted = degree + (minutes * 60 + seconds) / 3600;
 
   return formatted;
@@ -60,7 +53,7 @@ export function epochToDate(t) {
   }
   var d = new Date(Number(t));
   var year = d.getFullYear();
-  var month = d.getMonth() + 1; // months start at zero
+  var month = d.getMonth() + 1; 
   var day = d.getDate();
 
   return pad2(day) + "/" + pad2(month) + "/" + year;
@@ -80,18 +73,18 @@ export function dateToEpoch(datestring) {
 }
 
 export function dataURItoBlob(dataURI) {
-  // convert base64/URLEncoded data component to raw binary data held in a string
+  
   var byteString;
   if (dataURI.split(",")[0].indexOf("base64") >= 0) byteString = atob(dataURI.split(",")[1]);
   else byteString = unescape(dataURI.split(",")[1]);
 
-  // separate out the mime component
+  
   var mimeString = dataURI
     .split(",")[0]
     .split(":")[1]
     .split(";")[0];
 
-  // write the bytes of the string to a typed array
+  
   var ia = new Uint8Array(byteString.length);
   for (var i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);

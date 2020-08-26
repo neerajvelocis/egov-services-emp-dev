@@ -235,7 +235,7 @@ class AllRequests extends Component {
   };
 
   onSearch = () => {
-    console.log('on this.props', this.props, this.state)
+    
     const { complaintNo, mobileNo, bookingType, applicationStatus, fromDate, toDate } = this.state;
     const { fetchApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
@@ -271,7 +271,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
 
 
-      console.log('bookingType', bookingType)
+      
     }
 
     if (fromDate) {
@@ -281,7 +281,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
 
-      console.log('fromDate', fromDate)
+      
     }
     if (toDate) {
       queryObj.bookingType = "";
@@ -290,7 +290,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
 
-      console.log('toDate', toDate)
+      
     }
 
 
@@ -440,7 +440,7 @@ class AllRequests extends Component {
             metaData.reportDetails.searchParams[l].defaultValue = {};
           }
         }
-        console.log('metaData1====>>', metaData)
+        
         setMetaData(metaData);
       } else {
         for (var i = 0; i < metaData.reportDetails.searchParams.length; i++) {
@@ -484,7 +484,7 @@ class AllRequests extends Component {
         try {
           let endDate = this.props.searchForm.toDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "fromDate"); //3rd param to denote whether field fails
+          this.validateDate(startDate, endDate, required, "fromDate"); 
         } catch (e) {
           console.log(e);
         }
@@ -497,7 +497,7 @@ class AllRequests extends Component {
         try {
           let startDate = this.props.searchForm.fromDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "toDate"); //3rd param to denote whether field fails
+          this.validateDate(startDate, endDate, required, "toDate"); 
         } catch (e) {
           console.log(e);
         }
@@ -597,7 +597,7 @@ class AllRequests extends Component {
       top: "30px"
 
     };
-    console.log('this.props in render', this.props)
+    
     const { loading, histor, userInfo } = this.props;
     const {
       mobileNo,
@@ -613,7 +613,7 @@ class AllRequests extends Component {
     const tabStyle = {
       letterSpacing: "0.6px"
     };
-    console.log('this.csrComplaints', this.props)
+    
 
     const { onComplaintClick, onSortClick, closeSortDialog, style } = this;
     const {
@@ -637,14 +637,14 @@ class AllRequests extends Component {
     const a = [{ displayName: "open space" }, { displayName: 'water tanker' }];
 
     const downloadMenu = a.map((obj, index) => {
-      console.log('obj.displayName', obj)
+      
       return {
         labelName: obj.displayName,
         labelKey: `ACTION_TEST_${obj.displayName.toUpperCase().replace(/[._:-\s\/]/g, "_")}`,
       }
     })
 
-    console.log('downloadMenu', downloadMenu)
+    
     const buttonItems = {
       label: { labelName: "Take Action", labelKey: "INBOX_QUICK_ACTION" },
       rightIcon: "arrow_drop_down",
@@ -655,7 +655,7 @@ class AllRequests extends Component {
     const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
     const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
     const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
-    console.log('foundFirstLavel', foundFirstLavel, 'foundSecondLavel', foundSecondLavel)
+    
     return role === "ao" ? (
       <div>
         <div
@@ -1262,17 +1262,17 @@ const roleFromUserInfo = (roles = [], role) => {
 const displayStatus = (status = "") => {
   let statusObj = {};
   if (status.toLowerCase().includes("overdue")) {
-    statusObj.status = status; //Replace by localisation label
+    statusObj.status = status; 
     statusObj.statusMessage = "";
   }
   if (status.toLowerCase().includes("left")) {
-    statusObj.status = status; //Replace by localisation label
+    statusObj.status = status; 
     statusObj.statusMessage = "";
   }
   return statusObj;
 };
 const mapStateToProps = state => {
-  console.log('mapStateToProps', state)
+  
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
   const { fetchSuccess, applicationData } = complaints;
@@ -1319,16 +1319,6 @@ const mapStateToProps = state => {
 
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
-    // metaData: {
-    //   "reportDetails": {
-    //     "reportName": "TradeLicenseRegistryReport", searchParams: [{ localisationRequired: false, name: "fromDate", label: "reports.tl.fromDate", type: "epoch", defaultValue: null },
-    //     { localisationRequired: false, name: "toDate", label: "reports.tl.toDate", type: "epoch", defaultValue: null },
-    //     { localisationRequired: false, name: "collectorname", label: "reports.uc.collectorname", type: "singlevaluelist", defaultValue: {}, }
-    //     ]
-    //   },
-    //   "tenantId": "ch.chandigarh",
-    //   "requestInfo": { "apiId": "emp", "msgId": "20170310130900", "resMsgId": "uief87324", "status": "200", ts: "Thu Jun 11 12:18:18 GMT 2020", ver: "1.0" }
-    // }, //state && state.report && state.report.metaData ? state.report.metaData : '',
     assignedComplaints,
     unassignedComplaints,
     csrComplaints,

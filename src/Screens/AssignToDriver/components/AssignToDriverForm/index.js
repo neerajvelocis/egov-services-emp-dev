@@ -226,7 +226,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
              }else{
               if(mobileNumber.lenght!=10){
                 return console.log('hello number')
-              // return alert('enter valid mobile number')
+              
               }else{
               return <button
               onClick={handleValidation}

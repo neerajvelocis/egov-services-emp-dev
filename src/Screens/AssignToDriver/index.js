@@ -96,13 +96,11 @@ class AssignToDiver extends Component {
   handleValidation = e => {
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     if (driverFullName != '' && mobileNo != '' && approverName != '') {
-    //  return this.onSubmit()
+    
     }
     return false;
   }
   onSubmit = e => {
-    // const { valueSelected, commentValue } = this.state;
-    // const { toggleSnackbarAndSetText } = this.props;
   };
 
   render() {
@@ -113,7 +111,6 @@ class AssignToDiver extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
  
     return (
-      // <Screen className="background-white">
         <AssignToDiverHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -133,7 +130,6 @@ class AssignToDiver extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      // </Screen>
     );
   }
 }

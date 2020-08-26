@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 import "./index.css";
 
 class RejectBWTApplicationSuccess extends Component {
   continueComplaintSubmit = () => {
-    console.log('on go to home')
+   
     this.props.history.push("/egov-services/all-applications");
   };
   render() {

@@ -11,7 +11,7 @@ import {
 	getFileUrlFromAPI,
 	setDocuments
 } from "egov-ui-framework/ui-utils/commons";
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 import "./index.css";
 import { SortDialog, Screen } from "modules/common";
 import isEmpty from "lodash/isEmpty";
@@ -82,7 +82,7 @@ class CreateWBTApplicationSuccess extends Component {
    await this.downloadApplicationFunction();
  
     const {DownloadBWTApplicationDetails}=this.props;
-  //  let fileStoreId=DownloadBWTApplicationDetails&&DownloadBWTApplicationDetails.filestoreIds[0];
+  
   
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -96,7 +96,7 @@ class CreateWBTApplicationSuccess extends Component {
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				console.log("fileUrls", fileUrls);
+				
 	
 				documentsPreview = documentsPreview.map(function (doc, index) {
 					doc["link"] =
@@ -104,7 +104,7 @@ class CreateWBTApplicationSuccess extends Component {
 							fileUrls[doc.fileStoreId] &&
 							fileUrls[doc.fileStoreId].split(",")[0]) ||
 						"";
-					//doc["name"] = doc.fileStoreId;
+					
 					doc["name"] =
 						(fileUrls[doc.fileStoreId] &&
 							decodeURIComponent(
@@ -122,7 +122,7 @@ class CreateWBTApplicationSuccess extends Component {
 				setTimeout(() => {
 					window.open(documentsPreview[0].link);
 				}, 100);
-				// prepareFinalObject('documentsPreview', documentsPreview)
+				
 			}
   
   
@@ -176,15 +176,15 @@ const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
  
   const { createWaterTankerApplicationData, DownloadBWTApplicationDetails,fetchSuccess } = complaints;
-  console.log('createWaterTankerApplicationData IN SUCESS', createWaterTankerApplicationData, 'DownloadBWTApplicationDetails', DownloadBWTApplicationDetails)
-  console.log('fetchSuccess2',fetchSuccess)
+  
+  
   const loading = !isEmpty(createWaterTankerApplicationData)
   ? fetchSuccess
     ? false
     : true
   : true;
 
-  console.log('fetchSuccess2',fetchSuccess,'loading',loading)
+  
   return {
     createWaterTankerApplicationData, DownloadBWTApplicationDetails,loading,fetchSuccess
   }

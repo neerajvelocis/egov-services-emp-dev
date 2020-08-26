@@ -9,12 +9,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import "./index.css";
 class SummaryDetails extends Component {
 
-
-
-    componentDidMount = async () => {
-        console.log('summary details', this.props);
-    }
-
     submit = e => {
        
         let { createWaterTankerApplication } = this.props;
@@ -47,11 +41,8 @@ class SummaryDetails extends Component {
                 "tenantId": "ch",
                 "Booking": Booking
             });
-        	// setTimeout(() => {
-                // console.log('summary props in time', this.props);
+        	
             this.props.history.push("/egov-services/create-success");
-        // }, 100);
-        console.log('summary props', this.props);
 
     }
 
@@ -68,8 +59,6 @@ class SummaryDetails extends Component {
     }
     render() {
         const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
-        console.log('propsData', propsData)
-        // let typeOfRequest=
         return (
             <div>
                 <div classsName="container">
@@ -227,14 +216,7 @@ class SummaryDetails extends Component {
                         </div>
                     </div>
                 </div>
-                {/* Name: <b>{firstName}</b><br />
-                Email: <b>{email}</b><br />
-                Mobile number: <b>{mobileNo}</b><br />
-                houseNo: <b>{houseNo}</b><br />
-                address: <b>{address}</b><br />
-                locality: <b>{locality}</b><br />
-                residenials: <b>{residenials}</b><br /> */}
-
+               
                 <div className="responsive-action-button-cont">
                     <Button
                          className="responsive-action-button"
@@ -256,9 +238,7 @@ class SummaryDetails extends Component {
                      style={{rightIcon:"arrow_drop_down"}}
                     />
                 </div>
-                {/* <button className="Back" onClick={this.submit}>
-                     Submit
-                </button> */}
+               
 
 
             </div>
@@ -269,9 +249,7 @@ class SummaryDetails extends Component {
 const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
-    console.log('state in summary',state)
     const { createWaterTankerApplicationData } = complaints;
-    console.log('createWaterTankerApplicationData in summary', createWaterTankerApplicationData)
     return {
         createWaterTankerApplicationData
     }

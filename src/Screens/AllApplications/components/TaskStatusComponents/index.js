@@ -10,7 +10,6 @@ import get from "lodash/get";
 import "./index.css";
 
 export const getCurrentStatus = status => {
- // console.log('status',status)
   switch (status) {
     case "INITIATED":
       return "Initiated";
@@ -28,7 +27,6 @@ export const getCurrentStatus = status => {
 };
 
 const TaskStatusComponents = ({ currentObj, index }) => {
-  console.log('in TaskStatusComponents',currentObj)
   return (
     <Grid
       container={true}

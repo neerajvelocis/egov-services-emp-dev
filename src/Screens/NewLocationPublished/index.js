@@ -23,12 +23,12 @@ class NewLocationComment extends Component {
   };
   componentDidMount() {
     let { fetchMccApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
+   
     fetchMccApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
+      
     );
   }
 
@@ -48,7 +48,7 @@ class NewLocationComment extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log(' e.target.value')
+   
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -75,19 +75,9 @@ class NewLocationComment extends Component {
 
   onSubmit = e => {
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+    
   };
 
   render() {
@@ -96,7 +86,7 @@ class NewLocationComment extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in userInfo in new location', userInfo)
+    
     return (
       
         <NewLocationHOC
@@ -120,7 +110,7 @@ class NewLocationComment extends Component {
 const mapStateToProps = state => {
   const { complaints = {} } = state || {};
   const { MccApplicationData } = complaints;
-  console.log('applicationData in new location',MccApplicationData)
+  
   let trasformData = MccApplicationData?MccApplicationData.osujmNewLocationModelList[0]:'';
   let businessServiceData = MccApplicationData.businessService;
   return { trasformData, businessServiceData };

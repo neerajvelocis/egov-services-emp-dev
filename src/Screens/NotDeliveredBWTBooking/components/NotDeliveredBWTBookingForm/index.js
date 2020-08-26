@@ -4,8 +4,6 @@ import { Question } from "modules/common";
 import { TextArea } from "modules/common";
 
 const RejectComplaintForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  console.log(' RejectComplaintForm form',form)
-// let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
 
   if(form && form.fields){
     let formValue={...form.fields};
@@ -16,10 +14,10 @@ formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
-console.log('formValue--->>',formValue)
+
   }
 
-  console.log('submit button2',form)
+  
   const fields = form.fields || {};
   const submit = form.submit;
   return (

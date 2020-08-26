@@ -27,7 +27,7 @@ class NewLocationResolved extends Component {
   };
   async componentDidMount() {
     let { fetchMccApplications, match, userInfo,applicationNumber,trasformData } = this.props;
-    console.log('this.props immediately ',this.props)
+    
     fetchMccApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
@@ -42,7 +42,6 @@ class NewLocationResolved extends Component {
     this.setState({
 			assignToMe: AssigneeFromAPI
 		})
-    console.log('AssigneeFromAPI',AssigneeFromAPI)
   }
 
   options = [
@@ -108,19 +107,9 @@ class NewLocationResolved extends Component {
 
   onSubmit = e => {
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+    
   };
 
   render() {
@@ -162,7 +151,7 @@ class NewLocationResolved extends Component {
 const mapStateToProps = state => {
   const { complaints = {} } = state || {};
   const { MccApplicationData } = complaints;
-  console.log('applicationData in new location',MccApplicationData)
+ 
   let trasformData = MccApplicationData?MccApplicationData.osujmNewLocationModelList[0]:'';
   let businessServiceData = MccApplicationData.businessService;
   return { trasformData, businessServiceData };

@@ -8,12 +8,11 @@ export class StepForm extends Component {
     state = {
         step: 0,
 
-        // step 1
+        
         firstName: '',
         lastName: '',
         email: '',
         mobileNo: '',
-        // step 2
         jobTitle: '',
         jobCompany: '',
         jobLocation: '',
@@ -103,7 +102,6 @@ export class StepForm extends Component {
     }
 
     render() {
-console.log('this.props in water tanker apply',this.props)
         const { step } = this.state;
 
         return (

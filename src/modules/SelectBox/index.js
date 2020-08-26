@@ -35,8 +35,7 @@ const styles = {
         setOpen:false
       };
      
-    //  console.log(selectBoxOptions);
-    // const classes = useStyles();
+    
 
      handleChange = (event) => {
         // setAge(event.target.value);
@@ -54,19 +53,18 @@ const styles = {
     
      getSelectBoxOptions = () =>{
       const {selectBoxOptions} = this.props;
-      console.log('props',this.props)
+      
         let options = [];
         for(let i = 0; i<selectBoxOptions.length; i++){
             options.push(<MenuItem value={selectBoxOptions[i]}>{selectBoxOptions[i]}</MenuItem>);
         }
-        console.log('options',options)
+        
 
         return options;
     }
     render() {
       const {selectBoxOptions} = this.props;
 
-      console.log('this.this.props()',this.props)
     return (
         <div>
          

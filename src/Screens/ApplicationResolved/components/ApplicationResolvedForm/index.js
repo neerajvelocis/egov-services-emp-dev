@@ -24,7 +24,6 @@ const styles = theme => ( {
     borderRadius: "5px",
     backgroundColor: '#FE7A51',
     textTransform: 'uppercase',
-    // display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: "pointer",
@@ -82,21 +81,14 @@ formValue.businessService.value=bookingservice
                   }}
                 />
               }
-              // floatingLabelText={
-              //   <Label
-              //     key={0}
-              //     label="MYBK_COMMON_COMMENTS_VALUE"
-              //     color="rgba(0,0,0,0.60)"
-              //     fontSize="12px"
-              //   />
-              // }
+              
               onChange={ontextAreaChange}
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
 
-          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
+          
         </div>
       </div>
       <div className={classes.btnWrapper}>

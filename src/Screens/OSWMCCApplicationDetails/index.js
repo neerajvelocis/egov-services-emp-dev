@@ -19,7 +19,6 @@ import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetai
 import OSMCCMainBookingDetails from "../AllApplications/components/OSMCCMainBookingDetails"
 import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
-// import DialogContainer from "../../modules/DialogContainer"
 import OSBMPaymentDetails from "../AllApplications/components/OSBMPaymentDetails"
 import ApproveBooking from "../ApplicationResolved";
 import RejectBooking from "../RejectComplaint";
@@ -140,8 +139,6 @@ class ApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
-
 		prepareFormData("complaints", transformedComplaint);
 
 		const { complaint } = transformedComplaint;
@@ -154,7 +151,7 @@ class ApplicationDetails extends Component {
 		);
 		fetchHistory([
 			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
-		//complaint.businessService
+		
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSUJM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
@@ -169,26 +166,20 @@ class ApplicationDetails extends Component {
 				"mobileNumber": "", "bookingType": "","tenantId" : userInfo.tenantId
 			}
 
-			console.log("complaintCountRequest123",complaintCountRequest)
-
 			let dataforSectorAndCategory = await httpRequest( 	
 				"bookings/api/employee/_search",
 				"_search",[],
 				complaintCountRequest
 			  );
-			console.log("dataforSectorAndCategory123",dataforSectorAndCategory)
+		
 
-		let venueData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkBookingVenue : 'NA'
-        let categoryData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkCategory : 'NA'
-		//fetch baserate
-
-		console.log("dataforSectorAndCategory123",dataforSectorAndCategory)
-		console.log("venueData123--",venueData)
-		console.log("categoryData123---",categoryData)
-
+		let venueData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkAreaRequired : 'NA'
+        let categoryData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkSector : 'NA'
 		OSBMfetchperDayRate({	
-				bookingVenue:venueData ,
-	          	category:categoryData
+		Booking:{
+				bkAreaRequired:venueData ,
+				bkSector:categoryData
+			}
 			});
 
 		let BookingInfo = [{
@@ -215,12 +206,11 @@ class ApplicationDetails extends Component {
 			}
 		}
 		]
-		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
+		
 		let { details } = this.state;
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		console.log('this.props123', this.props)
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -244,7 +234,7 @@ class ApplicationDetails extends Component {
 	};
 
 	btnTwoOnClick = (complaintNo, label) => {
-		//Action for second button
+		
 		let { history } = this.props;
 		switch (label) {
 			case "ES_COMMON_ASSIGN":
@@ -338,25 +328,18 @@ class ApplicationDetails extends Component {
 		return word + "Rupees Only";
 	};
 
-	//PaymentReceipt
+	
 	downloadReceiptButton = async (e) => {
 	
 		await this.downloadReceiptFunction();
 	
-		console.log('DownloadReceiptDetailsforCG this.props',this.props)
+	
 		let documentsPreviewData;
 		const { DownloadReceiptDetailsforCG } = this.props;
 		
 		var documentsPreview = [];
 		if (DownloadReceiptDetailsforCG && DownloadReceiptDetailsforCG.filestoreIds.length > 0) {
-	
-			console.log('DownloadReceiptDetailsforCG',DownloadReceiptDetailsforCG.filestoreIds[0])
 			 documentsPreviewData=DownloadReceiptDetailsforCG.filestoreIds[0];
-			
-			// let keys = Object.keys(documentMap);
-			// let values = Object.values(documentMap);
-			// let id = keys[0], fileName = values[0];
-	
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
 				fileStoreId: documentsPreviewData,
@@ -365,7 +348,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 	
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -373,7 +356,7 @@ class ApplicationDetails extends Component {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+			
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -387,7 +370,7 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview',documentsPreview)
+		
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -398,10 +381,6 @@ class ApplicationDetails extends Component {
 	downloadReceiptFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG,downloadReceiptforCG, userInfo, paymentDetails } = this.props;
 		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-		console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-			console.log('compalint in downloadpayament',complaint,paymentDetails)
-	
 		let BookingInfo = [{
 			"applicantDetail": {
 				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
@@ -438,9 +417,7 @@ class ApplicationDetails extends Component {
 				receiptNo:
 					paymentDetailsForReceipt.Payments[0].paymentDetails[0]
 						.receiptNumber,
-				// name: paymentDetailsForReceipt.Payments[0].payerName,
-				//     mobileNumber:
-				//         paymentDetailsForReceipt.Payments[0].mobileNumber,
+				
 			},
 			payerInfo: {
 				payerName: paymentDetailsForReceipt.Payments[0].payerName,
@@ -455,19 +432,18 @@ class ApplicationDetails extends Component {
 		downloadReceiptforCG({BookingInfo: BookingInfo})
 	}
 
-//Application
+
 	downloadApplicationMCCButton = async (e) => {
 	
 		await this.downloadApplicationFunction();
 	
-		console.log('DownloadMccAppp this.props',this.props)
 		let documentsPreviewData;
 		const { DownloadMccAppp } = this.props;
 		
 		var documentsPreview = [];
 		if (DownloadMccAppp && DownloadMccAppp.filestoreIds.length > 0) {
 	
-			console.log('DownloadMccAppp',DownloadMccAppp.filestoreIds[0])
+		
 			 documentsPreviewData=DownloadMccAppp.filestoreIds[0];
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
@@ -477,7 +453,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 	
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -485,7 +461,7 @@ class ApplicationDetails extends Component {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+			
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -499,7 +475,6 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview',documentsPreview)
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -559,25 +534,20 @@ class ApplicationDetails extends Component {
 			downloadMccApp({BookingInfo:receiptData})
 	}
 
-//permissionLeter	
+
 	downloadPLButton = async (e) => {
 	
 		await this.downloadPLFunction();
 	
-		console.log('DownloadMccPermissionLetter this.props',this.props)
+	
 		let documentsPreviewData;
 		const { DownloadMccPermissionLetter } = this.props;
 		
 		var documentsPreview = [];
 		if (DownloadMccPermissionLetter && DownloadMccPermissionLetter.filestoreIds.length > 0) {
 	
-			console.log('DownloadMccPermissionLetter',DownloadMccPermissionLetter.filestoreIds[0])
+		
 			 documentsPreviewData=DownloadMccPermissionLetter.filestoreIds[0];
-			
-			// let keys = Object.keys(documentMap);
-			// let values = Object.values(documentMap);
-			// let id = keys[0], fileName = values[0];
-	
 			documentsPreview.push({
 				title: "DOC_DOC_PICTURE",
 				fileStoreId: documentsPreviewData,
@@ -586,7 +556,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 	
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -594,7 +564,7 @@ class ApplicationDetails extends Component {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+				
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -608,7 +578,7 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			console.log('documentsPreview',documentsPreview)
+		
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -618,11 +588,7 @@ class ApplicationDetails extends Component {
 	downloadPLFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt,downloadMccPL,downloadPaymentReceiptforCG, userInfo, paymentDetails } = this.props;
 		const { complaint } = transformedComplaint;
-		console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-		console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-			console.log('compalint in downloadpayament',complaint,paymentDetails)
-	console.log("cgappno--",complaint.applicationNo,complaint.sector,complaint.dateCreated,complaint.bkFromDate,
-	complaint.bkToDate)
+	
 	
 	let receiptData = [
 		{
@@ -684,7 +650,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -692,7 +658,7 @@ class ApplicationDetails extends Component {
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+			
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -725,8 +691,8 @@ class ApplicationDetails extends Component {
 		let { comments, openMap } = this.state;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
-		let { historyApiData, paymentDetails, perDayRupees, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
+		let { historyApiData, paymentDetails, perDayRupees, area, fromDate, toDate, match, userInfo } = this.props;
+	
 
 		let {
 			role,
@@ -739,9 +705,6 @@ class ApplicationDetails extends Component {
 		let btnTwoLabel = "";
 		let action;
 		let complaintLoc = {};
-		// if (complaint && complaint.latitude) {
-		//   complaintLoc = { lat: complaint.latitude, lng: complaint.longitude };
-		// }
 		if (complaint) {
 			if (role === "ao") {
 				if (complaint.complaintStatus.toLowerCase() === "unassigned") {
@@ -769,11 +732,11 @@ class ApplicationDetails extends Component {
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
-				//  if () {
+			
+			
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
-				//  }
+			
 			}
 		}
 		if (timeLine && timeLine[0]) {
@@ -890,29 +853,22 @@ class ApplicationDetails extends Component {
 								/>
                                 <OSMCCAppDetails
 									{...complaint}
-								// role={role}
-								// history={history}
-								// mapAction={true}
-								// redirectToMap={this.redirectToMap}
-								// action={action}
-								// complaintLoc={complaintLoc}
 								/>
 
 								<OSMCCMainBookingDetails 
 								{...complaint}
 								historyApiData={historyApiData && historyApiData}
 								/>
-								{console.log("MyRatePerDay--",perDayRupees)}
+							
 
 								<OSBMPaymentDetails
 									paymentDetails={paymentDetails && paymentDetails}
 									perDayRupees={perDayRupees && perDayRupees}
-								/>
-								{/* {documentMap && (
-									<DownloadFileContainer
+									area={area && area}
+									fromDate={fromDate && fromDate}
+									toDate={toDate && toDate}
 									
-									/> */}
-								{/* )} */}
+								/>
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -944,9 +900,7 @@ class ApplicationDetails extends Component {
 									(role === "employee" &&
 										(
 											(complaint.status == "PENDINGAPPROVAL" &&
-												// <ActionButtonDropdown
-
-												// />
+												
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
 													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
@@ -972,57 +926,6 @@ class ApplicationDetails extends Component {
 													}]
 												}} />}></Footer>
 
-												// 	<FormControl style={{width: '100%'}}>
-												// 	<Select 
-												// 	  labelId="demo-controlled-open-select-label-button"
-												// 	  id="demo-controlled-open-select"
-												// 	  open={this.state.actionOpen}
-												// 	  displayEmpty
-												// 	  onClose={() => this.handleActionButtonClose()}
-												// 	  onOpen={() => this.handleActionButtonOpen()}
-												// 	  value={this.state.bookingType}
-												// 	  onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 		style={{
-												// 			backgroundColor: "#FE7A51",
-												// 			width: "200px",
-												// 			textAlign: "center",
-												// 		}}
-												// 	>
-												// 	  <MenuItem value="" disabled>Take Action </MenuItem>
-												// 	  <MenuItem value="APPROVED">Approve</MenuItem>
-												// 	  <MenuItem value='REJECT'>Reject</MenuItem>
-												// 	</Select>
-												//   </FormControl>
-
-
-												// <select
-												// 	value={this.state.bookingType}
-												// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-												// 	style={{
-												// 		marginRight: "15",
-												// 		backgroundColor: "#FE7A51",
-												// 		color: "#fff",
-												// 		border: "none",
-												// 		height: "60px",
-												// 		width: "200px",
-												// 		float: "right", paddingLeft: "50px"
-
-												// 	}}
-
-												// >
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="">Take Action</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="APPROVED">Approve</option>
-												// 	<option style={{
-												// 		background: "white",
-												// 		color: "gray"
-												// 	}} value="REJECTED">Reject</option>
-												// </select>
 											)
 
 										)
@@ -1061,7 +964,7 @@ const roleFromUserInfo = (roles = [], role) => {
 };
 
 
-//Don't Delete this
+
 const getLatestStatus = status => {
 	let transformedStatus = "";
 	switch (status.toLowerCase()) {
@@ -1106,8 +1009,6 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData,DownloadMccAppp,DownloadReceiptDetailsforCG } = complaints;
 	const { DownloadPaymentReceiptDetails,DownloadApplicationDetails,DownloadPermissionLetterDetails,DownloadMccPermissionLetter } = complaints;
-	// complaint=applicationData?applicationData.bookingsModelList:'';
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =
@@ -1118,36 +1019,36 @@ const mapStateToProps = (state, ownProps) => {
 	let selectedComplaint = applicationData ? applicationData.bookingsModelList[0] : ''
 	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
+	
+	
+	let area = applicationData && applicationData.bookingsModelList ? applicationData.bookingsModelList[0].bkAreaRequired : 'NA'
+	let fromDate = applicationData && applicationData.bookingsModelList ? applicationData.bookingsModelList[0].bkFromDate : 'NA'
+	let toDate = applicationData && applicationData.bookingsModelList ? applicationData.bookingsModelList[0].bkToDate : 'NA'
 
-	//console.log('businessService=====', businessService)
-	// if (Object.keys(state.complaints.applicationData.documentMap).length != 0) {
-	// 	state.complaints.applicationData.documentMap = state.complaints.applicationData.documentMap
-	// }
+	
 	let documentMap = applicationData && applicationData.documentMap ? applicationData.documentMap : '';
 	const { HistoryData } = complaints;	
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
 	const { OSBMperDayRate } = complaints;
-	console.log("OSBMperDayRate--",OSBMperDayRate)
+
 	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
 	let perDayRupees;
 	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
-	    perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerDay : '';
+	    perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerSqrFeetPerDay : '';
 	} else {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
-		perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerDay : '';
+		perDayRupees = OSBMperDayRate && OSBMperDayRate ? OSBMperDayRate.data.ratePerSqrFeetPerDay : '';
 	}
 
-	// let paymentDetails = paymentData ? paymentData.Bill[0] : ''
+	
 	let historyApiData = {}
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('perDayRupees in map state to props', paymentDetails)
-	console.log('OSBMperDayRate in map state to props--',OSBMperDayRate)
 
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
@@ -1185,7 +1086,7 @@ const mapStateToProps = (state, ownProps) => {
 			bkFromDate: selectedComplaint.bkFromDate,
 			bkToDate: selectedComplaint.bkToDate,
 			bkFatherName: selectedComplaint.bkFatherName,
-			bkBookingVenue:selectedComplaint.bkBookingVenue, //bkBookingPurpose
+			bkBookingVenue:selectedComplaint.bkBookingVenue, 
 			bkBookingPurpose: selectedComplaint.bkBookingPurpose,
 
 		}
@@ -1196,7 +1097,7 @@ const mapStateToProps = (state, ownProps) => {
 		if (applicationData != null && applicationData != undefined) {
 
 			transformedComplaint = {
-				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
+				complaint: details,
 			};
 		}
 
@@ -1205,7 +1106,7 @@ const mapStateToProps = (state, ownProps) => {
 			`SERVICEDEFS.${transformedComplaint.complaint.complaint}`.toUpperCase(),
 			localizationLabels
 		);
-		// let documentMapDataValues = [];
+	
 		return {
 			paymentDetails,
 			historyApiData,
@@ -1216,13 +1117,16 @@ const mapStateToProps = (state, ownProps) => {
 			documentMap,
 			form,
 			perDayRupees,
+			area,
+			fromDate,
+			toDate,
 			transformedComplaint,
 			role,
 			DownloadMccPermissionLetter,
 			serviceRequestId,
 			isAssignedToEmployee,
 			complaintTypeLocalised,
-			// reopenValidChecker
+			
 		};
 	} else {
 		return {
@@ -1230,6 +1134,9 @@ const mapStateToProps = (state, ownProps) => {
 			DownloadMccAppp,
 			historyApiData,
 			perDayRupees,
+			area,
+			fromDate,
+			toDate,
 			DownloadReceiptDetailsforCG,
 			DownloadPaymentReceiptDetails,
 			DownloadMccPermissionLetter,
@@ -1242,14 +1149,14 @@ const mapStateToProps = (state, ownProps) => {
 			role,
 			serviceRequestId,
 			isAssignedToEmployee,
-			// reopenValidChecker
+			
 		};
 	}
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchApplications: criteria => dispatch(fetchApplications(criteria)),  //OSBMfetchperDayRate
+		fetchApplications: criteria => dispatch(fetchApplications(criteria)), 
 		OSBMfetchperDayRate: criteria => dispatch(OSBMfetchperDayRate(criteria)),
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)), 
 		OSBMfetchPayment: criteria => dispatch(OSBMfetchPayment(criteria)),

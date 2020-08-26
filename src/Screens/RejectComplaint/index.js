@@ -23,12 +23,11 @@ class RejectComplaint extends Component {
   };
   componentDidMount() {
      let { fetchApplications, match, userInfo,applicationNumber } = this.props;
-    console.log('match.params.applicationId', this.props)
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
+      
     );
   }
 
@@ -75,19 +74,8 @@ class RejectComplaint extends Component {
   onSubmit = e => {
 
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
   };
 
   render() {
@@ -96,14 +84,14 @@ class RejectComplaint extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    console.log('this in render', trasformData)
+    
     return (
-      // <Screen className="background-white">
+      
         <RejectApplicationHOC
-          // options={this.options}
+          
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
-          // optionSelected={valueSelected}
+          
           commentValue={commentValue}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
@@ -112,7 +100,7 @@ class RejectComplaint extends Component {
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      // </Screen>
+      
     );
   }
 }

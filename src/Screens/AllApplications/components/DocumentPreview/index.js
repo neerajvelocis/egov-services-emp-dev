@@ -17,7 +17,7 @@ const prepareDocumentsView = async (state, dispatch) => {
     {}
   );
 
-  console.log(bookingDocs, "docssss");
+  
 
     if (bookingDocs !== "") {
       let keys = Object.keys(bookingDocs); 
@@ -33,8 +33,6 @@ const prepareDocumentsView = async (state, dispatch) => {
       let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
       let fileUrls =
         fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-        console.log("fileUrls", fileUrls);
-        console.log("documentsPreview", documentsPreview);
         
       documentsPreview = documentsPreview.map(function (doc, index) {
         doc["link"] =

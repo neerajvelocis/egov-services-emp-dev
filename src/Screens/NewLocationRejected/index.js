@@ -48,7 +48,7 @@ class RejectNewLocation extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log(' e.target.value')
+   
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -75,19 +75,9 @@ class RejectNewLocation extends Component {
 
   onSubmit = e => {
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+   
   };
 
   render() {
@@ -118,7 +108,7 @@ class RejectNewLocation extends Component {
 const mapStateToProps = state => {
   const { complaints = {} } = state || {};
   const { MccApplicationData } = complaints;
-  console.log('applicationData in new location',MccApplicationData)
+ 
   let trasformData = MccApplicationData?MccApplicationData.osujmNewLocationModelList[0]:'';
   let businessServiceData = MccApplicationData.businessService;
   return { trasformData, businessServiceData };

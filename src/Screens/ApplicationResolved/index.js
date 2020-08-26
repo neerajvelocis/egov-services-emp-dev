@@ -27,7 +27,7 @@ class ApplicationResolved extends Component {
       { 'uuid': userInfo.uuid, "applicationNumber": applicationNumber,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
+      
     );
   }
 
@@ -52,41 +52,18 @@ class ApplicationResolved extends Component {
     this.setState({
       commentValue: e.target.value
     });
-    // this.concatComments(this.commentsValue);
+    
   };
   handleOptionsChange = (event, value) => {
-    // this.setState({ valueSelected: value });
-    // this.commentsValue.radioValue = value;
-    // this.concatComments(this.commentsValue);
+    
   };
   concatComments = val => {
-    // let com1 = "";
-    // let com2 = "";
-    // if (val.radioValue) {
-    //   com1 = val.radioValue + ";";
-    // }
-    // if (val.textVal) {
-    //   com2 = val.textVal;
-    // }
-    // let concatvalue = com1 + com2;
+    
     this.props.handleFieldChange("approveBooking", "comments", this.state.commentValue);
   };
 
   onSubmit = e => {
-    // const { valueSelected, commentValue } = this.state;
-  
-    // const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+    
   };
 
   render() {
@@ -97,12 +74,12 @@ class ApplicationResolved extends Component {
     const { trasformData, businessServiceData,applicationNumber } = this.props;
   
     return (
-      //<Screen className="background-white">
+      
         <ApplicationResolvedHOC
-          // options={this.options}
+          
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
-          // optionSelected={valueSelected}
+          
           commentValue={commentValue}
           applicationNumber={applicationNumber}
           createdBy={userInfo.name}
@@ -111,7 +88,7 @@ class ApplicationResolved extends Component {
           bookingtype={trasformData.bkBookingType}
           bookingservice={businessServiceData?businessServiceData:''}
         />
-      // </Screen>
+
     );
   }
 }
