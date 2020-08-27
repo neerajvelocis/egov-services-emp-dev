@@ -352,7 +352,7 @@ class ApplicationDetails extends Component {
 	}
 
 	downloadApplicationFunction = async (e) => {
-		console.log('DownloadApplicationDetails',this.props)
+		
 		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
 		const { complaint } = transformedComplaint;
 		let bookingDataOsbm = {
@@ -415,13 +415,13 @@ class ApplicationDetails extends Component {
 
 
 		downloadApplication( { BookingInfo: appData })
-		console.log('DownloadApplicationDetails12',this.props)
+		
 
 	}
 	
 	downloadApplicationButton = async (e) => {
 		this.downloadApplicationFunction();
-		console.log('in button click')
+		
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -436,7 +436,7 @@ class ApplicationDetails extends Component {
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
 				
-					console.log('in button fileUrls',fileUrls)
+					
 				documentsPreview = documentsPreview.map(function (doc, index) {
 					doc["link"] =
 						(fileUrls &&
@@ -459,7 +459,7 @@ class ApplicationDetails extends Component {
 				});
 			
 				setTimeout(() => {
-					console.log('in imeout')
+					
 					window.open(documentsPreview[0].link);
 				}, 100);
 				prepareFinalObject('documentsPreview', documentsPreview)

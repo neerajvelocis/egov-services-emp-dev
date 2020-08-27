@@ -27,7 +27,10 @@ const AllRequests = Loadable({
   loader: () => import("../Screens/AllApplications"),
   loading: Loading
 });
-
+const MasterData = Loadable({
+  loader: () => import("../Screens/MasterData"),
+  loading: Loading
+});
 const ApplicationResolved = Loadable({
   loader: () => import("../Screens/ApplicationResolved"),
   loading: Loading
@@ -207,9 +210,21 @@ const routes = [
       customTitle: "MYBK_ALL_APPLICAION_HEADER"
     }
   },
-
-
-
+//newMasterData
+{
+  path: "egov-services/MasterData",
+  component: MasterData,
+  needsAuthentication: true,
+  options: {
+    hideFooter: true,
+    title: "ES_OPEN_APPLICAION_HEADER",
+    hideTitle: false,
+    redirectionUrl,
+    hideFor: "ao",
+    customFor: "employee",
+    customTitle: "MYBK_ALL_APPLICAION_HEADER"
+  }
+},
   {
     path: "egov-services/applywatertanker",
     component: ApplyWaterTanker,
