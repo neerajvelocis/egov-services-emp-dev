@@ -29,28 +29,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
 
 
 
-//import ShowField from "C:/latest_project/frontend/web/rainmaker/packages/employee/src/modules/employee/reports/showField";
+
+
 
 class AllRequests extends Component {
   state = {
@@ -392,78 +375,8 @@ class AllRequests extends Component {
   };
 
 
-  handleDateSelect = (metaData, e, property) => {
-    let { setSearchParams } = this.props;
-    if (get(metaData, "reportDetails.searchParams")) {
-      let searchParams = metaData.reportDetails.searchParams;
-      var i;
-      let fromDateIndex, toDateIndex;
-      for (i = 0; i < searchParams.length; i++) {
-        if (searchParams[i].name === "fromDate") {
-          fromDateIndex = i;
-        } else if (searchParams[i].name === "toDate") {
-          toDateIndex = i;
-        }
-      }
-      if (property === "fromDate" && toDateIndex !== undefined) {
-        searchParams[toDateIndex].minValue = new Date(e.target.value);
-      } else if (property === "toDate" && fromDateIndex !== undefined) {
-        searchParams[fromDateIndex].maxValue = new Date(e.target.value);
-      }
-      console.log('searchParams===', searchParams)
-      setSearchParams(searchParams);
-    }
-  };
-  handleChange = (e, property, isRequired, pattern) => {
-    console.log('this.props in handleChange1', this.props)
-    const { metaData, setMetaData, handleChange, searchForm } = this.props;
-    const selectedValue = e.target.value;
-    //const selectedValue = e.target.value;
-    console.log('selectedValue---', selectedValue, property)
-    if (property === "fromDate" || property === "toDate") {
-      this.handleDateSelect(metaData, e, property);
-      this.checkDate(selectedValue, property, isRequired, pattern);
-    } else {
-      handleChange(e, property, isRequired, pattern);
-    }
-
-    if (metaData.hasOwnProperty("reportDetails") && metaData.reportDetails.searchParams.length > 0) {
-      if (!selectedValue) {
-        for (var l = 0; l < metaData.reportDetails.searchParams.length; l++) {
-          if (metaData.reportDetails.searchParams[l].type == "url" && metaData.reportDetails.searchParams[l].pattern.search(property) > -1) {
-            metaData.reportDetails.searchParams[l].defaultValue = {};
-          }
-        }
-        console.log('metaData1====>>', metaData)
-        setMetaData(metaData);
-      } else {
-        for (var i = 0; i < metaData.reportDetails.searchParams.length; i++) {
-          const field = metaData.reportDetails.searchParams[i];
-          const defaultValue = field.defaultValue;
-          const fieldType = field.type;
-          const dependantProperty = field.name;
-
-          if (dependantProperty === property) {
-            continue;
-          }
-
-          if (typeof defaultValue != "object" || field.hasOwnProperty("pattern")) {
-            if (!field.hasOwnProperty("pattern")) {
-              field["pattern"] = defaultValue;
-            }
-
-            const fieldPattern = field.pattern;
-
-            if (fieldPattern.indexOf("{" + property + "}") == -1) continue;
-
-            if (fieldPattern && fieldPattern.search("{" + property + "}") > -1) {
-              this.checkForDependentSource(i, field, selectedValue);
-            }
-          }
-        }
-      }
-    }
-  };
+ 
+ 
 
   checkDate = (value, name, required, pattern) => {
     let e = {

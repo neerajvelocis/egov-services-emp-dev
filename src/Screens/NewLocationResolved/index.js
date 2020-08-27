@@ -110,17 +110,7 @@ class NewLocationResolved extends Component {
     const { valueSelected, commentValue } = this.state;
     console.log('this.stat in on submite', this.state)
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+ 
   };
 
   render() {

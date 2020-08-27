@@ -9,7 +9,7 @@ import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetails"
-import AppDetails from "../AllApplications/components/AppDetails"
+import AppDetails from "../AllApplications/components/ApplicantDetails"
 import BookingDetails from "../AllApplications/components/BookingDetails"
 import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
@@ -149,30 +149,7 @@ class ApplicationDetails extends Component {
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
 
-		let BookingInfo = [{
-			"applicantDetail": {
-				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-				"mobileNumber": "9138912806",
-				"houseNo": "555",
-				"permanentAddress": null,
-				"permanentCity": "ch.chandigarh",
-				"sector": "7"
-			},
-			"booking": {
-				"bkApplicationNumber": "CH-BK-2020-07-25-000183"
-			},
-			"paymentInfo": {
-				"paymentDate": "13th Augest 2020",
-				"transactionId": "EDR654GF35",
-				"bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
-				"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-				"amount": 3000,
-				"tax": 540,
-				"grandTotal": 3540,
-				"amountInWords": "Three Thousands Five Hundred Fourty Rupees"
-			}
-		}
-		]
+	
 		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
 		let { details } = this.state;
 	}
@@ -423,9 +400,10 @@ class ApplicationDetails extends Component {
 	}
 	// Download Application 
 	downloadApplicationButton = async (e) => {
-		this.downloadApplicationFunction();
+		await this.downloadApplicationFunction();
 		console.log('in button click')
 		const { DownloadApplicationDetails } = this.props;
+		console.log('DownloadApplicationDetails on button',this.props)
 		var documentsPreview = [];
 		let documentsPreviewData;
 		if (DownloadApplicationDetails && DownloadApplicationDetails.filestoreIds.length > 0) {	
@@ -715,17 +693,7 @@ downloadPermissionLetterFunction = async (e) => {
 					btnOneLabel = "ES_REJECT_BUTTON";
 					btnTwoLabel = "ES_RESOLVE_MARK_RESOLVED";
 				}
-			} else if (role == "eo") {
-				if (complaint.status.toLowerCase() === "escalatedlevel1pending" ||
-					complaint.status.toLowerCase() === "escalatedlevel2pending") {
-					btnOneLabel = "ES_REJECT_BUTTON";
-					btnTwoLabel = "ES_RESOLVE_MARK_RESOLVED";
-				}
-				else if (complaint.status.toLowerCase() === "assigned") {
-					btnOneLabel = "ES_REQUEST_REQUEST_RE_ASSIGN";
-					btnTwoLabel = "ES_RESOLVE_MARK_RESOLVED";
-				}
-			}
+			} 
 			else if (role === "employee") {
 		
 				//  if () {
