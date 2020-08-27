@@ -224,10 +224,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
             >Assign</button>
              }else{
-              if(mobileNumber.lenght!=10){
-                return console.log('hello number')
-              
-              }else{
+             
               return <button
               onClick={handleValidation}
               className={classes.button}
@@ -237,7 +234,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
               disabled
             >Assign</button>
-              }
+             
              }
           }
          
