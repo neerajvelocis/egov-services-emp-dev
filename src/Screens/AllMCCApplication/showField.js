@@ -3,12 +3,9 @@ import { TextField, DropDown, DatePicker } from "components";
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import Checkbox from "material-ui/Checkbox";
-// import { translate } from "./commons/common";
 import Grid from '@material-ui/core/Grid';
 import AutoComplete from "material-ui/AutoComplete";
 import Label from "egov-ui-kit/utils/translationNode";
-// import UiBoundary from "./components/boundary";
-// import boundaryConfig from "./commons/config";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
 import AutoSuggestDropdown from "egov-ui-kit/components/AutoSuggestDropdown";
@@ -31,7 +28,6 @@ export default class ShowField extends Component {
     const {localizationLabels} =this.props;
     let { maxDate } = this.state;
     let description = des;
-console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
     let dropDownData = [];
 
     if (!isEmpty(obj.defaultValue)) {
@@ -49,21 +45,20 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
         });
       }
     }
-     console.log('obj-----',obj.type,'label----',obj.label,'value',obj.value)
 
     switch (obj.type) {
       case "epoch":
         return (
           <Grid item xs={12} sm={6} md={6} lg={6} style={{paddingRight: 8,paddingLeft: "20px"}}>
             <DatePicker
-              // className="custom-form-control-for-textfield"
+              
               id={obj.label.split(".").join("-")}
               autoOk={true}
               fullWidth={true}
               floatingLabelFixed={true}
               maxDate={maxDate}
               
-              // required={obj.isMandatory ? true : false}
+              
               floatingLabelText={
                 <div className="rainmaker-displayInline">
                   <Label className="show-field-label" label={description} containerStyle={{ marginRight: "5px" }} />
@@ -91,203 +86,16 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
             />
           </Grid>
         );
-      // case "singlevaluelist":
-      //   return (
-      //     <Col xs={12} sm={4} md={4} lg={4}>
-      //       <DropDown
-      //         // className="custom-form-control-for-select"
-      //         hintText={<Label label="PT_COMMONS_SELECT_PLACEHOLDER" />}
-      //         disabled={obj.disabled ? true : false}
-      //         id={obj.label.split(".").join("-")}
-      //         fullWidth={true}
-      //         dropDownMenuProps={{ targetOrigin: { horizontal: "left", vertical: "bottom" } }}
-      //         floatingLabelFixed={true}
-      //         floatingLabelText={
-      //           <div className="rainmaker-displayInline">
-      //             <Label className="show-field-label" label={description} containerStyle={{ marginRight: "5px" }} />
-      //             <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //           </div>
-      //         }
-      //         value={typeof obj.value == "undefined" ? "" : obj.value}
-      //         onChange={(event, key, value) => {
-      //           let e = { target: { value } };
-      //           this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //         }}
-      //         maxHeight={200}
-      //         dropDownData={dropDownData}
-      //       />
-      //     </Col>
-      //   );
 
-      // case "singlevaluelist":
-      //   const dataSourceConfig = { text: "label", value: "value" };
-      //   return (
-      //     <Grid item xs={12} sm={4} md={4} lg={4}>
-      //       <AutoSuggestDropdown
-      //       dataSource={dropDownData}
-      //       value={typeof obj.value === undefined ? "" : getDropdownLabel(obj.value, dropDownData)}
-      //       hintText="Select"
-      //       hintStyle={{fontSize: "14px",color: "#767676"}}
-      //       floatingLabelText={
-      //         <div className="rainmaker-displayInline">
-      //           <Label
-      //             className="show-field-label"
-      //             label={description}
-      //             containerStyle={{ marginRight: "5px" }}
-      //             style={{ fontSize: "16px !important" }}
-      //           />
-      //           <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //         </div>
-      //       }
-      //       onChange={(value) => {
-      //         const e = { target: { value: value.value } };
-      //         this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //       }}
-      //     />
-      //       {/* <AutoComplete
-      //         // className="custom-form-control-for-textfield"
-
-      //         // floatingLabelStyle={{ fontSize: "20px"}}
-      //         floatingLabelText={
-      //           <div className="rainmaker-displayInline">
-      //             <Label
-      //               className="show-field-label"
-      //               label={description}
-      //               containerStyle={{ marginRight: "5px" }}
-      //               style={{ fontSize: "16px !important" }}
-      //             />
-      //             <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //           </div>
-      //         }
-      //         // inputStyle={{ color: "#5F5C57" }}
-      //         floatingLabelFixed={true}
-      //         fullWidth={true}
-      //         // style={{ display: "inline-block" }}
-      //         filter={(searchText, key) => {
-      //           return key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
-      //         }}
-      //         // listStyle={{ maxHeight: 100, overflow: "auto" }}
-      //         onNewRequest={(value) => {
-      //           const e = { target: { value: value.value } };
-      //           this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //         }}
-      //         onUpdateInput={(searchText, dataSource, params) => {
-      //           const e = { target: { value: searchText } };
-      //           this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //         }}
-      //         dataSource={dropDownData}
-      //         dataSourceConfig={dataSourceConfig}
-      //         openOnFocus={true}
-      //         listStyle={{ maxHeight: 200, overflow: 'auto' }}
-      //         maxSearchResults={200}
-      //         searchText={obj.searchText}
-      //       /> */}
-      //     </Grid>
-      //   );
-
-      // case "url":
-      //   return (
-      //     <Grid item xs={12} sm={4} md={4} lg={4}>
-      //       <SelectField
-      //         // className="custom-form-control-for-select"
-      //         hintText={<Label label="PT_COMMONS_SELECT_PLACEHOLDER2" />}
-      //         underlineDisabledStyle={{ background: "blue" }}
-      //         disabled={obj.disabled ? true : false}
-      //         id={obj.label.split(".").join("-")}
-      //         fullWidth={true}
-      //         dropDownMenuProps={{ targetOrigin: { horizontal: "left", vertical: "bottom" } }}
-      //         floatingLabelFixed={true}
-      //         floatingLabelText={
-      //           <span>
-      //             {description} <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //           </span>   
-      //         }
-      //         value={typeof obj.value == "undefined" ? "" : obj.value}
-      //         // onChange={(event, key, value) => {
-      //         //   let e = { target: { value } };
-      //         //   this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //         // }}
-      //         maxHeight={200}
-      //       >
-      //         {/* {dropDownData.map((dd, index) => (
-      //           <MenuItem value={translate(dd.key)} key={index} primaryText={translate(dd.value)} />
-      //         ))} */}
-      //       </SelectField>
-      //     </Grid>
-      //   );
-
-      // case "multivaluelist":
-      //   return (
-      //     <Grid item xs={12} sm={4} md={4} lg={4}>
-      //       <SelectField
-      //         // className="custom-form-control-for-select"
-      //         hintText={<Label label="PT_COMMONS_SELECT_PLACEHOLDER1" />}
-      //         id={obj.label.split(".").join("-")}
-      //         fullWidth={true}
-      //         multiple={true}
-      //         dropDownMenuProps={{ targetOrigin: { horizontal: "left", vertical: "top" } }}
-      //         floatingLabelFixed={true}
-      //         // floatingLabelText={
-      //         //   <span>
-      //         //     {description} <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //         //   </span>
-      //         // }
-      //         floatingLabelText={
-      //           <div className="rainmaker-displayInline">
-      //             <Label
-      //               className="show-field-label"
-      //               label={description}
-      //               containerStyle={{ marginRight: "5px" }}
-      //               style={{ fontSize: "16px !important" }}
-      //             />
-      //             <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //           </div>
-      //         }
-      //         value={typeof obj.value == "undefined" ? "" : obj.value}
-      //         onChange={(event, key, value) => {
-      //           let e = { target: { value } };
-      //           this.props.handler(e, obj.name, obj.isMandatory ? true : false, "");
-      //         }}
-      //         maxHeight={200}
-      //       >
-      //         {dropDownData.map((dd, index) => (
-      //           <MenuItem
-      //             insetChildren={true}
-      //             checked={obj.value && obj.value.indexOf(dd.value) > -1 ? true : false}
-      //             // value={translate(dd.value)}
-      //             key={index}
-      //             primaryText={getLocaleLabels(dd.label,dd.label,localizationLabels)}
-      //           />
-      //         ))}
-      //       </SelectField>
-      //     </Grid>
-      //   );
-
-      // case "checkbox":
-      //   return (
-      //     <Grid item xs={12} md={3}>
-      //       <Checkbox
-      //         id={obj.label.split(".").join("-")}
-      //         label={
-      //           <span>
-      //             {description} <span style={{ color: "#FF0000" }}>{obj.isMandatory ? " *" : ""}</span>
-      //           </span>
-      //         }
-      //         checked={obj.value ? obj.value : false}
-      //         onCheck={(e) => this.props.handler({ target: { value: e.target.checked } }, obj.name, obj.isMandatory ? true : false, "")}
-      //       />
-      //     </Grid>
-      //   );
 
       case "boundarylist":
-        // return <UiBoundary item={boundaryConfig} handleFieldChange={this.props.handler} />;
+        
 
       default:
         return <div />;
     }
   };
   render() {
-    console.log('this.props.obj',this.props.obj);
     return this.renderFields(this.props.obj);
   }
 }

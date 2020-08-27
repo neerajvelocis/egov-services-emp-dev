@@ -274,13 +274,6 @@ class BookingsDetails extends Component {
             startIcon={<ArrowForwardIosIcon />}
           />
         </div>
-
-        {/* <button className="Back" onClick={this.back}>
-          « Previous
-                </button> */}
-        {/* <button className="Next" onClick={this.continue}>
-          Next »
-                </button> */}
       </div>
     </div>
     );
@@ -288,10 +281,10 @@ class BookingsDetails extends Component {
 }
 const mapStateToProps = state => {
 
-  console.log('state======>>>>>', state)
+  
   const { complaints, common, auth, form } = state;
   const { complaintSector } = complaints;
-  console.log('complaintSector', complaintSector)
+  
   
 
   return {

@@ -9,8 +9,6 @@ const addressStyle = {
 
 const iconStyle = {
   display: "inline-block",
-  // width: 45,
-  // height: 28,
   marginRight: 7,
   marginTop: -3
 };

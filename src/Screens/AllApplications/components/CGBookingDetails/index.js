@@ -46,7 +46,6 @@ class CGBookingDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
   };
 
   convertEpochToDate = (dateEpoch) => {
@@ -60,20 +59,16 @@ class CGBookingDetails extends Component {
   };
 
   render() {
-    console.log('this.state', this.state)
+   
 
     const { status, bkBookingPurpose, bkFromDate, bkToDate, historyApiData, bkDuration, applicantName, applicationNo, submittedDate, bookingPurpose, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
-    console.log("bkBookingPurpose ",bkBookingPurpose)
-    console.log("bkFromDate ",bkFromDate)
-    console.log("bkToDate ",bkToDate)
-
     return (
       <div>
         <Card
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
+                
                 <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
@@ -101,10 +96,10 @@ class CGBookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
                   <b><Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    //label={submittedDate}
+                   
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    // label={dateCreated}
+                    
                     label= {this.convertEpochToDate(
                       dateCreated,"dayend"
                     )}
@@ -114,7 +109,7 @@ class CGBookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_TYPE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    //label={submittedDate}
+                    
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
                     label={bookingType}
@@ -124,34 +119,23 @@ class CGBookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_PURPOSE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    //label={submittedDate}
+                    
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
                     label={bkBookingPurpose}
                   />
                 </div>
-                {/* <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_DURATION" />
-                  <Label
-                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    label={submittedDate}
-                    id="complaint-details-submission-date"
-                    labelStyle={{ color: "inherit" }}
-                    label={bkDuration}
-                  />
-                </div> */}
-
               <div className="col-md-4">
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_FROM_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    //label={submittedDate}
+                    
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
                     label= {this.convertEpochToDate(
                       bkFromDate,"dayend"
                     )}
-                    // label={bkFromDate}
+                    
                   />
                 </div>
 
@@ -159,10 +143,10 @@ class CGBookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_TO_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    // label={submittedDate}
+                    
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    // label={bkToDate}
+                    
                     label= {this.convertEpochToDate(
                       bkToDate,"dayend"
                     )}
@@ -173,7 +157,7 @@ class CGBookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_VENUE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    // label={submittedDate}
+                    
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
                     label={sector}

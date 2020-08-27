@@ -47,7 +47,7 @@ import {
 import { connect } from "react-redux";
 
 import "./index.css";
-//newImport
+
 import { convertEpochToDate, getDurationDate} from '../../modules/commonFunction'
 import ActionButtonDropdown from "../../modules/ActionButtonDropdown"
 class CGApplicationDetails extends Component {
@@ -77,29 +77,10 @@ class CGApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-		console.log('match.params.serviceRequestId---', this.props)
-		console.log('AfterPaymentAmount--',this.props.fetchDataAfterPayment)
-		console.log('paramDetails--',match.params)
-		console.log('transformedComplaintbyME--',this.props.transformedComplaint)
-		console.log('matchbyME--',this.props.match)
-
 		prepareFormData("complaints", transformedComplaint);
 
 		const { complaint } = transformedComplaint;
 
-	// 	let SingleAppDlicationata =  {
-	// 		"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
-	// 		"applicationStatus": "",
-	// 		"mobileNumber": "", "bookingType": ""
-	// 	}
-
-	// 	console.log("SingleAppDlicationata ",SingleAppDlicationata)
-	// 	let SingleApplication = await httpRequest( 
-	// 	    "bookings/api/employee/_search",
-	// 	    "_search",[],
-	// 	    SingleAppDlicationata
-	// 	  );
-    //    console.log("SingleApplication--",SingleApplication)
     await fetchApplications(
 			{
 				"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
@@ -124,24 +105,15 @@ class CGApplicationDetails extends Component {
 				"mobileNumber": "", "bookingType": "","tenantId" : userInfo.tenantId
 			}
 		  
-		  
-		console.log("complaintCountRequest ",complaintCountRequest)
-  
-  //"bookings/commercial/ground/fee/_search",
 		let dataforSectorAndCategory = await httpRequest( 	
 			"bookings/api/employee/_search",
 		    "_search",[],
 		    complaintCountRequest
 		  );
-		console.log("dataforSectorAndCategory",dataforSectorAndCategory)
-// complaint && complaint.applicantName ? complaint.applicantName : 'NA',
+		
 		let venueData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkBookingVenue : 'NA'
         let categoryData = dataforSectorAndCategory && dataforSectorAndCategory.bookingsModelList ? dataforSectorAndCategory.bookingsModelList[0].bkCategory : 'NA'
-		//fetch baserate
-
-		console.log("dataforSectorAndCategory",dataforSectorAndCategory)
-		console.log("venueData--",venueData)
-		console.log("categoryData---",categoryData)
+		
 
     fetchperDayRate({	
 				bookingVenue:venueData ,
@@ -152,7 +124,6 @@ class CGApplicationDetails extends Component {
 	
 
 	componentWillReceiveProps = async (nextProps) =>  {
-		console.log('this.props123', this.props)
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -228,8 +199,8 @@ class CGApplicationDetails extends Component {
 	};
 
 	btnOneOnClick = (e,complaintNo, label) => {
-		console.log('complaintNo in  btnone', e.target.value,complaintNo, label)
-		//Action for first button
+	
+		
 		let { history } = this.props;
 		if (e.target.value=="REJECTED") {
 				history.push(`/reject-booking/${complaintNo}`);
@@ -239,7 +210,7 @@ class CGApplicationDetails extends Component {
 		}		
 	};
 	btnTwoOnClick = (complaintNo, label) => {
-		//Action for second button
+		
 		let { history } = this.props;
 		switch (label) {
 			case "ES_COMMON_ASSIGN":
@@ -258,9 +229,6 @@ class CGApplicationDetails extends Component {
 		const { transformedComplaint,paymentDetails,downloadPermissionLetterforCG,userInfo } = this.props;
 		
 		const {complaint} = transformedComplaint;
-		console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-		console.log('compalint in downloadpayament',complaint,paymentDetails)
-	
 		let receiptData = [
 			{
 				applicantDetail: {
@@ -293,16 +261,10 @@ class CGApplicationDetails extends Component {
 	
 	}
 
-//PaymentReceipt
+
 downloadPaymentReceiptFunction = async (e) => {
 	const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG, userInfo, paymentDetails } = this.props;
 	const { complaint } = transformedComplaint;
-	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-		console.log('compalint in downloadpayament',complaint,paymentDetails)
-console.log("cgappno--",complaint.applicationNo,complaint.sector,complaint.dateCreated,complaint.bkFromDate,
-complaint.bkToDate)
-
 	let receiptData = [
 		{
 			applicantDetail: {
@@ -317,8 +279,6 @@ complaint.bkToDate)
 			bookingDetail: {
 				applicationNumber:
 				complaint.applicationNo,
-				// applicationDate:
-				// complaint.dateCreated,
 				applicationDate: convertEpochToDate(
 					complaint.dateCreated,"dayend"
 				),
@@ -352,7 +312,6 @@ const { transformedComplaint,paymentDetails,downloadApplicationforCG,paymentDeta
 
 const {complaint} = transformedComplaint;
 
-console.log('compalint in downloadpayament',complaint,paymentDetails)
 let BookingInfo = [{
 	"applicantDetail": {
 		"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
@@ -395,20 +354,13 @@ downloadApplicationforCG({BookingInfo:BookingInfo})
 
 downloadApplicationButton = async (e) => {
 	await this.downloadApplicationFunction();
-
-	console.log('DownloadApplicationDetailsforCG this.props',this.props)
 	let documentsPreviewData;
 	const { DownloadApplicationDetailsforCG } = this.props;
 	
 	var documentsPreview = [];
 	if (DownloadApplicationDetailsforCG && DownloadApplicationDetailsforCG.filestoreIds.length > 0) {
 
-		console.log('DownloadApplicationDetailsforCG',DownloadApplicationDetailsforCG.filestoreIds[0])
 		 documentsPreviewData=DownloadApplicationDetailsforCG.filestoreIds[0];
-		
-		// let keys = Object.keys(documentMap);
-		// let values = Object.values(documentMap);
-		// let id = keys[0], fileName = values[0];
 
 		documentsPreview.push({
 			title: "DOC_DOC_PICTURE",
@@ -418,7 +370,7 @@ downloadApplicationButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+	
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -426,7 +378,7 @@ downloadApplicationButton = async (e) => {
 					fileUrls[doc.fileStoreId] &&
 					fileUrls[doc.fileStoreId].split(",")[0]) ||
 				"";
-			//doc["name"] = doc.fileStoreId;
+			
 			doc["name"] =
 				(fileUrls[doc.fileStoreId] &&
 					decodeURIComponent(
@@ -440,7 +392,7 @@ downloadApplicationButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
+	
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -448,24 +400,19 @@ downloadApplicationButton = async (e) => {
 	}
 }
 
-//new paymentReceipt
+
 downloadReceiptButton = async (e) => {
 	
 	await this.downloadReceiptFunction();
 
-	console.log('DownloadReceiptDetailsforCG this.props',this.props)
+	
 	let documentsPreviewData;
 	const { DownloadReceiptDetailsforCG } = this.props;
 	
 	var documentsPreview = [];
 	if (DownloadReceiptDetailsforCG && DownloadReceiptDetailsforCG.filestoreIds.length > 0) {
-
-		console.log('DownloadReceiptDetailsforCG',DownloadReceiptDetailsforCG.filestoreIds[0])
 		 documentsPreviewData=DownloadReceiptDetailsforCG.filestoreIds[0];
 		
-		// let keys = Object.keys(documentMap);
-		// let values = Object.values(documentMap);
-		// let id = keys[0], fileName = values[0];
 
 		documentsPreview.push({
 			title: "DOC_DOC_PICTURE",
@@ -475,7 +422,7 @@ downloadReceiptButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+		
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -483,7 +430,7 @@ downloadReceiptButton = async (e) => {
 					fileUrls[doc.fileStoreId] &&
 					fileUrls[doc.fileStoreId].split(",")[0]) ||
 				"";
-			//doc["name"] = doc.fileStoreId;
+		
 			doc["name"] =
 				(fileUrls[doc.fileStoreId] &&
 					decodeURIComponent(
@@ -497,7 +444,7 @@ downloadReceiptButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
+	
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -508,9 +455,6 @@ downloadReceiptButton = async (e) => {
 downloadReceiptFunction = async (e) => {
 	const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceiptforCG,downloadReceiptforCG, userInfo, paymentDetails } = this.props;
 	const { complaint } = transformedComplaint;
-	console.log('compalint in downloadpayament', complaint, paymentDetailsForReceipt)
-	console.log("bkApplicationNumberPayment ",complaint.applicationNo)
-		console.log('compalint in downloadpayament',complaint,paymentDetails)
 
 	let BookingInfo = [{
 		"applicantDetail": {
@@ -548,9 +492,6 @@ downloadReceiptFunction = async (e) => {
 			receiptNo:
 				paymentDetailsForReceipt.Payments[0].paymentDetails[0]
 					.receiptNumber,
-			// name: paymentDetailsForReceipt.Payments[0].payerName,
-			//     mobileNumber:
-			//         paymentDetailsForReceipt.Payments[0].mobileNumber,
 		},
 		payerInfo: {
 			payerName: paymentDetailsForReceipt.Payments[0].payerName,
@@ -564,26 +505,17 @@ downloadReceiptFunction = async (e) => {
 	]
 	downloadReceiptforCG({BookingInfo: BookingInfo})
 }
-//new paymentreceipt
-
 
 downloadPaymentReceiptButton = async (e) => {
 	
 	await this.downloadPaymentReceiptFunction();
 
-	console.log('DownloadPaymentReceiptDetailsforCG this.props',this.props)
 	let documentsPreviewData;
 	const { DownloadPaymentReceiptDetailsforCG } = this.props;
 	
 	var documentsPreview = [];
 	if (DownloadPaymentReceiptDetailsforCG && DownloadPaymentReceiptDetailsforCG.filestoreIds.length > 0) {
-
-		console.log('DownloadPaymentReceiptDetailsforCG',DownloadPaymentReceiptDetailsforCG.filestoreIds[0])
 		 documentsPreviewData=DownloadPaymentReceiptDetailsforCG.filestoreIds[0];
-		
-		// let keys = Object.keys(documentMap);
-		// let values = Object.values(documentMap);
-		// let id = keys[0], fileName = values[0];
 
 		documentsPreview.push({
 			title: "DOC_DOC_PICTURE",
@@ -593,7 +525,7 @@ downloadPaymentReceiptButton = async (e) => {
 		let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 		let fileUrls =
 			fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		console.log("fileUrls", fileUrls);
+	
 
 		documentsPreview = documentsPreview.map(function (doc, index) {
 			doc["link"] =
@@ -601,7 +533,7 @@ downloadPaymentReceiptButton = async (e) => {
 					fileUrls[doc.fileStoreId] &&
 					fileUrls[doc.fileStoreId].split(",")[0]) ||
 				"";
-			//doc["name"] = doc.fileStoreId;
+			
 			doc["name"] =
 				(fileUrls[doc.fileStoreId] &&
 					decodeURIComponent(
@@ -615,7 +547,6 @@ downloadPaymentReceiptButton = async (e) => {
 				`Document - ${index + 1}`;
 			return doc;
 		});
-		console.log('documentsPreview',documentsPreview)
 		setTimeout(() => {
 			window.open(documentsPreview[0].link);
 		}, 100);
@@ -627,7 +558,6 @@ downloadPaymentReceiptButton = async (e) => {
 }
 
 callApiDorData = async (e) =>  {
-		console.log('e.target.dataset',e.target.dataset.doc,this.props)
 
 const {documentMap}=this.props;
 
@@ -646,11 +576,6 @@ const {documentMap}=this.props;
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
-
-
-			        //  window.open(response.file);
-			console.log("documentsPreview", documentsPreview);
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -658,7 +583,7 @@ const {documentMap}=this.props;
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+				
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -670,7 +595,7 @@ const {documentMap}=this.props;
 								.slice(13)
 						)) ||
 					`Document - ${index + 1}`;
-				console.log('doc====', doc)
+			
 				return doc;
 			});
 			
@@ -679,7 +604,6 @@ const {documentMap}=this.props;
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 		    }, 100);
-			console.log('documentsPreview1--',documentsPreview)
 			prepareFinalObject('documentsPreview', documentsPreview)
 		}
 
@@ -704,7 +628,7 @@ const {documentMap}=this.props;
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+		
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -712,7 +636,7 @@ const {documentMap}=this.props;
 						fileUrls[doc.fileStoreId] &&
 						fileUrls[doc.fileStoreId].split(",")[0]) ||
 					"";
-				//doc["name"] = doc.fileStoreId;
+			
 				doc["name"] =
 					(fileUrls[doc.fileStoreId] &&
 						decodeURIComponent(
@@ -747,8 +671,6 @@ const {documentMap}=this.props;
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap } = this.props;
 		let { historyApiData, paymentDetails, perDayRupees, match, userInfo } = this.props;
-		console.log('props in render123==', this.props)
-console.log("complaintsToAddress ",complaint)
 		let {
 			role,
 			serviceRequestId,
@@ -760,9 +682,7 @@ console.log("complaintsToAddress ",complaint)
 		let btnTwoLabel = "";
 		let action;
 		let complaintLoc = {};
-		// if (complaint && complaint.latitude) {
-		//   complaintLoc = { lat: complaint.latitude, lng: complaint.longitude };
-		// }
+		
 		if (complaint) {
 			if (role === "ao") {
 				if (complaint.complaintStatus.toLowerCase() === "unassigned") {
@@ -790,11 +710,9 @@ console.log("complaintsToAddress ",complaint)
 				}
 			}
 			else if (role === "employee") {
-				console.log('complaint in role', typeof (complaint.status))
-				//  if () {
 				btnOneLabel = "MYBK_REJECT_BUTTON";
 				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
-				//  }
+				
 			}
 		}
 		if (timeLine && timeLine[0]) {
@@ -902,10 +820,8 @@ Application Details
                               <CGBookingDetails
 									{...complaint}
 								/>
-                                  {/* <PaymentDetails
-									paymentDetails={paymentDetails && paymentDetails}
-								/> */}
-								{console.log("MyRatePerDay--",perDayRupees)}
+                                 
+							
 
 <CGPaymentDetails
 	paymentDetails={paymentDetails && paymentDetails}
@@ -942,8 +858,6 @@ const roleFromUserInfo = (roles = [], role) => {
 		: false;
 };
 
-
-//Don't Delete this
 const getLatestStatus = status => {
 	let transformedStatus = "";
 	switch (status.toLowerCase()) {
@@ -989,9 +903,6 @@ const mapStateToProps = (state, ownProps) => {
 	const {DownloadPaymentReceiptDetailsforCG}=complaints;
 	const {DownloadPermissionLetterDetailsforCG}=complaints;
 	const {DownloadApplicationDetailsforCG,DownloadReceiptDetailsforCG}=complaints;
-	
-	// complaint=applicationData?applicationData.bookingsModelList:'';
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'applicationData', applicationData)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =
@@ -1002,17 +913,13 @@ const mapStateToProps = (state, ownProps) => {
 	let selectedComplaint = applicationData ? applicationData.bookingsModelList[0] : ''
 	let businessService = applicationData ? applicationData.businessService : "";
 	let bookingDocs;
-
-	console.log('businessService=====', businessService)
 	const { documentMap } = applicationData;
 	const { HistoryData } = complaints;
 	let temp;
-console.log('temp===',temp)
 	let historyObject = HistoryData ? HistoryData : ''
 	const { paymentData } = complaints;
 	const { fetchPaymentAfterPayment } = complaints;
 	const { perDayRate } = complaints;
-console.log("perDayRate--",perDayRate)
 	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
 	let perDayRupees;
@@ -1030,8 +937,7 @@ console.log("perDayRate--",perDayRate)
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	console.log('paymentDetails in map state to props', paymentDetails)
-	console.log('perDayRate in map state to props--',perDayRate)
+	
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")
@@ -1077,7 +983,7 @@ console.log("perDayRate--",perDayRate)
 		if (applicationData != null && applicationData != undefined) {
 
 			transformedComplaint = {
-				complaint: details,//applicationData?applicationData.bookingsModelList[0]:'',
+				complaint: details,
 			};
 		}
 
@@ -1086,7 +992,7 @@ console.log("perDayRate--",perDayRate)
 			`SERVICEDEFS.${transformedComplaint.complaint.complaint}`.toUpperCase(),
 			localizationLabels
 		);
-		// let documentMapDataValues = [];
+		
 		return {
 			paymentDetails,
 			historyApiData,
@@ -1096,7 +1002,7 @@ console.log("perDayRate--",perDayRate)
 			DownloadApplicationDetailsforCG,
 			paymentDetailsForReceipt,
 			perDayRupees,
-			// documentMapDataValues,
+			
 			documentMap,
 			form,
 			transformedComplaint,
@@ -1104,7 +1010,7 @@ console.log("perDayRate--",perDayRate)
 			serviceRequestId,
 			isAssignedToEmployee,
 			complaintTypeLocalised,
-			// reopenValidChecker
+		
 		};
 	} else {
 		return {
@@ -1116,14 +1022,14 @@ console.log("perDayRate--",perDayRate)
 			DownloadApplicationDetailsforCG,
 			paymentDetailsForReceipt,
 			perDayRupees,
-			// documentMapDataValues,
+			
 			documentMap,
 			form,
 			transformedComplaint: {},
 			role,
 			serviceRequestId,
 			isAssignedToEmployee,
-			// reopenValidChecker
+		
 		};
 	}
 };

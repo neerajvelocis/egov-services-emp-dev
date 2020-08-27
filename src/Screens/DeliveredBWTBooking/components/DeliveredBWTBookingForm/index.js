@@ -24,7 +24,6 @@ const styles = theme => ( {
     borderRadius: "5px",
     backgroundColor: '#FE7A51',
     textTransform: 'uppercase',
-    // display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: "pointer",
@@ -46,7 +45,7 @@ const styles = theme => ( {
 });
 const DeliveredBWTForm = ({ form, options,classes,driverFullName,mobileNumber,approverName, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
 
-// let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
+
 
   if(form && form.fields){
     let formValue={...form.fields};
@@ -60,21 +59,17 @@ formValue.businessService.value=bookingservice;
 formValue.driverName.value = driverFullName;
 formValue.mobileNumber.value = mobileNumber;
 formValue.approverName.value = approverName;
-console.log('formValue--->>',formValue)
+
   }
 
-  console.log('submit button2',form)
+  
   const fields = form.fields || {};
   const submit = form.submit;
   return (
     <div>
- {/* <div className="custom-padding-for-screens">
-      <b>Application Number: </b>{applicationNumber}
-    </div>   */}
+ 
           <div className="custom-padding-for-screens">
-        {/* <div className="reject-complaint-question request-reaasign-question">
-          <Question options={options} label={"ES_REJECT_COMPLAINT_QUESTION"} handleChange={handleOptionChange} valueSelected={optionSelected} />
-        </div> */}
+        
         <div className="reject-complaint-textArea">
 
 
@@ -98,20 +93,11 @@ console.log('formValue--->>',formValue)
                   }}
                 />
               }
-              // floatingLabelText={
-              //   <Label
-              //     key={0}
-              //     label="MYBK_COMMON_COMMENTS_VALUE"
-              //     color="rgba(0,0,0,0.60)"
-              //     fontSize="12px"
-              //   />
-              // }
               onChange={ontextAreaChange}
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
-          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
         </div>
       </div>
       <div className={classes.btnWrapper}>

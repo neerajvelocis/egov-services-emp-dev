@@ -24,7 +24,6 @@ const styles = theme => ( {
     borderRadius: "5px",
     backgroundColor: '#FE7A51',
     textTransform: 'uppercase',
-    // display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: "pointer",
@@ -46,9 +45,6 @@ const styles = theme => ( {
 });
 
 const RejectComplaintForm = ({ form, options, onSubmit,bookingservice,bookingtype,applicationNumber,createdBy,tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue, classes }) => {
-  console.log('submit button',form)
-// let bookingsRemarks=[{bkCreatedBy:createdBy,bkRemarks:commentValue,bkCreatedOn:new Date()}];
-
   if(form && form.fields){
     let formValue={...form.fields};
 formValue.applicationNumber.value=applicationNumber;
@@ -58,10 +54,7 @@ formValue.remarks.value=commentValue;
 formValue.createdOn.value=new Date();
 formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
-console.log('formValue--->>',formValue)
   }
-
-  console.log('submit button2',form)
   const fields = form.fields || {};
   const submit = form.submit;
   return (
@@ -87,21 +80,13 @@ console.log('formValue--->>',formValue)
                   }}
                 />
               }
-              // floatingLabelText={
-              //   <Label
-              //     key={0}
-              //     label="MYBK_COMMON_COMMENTS_VALUE"
-              //     color="rgba(0,0,0,0.60)"
-              //     fontSize="12px"
-              //   />
-              // }
+              
               onChange={ontextAreaChange}
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
           
-          {/* <TextArea onChange={ontextAreaChange} value={commentValue} {...fields.textarea} /> */}
         </div>
         </div>
         <div className={classes.btnWrapper}>

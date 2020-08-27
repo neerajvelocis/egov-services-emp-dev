@@ -477,7 +477,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -524,7 +524,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			console.log("fileUrls", fileUrls);
+			
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -825,44 +825,7 @@ class ApplicationDetails extends Component {
 										</div>
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
-												{/* <ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
-													rightIcon: "arrow_drop_down",
-													leftIcon: "cloud_download",
-													props: {
-														variant: "outlined",
-														style: { marginLeft: 5, marginRight: 15, color: "#FE7A51", height: "60px" }, className: "tl-download-button"
-													},
-													menu: (complaint.status=='APPROVED')?[{
-														label: {
-															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
-														},
-
-														link: () => this.downloadPaymentReceiptButton('Receipt')
-													},
-													{
-														label: {
-															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
-														},
-														link: () => this.downloadPermissionLetterButton('PermissionLetter')
-													},{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
-
-													}]:
-													[{
-														label: {
-															labelName: "Application",
-															labelKey: "MYBK_DOWNLOAD_APPLICATION"
-														},
-														link: () => this.downloadApplicationButton('Application')
-													}]
-												}} /> */}
+												
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
 
@@ -891,14 +854,7 @@ class ApplicationDetails extends Component {
 								<NewLocationFieldsDetails
 									{...complaint}
 								/>
-								{/* {(() => { */}
-								{/* if (imageDetails&&imageDetails.length>0) { */}
-								{/* <ImageListDetails
-									data={this.state && this.state.ImageList}
-								/> */}
-								{/* } */}
-
-								{/* })()} */}
+								
 
 								<div style={{height: "250px", marginBottom:'15px',width: "100",backgroundColor: "white",	border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
@@ -909,7 +865,7 @@ class ApplicationDetails extends Component {
 									if (this.state && this.state.ImageList.length > 0) {
                                        
 										return this.state.ImageList.map((item, index) => { 
-											//console.log('item in render',item)
+											
 											return <div style={{marginRight: "20px",display: 'inline-block'}}><img size="medium" width={200} height={154} src={item.fileUrl} />	</div>
 										})
 									}
@@ -919,14 +875,7 @@ class ApplicationDetails extends Component {
 
 								
 
-								{/* <PaymentDetails
-									paymentDetails={paymentDetails && paymentDetails}
-								/> */}
-								{/* {documentMap && (
-									<DownloadFileContainer
-									
-									/> */}
-								{/* )} */}
+								
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -935,7 +884,7 @@ class ApplicationDetails extends Component {
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
-									{/* {part1 && part1[0] && part1[0].fileName ? part1[0].fileName : "Not found"} */}
+									
 									document.pdf
 									<button className="ViewDetailButton" onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
@@ -1040,41 +989,6 @@ class ApplicationDetails extends Component {
 
 									)
 
-
-
-
-
-									// <select
-									// 	value={this.state.bookingType}
-									// 	onChange={(e, value) => this.actionButtonOnClick(e, serviceRequestId, btnOneLabel)}
-									// 	style={{
-									// 		marginRight: "15",
-									// 		backgroundColor: "#FE7A51",
-									// 		color: "#fff",
-									// 		border: "none",
-									// 		height: "60px",
-									// 		width: "200px",
-									// 		float: "right", paddingLeft: "50px"
-
-									// 	}}
-
-									// >
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="">Take Action</option>
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="APPROVED">Approve</option>
-									// 	<option style={{
-									// 		background: "white",
-									// 		color: "gray"
-									// 	}} value="REJECTED">Reject</option>
-									// </select>
-
-
-
 								)}
 
 								<DialogContainer
@@ -1158,7 +1072,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { MccApplicationData } = complaints;
 	const { DownloadPaymentReceiptDetails, DownloadApplicationDetails, DownloadPermissionLetterDetails } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
-	console.log('state---in app Details', state, 'ownProps', ownProps, 'MccApplicationData', MccApplicationData)
+	
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =

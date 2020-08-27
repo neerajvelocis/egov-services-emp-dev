@@ -3,8 +3,6 @@ import { Card, Image, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import isEmpty from "lodash/isEmpty";
 import "./index.css";
-// import HistoryIcon from "@material-ui/icons/History";
-// import { LabelContainer } from "egov-ui-framework/ui-containers";
 import DialogContainer from "../../../../modules/DialogContainer"
 
 import { withStyles } from '@material-ui/core/styles';
@@ -132,7 +130,6 @@ class BookingDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
   };
 
 
@@ -144,28 +141,6 @@ class BookingDetails extends Component {
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
-  //  if(ProcessInstances&&ProcessInstances.auditDetails&&ProcessInstances.auditDetails.lastModifiedTime){
-  //   ProcessInstances= ProcessInstances.sort(ProcessInstances&&ProcessInstances.auditDetails.lastModifiedTime)
-  //  }
-   
-   console.log('ProcessInstances',ProcessInstances)
-   
-    // let currentObj =
-    // ProcessInstances && ProcessInstances[ProcessInstances.length - 1];
-    // if(currentObj && currentObj.businessService && currentObj.businessService === "OSBM"){
-    //   let assigness = [];
-    //     if(currentObj.assignes) {
-    //       currentObj.assignes.forEach(user => {
-    //         assigness.push(user.name);
-    //       });
-    //       currentObj.assignee={};
-    //       currentObj.assignee.name = assigness.join(',');
-    //     }
-    //     console.log('in task status currentObj',currentObj)
-
-    // }
-
-    // console.log('popupData in booking', currentObj)
 
     return (
       <div>
@@ -173,31 +148,18 @@ class BookingDetails extends Component {
           textChildren={
             <div>
                 <div className="rainmaker-displayInline row">
-              {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
+             
               
                 <div className="col-8" style={{paddingLeft:"10px"}}>
                   <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
-                  {/* <button 
-                  style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} 
-                  onClick={() => { this.handleClickOpen() }}>
-                   <HistoryIcon/> VIEW HISTORY
-                </button> */}
                 </div>
               </div>
               <div key={10} className="complaint-detail-full-width">
                 <Dialog maxWidth={false} style={{ zIndex: 2000 }} onClose={() => { this.handleClose() }} aria-labelledby="customized-dialog-title" open={this.state.open} >
-                  {/* <DialogTitle id="customized-dialog-title" onClose={() => { this.handleClose() }}>
-                    <b>Task Status</b>
-                  </DialogTitle> */}
                   <DialogContent>
                     <Typography>
-                      {/* <TaskStatusComponents> */}
-                      {/* { ProcessInstances.length > 0 &&  <TaskStatusContainer ProcessInstances={ProcessInstances} /> } */}
-                      {/* </TaskStatusComponents> */}
-
-
                       <Stepper orientation="vertical">
                         {ProcessInstances.map(
                           (item, index) =>
@@ -223,12 +185,6 @@ class BookingDetails extends Component {
                             )
                         )}
                       </Stepper>
-
-
-                      {/* <TaskStatusComponents
-                    currentObj={currentObj}
-                    index={ProcessInstances.length - 1}
-                  />  */}
                     </Typography>
                   </DialogContent>
                 </Dialog>
@@ -266,13 +222,13 @@ class BookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_FROM_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    //label={submittedDate}
+                  
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
                     label= {this.convertEpochToDate(
                       bkFromDate,"dayend"
                     )}
-                    // label={bkFromDate}
+                   
                   />
                 </div>
 
@@ -280,10 +236,10 @@ class BookingDetails extends Component {
                   <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_TO_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                    // label={submittedDate}
+                   
                     id="complaint-details-submission-date"
                     labelStyle={{ color: "inherit" }}
-                    // label={bkToDate}
+                  
                     label= {this.convertEpochToDate(
                       bkToDate,"dayend"
                     )}

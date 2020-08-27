@@ -4,7 +4,7 @@ import Label from "egov-ui-kit/utils/translationNode";
 import { SuccessMessage } from "modules/common";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 import "./index.css";
 
 class AssignToDriverSuccess extends Component {

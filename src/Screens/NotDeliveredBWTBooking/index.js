@@ -22,15 +22,15 @@ class NotDeliveredBWTBooking extends Component {
     commentValue: ""
   };
   componentDidMount() {
-    console.log('DeliveredBWTBookingHOC', DeliveredBWTBookingHOC)
+    
 
     let { fetchApplications, match, userInfo } = this.props;
-    console.log('match.params.applicationId', this.props)
+    
     fetchApplications(
       { 'uuid': userInfo.uuid, "applicationNumber": match.params.applicationId,
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
-      // { "applicationNumber": match.params.applicationId }
+      
     );
   }
 
@@ -38,7 +38,7 @@ class NotDeliveredBWTBooking extends Component {
   commentsValue = {};
 
   handleCommentsChange = (e, value) => {
-    console.log('e and values',e,'valllllll',value)
+   
     this.commentsValue.textVal = e.target.value;
     this.setState({
       commentValue: e.target.value
@@ -66,19 +66,9 @@ class NotDeliveredBWTBooking extends Component {
   onSubmit = e => {
 
     const { valueSelected, commentValue } = this.state;
-    console.log('this.stat in on submite', this.state)
+    
     const { toggleSnackbarAndSetText } = this.props;
-    // if (valueSelected === "Other" && !commentValue) {
-    //   e.preventDefault();
-    //   toggleSnackbarAndSetText(
-    //     true,
-    //     {
-    //       labelName: "Please mention your reason",
-    //       labelKey: "ERR_PLEASE_MENSION_YOUR_REASON"
-    //     },
-    //     "error"
-    //   );
-    // }
+    
   };
 
   render() {
@@ -87,14 +77,14 @@ class NotDeliveredBWTBooking extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit } = this;
     const { valueSelected, commentValue } = this.state;
     const { trasformData, businessServiceData } = this.props;
-    console.log('this in render', trasformData)
+    
     return (
       <Screen className="background-white">
         <DeliveredBWTBookingHOC
-          // options={this.options}
+          
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
-          // optionSelected={valueSelected}
+          
           commentValue={commentValue}
           applicationNumber={match.params.applicationId}
           createdBy={userInfo.name}

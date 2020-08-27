@@ -8,14 +8,14 @@ import {
   localStorageGet
 } from "egov-ui-kit/utils/localStorageUtils";
 
-// var store=require('../store');
+
 
 var common = require("../Common");
 var axios = require("axios");
 
 var instance = axios.create({
   baseURL: window.location.origin,
-  // timeout: 5000,
+  
   headers: {
     "Content-Type": "application/json"
   }
@@ -23,11 +23,11 @@ var instance = axios.create({
 
 var counter = 0;
 
-//document.cookie = "SESSIONID=75dedd21-1145-4745-a8aa-1790a737b7c5; JSESSIONID=Nw2kKeNF6Eu42vtXypb3kP4fER1ghjXNMNISiIF5.ip-10-0-0-100; Authorization=Basic Og==";
+
 
 var authToken = getAccessToken();
 
-//request info from cookies
+
 var requestInfo = {
   apiId: "org.egov.pt",
   ver: "1.0",
@@ -152,7 +152,7 @@ module.exports = {
             response.response.data &&
             response.response.data.error
           ) {
-            // let _err = common.translate(response.response.data.error.fields[0].code);
+            
             let _err = "";
 
             _err = response.response.data.error.message
@@ -186,10 +186,9 @@ module.exports = {
             response.response.data &&
             response.response.data.Errors
           ) {
-            // let _err = common.translate(response.response.data.error.fields[0].code);
+            
             let _err = "";
-            // _err=response.response.data.error.message?"a) "+extractErrorMsg(response.response.data.error, "message", "description")+" : ":"";
-            // let fields=response.response.data.error.fields;
+            
             if (response.response.data.Errors.length == 1) {
               _err +=
                 common.translate(response.response.data.Errors[0].message) +

@@ -51,7 +51,7 @@ const styles = theme => ({
 });
 
 const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignToMe,foundFirstLavels,assignee,handleOpen,handleClose, options,setOpen, userInfo, classes, onSubmit, bookingservice, bookingtype, applicationNumber, createdBy, tenantId, ontextAreaChange, handleOptionChange, optionSelected, commentValue }) => {
-  console.log('submit assignToMe', assignToMe);
+ 
 
 
   if (form && form.fields) {
@@ -61,7 +61,7 @@ const NewLocationResolvedForm = ({ form,handleChangeAssignee,assignToMe,foundFir
     if (foundFirstLavel) {
       formValue.action.value = 'APPROVE';
     }
-  //  console.log('submit foundFirstLavel', foundFirstLavel);
+ 
 
     const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
 

@@ -30,11 +30,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 
-
-
-
-
-
 class AllRequests extends Component {
   state = {
     complaintNo: "",
@@ -68,7 +63,7 @@ class AllRequests extends Component {
       setOpen: true
     })
   };
-  // const compainsData=[];
+  
   componentDidMount = async () => {
     let {
       role,
@@ -78,10 +73,10 @@ class AllRequests extends Component {
       renderCustomTitle,
       prepareFinalObject
     } = this.props;
-    console.log('this.props userInfo', userInfo)
+    
     let rawRole =
       userInfo && userInfo.roles && userInfo.roles[0].code.toUpperCase();
-    //const numberOfComplaints = role === "employee" ? numEmpComplaint : role === "csr" ? numCSRComplaint : 0;
+    
     if (rawRole === "PGR-ADMIN") {
       this.props.history.push("/report/rainmaker-pgr/DepartmentWiseReport");
     } else {
@@ -127,7 +122,6 @@ class AllRequests extends Component {
   componentWillReceiveProps = nextProps => {
 
     const { role, renderCustomTitle } = this.props;
-    console.log('this.props role--', role)
     if (
       !isEqual(
         this.props.transformedComplaints,
@@ -157,9 +151,6 @@ class AllRequests extends Component {
   };
 
   onComplaintClick = (complaintNo) => {
-    console.log('complaintNo in onComplaintClick all mcc', complaintNo);
-  //  this.props.history.push(`/egov-services/new-location-details/${complaintNo}`);
-
      this.props.history.push(`/egov-services/newLocation-application-details/${complaintNo}`);
   };
 
@@ -206,7 +197,6 @@ class AllRequests extends Component {
   };
 
   onSearch = () => {
-    console.log('on this.props', this.props, this.state)
     const { complaintNo, mobileNo, bookingType, applicationStatus ,fromDate, toDate} = this.state;
     const { fetchApplications, fetchMccApplications,searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
@@ -242,7 +232,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
      
 
-      console.log('bookingType', bookingType)
+      
     }
 
     if (fromDate) {
@@ -252,7 +242,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
      
-      console.log('fromDate', fromDate)
+      
     }
     if (toDate) {
       queryObj.bookingType = "";
@@ -261,12 +251,8 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
     
-      console.log('toDate', toDate)
     }
 
-
-
-    // bookingType
     if (searchForm && searchForm.fromDate) {
       queryObj.fromDate = searchForm.fromDate;
       queryObj.mobileNumber = "";
@@ -332,12 +318,8 @@ class AllRequests extends Component {
     this.setState({ search: true });
   };
   handleFormFields = () => {
-    console.log('this.props handleFormFields1', this.props)
+    
     let { metaData, searchForm, labels } = this.props;
-    console.log('searchForm-=', searchForm)
-
-
-    console.log('this.state.fromDate--', this.state.fromDate, this.state.toDate)
 
     if (!_.isEmpty(metaData) && metaData.reportDetails && metaData.reportDetails.searchParams && metaData.reportDetails.searchParams.length > 0) {
       return metaData.reportDetails.searchParams.map((item, index) => {
@@ -351,10 +333,6 @@ class AllRequests extends Component {
         if (item.type === "singlevaluelist") {
           item["searchText"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
         }
-        console.log('showFields--')
-        console.log('{item["value"]}--', item["value"])
-
-        // console.log('this.state.fromDate--',this.state.fromDate,this.state.toDate)
 
 
         return (
@@ -366,7 +344,7 @@ class AllRequests extends Component {
               dateField={this.state.datefield}
               dateError={this.state.dateError}
               handler={this.handleChange}
-            //localizationLabels = {labels}
+            
             />
           )
         );
@@ -391,7 +369,7 @@ class AllRequests extends Component {
         try {
           let endDate = this.props.searchForm.toDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "fromDate"); //3rd param to denote whether field fails
+          this.validateDate(startDate, endDate, required, "fromDate"); 
         } catch (e) {
           console.log(e);
         }
@@ -404,7 +382,7 @@ class AllRequests extends Component {
         try {
           let startDate = this.props.searchForm.fromDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "toDate"); //3rd param to denote whether field fails
+          this.validateDate(startDate, endDate, required, "toDate"); 
         } catch (e) {
           console.log(e);
         }
@@ -480,11 +458,6 @@ class AllRequests extends Component {
     this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate:"", toDate:"", search: false });
   };
 
-  //  getDropDownItem=()=>{
-
-  //   console.log('item----')
-  //  }
-
   onChange = value => {
     this.setState({ value });
   };
@@ -504,7 +477,6 @@ class AllRequests extends Component {
       top: "30px"
 
     };
-    console.log('this.props in render', this.props)
     const { loading, history } = this.props;
     const {
       mobileNo,
@@ -520,7 +492,7 @@ class AllRequests extends Component {
     const tabStyle = {
       letterSpacing: "0.6px"
     };
-    console.log('this.csrComplaints', this.props)
+    
 
     const { onComplaintClick, onSortClick, closeSortDialog, style } = this;
     const {
@@ -544,14 +516,12 @@ class AllRequests extends Component {
     const a = [{ displayName: "open space" }, { displayName: 'water tanker' }];
 
     const downloadMenu = a.map((obj, index) => {
-      console.log('obj.displayName', obj)
       return {
         labelName: obj.displayName,
         labelKey: `ACTION_TEST_${obj.displayName.toUpperCase().replace(/[._:-\s\/]/g, "_")}`,
       }
     })
 
-    console.log('downloadMenu', downloadMenu)
     const buttonItems = {
       label: { labelName: "Take Action", labelKey: "INBOX_QUICK_ACTION" },
       rightIcon: "arrow_drop_down",
@@ -619,22 +589,11 @@ class AllRequests extends Component {
                         ? "selected-tab-label-text"
                         : "unselected-tab-label-text"
                     }
-                    //color={this.state.value === 0 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
+                    
                     bold={true}
                     label={`ES_ALL_COMPLAINTS_UNASSIGNED_TAB_LABEL2`}
                     labelStyle={tabStyle}
                   />
-                  {/*<Label
-                    labelClassName={
-                      this.state.value === 0
-                        ? "selected-tab-label-text"
-                        : "unselected-tab-label-text"
-                    }
-                    //color={this.state.value === 0 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
-                    bold={true}
-                    label={`(${unassignedComplaints.length})`}
-                    labelStyle={tabStyle}
-                  />*/}
                 </div>
               ),
               children: (
@@ -1220,17 +1179,16 @@ const roleFromUserInfo = (roles = [], role) => {
 const displayStatus = (status = "") => {
   let statusObj = {};
   if (status.toLowerCase().includes("overdue")) {
-    statusObj.status = status; //Replace by localisation label
+    statusObj.status = status; 
     statusObj.statusMessage = "";
   }
   if (status.toLowerCase().includes("left")) {
-    statusObj.status = status; //Replace by localisation label
+    statusObj.status = status; 
     statusObj.statusMessage = "";
   }
   return statusObj;
 };
 const mapStateToProps = state => {
-  console.log('mapStateToProps', state)
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
   const { fetchSuccess, MccApplicationData } = complaints;
@@ -1269,170 +1227,10 @@ const mapStateToProps = state => {
   if (MccApplicationData != null || MccApplicationData != undefined) {
     transformedComplaints = MccApplicationData.osujmNewLocationModelList;
   
-
-    /*let transformedComplaints = transformComplaintForComponent(
-      complaints,
-      role,
-      employeeById,
-      citizenById,
-      categoriesById,
-      displayStatus
-    );
-    console.log('transformedComplaints',transformedComplaints)
-    let assignedComplaints = [],
-      unassignedComplaints = [],
-      employeeComplaints = [],
-      csrComplaints = [];
-  
-    let filteredEmployeeComplaints;
-    if (role === "eo") {
-      filteredEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.rawStatus === "escalatedlevel1pending" ||
-          complaint.rawStatus === "escalatedlevel2pending" ||
-          complaint.rawStatus === "assigned"
-      );
-    } else {
-      filteredEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-  
-          complaint.complaintStatus === "ASSIGNED" ||
-          complaint.rawStatus === "reassignrequested"
-      );
-    }
-  
-  
-    let searchFilterEmployeeComplaints;
-    if (role === "eo") {
-      searchFilterEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.rawStatus === "escalatedlevel1pending" ||
-          complaint.rawStatus === "escalatedlevel2pending" ||
-          complaint.rawStatus === "assigned"
-      );
-    }
-    else {
-      searchFilterEmployeeComplaints = transformedComplaints.filter(
-        complaint =>
-          complaint.complaintStatus === "ASSIGNED" ||
-          complaint.rawStatus === "reassignrequested" ||
-  
-          complaint.complaintStatus === "CLOSED"
-      );
-    }
-  
-  
-    let filteredAssignedComplaints = transformedComplaints.filter(
-      complaint => complaint.complaintStatus === "ASSIGNED" || complaint.complaintStatus === "ESCALATED"
-    );
-    let filteredUnassignedComplaints = transformedComplaints.filter(
-      complaint => complaint.complaintStatus === "UNASSIGNED"
-    );
-  
-    if (role === "ao") {
-      if (order === "Old to New") {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-      } else {
-        assignedComplaints = orderby(
-          filteredAssignedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-        unassignedComplaints = orderby(
-          filteredUnassignedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    } else if (role === "csr") {
-      if (order === "Old to New") {
-        csrComplaints = orderby(
-          transformedComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-         csrComplaints = orderby(transformedComplaints, ["SLA"], ["asc"]);
-      } else {
-        csrComplaints = orderby(
-          transformedComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    } else {
-      if (order === "Old to New") {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["latestCreationTime"],
-          ["asc"]
-        );
-      } else if (order === "SLA") {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["SLA"],
-          ["asc"]
-        );
-      } else {
-        employeeComplaints = orderby(
-          filteredEmployeeComplaints,
-          ["latestCreationTime"],
-          ["desc"]
-        );
-      }
-    }
-    transformedComplaints = orderby(
-      transformedComplaints,
-      ["latestCreationTime"],
-      ["desc"]
-    );
-    const numEmpComplaint = employeeComplaints.length;
-    const numCSRComplaint = transformedComplaints.length;*/
     csrComplaints = transformedComplaints; 
-    // csrComplaints = MccApplicationData;
-    //  numCSRComplaint = transformedComplaints.length;
-
   }
-  //const searchForm;
-  // if(state&&state.formtemp&&state.formtemp.form)
-  //   const searchForm= state.formtemp.form;
 
-  //   if(state&&state.formtemp&&state.formtemp.form){
-  //     searchForm= state.formtemp.form;
-  //  }
-  // const metaData;
-  //if(state&&state.report&&state.report.metaData)
-  // const metaData= state.report.form;
-
-
-
-  //   const metaValues= {};
-  //   metaValues={
-  //   "reportDetails":{"reportName": "TradeLicenseRegistryReport"},
-  //   "tenantId": "ch.chandigarh",
-  //   "requestInfo":{"apiId": "emp","msgId": "20170310130900","resMsgId": "uief87324","status": "200",ts: "Thu Jun 11 12:18:18 GMT 2020",ver: "1.0"}
-  // }
-  console.log('RequestData csrComplaints', csrComplaints)
+  
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
     metaData: {
@@ -1444,30 +1242,20 @@ const mapStateToProps = state => {
       },
       "tenantId": "ch.chandigarh",
       "requestInfo": { "apiId": "emp", "msgId": "20170310130900", "resMsgId": "uief87324", "status": "200", ts: "Thu Jun 11 12:18:18 GMT 2020", ver: "1.0" }
-    }, //state && state.report && state.report.metaData ? state.report.metaData : '',
+    }, 
     assignedComplaints,
     unassignedComplaints,
     csrComplaints,
-    //numEmpComplaint,
-    //  numCSRComplaint,
     employeeComplaints,
     role,
     loading,
     transformedComplaints
-    // searchFilterEmployeeComplaints,
-    // assignedTotalComplaints,
-    //unassignedTotalComplaints,
-    // employeeTotalComplaints
   };
 };
 
 
 const mapDispatchToProps = dispatch => {
   return {
-
-
-    // setRoute: url => dispatch(setRoute(url)),
-
     resetForm: () => {
       dispatch({ type: "RESET_FORM" });
     },

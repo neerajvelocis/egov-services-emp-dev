@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
-//import "modules/common/common/SuccessMessage/components/successmessage/index.css";
+
 
 class ApplicationRejected extends Component {
   handleComplaintReassigned = () => {

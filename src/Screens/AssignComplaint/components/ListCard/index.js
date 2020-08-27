@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Card, Icon, List, Image, AutoSuggest, Button } from "components";
-// import faceOne from "egov-ui-kit/assets/images/faceOne.jpg";
 import faceOne from "egov-ui-kit/assets/images/download.png";
 import Label from "egov-ui-kit/utils/translationNode";
 import { getNameFromId } from "egov-ui-kit/utils/commons";
@@ -109,7 +108,6 @@ export default class ListCard extends Component {
   componentDidMount = () => {
     let { APIData } = this.props;
     let { prepareRawDataToFormat } = this;
-    // initForm(this.formConfig);
     const dataSource = prepareRawDataToFormat(APIData);
     this.setState({ dataSource });
   };
@@ -157,7 +155,6 @@ export default class ListCard extends Component {
   };
 
   changeClickedItem = (dataSource, id) => {
-    // let _dataSource = dataSource.map((item) => ({ ...item }));
     for (var i = 0; i < dataSource.length; i++) {
       if (dataSource[i].nestedItems) {
         this.changeClickedItem(dataSource[i].nestedItems, id);

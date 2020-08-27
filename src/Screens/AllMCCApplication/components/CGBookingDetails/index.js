@@ -60,12 +60,8 @@ class CGBookingDetails extends Component {
   };
 
   render() {
-    console.log('this.state', this.state)
 
     const { status, bkBookingPurpose, bkFromDate, bkToDate, historyApiData, bkDuration, applicantName, applicationNo, submittedDate, bookingPurpose, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
-    console.log("bkBookingPurpose ",bkBookingPurpose)
-    console.log("bkFromDate ",bkFromDate)
-    console.log("bkToDate ",bkToDate)
 
     return (
       <div>

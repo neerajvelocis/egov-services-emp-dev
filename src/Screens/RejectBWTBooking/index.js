@@ -94,9 +94,9 @@ class RejectBWTBooking extends Component {
     const { handleCommentsChange, handleOptionsChange, onSubmit, onMobileChange, onDriverNameChange, onApproverNameChange } = this;
     const { valueSelected, commentValue, mobileNo, driverFullName, approverName } = this.state;
     const { trasformData, businessServiceData,applicationNumber } = this.props;
-    // console.log('this in render', trasformData)
+    
     return (
-      // <Screen className="background-white">
+      
         <RejectBWTBokingHOC
           ontextAreaChange={handleCommentsChange}
           handleOptionChange={handleOptionsChange}
@@ -115,7 +115,7 @@ class RejectBWTBooking extends Component {
           onApproverNameChange={onApproverNameChange}
           approverName={approverName}
         />
-      // </Screen>
+      
     );
   }
 }

@@ -94,7 +94,7 @@ class BookingDetails extends Component {
 
   componentDidMount = () => {
      const { address } = this.props;
-   // console.log('locationValues', locationValues)
+   
       this.setState({address1:address })
 
   }
@@ -136,21 +136,21 @@ class BookingDetails extends Component {
   };
   onImageClick = (source) => {
     window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
+    
   };
 
   onApproverNameChange = (e) => {
-    console.log('value on change', e.target.value)
+   
 
   }
   _handleChangeEvent= (e) => {
-    console.log('value on change new',e)
+   
     
   }
 
   render() {
-    console.log('this.state',this.state, this.props)
-    // return 0
+    
+    
     let { address1 } = this.state
     return (
       <div>

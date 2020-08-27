@@ -31,7 +31,6 @@ export default class ShowField extends Component {
     const {localizationLabels} =this.props;
     let { maxDate } = this.state;
     let description = des;
-console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
     let dropDownData = [];
 
     if (!isEmpty(obj.defaultValue)) {
@@ -49,7 +48,7 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
         });
       }
     }
-     console.log('obj-----',obj.type,'label----',obj.label,'value',obj.value)
+     
 
     switch (obj.type) {
       case "epoch":
@@ -287,7 +286,7 @@ console.log('des',des,'localizationLabels',localizationLabels,'maxDate',maxDate)
     }
   };
   render() {
-    console.log('this.props.obj',this.props.obj);
+    
     return this.renderFields(this.props.obj);
   }
 }

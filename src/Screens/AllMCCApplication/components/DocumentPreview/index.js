@@ -10,14 +10,14 @@ import {
 const prepareDocumentsView = async (state, dispatch) => {
   let documentsPreview = [];
 
-  // Get all documents from response
+  
   let bookingDocs = get(
     state,
     "screenConfiguration.preparedFinalObject.BookingDocument",
     {}
   );
 
-  console.log(bookingDocs, "docssss");
+  
 
     if (bookingDocs !== "") {
       let keys = Object.keys(bookingDocs); 
@@ -33,8 +33,7 @@ const prepareDocumentsView = async (state, dispatch) => {
       let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
       let fileUrls =
         fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-        console.log("fileUrls", fileUrls);
-        console.log("documentsPreview", documentsPreview);
+        
         
       documentsPreview = documentsPreview.map(function (doc, index) {
         doc["link"] =
@@ -42,7 +41,7 @@ const prepareDocumentsView = async (state, dispatch) => {
             fileUrls[doc.fileStoreId] &&
             fileUrls[doc.fileStoreId].split(",")[0]) ||
           "";
-        //doc["name"] = doc.fileStoreId;
+        
         doc["name"] =
           (fileUrls[doc.fileStoreId] &&
             decodeURIComponent(
