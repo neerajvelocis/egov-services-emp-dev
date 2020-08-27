@@ -36,14 +36,14 @@ class CGAppDetails extends Component {
             <div>
               <div className="rainmaker-displayInline">
                
-                <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <Label label="BK_MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
                                <div className="complaint-detail-detail-section-status row">
                   
 
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={applicantName}
@@ -52,7 +52,7 @@ class CGAppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_FATHER_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_FATHER_NAME" />
                     <Label
                       className="col-xs-6  col-sm-8 col-md-10  status-result-color"
                       id="complaint-details-current-status"
@@ -61,7 +61,7 @@ class CGAppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DETAILS_EMAIL" />
                     <Label
                       className="col-xs-6  col-sm-8 col-md-10  status-result-color"
                       id="complaint-details-current-status"
@@ -70,7 +70,7 @@ class CGAppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_MOBILENUMBER" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                      
@@ -80,7 +80,7 @@ class CGAppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_ADDRESS" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                    
@@ -91,7 +91,7 @@ class CGAppDetails extends Component {
                   </div>
                  
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_CATEGORY" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_CATEGORY" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}

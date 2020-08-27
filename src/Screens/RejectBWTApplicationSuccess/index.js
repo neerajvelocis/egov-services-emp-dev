@@ -14,9 +14,9 @@ class RejectBWTApplicationSuccess extends Component {
     return (
       <div className="success-message-main-screen">
         <CommonSuccessMessage
-         headermessage="ES_APPLICATION_HEADER_MESSAGE_REJECT"
-          successmessage="ES_COMPLAINT_REJECT_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_SEND_MESSAGE_REJECTED A Notification Rgarding Application Rejetion has been sent to the applicant registered Mobile No."
+         headermessage="BK_ES_APPLICATION_HEADER_MESSAGE_REJECT"
+          successmessage="BK_ES_COMPLAINT_REJECT_SUCCESS_MESSAGE"
+          secondaryLabel="BK_CS_COMMON_SEND_MESSAGE_REJECTED A Notification Rgarding Application Rejetion has been sent to the applicant registered Mobile No."
           icon={<Icon action="navigation" name="close" />}
           backgroundColor={"#e74c3c"}
         />

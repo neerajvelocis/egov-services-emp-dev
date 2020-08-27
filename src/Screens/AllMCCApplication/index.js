@@ -159,7 +159,7 @@ class AllRequests extends Component {
     this.setState({ complaintNo });
     if (complaintNo.length < 6) {
       this.setState({
-        errorText: "ERR_APPLICATION_NUMBER_SEARCH"
+        errorText: "BK_ERR_APPLICATION_NUMBER_SEARCH"
       });
     } else {
       this.setState({ errorText: "" });
@@ -279,7 +279,7 @@ class AllRequests extends Component {
           true,
           {
             labelName: "Entered value is less than 6 characters in length.",
-            labelKey: `ERR_VALUE_LESS_THAN_SIX_CHARACTERS`
+            labelKey: `BK_ERR_VALUE_LESS_THAN_SIX_CHARACTERS`
           },
           "error"
         );
@@ -721,7 +721,7 @@ class AllRequests extends Component {
                     value={complaintNo}
                     hintText={
                       <Label
-                        label="MYBK_APPLICATION_NO"
+                        label="BK_MYBK_APPLICATION_NO"
                         color="rgba(0, 0, 0, 0.3799999952316284)"
                         fontSize={16}
                         labelStyle={hintTextStyle}
@@ -731,7 +731,7 @@ class AllRequests extends Component {
                     floatingLabelText={
                       <Label
                         key={1}
-                        label="MYBK_APPLICATION_NO_PLACEHOLDER"
+                        label="BK_MYBK_APPLICATION_NO_PLACEHOLDER"
                         color="rgba(0,0,0,0.60)"
                         fontSize="12px"
                       />
@@ -938,7 +938,7 @@ selectBoxOptions={['a','b','c']}
                     label={
                       <Label
                         buttonLabel={true}
-                        label="MYBK_APPLICATIONS_SEARCH_BUTTON"
+                        label="BK_MYBK_APPLICATIONS_SEARCH_BUTTON"
                       />
                     }
                     style={{ marginRight: 28, width: "30%" }}
@@ -956,7 +956,7 @@ selectBoxOptions={['a','b','c']}
                       <Label
                         buttonLabel={true}
                         color="#fe7a51"
-                        label="MYBK_APPLICATION_CLEAR_SEARCH_BUTTON"
+                        label="BK_MYBK_APPLICATION_CLEAR_SEARCH_BUTTON"
                       />
                     }
                     labelStyle={{
@@ -1027,7 +1027,7 @@ selectBoxOptions={['a','b','c']}
                         value={mobileNo}
                         hintText={
                           <Label
-                            label="CORE_COMMON_MOBILE_NUMBER_PLACEHOLDER345"
+                            label="BK_CORE_COMMON_MOBILE_NUMBER_PLACEHOLDER345"
                             color="rgba(0, 0, 0, 0.3799999952316284)"
                             fontSize={16}
                             labelStyle={hintTextStyle}

@@ -32,7 +32,7 @@ class BookingsDetails extends Component {
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `Error_Message_For_Water_tanker_Application`
+          labelKey: `BK_Error_Message_For_Water_tanker_Application`
         },
         "warning"
       );
@@ -203,7 +203,7 @@ class BookingsDetails extends Component {
         value={approverName}
         hintText={
           <Label
-            label="MYBK_APPROVER_NAME_PLACEHOLDER"
+            label="BK_MYBK_APPROVER_NAME_PLACEHOLDER"
             color="rgba(0, 0, 0, 0.3799999952316284)"
             fontSize={16}
             labelStyle={hintTextStyle}
@@ -233,7 +233,7 @@ class BookingsDetails extends Component {
           value={comment}
           hintText={
             <Label
-              label="MYBK_ADD_COMMENTS_PLACEHOLDER"
+              label="BK_MYBK_ADD_COMMENTS_PLACEHOLDER"
               color="rgba(0, 0, 0, 0.3799999952316284)"
               fontSize={16}
               labelStyle={hintTextStyle}
@@ -259,7 +259,7 @@ class BookingsDetails extends Component {
         <Button
             className="responsive-action-button"
             primary={true}
-            label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
+            label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
             fullWidth={true}
             onClick={this.back}
             style={{marginRight:18}}
@@ -268,7 +268,7 @@ class BookingsDetails extends Component {
           <Button
             className="responsive-action-button"
             primary={true}
-            label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
+            label={<Label buttonLabel={true} label="BK_CORE_COMMON_GONEXT" />}
             fullWidth={true}
             onClick={this.continue}
             startIcon={<ArrowForwardIosIcon />}

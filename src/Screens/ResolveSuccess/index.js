@@ -24,9 +24,9 @@ class ResolveSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
-          headermessage="ES_APPLICATION_HEADER_MESSAGE"
-          successmessage="ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_SEND_MESSAGE_APPROVAL"
+          headermessage="BK_ES_APPLICATION_HEADER_MESSAGE"
+          successmessage="BK_ES_APPLICATION_RESOLVED_SUCCESS_MESSAGE"
+          secondaryLabel="BK_CS_COMMON_SEND_MESSAGE_APPROVAL"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
