@@ -19,7 +19,7 @@ import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import CountDetails from "./components/CountDetails";
 import "./index.css";
 import ShowField from "./showField";
-import CustomComplaints from "./components/CustomComponent";
+import CustomComplaints from "./components/ApplicationListComponent";
 import SelectBox from '../../modules/SelectBox';
 
 import MenuItem from '@material-ui/core/MenuItem';
@@ -365,70 +365,16 @@ class AllRequests extends Component {
     }
     this.setState({ search: true });
   };
-  handleFormFields = () => {
-    let { metaData, searchForm, labels } = this.props;
-     if (!_.isEmpty(metaData) && metaData.reportDetails && metaData.reportDetails.searchParams && metaData.reportDetails.searchParams.length > 0) {
-      return metaData.reportDetails.searchParams.map((item, index) => {
-        item["value"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
-        if (item.type === "epoch" && item.minValue && item.maxValue && typeof item.minValue !== "object" && typeof item.maxValue !== "object") {
-          item.minValue = this.toDateObj(item.minValue);
-          item.maxValue = this.toDateObj(item.maxValue);
-        } else if (item.type === "epoch" && item.name == "fromDate" && item.maxValue === null) {
-          item.maxValue = new Date();
-        }
-        if (item.type === "singlevaluelist") {
-          item["searchText"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
-        }
 
 
-        return (
-          item.name !== "tenantId" && (
-            <ShowField
-              value={item["value"]}
-              key={index}
-              obj={item}
-              dateField={this.state.datefield}
-              dateError={this.state.dateError}
-              handler={this.handleChange}
-            //localizationLabels = {labels}
-            />
-          )
-        );
-      });
-    }
-  };
-
-
-  handleDateSelect = (metaData, e, property) => {
-    let { setSearchParams } = this.props;
-    if (get(metaData, "reportDetails.searchParams")) {
-      let searchParams = metaData.reportDetails.searchParams;
-      var i;
-      let fromDateIndex, toDateIndex;
-      for (i = 0; i < searchParams.length; i++) {
-        if (searchParams[i].name === "fromDate") {
-          fromDateIndex = i;
-        } else if (searchParams[i].name === "toDate") {
-          toDateIndex = i;
-        }
-      }
-      if (property === "fromDate" && toDateIndex !== undefined) {
-        searchParams[toDateIndex].minValue = new Date(e.target.value);
-      } else if (property === "toDate" && fromDateIndex !== undefined) {
-        searchParams[fromDateIndex].maxValue = new Date(e.target.value);
-      }
-
-      setSearchParams(searchParams);
-    }
-  };
   handleChange = (e, property, isRequired, pattern) => {
     const { metaData, setMetaData, handleChange, searchForm } = this.props;
     const selectedValue = e.target.value;
     //const selectedValue = e.target.value;
    
     if (property === "fromDate" || property === "toDate") {
-      this.handleDateSelect(metaData, e, property);
-      this.checkDate(selectedValue, property, isRequired, pattern);
+      // this.handleDateSelect(metaData, e, property);
+      // this.checkDate(selectedValue, property, isRequired, pattern);
     } else {
       handleChange(e, property, isRequired, pattern);
     }
@@ -484,7 +430,7 @@ class AllRequests extends Component {
         try {
           let endDate = this.props.searchForm.toDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "fromDate"); 
+          // this.validateDate(startDate, endDate, required, "fromDate"); //3rd param to denote whether field fails
         } catch (e) {
           console.log(e);
         }
@@ -497,7 +443,7 @@ class AllRequests extends Component {
         try {
           let startDate = this.props.searchForm.fromDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "toDate"); 
+          // this.validateDate(startDate, endDate, required, "toDate"); //3rd param to denote whether field fails
         } catch (e) {
           console.log(e);
         }
@@ -1259,18 +1205,6 @@ const roleFromUserInfo = (roles = [], role) => {
     : false;
 };
 
-const displayStatus = (status = "") => {
-  let statusObj = {};
-  if (status.toLowerCase().includes("overdue")) {
-    statusObj.status = status; 
-    statusObj.statusMessage = "";
-  }
-  if (status.toLowerCase().includes("left")) {
-    statusObj.status = status; 
-    statusObj.statusMessage = "";
-  }
-  return statusObj;
-};
 const mapStateToProps = state => {
   
   const { complaints, common, screenConfiguration = {} } = state || {};
