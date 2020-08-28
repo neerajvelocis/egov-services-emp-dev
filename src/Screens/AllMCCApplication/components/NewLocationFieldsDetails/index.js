@@ -184,7 +184,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="NEW_LOCATION_LANDMARK" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_NEW_LOCATION_LANDMARK" />
                     <b><Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       // label={submittedDate}

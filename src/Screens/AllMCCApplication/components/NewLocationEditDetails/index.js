@@ -181,7 +181,7 @@ class BookingDetails extends Component {
           floatingLabelText={
             <Label
               key={0}
-              label="MYBK_CREATE_APPROVER_NAME"
+              label="BK_MYBK_CREATE_APPROVER_NAME"
               color="rgba(0,0,0,0.60)"
               fontSize="12px"
             />

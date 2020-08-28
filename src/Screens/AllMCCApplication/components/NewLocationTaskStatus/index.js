@@ -175,7 +175,7 @@ class BookingDetails extends Component {
                 <div className="rainmaker-displayInline row">
 
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="BK_MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
                   <button 
