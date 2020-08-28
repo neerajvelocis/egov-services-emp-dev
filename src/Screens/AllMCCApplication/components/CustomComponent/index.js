@@ -232,21 +232,21 @@ convertEpochToDate = (dateEpoch) => {
 
                       <div className="complaint-number-cont row application-format">
                         {/* <div className="complaint-number complaint-date"> */}
-                          <Label fontSize="12px" className="col-md-6" label={"MYBK_APPLICATION_DETAILS_CURRENT_STATUS"} />
+                          <Label fontSize="12px" className="col-md-6" label={"BK_MYBK_APPLICATION_DETAILS_CURRENT_STATUS"} />
                           {/* <Label fontSize="12px" label={" : "} /> */}
                           <Label fontSize="12px" className="col-md-6" label={complaint.applicationStatus} className="complaint-complaint-number" />
                         {/* </div> */}
                       </div>
                       <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICATION_BOOKING_TYPE"} />
+                          <Label fontSize="12px" className="col-md-6"   label={"BK_MYBK_APPLICATION_BOOKING_TYPE"} />
                           <Label fontSize="12px" className="col-md-6"   label={complaint.businessService} className="complaint-complaint-number" />
                         </div>
                       </div>
                      
                       <div className="complaint-number-cont row application-format">
                         <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"   label={"MYBK_APPLICATION_DETAILS_SUBMISSION_DATE"} />
+                          <Label fontSize="12px" className="col-md-6"   label={"BK_MYBK_APPLICATION_DETAILS_SUBMISSION_DATE"} />
                           <Label fontSize="12px" className="col-md-6"   label= {this.convertEpochToDate(
                       complaint.dateCreated,"dayend"
                     )} className="complaint-complaint-number" />
@@ -264,7 +264,7 @@ convertEpochToDate = (dateEpoch) => {
 {/* 
                       <div className="complaint-number-cont row">
                         <div className="complaint-number complaint-date">
-                          <Label fontSize="12px" className="col-md-6"  label={"MYBK_APPLICANT_SECTOR"} />
+                          <Label fontSize="12px" className="col-md-6"  label={"BK_MYBK_APPLICANT_SECTOR"} />
                           <Label fontSize="12px" className="col-md-6"  label={complaint.bkSector} className="complaint-complaint-number" />
                         </div>
                       </div> */}

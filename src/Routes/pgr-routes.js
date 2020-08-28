@@ -207,7 +207,7 @@ const routes = [
       redirectionUrl,
       hideFor: "ao",
       customFor: "employee",
-      customTitle: "MYBK_ALL_APPLICAION_HEADER"
+      customTitle: "BK_MYBK_ALL_APPLICAION_HEADER"
     }
   },
 //newMasterData
@@ -231,12 +231,12 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "MYBK_APPLY_SPECIAL_REQUEST_HEADER",
+      title: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER",
       hideTitle: false,
       redirectionUrl,
       hideFor: "ao",
       customFor: "employee",
-      customTitle: "MYBK_APPLY_SPECIAL_REQUEST_HEADER"
+      customTitle: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER"
     }
   },
   {
@@ -262,7 +262,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -272,7 +272,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -283,7 +283,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -293,7 +293,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -303,7 +303,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "CS_HEADER_APPLICATION_SUMMARY",
+      title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -314,7 +314,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -324,7 +324,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      // title: "CS_HEADER_APPLICATION_SUMMARY",
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },
@@ -334,7 +334,7 @@ const routes = [
     needsAuthentication: true,
     options: {
       hideFooter: true,
-      title: "CS_HEADER_APPLICATION_SUMMARY",
+      title: "BK_CS_HEADER_APPLICATION_SUMMARY",
       redirectionUrl
     }
   },

@@ -13,9 +13,9 @@ class DeliveredBWTApplicationSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
-        headermessage="ES_APPLICATION_HEADER_MESSAGE_DELIVERED"
-          successmessage="ES_APPLICATION_DELIVERED_SUCCESS_MESSAGE"
-          secondaryLabel="BK_MYBK_SUCCESSFULLY_DELIVERED_SEND_MESSAGE"
+        headermessage="BK_ES_APPLICATION_HEADER_MESSAGE_DELIVERED"
+          successmessage="BK_ES_APPLICATION_DELIVERED_SUCCESS_MESSAGE"
+          secondaryLabel="MYBK_SUCCESSFULLY_DELIVERED_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}

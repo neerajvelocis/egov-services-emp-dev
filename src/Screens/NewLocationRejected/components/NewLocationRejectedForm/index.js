@@ -70,7 +70,7 @@ formValue.businessService.value=bookingservice
               value={commentValue}
               hintText={
                 <Label
-                  label="MYBK_ADD_COMMENTS_PLACEHOLDER"
+                  label="BK_MYBK_ADD_COMMENTS_PLACEHOLDER"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={{

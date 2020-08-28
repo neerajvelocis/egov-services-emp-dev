@@ -667,7 +667,7 @@ downloadApplicationMCCButton = async (e) => {
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
 												<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													label: { labelName: "Download ", labelKey: "BK_COMMON_DOWNLOAD_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "cloud_download",
 													props: {
@@ -704,7 +704,7 @@ downloadApplicationMCCButton = async (e) => {
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
 												<ActionButtonDropdown data={{
-													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+													label: { labelName: "Print", labelKey: "BK_COMMON_PRINT_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "print",
 													props: {
@@ -787,7 +787,7 @@ downloadApplicationMCCButton = async (e) => {
 											(complaint.status == "PENDINGASSIGNMENTDRIVER" &&
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 													rightIcon: "arrow_drop_down",
 													props: {
 														variant: "outlined",
@@ -797,7 +797,7 @@ downloadApplicationMCCButton = async (e) => {
 													menu: !(complaint.bkStatus=="Normal Request(Paid Booking)")? [{
 														label: {
 															labelName: "Approve",
-															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+															labelKey: "BK_MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
 														},
 
 														link: () => this.btnOneOnClick('APPROVED', serviceRequestId)
@@ -812,7 +812,7 @@ downloadApplicationMCCButton = async (e) => {
 													}] : [{
 														label: {
 															labelName: "Approve",
-															labelKey: "MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
+															labelKey: "BK_MYBK_ASSIGN_TO_DRIVER_ACTION_BUTTON"
 														},
 
 														link: () => this.btnOneOnClick('APPROVED', serviceRequestId)
@@ -829,7 +829,7 @@ downloadApplicationMCCButton = async (e) => {
 										(complaint.status == "PENDINGUPDATE" &&
 
 											<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-												label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+												label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 												rightIcon: "arrow_drop_down",
 												props: {
 													variant: "outlined",

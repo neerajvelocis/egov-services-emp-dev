@@ -135,9 +135,9 @@ class CreateWBTApplicationSuccess extends Component {
       <Screen loading={loading}>
       <div className="success-message-main-screen resolve-success">
         <SuccessMessage
-         headermessage="MYBK_APPLY_SPECIAL_REQUEST_HEADER"
-          successmessage="ES_APPLICATION_CREATED_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_SEND_MESSAGE"
+         headermessage="BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER"
+          successmessage="BK_ES_APPLICATION_CREATED_SUCCESS_MESSAGE"
+          secondaryLabel="BK_CS_COMMON_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
@@ -148,7 +148,7 @@ class CreateWBTApplicationSuccess extends Component {
           <Button
             className="responsive-action-button"
             primary={true}
-            label={<Label buttonLabel={true} label="CORE_COMMON_DOWNLOAD" />}
+            label={<Label buttonLabel={true} label="BK_CORE_COMMON_DOWNLOAD" />}
             fullWidth={true}
             onClick={this.downloadApplicationButton}
             style={{ marginRight: 18 }}

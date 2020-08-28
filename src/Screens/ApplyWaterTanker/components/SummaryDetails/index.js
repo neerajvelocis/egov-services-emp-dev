@@ -72,7 +72,7 @@ class SummaryDetails extends Component {
                 </div>
                 </div>
                 <div style={{marginLeft: "20px", paddingBottom: '5px',paddingLeft:25}}>
-                    <Label label="MYBK_APPLICANT_DETAILS" labelClassName="dark-heading" />
+                    <Label label="BK_MYBK_APPLICANT_DETAILS" labelClassName="dark-heading" />
                 </div>
 
                 <div className="col-xs-12" style={{ paddingBottom: '50px',paddingLeft:25 }}>
@@ -80,7 +80,7 @@ class SummaryDetails extends Component {
 
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_NAME" />
                                 <Label
                                     labelStyle={{ color: "inherit" }}
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -89,7 +89,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DETAILS_EMAIL" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -98,7 +98,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_MOBILENUMBER" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -114,14 +114,14 @@ class SummaryDetails extends Component {
 
 
                 <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
-                    <Label label="MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
+                    <Label label="BK_MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
                 </div>
                 <div className="col-xs-12" style={{marginLeft: '10px'}}>
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
 
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_NAME" />
                                 <Label
                                     labelStyle={{ color: "inherit" }}
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -130,7 +130,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DETAILS_EMAIL" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -139,7 +139,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_MOBILENUMBER" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -148,7 +148,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -158,7 +158,7 @@ class SummaryDetails extends Component {
                             </div>
 
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_ADDRESS" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -168,7 +168,7 @@ class SummaryDetails extends Component {
                             </div>
 
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_SECTOR" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -177,7 +177,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_RESIDENTAILSTYPE" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_RESIDENTAILSTYPE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -221,7 +221,7 @@ class SummaryDetails extends Component {
                     <Button
                          className="responsive-action-button"
                         primary={true}
-                        label={<Label buttonLabel={true} label="CORE_COMMON_GOBACK" />}
+                        label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
                         fullWidth={true}
                         onClick={this.back}
                         style={{ marginRight: 18 }}
@@ -232,7 +232,7 @@ class SummaryDetails extends Component {
                     <Button
                         className="responsive-action-button"
                         primary={true}
-                        label={<Label buttonLabel={true} label="CORE_COMMON_SUBMIT" />}
+                        label={<Label buttonLabel={true} label="BK_CORE_COMMON_SUBMIT" />}
                         fullWidth={true}
                         onClick={this.submit}
                      style={{rightIcon:"arrow_drop_down"}}

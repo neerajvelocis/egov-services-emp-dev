@@ -155,7 +155,7 @@ class BookingDetails extends Component {
                
 
                 <div className="col-8" style={{ paddingLeft: "10px" }}>
-                  <Label label="MCC_NEW_LOCATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="BK_MCC_NEW_LOCATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
 
                 {/* <button onClick={() => this.editButtonOnClick()}>Edit Details</button> */}
@@ -194,7 +194,7 @@ class BookingDetails extends Component {
                     /></b>
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MCC_LOCATION_AREA" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MCC_LOCATION_AREA" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}

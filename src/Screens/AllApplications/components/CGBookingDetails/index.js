@@ -69,7 +69,7 @@ class CGBookingDetails extends Component {
             <div>
               <div className="rainmaker-displayInline">
                 
-                <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <Label label="BK_MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
               
@@ -84,7 +84,7 @@ class CGBookingDetails extends Component {
                   />
                 </div>
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     id="complaint-details-current-status"
@@ -93,7 +93,7 @@ class CGBookingDetails extends Component {
                   />
                 </div>
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
                   <b><Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                    
@@ -106,7 +106,7 @@ class CGBookingDetails extends Component {
                   /></b>
                 </div>
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_TYPE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_TYPE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     
@@ -116,7 +116,7 @@ class CGBookingDetails extends Component {
                   />
                 </div>
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_PURPOSE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_PURPOSE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     
@@ -126,7 +126,7 @@ class CGBookingDetails extends Component {
                   />
                 </div>
               <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_FROM_DATE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_FROM_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     
@@ -140,7 +140,7 @@ class CGBookingDetails extends Component {
                 </div>
 
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_TO_DATE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_TO_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     
@@ -154,7 +154,7 @@ class CGBookingDetails extends Component {
                 </div> 
 
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_VENUE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_VENUE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     

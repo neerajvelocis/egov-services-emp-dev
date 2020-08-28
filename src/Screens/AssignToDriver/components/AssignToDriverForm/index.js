@@ -85,7 +85,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               value={approverName}
               hintText={
                 <Label
-                  label="MYBK_APPROVER_NAME_PLACEHOLDER"
+                  label="BK_MYBK_APPROVER_NAME_PLACEHOLDER"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={{
@@ -224,10 +224,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
             >Assign</button>
              }else{
-              if(mobileNumber.lenght!=10){
-                return console.log('hello number')
-              
-              }else{
+             
               return <button
               onClick={handleValidation}
               className={classes.button}
@@ -237,7 +234,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               fullWidth={true}
               disabled
             >Assign</button>
-              }
+             
              }
           }
          

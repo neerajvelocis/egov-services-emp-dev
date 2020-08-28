@@ -911,7 +911,7 @@ class ApplicationDetails extends Component {
 
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 													rightIcon: "arrow_drop_down",
 													props: {
 														variant: "outlined",
@@ -920,7 +920,7 @@ class ApplicationDetails extends Component {
 													menu: [{
 														label: {
 															labelName: "Approve",
-															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+															labelKey: "BK_MYBK_APPROVE_ACTION_BUTTON"
 														},
 
 														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
@@ -941,7 +941,7 @@ class ApplicationDetails extends Component {
 									(complaint.status == "PENDINGAPPROVALOSD" && foundSecondLavel &&
 
 										<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-											label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+											label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 											rightIcon: "arrow_drop_down",
 											props: {
 												variant: "outlined",
@@ -950,7 +950,7 @@ class ApplicationDetails extends Component {
 											menu: [{
 												label: {
 													labelName: "Approve",
-													labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+													labelKey: "BK_MYBK_APPROVE_ACTION_BUTTON"
 												},
 
 												link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
@@ -970,7 +970,7 @@ class ApplicationDetails extends Component {
 									(complaint.status == "PENDINGPUBLISH" && foundthirdLavel &&
 
 										<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-											label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+											label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 											rightIcon: "arrow_drop_down",
 											props: {
 												variant: "outlined",

@@ -20,7 +20,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `ERROR_MESSAGE_EMAIL_VALIDATION`
+          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
         },
         "warning"
       );
@@ -29,7 +29,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Please enter valid email address",
-          labelKey: `ERROR_MESSAGE_EMAIL_VALIDATION`
+          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
         },
         "warning"
       );
@@ -38,7 +38,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Please enter valid mobile number",
-          labelKey: `ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
+          labelKey: `BK_ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
         },
         "warning"
       );
@@ -159,7 +159,7 @@ class ApplicatInfo extends Component {
           <Button
             className="responsive-action-button"
             primary={true}
-            label={<Label buttonLabel={true} label="CORE_COMMON_GONEXT" />}
+            label={<Label buttonLabel={true} label="BK_CORE_COMMON_GONEXT" />}
             fullWidth={true}
             onClick={this.continue}
             startIcon={<ArrowForwardIosIcon />}

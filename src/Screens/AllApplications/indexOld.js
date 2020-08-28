@@ -239,7 +239,7 @@ class AllComplaints extends Component {
           true,
           {
             labelName: "Entered value is less than 6 characters in length.",
-            labelKey: `ERR_VALUE_LESS_THAN_SIX_CHARACTERS`
+            labelKey: `BK_ERR_VALUE_LESS_THAN_SIX_CHARACTERS`
           },
           "error"
         );
