@@ -28,9 +28,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-
-
-
 class AllRequests extends Component {
   state = {
     complaintNo: "",
