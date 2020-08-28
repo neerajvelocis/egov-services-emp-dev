@@ -106,7 +106,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               value={approverName}
               hintText={
                 <Label
-                  label="MYBK_REJECTOR_NAME_PLACEHOLDER_TEXT"
+                  label="BK_MYBK_REJECTOR_NAME_PLACEHOLDER_TEXT"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={{
@@ -121,7 +121,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               floatingLabelText={
                 <Label
                   key={0}
-                  label="MYBK_CREATE_REJECTOR_NAME_TEXT"
+                  label="BK_MYBK_CREATE_REJECTOR_NAME_TEXT"
                   color="rgba(0,0,0,0.60)"
                   fontSize="12px"
                 />

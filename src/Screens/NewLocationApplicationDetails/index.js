@@ -252,7 +252,7 @@ class ApplicationDetails extends Component {
 			case "ES_COMMON_REASSIGN":
 				history.push(`/reassign-complaint/${complaintNo}`);
 				break;
-			case "MYBK_RESOLVE_MARK_RESOLVED":
+			case "BK_MYBK_RESOLVE_MARK_RESOLVED":
 				history.push(`/booking-resolved/${complaintNo}`);
 				break;
 		}
@@ -798,8 +798,8 @@ class ApplicationDetails extends Component {
 			else if (role === "employee") {
 			
 				//  if () {
-				btnOneLabel = "MYBK_REJECT_BUTTON";
-				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
+				btnOneLabel = "BK_MYBK_REJECT_BUTTON";
+				btnTwoLabel = "BK_MYBK_RESOLVE_MARK_RESOLVED";
 				//  }
 			}
 		}
@@ -859,7 +859,7 @@ class ApplicationDetails extends Component {
 								<div style={{height: "250px", marginBottom:'15px',width: "100",backgroundColor: "white",	border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}>
-                                     <div style={{marginTop:30}}> <Label  label="NEW_LOCATION_IMAGES" /></div><br></br>
+                                     <div style={{marginTop:30}}> <Label  label="BK_NEW_LOCATION_IMAGES" /></div><br></br>
 							<div>
 								{(() => {
 									if (this.state && this.state.ImageList.length > 0) {
@@ -928,7 +928,7 @@ class ApplicationDetails extends Component {
 													{
 														label: {
 															labelName: "Reject",
-															labelKey: "MYBK_REJECT_ACTION_BUTTON"
+															labelKey: "BK_MYBK_REJECT_ACTION_BUTTON"
 														},
 														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 													}]
@@ -958,7 +958,7 @@ class ApplicationDetails extends Component {
 											{
 												label: {
 													labelName: "Reject",
-													labelKey: "MYBK_REJECT_ACTION_BUTTON"
+													labelKey: "BK_MYBK_REJECT_ACTION_BUTTON"
 												},
 												link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 											}]
@@ -979,7 +979,7 @@ class ApplicationDetails extends Component {
 											menu: [{
 												label: {
 													labelName: "Publish",
-													labelKey: "MYBK_PUBLISH_ACTION_BUTTON"
+													labelKey: "BK_MYBK_PUBLISH_ACTION_BUTTON"
 												},
 
 												link: () => this.actionButtonOnClick('state', "dispatch", 'PUBLISH')

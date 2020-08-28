@@ -11,7 +11,7 @@ class SuccessMessage extends Component {
       <div className="wt-app-details">
         <div className="container-fluid">
           <div className="row spl-application-header" style={{ marginTop: '40px', marginBottom: '30px', marginLeft: '-6px' }}>
-            <div className="col-sm-6 spl-app-header-text">  <Label label={"MYBK_WATER_TANKER_REQUEST"} /></div>
+            <div className="col-sm-6 spl-app-header-text">  <Label label={"BK_MYBK_WATER_TANKER_REQUEST"} /></div>
             <div className="col-sm-3 spl-app-header-number" > <Label label={applicationNumber} /></div>
             {/* <div class="col-sm-5">  </div> */}
           </div>
@@ -33,7 +33,7 @@ class SuccessMessage extends Component {
                   <Label className="thankyou-text" style={{ fontSize: 30, fontWeight: 'bold' }} label={successmessage} color="#767676" />
                   <Label className="thankyou-text-message" label={secondaryLabel} color="#767676" /></div>
                 <div class="col-sm-4 application-number-div">
-                    <Label  className="application-text-one" style={{float:'right'}}label={"MYBK_WATER_TANKER_REQUESTNO"} />
+                    <Label  className="application-text-one" style={{float:'right'}}label={"BK_MYBK_WATER_TANKER_REQUESTNO"} />
                     <Label className="application-text-two" label={applicationNumber} />
                      </div>
               </div>

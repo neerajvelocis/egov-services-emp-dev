@@ -100,7 +100,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               floatingLabelText={
                 <Label
                   key={0}
-                  label="MYBK_CREATE_APPROVER_NAME"
+                  label="BK_MYBK_CREATE_APPROVER_NAME"
                   color="rgba(0,0,0,0.60)"
                   fontSize="12px"
                 />
@@ -122,7 +122,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
             value={driverFullName}
             hintText={
               <Label
-                label="MYBK_DRIVER_NAME_PLACEHOLDER"
+                label="BK_MYBK_DRIVER_NAME_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={{
@@ -137,7 +137,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
             floatingLabelText={
               <Label
                 key={0}
-                label="MYBK_CREATE_DRIVER_NAME"
+                label="BK_MYBK_CREATE_DRIVER_NAME"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
@@ -163,7 +163,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
           }}
             hintText={
               <Label
-                label="MYBK_DRIVER_MOBILE_NUMBER_PLACEHOLDER"
+                label="BK_MYBK_DRIVER_MOBILE_NUMBER_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={{
@@ -178,7 +178,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
             floatingLabelText={
               <Label
                 key={0}
-                label="MYBK_CREATE_DRIVER_MOBILE_NUMBER"
+                label="BK_MYBK_CREATE_DRIVER_MOBILE_NUMBER"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />

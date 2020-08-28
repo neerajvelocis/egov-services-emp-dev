@@ -473,7 +473,7 @@ downloadApplicationMCCButton = async (e) => {
 			case "ES_COMMON_REASSIGN":
 				history.push(`/reassign-complaint/${complaintNo}`);
 				break;
-			case "MYBK_RESOLVE_MARK_RESOLVED":
+			case "BK_MYBK_RESOLVE_MARK_RESOLVED":
 				history.push(`/booking-resolved/${complaintNo}`);
 				break;
 		}
@@ -644,8 +644,8 @@ downloadApplicationMCCButton = async (e) => {
 			else if (role === "employee") {
 				
 				//  if () {
-				btnOneLabel = "MYBK_REJECT_BUTTON";
-				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
+				btnOneLabel = "BK_MYBK_REJECT_BUTTON";
+				btnTwoLabel = "BK_MYBK_RESOLVE_MARK_RESOLVED";
 				//  }
 			}
 		}
@@ -677,7 +677,7 @@ downloadApplicationMCCButton = async (e) => {
 													menu:(complaint.bkStatus=="Normal Request(Paid Booking)")?[{
 														label: {
 															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+															labelKey: "BK_MYBK_DOWNLOAD_RECEIPT"
 														},
 														leftIcon: "receipt",
 
@@ -687,7 +687,7 @@ downloadApplicationMCCButton = async (e) => {
 													{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
+															labelKey: "BK_MYBK_PRINT_APPLICATION"
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
@@ -695,7 +695,7 @@ downloadApplicationMCCButton = async (e) => {
 													[{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
+															labelKey: "BK_MYBK_PRINT_APPLICATION"
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
@@ -714,7 +714,7 @@ downloadApplicationMCCButton = async (e) => {
 													menu: (complaint.bkStatus=="Normal Request(Paid Booking)")?[{
 														label: {
 															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+															labelKey: "BK_MYBK_DOWNLOAD_RECEIPT"
 														},
 														leftIcon: "receipt",
 
@@ -724,7 +724,7 @@ downloadApplicationMCCButton = async (e) => {
 													{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
+															labelKey: "BK_MYBK_PRINT_APPLICATION"
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
@@ -732,7 +732,7 @@ downloadApplicationMCCButton = async (e) => {
 													[{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
+															labelKey: "BK_MYBK_PRINT_APPLICATION"
 														},
 														link: () => this.downloadApplicationMCCButton('state', "dispatch", 'REJECT'),
 														leftIcon: "assignment"
@@ -805,7 +805,7 @@ downloadApplicationMCCButton = async (e) => {
 													{
 														label: {
 															labelName: "REJECT",
-															labelKey: "MYBK_REJECT_ACTION_BUTTON"
+															labelKey: "BK_MYBK_REJECT_ACTION_BUTTON"
 														},
 
 														link: () => this.btnOneOnClick('REJECTED', serviceRequestId)
@@ -838,7 +838,7 @@ downloadApplicationMCCButton = async (e) => {
 												menu: [{
 													label: {
 														labelName: "Approve",
-														labelKey: "MYBK_DELIVERED_ACTION_BUTTON"
+														labelKey: "BK_MYBK_DELIVERED_ACTION_BUTTON"
 													},
 
 													link: () => this.btnOneOnClick('DELIVERED', serviceRequestId)

@@ -73,7 +73,7 @@ class ApplicatInfo extends Component {
             value={firstName}
             hintText={
               <Label
-                label="MYBK_NAME_CITIZEN_PLACEHOLDER"
+                label="BK_MYBK_NAME_CITIZEN_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -82,7 +82,7 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="MYBK_CREATE_CITIZEN_NAME"
+                label="BK_MYBK_CREATE_CITIZEN_NAME"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
@@ -102,7 +102,7 @@ class ApplicatInfo extends Component {
             value={email}
             hintText={
               <Label
-                label="MYBK_CITIZEN_EMAIL_PLACEHOLDER"
+                label="BK_MYBK_CITIZEN_EMAIL_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -111,7 +111,7 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="MYBK_CREATE_CITIZEN_EMAIL"
+                label="BK_MYBK_CREATE_CITIZEN_EMAIL"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
@@ -132,7 +132,7 @@ class ApplicatInfo extends Component {
             value={mobileNo}
             hintText={
               <Label
-                label="MYBK_CITIZEN_MOBILENO_PLACEHOLDER"
+                label="BK_MYBK_CITIZEN_MOBILENO_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -141,7 +141,7 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="MYBK_CREATE_CITIZEN_MOBILENO"
+                label="BK_MYBK_CREATE_CITIZEN_MOBILENO"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />

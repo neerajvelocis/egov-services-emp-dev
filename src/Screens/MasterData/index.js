@@ -797,7 +797,7 @@ class AllRequests extends Component {
         {foundWaterTanker ?
           <Button
             className="responsive-action-button"
-            label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
+            label={<Label buttonLabel={true} label="BK_MYBK_WATER_TANKER_APPLY" />}
             fullWidth={true}
             primary={true}
             style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
@@ -828,7 +828,7 @@ class AllRequests extends Component {
               <div className="complaint-search-cont clearfix">
                 <div className="col-xs-12" style={{ paddingLeft: 8 }}>
                   <Label
-                    label="MYBK_SEARCH_APPLICATIONS"
+                    label="BK_MYBK_SEARCH_APPLICATIONS"
                     fontSize={16}
                     dark={true}
                     bold={true}
@@ -845,7 +845,7 @@ class AllRequests extends Component {
                     value={mobileNo}
                     hintText={
                       <Label
-                        label="MYBK_MOBILE_NUMBER_PLACEHOLDER"
+                        label="BK_MYBK_MOBILE_NUMBER_PLACEHOLDER"
                         color="rgba(0, 0, 0, 0.3799999952316284)"
                         fontSize={16}
                         labelStyle={hintTextStyle}
@@ -854,7 +854,7 @@ class AllRequests extends Component {
                     floatingLabelText={
                       <Label
                         key={0}
-                        label="MYBK_CREATE_APPLICATION_MOBILE_NUMBER"
+                        label="BK_MYBK_CREATE_APPLICATION_MOBILE_NUMBER"
                         color="rgba(0,0,0,0.60)"
                         fontSize="12px"
                       />
@@ -1080,7 +1080,7 @@ class AllRequests extends Component {
             noComplaintMessage={
               search
                 ? "ES_NO_SEARCH_RESULTS"
-                : "MYBK_NO_APPLICATION_ASSIGNED"
+                : "BK_MYBK_NO_APPLICATION_ASSIGNED"
             }
             onComplaintClick={onComplaintClick}
             complaints={csrComplaints}

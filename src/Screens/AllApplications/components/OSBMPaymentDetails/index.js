@@ -88,7 +88,7 @@ const second = +(area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.'
             <div>
               <div className="rainmaker-displayInline">
                 <div className="col-md-4">
-                  <Label label="MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="BK_MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div className="col-md-4">
                 </div>
@@ -127,7 +127,7 @@ const second = +(area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.'
                     
                    <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TAX_RENT" />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TAX_RENT" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                           id="complaint-details-submission-date"
@@ -144,7 +144,7 @@ const second = +(area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.'
                     <hr class="MuiDivider" style={{marginbottom: "16px"}}></hr>
                     <div className="col-xs-12">
                       <div className="col-sm-4 col-xs-12">
-                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TOTAL_AMOUNT" />
+                        <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TOTAL_AMOUNT" />
                         <Label
                           className="col-xs-12 col-sm-12 col-md-12  status-result-color"
 

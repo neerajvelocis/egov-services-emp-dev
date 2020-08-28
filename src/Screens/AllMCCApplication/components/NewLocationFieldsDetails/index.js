@@ -166,7 +166,7 @@ class BookingDetails extends Component {
 
                 <div className="complaint-detail-detail-section-status row">
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="NEW_LOCATION_LOCALITY" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_NEW_LOCATION_LOCALITY" />
                     <Label
                       labelStyle={{ color: "inherit" }}
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -175,7 +175,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="NEW_LOCATION_ADDRESS" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_NEW_LOCATION_ADDRESS" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-current-status"
@@ -184,7 +184,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="NEW_LOCATION_LANDMARK" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_NEW_LOCATION_LANDMARK" />
                     <b><Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       // label={submittedDate}

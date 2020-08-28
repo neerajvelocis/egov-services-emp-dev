@@ -186,7 +186,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_APPROVER_NAME" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_APPROVER_NAME" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -195,7 +195,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_COMMENT" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_COMMENT" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -205,12 +205,12 @@ class SummaryDetails extends Component {
                             </div>
 
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_TYPE_OF_REQUEST" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TYPE_OF_REQUEST" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label="MYBK_WATER_TANKER_REQUEST"
+                                    label="BK_MYBK_WATER_TANKER_REQUEST"
                                 />
                             </div>
                         </div>

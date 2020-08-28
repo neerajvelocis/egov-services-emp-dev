@@ -17,7 +17,7 @@ class AssignToDriverSuccess extends Component {
         <CommonSuccessMessage
           headermessage="ES_APPLICATION_HEADER_MESSAGE_ASSIGNED_DRIVER"
           successmessage="ES_ASSIGN_TO_DRIVER_SUCCESS_MESSAGE"
-          secondaryLabel="MYBK_SUCCESSFULLY_ASSIGNED_DRIVER_SEND_MESSAGE"
+          secondaryLabel="BK_MYBK_SUCCESSFULLY_ASSIGNED_DRIVER_SEND_MESSAGE"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}

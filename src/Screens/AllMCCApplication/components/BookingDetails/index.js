@@ -156,7 +156,7 @@ class BookingDetails extends Component {
               {/* <Icon action="notification" name="sms-failed" color="#767676" />{" "} */}
 
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="BK_MYBK_TASK_STATUS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
                   <button style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} onClick={() => { this.handleClickOpen() }}>
@@ -214,7 +214,7 @@ class BookingDetails extends Component {
 
                 <div className="complaint-detail-detail-section-status row">
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_COMMON_APPLICATION_NO" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_COMMON_APPLICATION_NO" />
                     <Label
                       labelStyle={{ color: "inherit" }}
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"

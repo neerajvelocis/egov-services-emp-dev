@@ -104,7 +104,7 @@ class AppDetails extends Component {
                 )} */}
                 <div className="complaint-detail-detail-section-status row">
                   {/* <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_COMMON_APPLICATION_NO" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_COMMON_APPLICATION_NO" />
                     <Label
                       labelStyle={{ color: "inherit" }}
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -181,7 +181,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   {/* <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CONSTRUCTION_LABEL" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_CONSTRUCTION_LABEL" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}

@@ -96,7 +96,7 @@ class BookingsDetails extends Component {
           value={houseNo}
           hintText={
             <Label
-              label="MYBK_CITIZEN_HOUSE_NUMBER_PLACEHOLDER"
+              label="BK_MYBK_CITIZEN_HOUSE_NUMBER_PLACEHOLDER"
               color="rgba(0, 0, 0, 0.3799999952316284)"
               fontSize={16}
               labelStyle={hintTextStyle}
@@ -105,7 +105,7 @@ class BookingsDetails extends Component {
           floatingLabelText={
             <Label
               key={0}
-              label="MYBK_CREATE_HOUSE_NUMBER"
+              label="BK_MYBK_CREATE_HOUSE_NUMBER"
               color="rgba(0,0,0,0.60)"
               fontSize="12px"
             />
@@ -125,7 +125,7 @@ class BookingsDetails extends Component {
           value={address}
           hintText={
             <Label
-              label="MYBK_NAME_CITIZEN_ADDRESS_PLACEHOLDER"
+              label="BK_MYBK_NAME_CITIZEN_ADDRESS_PLACEHOLDER"
               color="rgba(0, 0, 0, 0.3799999952316284)"
               fontSize={16}
               labelStyle={hintTextStyle}
@@ -134,7 +134,7 @@ class BookingsDetails extends Component {
           floatingLabelText={
             <Label
               key={0}
-              label="MYBK_CREATE_CITIZEN_ADDRESS"
+              label="BK_MYBK_CREATE_CITIZEN_ADDRESS"
               color="rgba(0,0,0,0.60)"
               fontSize="12px"
             />
@@ -212,7 +212,7 @@ class BookingsDetails extends Component {
         floatingLabelText={
           <Label
             key={0}
-            label="MYBK_CREATE_APPROVER_NAME"
+            label="BK_MYBK_CREATE_APPROVER_NAME"
             color="rgba(0,0,0,0.60)"
             fontSize="12px"
           />
@@ -242,7 +242,7 @@ class BookingsDetails extends Component {
           floatingLabelText={
             <Label
               key={0}
-              label="MYBK_CREATE_COMMENT"
+              label="BK_MYBK_CREATE_COMMENT"
               color="rgba(0,0,0,0.60)"
               fontSize="12px"
             />
