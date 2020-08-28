@@ -30,7 +30,7 @@ class SuccessMessage extends Component {
             <div class="col-sm-8" >   
             <Label className="thankyou-text" style={{ fontSize: 30, fontWeight: 'bold' }} label={successmessage} color="#767676" />
             <Label className="thankyou-text-message" label={secondaryLabel} color="#767676" /></div>
-            {/* <div class="col-sm-3">  <Label label={"MYBK_WATER_TANKER_REQUESTNO"} /><Label label= {applicationNumber}/> </div> */}
+            {/* <div class="col-sm-3">  <Label label={"BK_MYBK_WATER_TANKER_REQUESTNO"} /><Label label= {applicationNumber}/> </div> */}
           </div>
          
             </div>

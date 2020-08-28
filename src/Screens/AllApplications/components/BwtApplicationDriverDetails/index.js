@@ -59,12 +59,12 @@ class BwtApplicantDetails extends Component {
           textChildren={
             <div>
               <div className="rainmaker-displayInline">
-                <Label label="MYBK_DRIVER_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <Label label="BK_MYBK_DRIVER_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
                 <div className="complaint-detail-detail-section-status row">
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_DRIVER_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MK_MYBK_CREATE_DRIVER_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={driverName?driverName:'NA'}
@@ -74,7 +74,7 @@ class BwtApplicantDetails extends Component {
                   </div>
                 
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_DRIVER_MOBILE_NUMBER" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_DRIVER_MOBILE_NUMBER" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                      
@@ -84,7 +84,7 @@ class BwtApplicantDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_CREATE_APPROVER_NAME" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_APPROVER_NAME" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                    

@@ -152,9 +152,7 @@ class AppDetails extends Component {
                       labelStyle={{ color: "inherit" }}
                       label={areaRequired?areaRequired:'NA'}
                     />
-                  </div>
-                 
-                
+                  </div>    
                 </div>
 
       

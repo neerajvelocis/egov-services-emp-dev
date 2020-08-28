@@ -265,7 +265,7 @@ class ApplicationDetails extends Component {
 			case "ES_COMMON_REASSIGN":
 				history.push(`/reassign-complaint/${complaintNo}`);
 				break;
-			case "MYBK_RESOLVE_MARK_RESOLVED":
+			case "BBK_MYBK_RESOLVE_MARK_RESOLVED":
 				history.push(`/booking-resolved/${complaintNo}`);
 				break;
 		}
@@ -814,8 +814,8 @@ class ApplicationDetails extends Component {
 			else if (role === "employee") {
 				
 				//  if () {
-				btnOneLabel = "MYBK_REJECT_BUTTON";
-				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
+				btnOneLabel = "BK_MYBK_REJECT_BUTTON";
+				btnTwoLabel = "BK_MYBK_RESOLVE_MARK_RESOLVED";
 				//  }
 			}
 		}
@@ -852,7 +852,7 @@ class ApplicationDetails extends Component {
 													menu: (complaint.status=='APPROVED')?[{
 														label: {
 															labelName: "Receipt",
-															labelKey: "MYBK_DOWNLOAD_RECEIPT"
+															labelKey: "BK_MYBK_DOWNLOAD_RECEIPT"
 														},
 
 														link: () => this.downloadPaymentReceiptButton('Receipt')
@@ -860,13 +860,13 @@ class ApplicationDetails extends Component {
 													{
 														label: {
 															labelName: "PermissionLetter",
-															labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+															labelKey: "BK_MYBK_DOWNLOAD_PERMISSION_LETTER"
 														},
 														link: () => this.downloadPermissionLetterButton('PermissionLetter')
 													},{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_PRINT_APPLICATION"
+															labelKey: "BK_MYBK_PRINT_APPLICATION"
 														},
 														link: () => this.downloadApplicationButton('state', "dispatch", 'REJECT')
 
@@ -874,7 +874,7 @@ class ApplicationDetails extends Component {
 													[{
 														label: {
 															labelName: "Application",
-															labelKey: "MYBK_DOWNLOAD_APPLICATION"
+															labelKey: "BK_MYBK_DOWNLOAD_APPLICATION"
 														},
 														link: () => this.downloadApplicationButton('Application')
 													}]
@@ -977,7 +977,7 @@ class ApplicationDetails extends Component {
 													{
 														label: {
 															labelName: "Reject",
-															labelKey: "MYBK_REJECT_ACTION_BUTTON"
+															labelKey: "BK_MYBK_REJECT_ACTION_BUTTON"
 														},
 														link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 													}]
@@ -1007,7 +1007,7 @@ class ApplicationDetails extends Component {
 											{
 												label: {
 													labelName: "Reject",
-													labelKey: "MYBK_REJECT_ACTION_BUTTON"
+													labelKey: "BK_MYBK_REJECT_ACTION_BUTTON"
 												},
 												link: () => this.actionButtonOnClick('state', "dispatch", 'REJECT')
 											}]
@@ -1028,7 +1028,7 @@ class ApplicationDetails extends Component {
 											menu: [{
 												label: {
 													labelName: "Publish",
-													labelKey: "MYBK_PUBLISH_ACTION_BUTTON"
+													labelKey: "BK_MYBK_PUBLISH_ACTION_BUTTON"
 												},
 
 												link: () => this.actionButtonOnClick('state', "dispatch", 'PUBLISH')

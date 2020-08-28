@@ -219,7 +219,7 @@ class CGApplicationDetails extends Component {
 			case "ES_COMMON_REASSIGN":
 				history.push(`/reassign-complaint/${complaintNo}`);
 				break;
-			case "MYBK_RESOLVE_MARK_RESOLVED":
+			case "BK_MYBK_RESOLVE_MARK_RESOLVED":
 				history.push(`/booking-resolved/${complaintNo}`);
 				break;
 		}
@@ -710,8 +710,8 @@ const {documentMap}=this.props;
 				}
 			}
 			else if (role === "employee") {
-				btnOneLabel = "MYBK_REJECT_BUTTON";
-				btnTwoLabel = "MYBK_RESOLVE_MARK_RESOLVED";
+				btnOneLabel = "BK_MYBK_REJECT_BUTTON";
+				btnTwoLabel = "BK_MYBK_RESOLVE_MARK_RESOLVED";
 				
 			}
 		}
@@ -745,7 +745,7 @@ Application Details
 
 										label: {
 											labelName: "PermissionLetter",
-											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+											labelKey: "BK_MYBK_DOWNLOAD_PERMISSION_LETTER"
 										},
 										leftIcon: "book",
 										link: () => this.downloadPaymentReceiptButton('Receipt')
@@ -753,7 +753,7 @@ Application Details
 									{
 										label: {
 											labelName: "Receipt",
-											labelKey: "MYBK_DOWNLOAD_RECEIPT"
+											labelKey: "BK_MYBK_DOWNLOAD_RECEIPT"
 										},
 										leftIcon: "receipt",
 
@@ -762,7 +762,7 @@ Application Details
 									{
 										label: {
 											labelName: "Application",
-											labelKey: "MYBK_DOWNLOAD_APPLICATION"
+											labelKey: "BK_MYBK_DOWNLOAD_APPLICATION"
 										},
 										leftIcon:"assignment",
 										 link: () => this.downloadApplicationButton('Application')
@@ -783,7 +783,7 @@ Application Details
 
 										label: {
 											labelName: "PermissionLetter",
-											labelKey: "MYBK_DOWNLOAD_PERMISSION_LETTER"
+											labelKey: "BK_MYBK_DOWNLOAD_PERMISSION_LETTER"
 										},
 										leftIcon: "book",
 										link: () => this.downloadPaymentReceiptButton('Receipt')
@@ -791,7 +791,7 @@ Application Details
 									{
 										label: {
 											labelName: "Receipt",
-											labelKey: "MYBK_DOWNLOAD_RECEIPT"
+											labelKey: "BK_MYBK_DOWNLOAD_RECEIPT"
 										},
 										leftIcon: "receipt",
 
@@ -800,7 +800,7 @@ Application Details
 									{
 										label: {
 											labelName: "Application",
-											labelKey: "MYBK_DOWNLOAD_APPLICATION"
+											labelKey: "BK_MYBK_DOWNLOAD_APPLICATION"
 										},
 										leftIcon:"assignment",
 										 link: () => this.downloadApplicationButton('Application')

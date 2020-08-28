@@ -743,7 +743,7 @@ class AllRequests extends Component {
         {foundWaterTanker ?
           <Button
             className="responsive-action-button"
-            label={<Label buttonLabel={true} label="MYBK_WATER_TANKER_APPLY" />}
+            label={<Label buttonLabel={true} label="BK_MYBK_WATER_TANKER_APPLY" />}
             fullWidth={true}
             primary={true}
             style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
@@ -753,7 +753,7 @@ class AllRequests extends Component {
         {foundFirstLavel || foundSecondLavel || foundthirdLavel ?
           <Button
             className="responsive-action-button"
-            label={<Label buttonLabel={true} label="NEW_LOCATION_LIST" />}
+            label={<Label buttonLabel={true} label="BK_NEW_LOCATION_LIST" />}
             style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
             backgroundColor="#fe7a51"
             // labelStyle={{ letterSpacing: 0.7, padding: 0, color: "#fff" }}
@@ -1031,7 +1031,7 @@ class AllRequests extends Component {
             noComplaintMessage={
               search
                 ? "ES_NO_SEARCH_RESULTS"
-                : "MYBK_NO_APPLICATION_ASSIGNED"
+                : "BK_MYBK_NO_APPLICATION_ASSIGNED"
             }
             onComplaintClick={onComplaintClick}
             complaints={csrComplaints}
