@@ -733,7 +733,7 @@ Application Details
 										<div className="col-12 col-md-6 row">
 										<div class="col-12 col-md-6 col-sm-3" >
 										<ActionButtonDropdown data={{
-									label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+									label: { labelName: "Download ", labelKey: "BK_COMMON_DOWNLOAD_ACTION" },
 									rightIcon: "arrow_drop_down",
 									leftIcon: "cloud_download",
 									props: {
@@ -771,7 +771,7 @@ Application Details
 								</div>
 								<div class="col-12 col-md-6 col-sm-3" >
 										<ActionButtonDropdown data={{
-									label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+									label: { labelName: "Print", labelKey: "BK_COMMON_PRINT_ACTION" },
 									rightIcon: "arrow_drop_down",
 									leftIcon: "print",
 									props: {

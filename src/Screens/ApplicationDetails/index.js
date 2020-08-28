@@ -715,7 +715,7 @@ downloadPermissionLetterFunction = async (e) => {
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
 												<ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													label: { labelName: "Download ", labelKey: "BK_COMMON_DOWNLOAD_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "cloud_download",
 													props: {
@@ -758,7 +758,7 @@ downloadPermissionLetterFunction = async (e) => {
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
 												<ActionButtonDropdown data={{
-													label: { labelName: "Print", labelKey: "COMMON_PRINT_ACTION" },
+													label: { labelName: "Print", labelKey: "BK_COMMON_PRINT_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "print",
 													props: {
@@ -857,7 +857,7 @@ downloadPermissionLetterFunction = async (e) => {
 												
 
 												<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={<ActionButtonDropdown data={{
-													label: { labelName: "TAKE ACTION ", labelKey: "COMMON_TAKE_ACTION" },
+													label: { labelName: "TAKE ACTION ", labelKey: "BK_COMMON_TAKE_ACTION" },
 													rightIcon: "arrow_drop_down",
 													props: {
 														variant: "outlined",
@@ -866,7 +866,7 @@ downloadPermissionLetterFunction = async (e) => {
 													menu: [{
 														label: {
 															labelName: "Approve",
-															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+															labelKey: "BK_MYBK_APPROVE_ACTION_BUTTON"
 														},
 
 														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')

@@ -195,7 +195,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-current-status"
@@ -204,7 +204,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
                     <b><Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}
@@ -214,7 +214,7 @@ class BookingDetails extends Component {
                     /></b>
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_TYPE" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_TYPE" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}

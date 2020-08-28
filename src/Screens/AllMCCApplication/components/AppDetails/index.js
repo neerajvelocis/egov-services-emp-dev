@@ -61,7 +61,7 @@ class AppDetails extends Component {
             <div>
               <div className="rainmaker-displayInline">
              
-                <Label label="MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                <Label label="BK_MYBK_APPLICANT_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
               </div>
               <div key={10} className="complaint-detail-full-width">
                 {/* <Label labelClassName="dark-heading rainmaker-big-font" label={titleKey} /> */}
@@ -88,7 +88,7 @@ class AppDetails extends Component {
                   </div> */}
 
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={applicantName}
@@ -97,7 +97,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_DETAILS_EMAIL" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DETAILS_EMAIL" />
                     <Label
                       className="col-xs-6  col-sm-8 col-md-10  status-result-color"
                       id="complaint-details-current-status"
@@ -106,7 +106,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_MOBILENUMBER" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_MOBILENUMBER" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                      
@@ -116,7 +116,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_ADDRESS" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_ADDRESS" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                    
@@ -126,7 +126,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   {/* <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_HOUSENO" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_HOUSENO" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                     
@@ -136,7 +136,7 @@ class AppDetails extends Component {
                     />
                   </div> */}
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_SECTOR" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_SECTOR" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                     
@@ -146,7 +146,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   {/* <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MYBK_APPLICANT_AREA_REQUIRED" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_AREA_REQUIRED" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-submission-date"
@@ -182,7 +182,7 @@ class AppDetails extends Component {
                 {/* {address && !isEmpty(address) && ( */}
                 {/* <div className="rainmaker-displayInline">
                     <Icon className="map-icon" action="maps" name="place" style={{ marginRight: 13 }} color={"#767676"} />
-                    <Label label="MYBK_APPLICANT_DETAILS_ADDRESS_DETAILS" labelClassName="dark-heading" />
+                    <Label label="BK_MYBK_APPLICANT_DETAILS_ADDRESS_DETAILS" labelClassName="dark-heading" />
                   </div> */}
                 {/* )} */}
                

@@ -21,9 +21,9 @@ class PublishSuccess extends Component {
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
-          headermessage="ES_APPLICATION_HEADER_PUBLISH_MESSAGE"
-          successmessage="ES_APPLICATION_PUBLISH_SUCCESS_MESSAGE"
-          secondaryLabel="CS_COMMON_SEND_MESSAGE_PUBLISHED"
+          headermessage="BK_ES_APPLICATION_HEADER_PUBLISH_MESSAGE"
+          successmessage="BK_ES_APPLICATION_PUBLISH_SUCCESS_MESSAGE"
+          secondaryLabel="BK_CS_COMMON_SEND_MESSAGE_PUBLISHED"
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}

@@ -85,7 +85,7 @@ const RejectComplaintForm = ({ form, options,classes, bkStatus, mobileNumber, dr
               value={approverName}
               hintText={
                 <Label
-                  label="MYBK_APPROVER_NAME_PLACEHOLDER"
+                  label="BK_MYBK_APPROVER_NAME_PLACEHOLDER"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={{

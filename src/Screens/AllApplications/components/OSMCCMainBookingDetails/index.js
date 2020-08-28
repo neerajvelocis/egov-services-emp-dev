@@ -151,7 +151,7 @@ class BookingDetails extends Component {
              
               
                 <div className="col-8" style={{paddingLeft:"10px"}}>
-                  <Label label="MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
+                  <Label label="BK_MYBK_APPLICATION_DETAILS" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
                 <div style={{ position: "absolute", right: "100px" }} className="col-4">
                 </div>
@@ -201,7 +201,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_CURRENT_STATUS" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-current-status"
@@ -210,7 +210,7 @@ class BookingDetails extends Component {
                     />          
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_VENUE" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_VENUE" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-booking-venue"
@@ -219,7 +219,7 @@ class BookingDetails extends Component {
                     />          
                   </div>
                   <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_FROM_DATE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_FROM_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                   
@@ -233,7 +233,7 @@ class BookingDetails extends Component {
                 </div>
 
                 <div className="col-md-4">
-                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_TO_DATE" />
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_TO_DATE" />
                   <Label
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                    
@@ -246,7 +246,7 @@ class BookingDetails extends Component {
                   />
                 </div> 
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_DETAILS_SUBMISSION_DATE" />
                     <b><Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}
@@ -256,7 +256,7 @@ class BookingDetails extends Component {
                     /></b>
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_APPLICATION_BOOKING_TYPE" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICATION_BOOKING_TYPE" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={submittedDate}
@@ -266,7 +266,7 @@ class BookingDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="MCC_LOCATION_AREA" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MCC_LOCATION_AREA" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-submission-date"

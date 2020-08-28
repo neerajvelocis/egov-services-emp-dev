@@ -842,7 +842,7 @@ class ApplicationDetails extends Component {
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
 												{/* <ActionButtonDropdown data={{
-													label: { labelName: "Download ", labelKey: "COMMON_DOWNLOAD_ACTION" },
+													label: { labelName: "Download ", labelKey: "BK_COMMON_DOWNLOAD_ACTION" },
 													rightIcon: "arrow_drop_down",
 													leftIcon: "cloud_download",
 													props: {
@@ -969,7 +969,7 @@ class ApplicationDetails extends Component {
 													menu: [{
 														label: {
 															labelName: "Approve",
-															labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+															labelKey: "BK_MYBK_APPROVE_ACTION_BUTTON"
 														},
 
 														link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
@@ -999,7 +999,7 @@ class ApplicationDetails extends Component {
 											menu: [{
 												label: {
 													labelName: "Approve",
-													labelKey: "MYBK_APPROVE_ACTION_BUTTON"
+													labelKey: "BK_MYBK_APPROVE_ACTION_BUTTON"
 												},
 
 												link: () => this.actionButtonOnClick('state', "dispatch", 'APPROVED')
