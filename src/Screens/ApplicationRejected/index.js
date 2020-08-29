@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
+import { connect } from "react-redux";
 
 
 class ApplicationRejected extends Component {
@@ -10,6 +11,7 @@ class ApplicationRejected extends Component {
   };
 
   render() {
+    let {applicationNumber} = this.props;
     return (
       <div className="success-message-main-screen">
         <CommonSuccessMessage
@@ -18,6 +20,7 @@ class ApplicationRejected extends Component {
           secondaryLabel="BK_CS_COMMON_SEND_MESSAGE_REJECTED"
           icon={<Icon action="navigation" name="close" />}
           backgroundColor={"#e74c3c"}
+          applicationNumber={applicationNumber && applicationNumber}
         />
 
         <div className="responsive-action-button-cont">
@@ -34,4 +37,24 @@ class ApplicationRejected extends Component {
   }
 }
 
-export default ApplicationRejected;
+const mapStateToProps = state => {
+  const { complaints, common, auth, form } = state;
+  const { applicationData } = complaints;
+  let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
+  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+  //bkApplicationNumber
+  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+  console.log("applicationNumber--",applicationNumber)
+  return {
+    bookingDetails,
+    applicationNumber
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)( ApplicationRejected);

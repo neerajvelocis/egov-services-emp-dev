@@ -193,7 +193,7 @@ class BookingDetails extends Component {
                                     labelName={this.getCurrentStatus(item.state.applicationStatus)}
                                     labelKey={
                                        item.businessService
-                                        ? `WF_${item.businessService.toUpperCase()}_${
+                                        ? `BK_WF_${item.businessService.toUpperCase()}_${
                                         item.state.applicationStatus
                                         }`
                                         : ""
@@ -267,7 +267,7 @@ class BookingDetails extends Component {
 
  labelKey={
   ProcessInstances && ProcessInstances.length>0 && ProcessInstances[0].businessService
-                ? `WF_${ProcessInstances[0].businessService.toUpperCase()}_${
+                ? `BK_WF_${ProcessInstances[0].businessService.toUpperCase()}_${
                   ProcessInstances[0]. state.state          
                   }`
                 : ""

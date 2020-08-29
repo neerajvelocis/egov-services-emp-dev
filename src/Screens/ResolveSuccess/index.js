@@ -20,7 +20,7 @@ class ResolveSuccess extends Component {
   };
 
   render() {
-   
+    let {applicationNumber} = this.props;
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
@@ -30,6 +30,7 @@ class ResolveSuccess extends Component {
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
+          applicationNumber={applicationNumber && applicationNumber}
         />
         <div className="responsive-action-button-cont">
           <Button
@@ -49,8 +50,13 @@ const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
   const { applicationData } = complaints;
   let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
+  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+  //bkApplicationNumber
+  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+  console.log("applicationNumber--",applicationNumber)
   return {
-    bookingDetails
+    bookingDetails,
+    applicationNumber
   }
 }
 
