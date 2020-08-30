@@ -85,7 +85,7 @@ const styles = {
                                 </MenuItem>
                             ))} */}
                       <MenuItem value= "" disabled>Bokking Type</MenuItem>
-                      <MenuItem value='BK_OSBM'>Open Space To Store Building Material</MenuItem>
+                      <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                 </Select>
             </FormControl>

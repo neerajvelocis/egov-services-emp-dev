@@ -179,11 +179,15 @@ class AllRequests extends Component {
     }
     if (bookingType && bookingType == "GROUND_FOR_COMMERCIAL_PURPOSE") {
 
-      this.props.history.push(`/cg-application-details/${complaintNo}`);
+      this.props.history.push(`/egov-services/cg-application-details/${complaintNo}`);
+    }
+    if (bookingType && bookingType == "OSUJM") {
+
+      this.props.history.push(`/egov-services/osmcc-application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "JURISDICTION") {
 
-      this.props.history.push(`/OSMCC-application-details/${complaintNo}`);
+      this.props.history.push(`/egov-services/osmcc-application-details/${complaintNo}`);
     }
   };
 

@@ -278,7 +278,7 @@ const routes = [
   },
  
   {
-    path: "cg-application-details/:applicationId",
+    path: "egov-services/cg-application-details/:applicationId",
     component: CGApplicationDetails,
     needsAuthentication: true,
     options: {
@@ -309,7 +309,7 @@ const routes = [
   },
 
   {
-    path: "osmcc-application-details/:applicationId",
+    path: "egov-services/osmcc-application-details/:applicationId",
     component: OSWMCCApplicationDetails,
     needsAuthentication: true,
     options: {
