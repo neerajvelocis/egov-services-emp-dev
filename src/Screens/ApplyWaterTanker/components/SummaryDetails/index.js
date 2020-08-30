@@ -148,7 +148,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MY_BK_HOUSE_NO_LABEL" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"

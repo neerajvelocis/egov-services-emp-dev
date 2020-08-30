@@ -44,7 +44,7 @@ import {
 	fetchApplications, OSBMfetchperDayRate, OSBMfetchPayment,fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
 	sendMessage,downloadPermissionLetter,downloadMccPL,downloadReceiptforCG,
 	sendMessageMedia,downloadMccApp
-} from "egov-ui-kit/redux/complaints/actions";
+} from "../../redux/bookings/actions";
 import { connect } from "react-redux";
 import DialogContainer from '../../modules/DialogContainer';
 import Footer from "../../modules/footer"

@@ -1,6 +1,6 @@
 import withAuthorization from "egov-ui-kit/hocs/withAuthorization";
 import withoutAuthorization from "egov-ui-kit/hocs/withoutAuthorization";
-import pgrRoutes from "./pgr-routes";
+import bookingRoutes from "./pgr-routes";
 
 const mapRoutes = routes => {
   return routes.map((route, index) => {
@@ -14,5 +14,6 @@ const mapRoutes = routes => {
   });
 };
 
-const routes = { pgr: mapRoutes(pgrRoutes) };
+const routes = { pgr: mapRoutes(bookingRoutes) };
+console.log('routes----??',routes)
 export default routes;

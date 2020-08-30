@@ -10,7 +10,7 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { fetchApplicaionSector } from "egov-ui-kit/redux/complaints/actions";
+import { fetchApplicaionSector } from "../../../../redux/bookings/actions";
 import "./index.css";
 class BookingsDetails extends Component {
 

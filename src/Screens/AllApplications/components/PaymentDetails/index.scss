@@ -95,12 +95,12 @@ body[class^="complaint-details"] .map-container {
   padding-left: 0px !important;
 }
 
-.MuiDivider {
-  height: 1px;
-  margin: 0;
+.MuiDividerLine {
+  height: 2px;
   border: none;
   margin-top: 8px;
   flex-shrink: 0;
-  margin-bottom: 24px;
   background-color: rgba(0, 0, 0, 0.12);
+  width: 671px;
+  margin-right: 373px;
 }

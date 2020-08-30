@@ -11,8 +11,7 @@ import "./index.css";
 
 const ApplicationResolvedHOC = formHOC({
   formKey: "approveBooking",
-  isCoreConfiguration: true,
-  path: "pgr/pgr-employee"
+  isCoreConfiguration:'false'
 })(ApplicationResolvedForm);
 
 

@@ -43,7 +43,7 @@ import {
 	fetchApplications, fetchPayment, fetchperDayRate,fetchHistory, fetchDataAfterPayment,downloadPaymentReceiptforCG,downloadReceiptforCG,
 	sendMessage,downloadLetterforCG,
 	sendMessageMedia,downloadPermissionLetterforCG,downloadApplicationforCG
-} from "egov-ui-kit/redux/complaints/actions";
+} from "../../redux/bookings/actions";
 import { connect } from "react-redux";
 
 import "./index.css";

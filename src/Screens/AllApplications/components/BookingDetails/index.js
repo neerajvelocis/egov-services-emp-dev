@@ -60,24 +60,6 @@ const DialogContent = withStyles((theme) => ({
 
 
 
-const iconStyle = {
-  marginRight: "13px",
-  height: "24px",
-  width: "24px",
-};
-
-const imageStyles = {
-  maxHeight: "100px",
-  minHeight: "100px",
-};
-
-const mapIconStyle = {
-  marginRight: "7px",
-  height: "12px",
-  width: "14px",
-  borderRadius: "50%",
-};
-
 class BookingDetails extends Component {
   state = {
     open: false

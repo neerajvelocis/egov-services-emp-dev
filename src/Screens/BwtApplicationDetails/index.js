@@ -47,7 +47,7 @@ import {
 	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment,
 	sendMessage,
 	sendMessageMedia,downloadReceiptforCG,downloadBWTApplication
-} from "egov-ui-kit/redux/complaints/actions";
+} from "../../redux/bookings/actions";
 import { connect } from "react-redux";
 
 import "./index.css";

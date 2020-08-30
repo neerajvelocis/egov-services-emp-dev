@@ -3,7 +3,7 @@ import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import SuccessMessage from "../../modules/SuccessMessage";
 import { connect } from "react-redux";
-import { createWaterTankerApplication, downloadBWTApplication } from "egov-ui-kit/redux/complaints/actions";
+import { createWaterTankerApplication, downloadBWTApplication } from "../../redux/bookings/actions";
 import jp from "jsonpath";
 import {
 	getQueryArg,

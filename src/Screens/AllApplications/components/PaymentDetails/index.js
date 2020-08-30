@@ -4,23 +4,23 @@ import Label from "egov-ui-kit/utils/translationNode";
 import isEmpty from "lodash/isEmpty";
 import "./index.css";
 
-const iconStyle = {
-  marginRight: "13px",
-  height: "24px",
-  width: "24px",
-};
+// const iconStyle = {
+//   marginRight: "13px",
+//   height: "24px",
+//   width: "24px",
+// };
 
-const imageStyles = {
-  maxHeight: "100px",
-  minHeight: "100px",
-};
+// const imageStyles = {
+//   maxHeight: "100px",
+//   minHeight: "100px",
+// };
 
-const mapIconStyle = {
-  marginRight: "7px",
-  height: "12px",
-  width: "14px",
-  borderRadius: "50%",
-};
+// const mapIconStyle = {
+//   marginRight: "7px",
+//   height: "12px",
+//   width: "14px",
+//   borderRadius: "50%",
+// };
 
 class PayDetails extends Component {
   navigateToComplaintType = () => {
@@ -56,74 +56,43 @@ class PayDetails extends Component {
         <Card
           textChildren={
             <div>
-              <div className="rainmaker-displayInline">
+              <div className="rainmaker-displayInline row">
                 <div className="col-md-4">
                   <Label label="BK_MYBK_FEE_ESTIMATE" containerStyle={{ marginLeft: "13px" }} labelClassName="dark-heading" />
                 </div>
-                <div className="col-md-4">
-                </div>
-                <div className="col-md-4">
-                  <h5>Total Amount</h5>
-                  <h3><b>Rs {paymentDetails ? paymentDetails.totalAmount : 'NA'}</b></h3>
+                <div style={{right: '50px',position: 'absolute'}}>
+                  <h5><Label label="BK_TOTAL_AMOUNT" /></h5>
+                  <h3 style={{marginTop: '-8px',fontSize: '28px',color: 'black'}}><b>Rs {paymentDetails ? paymentDetails.totalAmount : 'NA'}</b></h3>
                 </div>
               </div>
 
-              <div className="complaint-detail-detail-section-status row">
-                <div>
-                  <div className="col-xs-12">
-                    <div className="col-sm-4 col-xs-12">
-                      <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MYBK_REGISTRATION_RENT" />
-                      <Label
-                        className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
-                        id="complaint-details-submission-date"
-                        labelStyle={{ color: "inherit" }}
-                      />
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                      <div >
-                        <h5 style={{ align: "right" }}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
-                      </div>
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                    </div>
-                  </div>
-                  <div className="col-xs-12">
-                    <div className="col-sm-4 col-xs-12">
-                      <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TAX_RENT" />
-                      <Label
-                        className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                        id="complaint-details-submission-date"
-                        labelStyle={{ color: "inherit" }}
-                        label={bkPaymentStatus}
-                      />
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                      <h5 style={{ align: "right" }}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                    </div>
-                  </div>
-
-                  <hr class="MuiDivider" style={{ marginbottom: "16px" }}></hr>
-                  <div className="col-xs-12">
-                    <div className="col-sm-4 col-xs-12">
-                      <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TOTAL_AMOUNT" />
-                      <Label
-                        className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-
-                        id="complaint-details-submission-date"
-                        labelStyle={{ color: "inherit" }}
-                      />
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                      <h5>{paymentDetails ? paymentDetails.totalAmount : 'NA'}</h5>
-                    </div>
-                    <div className="col-sm-4 col-xs-12">
-                    </div>
-                  </div>
+              <div className="complaint-detail-detail-section-status row" style={{marginLeft:'-10px',marginTop:30}}>
+                <div className="col-sm-4 col-xs-12">
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_REGISTRATION_RENT" />
+                </div>
+                <div className="col-sm-4 col-xs-12">
+                  <h5 style={{ textAlign: "right" }}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[1].amount}</h5>
                 </div>
               </div>
+
+              <div className="complaint-detail-detail-section-status row" style={{marginLeft:'-10px'}}>
+                <div className="col-sm-4 col-xs-12">
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TAX_RENT" />
+                </div>
+                <div className="col-sm-4 col-xs-12">
+                  <h5 style={{ textAlign: "right" }}>{paymentDetails && paymentDetails.billDetails[0] && paymentDetails.billDetails[0].billAccountDetails[0].amount}</h5>
+                </div>
+              </div>
+              <div className="complaint-detail-detail-section-status row" style={{marginLeft:'-10px'}}>
+                <hr class="MuiDividerLine" style={{ marginbottom: "16px" }}></hr>
+                <div className="col-sm-4 col-xs-12">
+                  <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TOTAL_AMOUNT" />
+                </div>
+                <div className="col-sm-4 col-xs-12">
+                  <h5 style={{ textAlign: "right" }}>{paymentDetails ? paymentDetails.totalAmount : 'NA'}</h5>
+                </div>
+              </div>
+
             </div>
           }
         />

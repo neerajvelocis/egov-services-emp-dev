@@ -204,8 +204,8 @@ const routes = [
       hideFooter: true,
       title: "ES_OPEN_APPLICAION_HEADER",
       hideTitle: false,
-      redirectionUrl,
-      hideFor: "ao",
+      // redirectionUrl,
+      // hideFor: "ao",
       customFor: "employee",
       customTitle: "BK_MYBK_ALL_APPLICAION_HEADER"
     }

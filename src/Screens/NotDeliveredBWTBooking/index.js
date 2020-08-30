@@ -11,8 +11,7 @@ import "./index.css";
 
 const DeliveredBWTBookingHOC = formHOC({
   formKey: "NotDeliveredWBTBooking",
-  isCoreConfiguration: true,
-  path: "pgr/pgr-employee"
+  isCoreConfiguration: 'false',
 })(NotDeliveredBWTBookingForm);
 
 

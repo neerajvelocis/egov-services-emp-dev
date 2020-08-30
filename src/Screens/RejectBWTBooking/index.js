@@ -11,8 +11,7 @@ import "./index.css";
 
 const RejectBWTBokingHOC = formHOC({
   formKey: "rejectBWTBooking",
-  isCoreConfiguration: true,
-  path: "pgr/pgr-employee"
+  isCoreConfiguration: 'false',
 })(RejectBWTBookingForm);
 
 
