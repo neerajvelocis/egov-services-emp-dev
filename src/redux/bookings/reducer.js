@@ -291,6 +291,128 @@ const complaintsReducer = (state = intialState, action) => {
           shareMedia: action.message,
         },
       };
+      case actionTypes.PAYMENT_PER_DAY_FETCH_COMPLETE:
+        return {
+          ...state,
+          loading: false,
+          fetchSuccess: true,
+          perDayRate:action.payload
+        };
+      case actionTypes.PAYMENT_PER_DAY_FETCH_FETCH_ERROR:
+        return {
+          ...state,
+          loading: false,
+          fetchSuccess: true,
+          error: true,
+          errorMessage: action.error,
+        };  
+        case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_COMPLETE:
+        return {
+          ...state,
+          loading: false,
+          fetchSuccess: true,
+          OSBMperDayRate:action.payload
+        };
+      case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_FETCH_ERROR:
+        return {
+          ...state,
+          loading: false,
+          fetchSuccess: true,
+          error: true,
+          errorMessage: action.error,
+        };        
+        case actionTypes.DOWNLOAD_NEWRECEIPT_COMPLETE_CG:
+          return {
+            ...state,
+            loading: false,
+            fetchSuccess: true,
+            DownloadReceiptDetailsforCG:action.payload
+          };
+        case actionTypes.DOWNLOAD_NEWRECEIPT_ERROR_CG:
+          return {
+            ...state,
+            loading: false,
+            fetchSuccess: true,
+            error: true,
+            errorMessage: action.error,
+          };
+          case actionTypes.DOWNLOAD_PLMCC_COMPLETE:
+            return {
+              ...state,
+              loading: false,
+              fetchSuccess: true,
+              DownloadMccPermissionLetter:action.payload
+            };
+          case actionTypes.DOWNLOAD_PLMCC_ERROR:
+            return {
+              ...state,
+              loading: false,
+              fetchSuccess: true,
+              error: true,
+              errorMessage: action.error,
+            };   
+        case actionTypes.DOWNLOAD_RECEIPT_COMPLETE:
+          return {
+            ...state,
+            loading: false,
+            fetchSuccess: true,
+            DownloadPaymentReceiptDetails:action.payload
+          };
+          case actionTypes.DOWNLOAD_RECEIPT_ERROR:
+            return {
+              ...state,
+              loading: false,
+              fetchSuccess: true,
+              error: true,
+              errorMessage: action.error,
+            };
+            case actionTypes.DOWNLOAD_MCCAPP_COMPLETE:
+              return {
+                 ...state,
+                  loading: false,
+                 fetchSuccess: true,
+                 DownloadMccAppp:action.payload
+                };
+             case actionTypes.DOWNLOAD_MCCAPP_ERROR:
+               return {
+                   ...state,
+                   loading: false,
+                    fetchSuccess: true,
+                   error: true,
+                    errorMessage: action.error,
+                   };
+                   case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_CG:
+                       return {
+                       ...state,
+                       loading: false,
+                        fetchSuccess: true,
+                         DownloadPaymentReceiptDetailsforCG:action.payload
+                         };
+                  case actionTypes.DOWNLOAD_RECEIPT_ERROR_CG:
+                      return {
+                         ...state,
+                        loading: false,
+                        fetchSuccess: true,
+                         error: true,
+                         errorMessage: action.error,
+                      };
+
+                      case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_CG:
+                        return {
+                          ...state,
+                          loading: false,
+                          fetchSuccess: true,
+                          DownloadApplicationDetailsforCG:action.payload
+                        };
+                      case actionTypes.DOWNLOAD_APPLICATION_ERROR_CG:
+                        return {
+                          ...state,
+                          loading: false,
+                          fetchSuccess: true,
+                          error: true,
+                          errorMessage: action.error,
+                        };  
+
     case actionTypes.COMPLAINTS_SEND_MESSAGE_SHARECONTENT_TO:
       const shareCont = state.ShareMetaData.shareContent;
       shareCont.map((elem) => {
