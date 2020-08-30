@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import formHOC from "egov-ui-kit/hocs/form";
 import { Screen } from "modules/common";
 import NewLocationRejectedForm from "./components/NewLocationRejectedForm";
-import { fetchMccApplications } from "egov-ui-kit/redux/complaints/actions";
+import { fetchMccApplications } from "../../redux/bookings/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { handleFieldChange } from "egov-ui-kit/redux/form/actions";
@@ -11,8 +11,7 @@ import "./index.css";
 
 const NewLocationRejectHOC = formHOC({
   formKey: "rejectNewLocation",
-  isCoreConfiguration: true,
-  path: "pgr/pgr-employee"
+  isCoreConfiguration: 'false',
 })(NewLocationRejectedForm);
 
 

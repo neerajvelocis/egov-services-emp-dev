@@ -11,8 +11,7 @@ import "./index.css";
 
 const RejectApplicationHOC = formHOC({
   formKey: "rejectBooking",
-  isCoreConfiguration: true,
-  path: "pgr/pgr-employee"
+  isCoreConfiguration: 'false',
 })(RejectApplicationForm);
 
 
