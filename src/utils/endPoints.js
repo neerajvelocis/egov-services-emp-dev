@@ -267,3 +267,45 @@ export const FETCHASSESSMENTS = {
     ACTION: "_search",
   },
 };
+export const PerDayRateAmount = {
+  POST: {
+    URL: "bookings/commercial/ground/fee/_search",
+    ACTION: "_search",
+  },
+};
+export const OSBMPerDayRateAmount = {
+  POST: {
+    URL: "bookings/osujm/fee/_search",
+    ACTION: "_search",
+  },
+};
+export const DWONLOADNEWRECEIPTFORCG = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-payment-receipt",
+    ACTION: "_search",
+  },
+};
+export const PermissionLetterDWNOSMCC = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-oswmcc-booking-pl",
+    ACTION: "_search",
+  },
+};
+export const ApplicationDWNOSMCC = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=oswmcc-booking-app-form",
+    ACTION: "_search",
+  },
+};
+export const DWONLOADPAYMENTRECEIPTFORCG = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-cg-pl",
+    ACTION: "_search",
+  },
+};
+export const DWONLOADAPPLICATIONFORCG = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-cg-app-form",
+    ACTION: "_search",
+  },
+};

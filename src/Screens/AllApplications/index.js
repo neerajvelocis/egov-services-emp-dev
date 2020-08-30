@@ -887,11 +887,9 @@ class AllRequests extends Component {
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                       <MenuItem value='GROUND_FOR_COMMERCIAL_PURPOSE'>Commercial Ground</MenuItem>
-                      <MenuItem value='JURISDICTION'>Open Space WithIn MCC</MenuItem>
+                      <MenuItem value='OSUJM'>Open Space WithIn MCC</MenuItem>
                     </Select>
                   </FormControl>
-
-
                 </div>
                 <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
                   <TextField

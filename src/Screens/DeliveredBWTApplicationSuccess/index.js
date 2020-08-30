@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Icon } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
 import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
-
+import { connect } from "react-redux";
 import "./index.css";
 
 class DeliveredBWTApplicationSuccess extends Component {
@@ -10,6 +10,7 @@ class DeliveredBWTApplicationSuccess extends Component {
     this.props.history.push("/egov-services/all-applications");
   };
   render() {
+    let {applicationNumber} = this.props;
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
@@ -19,6 +20,7 @@ class DeliveredBWTApplicationSuccess extends Component {
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
+          applicationNumber={applicationNumber && applicationNumber}
         />
         <div className="responsive-action-button-cont">
           <Button
@@ -35,4 +37,24 @@ class DeliveredBWTApplicationSuccess extends Component {
   }
 }
 
-export default DeliveredBWTApplicationSuccess;
+const mapStateToProps = state => {
+  const { complaints, common, auth, form } = state;
+  const { applicationData } = complaints;
+  let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
+  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+  //bkApplicationNumber
+  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+  console.log("applicationNumber--",applicationNumber)
+  return {
+    bookingDetails,
+    applicationNumber
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeliveredBWTApplicationSuccess);
