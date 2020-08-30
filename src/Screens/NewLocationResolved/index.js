@@ -32,12 +32,13 @@ class NewLocationResolved extends Component {
       "applicationStatus":"",
       "mobileNumber":"","bookingType":"" }
     );
-    let requestbody=[{key: "applicationNumber",value: applicationNumber},{key: "tenantId",value:userInfo.tenantId},{key: "action",value:trasformData.action}]
+    let requestbody={"applicationNumber": applicationNumber, "sector":trasformData.sector, "action":trasformData.action}
     let AssigneeFromAPI = await httpRequest(
 			"bookings/api/employee/assignee/_search",
-			"_search",
+			"_search",[],
 			requestbody
     );
+    console.log('AssigneeFromAPI',AssigneeFromAPI)
     this.setState({
 			assignToMe: AssigneeFromAPI
 		})

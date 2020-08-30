@@ -8,21 +8,12 @@ import { httpRequest } from "egov-ui-kit/utils/api";
 
 class PayDetails extends Component {
   diffDates = (fromDate,toDate) => {
-    
     var date1 = new Date(fromDate);
     var date2 = new Date(toDate);
-
-     
      var Difference_In_Time = date2.getTime() - date1.getTime();
-
-    
      var Difference_In_Days = (Difference_In_Time / (1000 * 3600 * 24)) + 1;
-
-    
     return Difference_In_Days
   }
-
-
   render() {
     const { bkPaymentDate,paymentDetails,area, fromDate, toDate,perDayRupees, bkPaymentReceiptNumber, bkPaymentStatus } = this.props;
 
@@ -32,7 +23,6 @@ const level2 = str1
 
 
 let first = 'Base Charges'
-
 const second = +(area)+ 'sqft X' +(this.diffDates(fromDate,toDate))+ 'days(@Rs.' +  (perDayRupees) +'/sqft)'
 
     return (

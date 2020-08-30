@@ -58,8 +58,6 @@ const DialogContent = withStyles((theme) => ({
 
 }))(MuiDialogContent);
 
-
-
 class BookingDetails extends Component {
   state = {
     open: false

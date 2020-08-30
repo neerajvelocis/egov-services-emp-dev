@@ -50,7 +50,7 @@ const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
   const { applicationData } = complaints;
   let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
-  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+  console.log("complaints in resolve success--",complaints)
   //bkApplicationNumber
   let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
   console.log("applicationNumber--",applicationNumber)

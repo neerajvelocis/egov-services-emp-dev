@@ -258,6 +258,20 @@ const complaintsReducer = (state = intialState, action) => {
             ...applicationSector,
           },
         };
+
+  case actionTypes.APPLICATION_TYPE_FETCH_SUCCESS:
+        let applicationType = transformById(action.payload.MdmsRes["Booking"].Sector, "code");
+        console.log('applicationType',applicationType)
+        return {
+          ...state,
+          loading: false,
+          applicationType: {
+            ...state.applicationType,
+            ...applicationType,
+          },
+        };
+
+        
         case actionTypes.COMPLAINTS_SECTOR_FETCH_SUCCESS:
           let complaintSector = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].Sector, "code");
           console.log('complaintSector',complaintSector)

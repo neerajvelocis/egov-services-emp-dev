@@ -844,12 +844,7 @@ class AllRequests extends Component {
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-
-
                 <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', marginTop: '10px' }}>
-
-
-
                   <FormControl style={{ width: '100%' }}>
                     <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
                     <Select
@@ -976,11 +971,6 @@ class AllRequests extends Component {
                     }}
                   />
                 </div>
-
-
-
-
-
                 <div
                   className="col-sm-12 col-xs-12"
                   style={{ marginTop: 10, paddingRight: 8, marginLeft: "16%" }}
@@ -1038,11 +1028,6 @@ class AllRequests extends Component {
             complaintLocation={true}
           />
         </div>
-
-        {/*For MCC*/}
-
-
-        
       </Screen>
     ) : (
           <Screen loading={loading}>
@@ -1205,7 +1190,7 @@ const roleFromUserInfo = (roles = [], role) => {
 };
 
 const mapStateToProps = state => {
-  
+  console.log('state in all app',state)
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
   const { fetchSuccess, applicationData } = complaints;
@@ -1245,10 +1230,6 @@ const mapStateToProps = state => {
     transformedComplaints = applicationData.bookingsModelList;
     csrComplaints = transformedComplaints;
   }
-
-
-
-
 
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
