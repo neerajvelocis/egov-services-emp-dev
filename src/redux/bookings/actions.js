@@ -1,10 +1,7 @@
 import * as actionTypes from "./actionTypes";
-// import * as commonActions from "../common/actions";
-import {CREATEBWTAPPLICATION, APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER } from "../../utils/endPoints";
+import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
 import { httpRequest } from "egov-ui-kit/utils/api";
-// import commonConfig from "config/common.js";
 
-// complaint categories success
 const complaintCategoriesFetchSucess = (payload) => {
 	return {
 		type: actionTypes.COMPLAINTS_CATEGORIES_FETCH_SUCCESS,
@@ -108,14 +105,7 @@ const downloadReceiptComplete = (payload, overWrite) => {
 		overWrite: overWrite,
 	};
 };
-const downloadPermissionLetterComplete= (payload, overWrite) => {
-	console.log('payload', payload, overWrite)
-	return {
-		type: actionTypes.DOWNLOAD_LETTER_COMPLETE,
-		payload,
-		overWrite: overWrite,
-	};
-};
+
 
 const createWaterTankerComplete= (payload, overWrite) => {
 	console.log('payload', payload, overWrite)
@@ -215,12 +205,6 @@ const downloadReceiptError = (error) => {
 	};
 };
 
-const downloadPermissionLetterError = (error) => {
-	return {
-		type: actionTypes.DOWNLOAD_LETTER_ERROR,
-		error,
-	};
-};
 const createWaterTankerError = (error) => {
 	return {
 		type: actionTypes.CREATE_WATER_ERROR,
@@ -261,10 +245,127 @@ const paymentFetchError = (error) => {
 		error,
 	};
 };
+//OS &CG
+const OSBMfetchperDayRateComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.OSBMPAYMENT_PER_DAY_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
 
+const OSBMfetchperDayRateError = (error) => {
+	return {
+		type: actionTypes.OSBMPAYMENT_PER_DAY_FETCH_FETCH_ERROR,
+		error,
+	};
+};
 
+const fetchperDayRateComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.PAYMENT_PER_DAY_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
 
+const fetchperDayRateError = (error) => {
+	return {
+		type: actionTypes.PAYMENT_PER_DAY_FETCH_FETCH_ERROR,
+		error,
+	};
+};
 
+const downloadPermissionReceiptCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_NEWRECEIPT_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloaddPermissionReceiptErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_NEWRECEIPT_ERROR_CG,
+		error,
+	};
+};
+
+const downloadMCCPLComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_PLMCC_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadMCCPLError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_PLMCC_ERROR,
+		error,
+	};
+};
+
+const downloadAPPCompleteMCC = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.DOWNLOAD_MCCAPP_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadAPPErrorMCC = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_MCCAPP_ERROR,
+		error,
+	};
+};
+
+const downloadReceiptCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadReceiptErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_ERROR_CG,
+		error,
+	};
+};
+const downloadApplicationCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadApplicationErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_ERROR_CG,
+		error,
+	};
+};
+
+//Download permission letter
+
+const downloadPermissionLetterComplete= (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_LETTER_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+const downloadPermissionLetterError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_LETTER_ERROR,
+		error,
+	};
+};
 
 const complaintSortOrder = (order) => {
 	return { type: actionTypes.COMPLAINTS_SORT_ORDER, order };
@@ -486,3 +587,82 @@ export const fetchApplicaionSector = () => {
 			}
 		};
 	};
+
+	export const OSBMfetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(OSBMPerDayRateAmount.POST.URL, OSBMPerDayRateAmount.POST.ACTION,[], requestBody);
+			dispatch(OSBMfetchperDayRateComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(OSBMfetchperDayRateError(error.message));
+		  }
+		};
+	  };
+	
+	 export const fetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(PerDayRateAmount.POST.URL, PerDayRateAmount.POST.ACTION,[], requestBody);
+			dispatch(fetchperDayRateComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(fetchperDayRateError(error.message));
+		  }
+		};
+	  }; 
+	  export const downloadReceiptforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADNEWRECEIPTFORCG.POST.URL, DWONLOADNEWRECEIPTFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadPermissionReceiptCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloaddPermissionReceiptErrorforCG(error.message));
+		  }
+		};
+	  };  
+	  export const downloadMccPL = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(PermissionLetterDWNOSMCC.POST.URL, PermissionLetterDWNOSMCC.POST.ACTION, [], requestBody);
+			dispatch(downloadMCCPLComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadMCCPLError(error.message));
+		  }
+		};
+	  };
+	  export const downloadMccApp = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(ApplicationDWNOSMCC.POST.URL, ApplicationDWNOSMCC.POST.ACTION, [], requestBody);
+			dispatch(downloadAPPCompleteMCC(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadAPPErrorMCC(error.message));
+		  }
+		};
+	  };
+	  export const downloadPaymentReceiptforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADPAYMENTRECEIPTFORCG.POST.URL, DWONLOADPAYMENTRECEIPTFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadReceiptCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadReceiptErrorforCG(error.message));
+		  }
+		};
+	  };
+	  export const downloadApplicationforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADAPPLICATIONFORCG.POST.URL, DWONLOADAPPLICATIONFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadApplicationCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadApplicationErrorforCG(error.message));
+		  }
+		};
+	  };
