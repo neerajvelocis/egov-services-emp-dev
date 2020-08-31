@@ -2,42 +2,7 @@ import * as actionTypes from "./actionTypes";
 import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
 import { httpRequest } from "egov-ui-kit/utils/api";
 
-const complaintCategoriesFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_CATEGORIES_FETCH_SUCCESS,
-		payload,
-	};
-};
 
-const complaintCategoriesFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_CATEGORIES_FETCH_ERROR,
-		error,
-	};
-};
-
-// complaint department success
-const complaintDepartmentFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_DEPARTMENT_FETCH_SUCCESS,
-		payload,
-	};
-};
-
-const complaintDepartmentFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_DEPARTMENT_FETCH_ERROR,
-		error,
-	};
-};
-
-// complaint Sector success
-const complaintSectorFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_SECTOR_FETCH_SUCCESS,
-		payload,
-	};
-};
 
 const applicationSectorFetchSucess = (payload) => {
 	return {
@@ -52,6 +17,22 @@ const applicationSectorFetchError = (error) => {
 		error,
 	};
 };
+const applicationTypeFetchSucess = (payload) => {
+	return {
+		type: actionTypes.APPLICATION_TYPE_FETCH_SUCCESS,
+		payload,
+	};
+};
+
+const applicationTypeFetchError = (error) => {
+	return {
+		type: actionTypes.APPLICATION_TYPE_FETCH_ERROR,
+		error,
+	};
+};
+
+
+
 
 const complaintSectorFetchError = (error) => {
 	return {
@@ -409,7 +390,6 @@ export const fetchApplications = (requestBody, hasUsers = true, overWrite) => {
 };
 export const downloadPaymentReceipt = (requestBody, hasUsers = true, overWrite) => {
 	//   requestBody.tenantId = "ch"
-	console.log('requestBody in download payment---', requestBody)
 	return async (dispatch, getState) => {
 		try {
 			let tenantId = "";
@@ -422,8 +402,6 @@ export const downloadPaymentReceipt = (requestBody, hasUsers = true, overWrite) 
 	};
 };
 export const downloadApplication = (requestBody, hasUsers = true, overWrite) => {
-	
-	console.log('requestBody in download payment---', requestBody)
 	return async (dispatch, getState) => {
 		try {
 			let tenantId = "";
@@ -453,11 +431,9 @@ export const downloadBWTApplication = (requestBody, hasUsers = true, overWrite) 
 };
 export const downloadPermissionLetter = (requestBody, hasUsers = true, overWrite) => {
 	//   requestBody.tenantId = "ch"
-	console.log('requestBody in download payment---', requestBody)
 	return async (dispatch, getState) => {
 		try {
 			let tenantId = "";
-			console.log('DWONLOADPERMISSIONLETTER in try block',DWONLOADPERMISSIONLETTER)
 			const payload = await httpRequest(DWONLOADPERMISSIONLETTER.POST.URL, DWONLOADPERMISSIONLETTER.POST.ACTION, [], requestBody);
 			console.log('payload6----6', payload)
 			dispatch(downloadPermissionLetterComplete(payload, overWrite));
@@ -468,11 +444,9 @@ export const downloadPermissionLetter = (requestBody, hasUsers = true, overWrite
 };
 
 export const fetchPayment = (queryObject, hasUsers = true, overWrite) => {
-	console.log('requestBody in in payment ---', queryObject)
 	return async (dispatch, getState) => {
 		try {
 			let tenantId = "";
-			console.log('PAYMENT',PAYMENT)
 			const payload = await httpRequest(PAYMENT.POST.URL, PAYMENT.POST.ACTION, queryObject);
 			console.log('payload2----2', payload)
 			dispatch(paymentFetchComplete(payload, overWrite));
@@ -506,7 +480,6 @@ export const fetchDataAfterPayment = (queryObject, hasUsers = true, overWrite) =
 	};
 };
 export const createWaterTankerApplication = (requestBody, hasUsers = true, overWrite) => {
-	console.log('requestBody in download payment---', requestBody)
 	return async (dispatch, getState) => {
 		try {
 			let tenantId = "";
@@ -541,7 +514,7 @@ export const sendMessageMedia = (message) => {
 
 
 export const fetchApplicaionSector = () => {
-	//Fetching Complaint Categories from MDMS
+	//Fetching Application sector from MDMS
 	let requestBody = {
 		MdmsCriteria: {
 			tenantId: "ch",//commonConfig.tenantId,
@@ -573,20 +546,63 @@ export const fetchApplicaionSector = () => {
 };
 
 
-
-	export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
-		requestBody.tenantId = "ch"
-		return async (dispatch, getState) => {
-			try {
-				let tenantId = "";
-				const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
-				dispatch(MCCapplicationFetchComplete(payload, overWrite));
-			} catch (error) {
-				
-				dispatch(MCCapplicationFetchError(error.message));
-			}
-		};
+export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
+	requestBody.tenantId = "ch"
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payloadMCC----2', payload)
+			dispatch(MCCapplicationFetchComplete(payload, overWrite));
+		} catch (error) {		
+			dispatch(MCCapplicationFetchError(error.message));
+		}
 	};
+};
+
+
+export const fetchApplicationType = () => {
+	//Fetching Application sector from MDMS
+	let requestBody = {
+	     "tenantId": "ch",
+        "moduleDetails": [
+            {
+                "moduleName": "Booking",
+                "masterDetails": [
+                     {
+                        "name": "Status"
+                    },
+                     {
+                        "name": "ApplicationType"
+                    }
+                ]
+            }
+        ]
+    }
+	
+	return async (dispatch) => {
+		try {
+			const payload = await httpRequest(CATEGORY.GET.URL, CATEGORY.GET.ACTION, [], requestBody);
+			
+			dispatch(applicationTypeFetchSucess(payload));
+		} catch (error) {
+			dispatch(applicationTypeFetchError(error.message));
+		}
+	};
+};
+	// export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
+	// 	requestBody.tenantId = "ch"
+	// 	return async (dispatch, getState) => {
+	// 		try {
+	// 			let tenantId = "";
+	// 			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
+	// 			dispatch(MCCapplicationFetchComplete(payload, overWrite));
+	// 		} catch (error) {
+				
+	// 			dispatch(MCCapplicationFetchError(error.message));
+	// 		}
+	// 	};
+	// };
 
 	export const OSBMfetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
 		return async (dispatch, getState) => {

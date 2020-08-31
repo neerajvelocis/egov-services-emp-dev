@@ -58,7 +58,7 @@ const formConfig = {
       id: "reopencomplaint-submit-action",
     },
     action: "_update",
-    redirectionRoute: "/egov-services/resolve-success",
+    redirectionRoute: "/egov-services/newLocation-approved",
     saveUrl: "/bookings/newLocation/_update",
   };
   

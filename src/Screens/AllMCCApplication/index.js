@@ -63,7 +63,7 @@ class AllRequests extends Component {
       setOpen: true
     })
   };
-  
+
   componentDidMount = async () => {
     let {
       role,
@@ -73,14 +73,14 @@ class AllRequests extends Component {
       renderCustomTitle,
       prepareFinalObject
     } = this.props;
-    
+
     let rawRole =
       userInfo && userInfo.roles && userInfo.roles[0].code.toUpperCase();
-    
+
     if (rawRole === "PGR-ADMIN") {
       this.props.history.push("/report/rainmaker-pgr/DepartmentWiseReport");
     } else {
-      let { fetchApplications,fetchMccApplications } = this.props;
+      let { fetchApplications, fetchMccApplications } = this.props;
 
       let complaintCountRequest = [
         { key: 'uuId', value: userInfo.uuid },
@@ -96,18 +96,16 @@ class AllRequests extends Component {
                 : "assigned,reassignrequested"
         }
       ];
-    fetchMccApplications(
+      fetchMccApplications(
+        {
+          "uuid": userInfo.uuid, "applicationNumber": "",
+          "applicationStatus": "",
+          "mobileNumber": "", "bookingType": ""
+        },
+        true,
+        true
+      );
 
-      {
-            "uuid": userInfo.uuid, "applicationNumber": "",
-            "applicationStatus": "",
-            "mobileNumber": "", "bookingType": ""
-          },
-
-          true,
-          true
-        );
-      
     }
     let inputType = document.getElementsByTagName("input");
     for (let input in inputType) {
@@ -120,7 +118,6 @@ class AllRequests extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
-
     const { role, renderCustomTitle } = this.props;
     if (
       !isEqual(
@@ -151,7 +148,7 @@ class AllRequests extends Component {
   };
 
   onComplaintClick = (complaintNo) => {
-     this.props.history.push(`/egov-services/newLocation-application-details/${complaintNo}`);
+    this.props.history.push(`/egov-services/newLocation-application-details/${complaintNo}`);
   };
 
   onComplaintChange = e => {
@@ -177,7 +174,7 @@ class AllRequests extends Component {
   onToDateChange = e => {
     const toDate = e.target.value;
     this.setState({
-      toDate:toDate
+      toDate: toDate
     })
   }
 
@@ -197,8 +194,8 @@ class AllRequests extends Component {
   };
 
   onSearch = () => {
-    const { complaintNo, mobileNo, bookingType, applicationStatus ,fromDate, toDate} = this.state;
-    const { fetchApplications, fetchMccApplications,searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
+    const { complaintNo, mobileNo, bookingType, applicationStatus, fromDate, toDate } = this.state;
+    const { fetchApplications, fetchMccApplications, searchForm, userInfo, toggleSnackbarAndSetText } = this.props;
     let queryObj = {};
     queryObj.uuid = userInfo.uuid;
 
@@ -207,7 +204,7 @@ class AllRequests extends Component {
       queryObj.applicationStatus = "";
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-      
+
     }
 
     if (applicationStatus) {
@@ -215,7 +212,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = '';
       queryObj.mobileNumber = "";
       queryObj.bookingType = "";
-     
+
     }
 
     if (mobileNo) {
@@ -223,16 +220,13 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-     
+
     }
     if (bookingType) {
       queryObj.bookingType = bookingType;
       queryObj.mobileNumber = "";
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
-     
-
-      
     }
 
     if (fromDate) {
@@ -241,8 +235,6 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.fromDate = fromDate;
-     
-      
     }
     if (toDate) {
       queryObj.bookingType = "";
@@ -250,7 +242,6 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.toDate = toDate;
-    
     }
 
     if (searchForm && searchForm.fromDate) {
@@ -259,7 +250,7 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-     
+
     }
 
     if (searchForm && searchForm.toDate) {
@@ -268,7 +259,6 @@ class AllRequests extends Component {
       queryObj.applicationNumber = "";
       queryObj.applicationStatus = "";
       queryObj.bookingType = "";
-  
     }
 
     if (complaintNo) {
@@ -299,7 +289,7 @@ class AllRequests extends Component {
     }
     else if (fromDate) {
 
-      if (fromDate > this.state.toDate){ 
+      if (fromDate > this.state.toDate) {
         toggleSnackbarAndSetText(
           true,
           {
@@ -309,7 +299,7 @@ class AllRequests extends Component {
           "warning"
         );
       }
-      else{
+      else {
         fetchMccApplications(queryObj, true, true);
       }
     } else if (toDate) {
@@ -318,7 +308,7 @@ class AllRequests extends Component {
     this.setState({ search: true });
   };
   handleFormFields = () => {
-    
+
     let { metaData, searchForm, labels } = this.props;
 
     if (!_.isEmpty(metaData) && metaData.reportDetails && metaData.reportDetails.searchParams && metaData.reportDetails.searchParams.length > 0) {
@@ -333,8 +323,6 @@ class AllRequests extends Component {
         if (item.type === "singlevaluelist") {
           item["searchText"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
         }
-
-
         return (
           item.name !== "tenantId" && (
             <ShowField
@@ -344,7 +332,6 @@ class AllRequests extends Component {
               dateField={this.state.datefield}
               dateError={this.state.dateError}
               handler={this.handleChange}
-            
             />
           )
         );
@@ -353,8 +340,8 @@ class AllRequests extends Component {
   };
 
 
- 
- 
+
+
 
   checkDate = (value, name, required, pattern) => {
     let e = {
@@ -369,7 +356,7 @@ class AllRequests extends Component {
         try {
           let endDate = this.props.searchForm.toDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "fromDate"); 
+          this.validateDate(startDate, endDate, required, "fromDate");
         } catch (e) {
           console.log(e);
         }
@@ -382,7 +369,7 @@ class AllRequests extends Component {
         try {
           let startDate = this.props.searchForm.fromDate;
           this.props.handleChange(e, name, required, pattern);
-          this.validateDate(startDate, endDate, required, "toDate"); 
+          this.validateDate(startDate, endDate, required, "toDate");
         } catch (e) {
           console.log(e);
         }
@@ -455,7 +442,7 @@ class AllRequests extends Component {
         "mobileNumber": "", "bookingType": ""
       },
     );
-    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate:"", toDate:"", search: false });
+    this.setState({ mobileNo: "", complaintNo: "", bookingType: "", applicationStatus: "", fromDate: "", toDate: "", search: false });
   };
 
   onChange = value => {
@@ -492,7 +479,7 @@ class AllRequests extends Component {
     const tabStyle = {
       letterSpacing: "0.6px"
     };
-    
+
 
     const { onComplaintClick, onSortClick, closeSortDialog, style } = this;
     const {
@@ -589,7 +576,7 @@ class AllRequests extends Component {
                         ? "selected-tab-label-text"
                         : "unselected-tab-label-text"
                     }
-                    
+
                     bold={true}
                     label={`ES_ALL_COMPLAINTS_UNASSIGNED_TAB_LABEL2`}
                     labelStyle={tabStyle}
@@ -663,12 +650,12 @@ class AllRequests extends Component {
       </div>
     ) : role === "employee" ? (
       <Screen loading={loading}>
-        
+
         {/* <div style={{float: "right"}} className="quick-action-button">
             <MenuButton data={buttonItems}  />
           </div> */}
         <div className="form-without-button-cont-generic">
-          {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
+     
 
           <Card
             id="complaint-search-card"
@@ -750,13 +737,13 @@ class AllRequests extends Component {
                 </div>
 
 
-                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px',marginTop: '10px' }}>
-                 
-                 
-                 
-                <FormControl style={{width: '100%'}}>
-                    <InputLabel  shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Application Status</InputLabel>
-                    <Select 
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', marginTop: '10px' }}>
+
+
+
+                  <FormControl style={{ width: '100%' }}>
+                    <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
+                    <Select
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
@@ -767,56 +754,23 @@ class AllRequests extends Component {
                       displayEmpty
                       onChange={(e, value) => this.onApplicationStatusChange(e)}
                     >
-                      <MenuItem value= "" disabled>Application Status</MenuItem>
+                      <MenuItem value="" disabled>Application Status</MenuItem>
                       <MenuItem value='PENDINGAPPROVAL'>Pending Approval</MenuItem>
                       <MenuItem value='PENDINGPAYMENT'>Pending Payment</MenuItem>
                       <MenuItem value='PENDINGUPDATE'>Pending Update</MenuItem>
                       <MenuItem value='PENDINGASSIGNMENTDRIVER'>Pending Assignment Driver</MenuItem>
                     </Select>
                   </FormControl>
-{/*                  
-                  <select
-                    value={this.state.applicationStatus}
-                    onChange={(e, value) => this.onApplicationStatusChange(e)}
-                    className="form-control"
-                    style={dropbordernone}
-                  >
-                    <option value="">Application Status</option>
-                    <option value="PENDINGAPPROVAL">Pending Approval</option>
-                    <option value="PENDINGPAYMENT">Pending Payment</option>
-                    <option value="PENDINGUPDATE">Pending Update</option>
-                    <option value="PENDINGASSIGNMENTDRIVER">Pending Assignment Driver</option>
-                    <option value="WATER_TANKERS">Pending Update</option>
-                  </select> */}
+              
                 </div>
                 <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "18px", paddingLeft: "8px" }}>
-                  {/* <select
-                    value={bookingType}
-                    onChange={(e, value) => this.onbookingChange(e)}
-                    className="form-control"
-                    style={dropbordernone}
-                  >
-                    <Label
-                      label="MYBK_APPLICATION_STATUS"
-                      color="rgba(0, 0, 0, 0.3799999952316284)"
-                      fontSize={12}
-                      dark={true}
-                      labelStyle={hintTextStyle}
-                    />
-                    <option value="">Application Type</option>
-                    <option value="OSBM">Open Space To Store Building Material</option>
-                    <option value="WATER_TANKERS">Water Tankers</option>
-                  </select> */}
+                
 
 
-{/* <SelectBox
-selectBoxOptions={['a','b','c']}
-/> */}
 
-
-                  <FormControl style={{width: '100%'}}>
-                    <InputLabel shrink style={{width: '100%'}}  id="demo-controlled-open-select-label">Booking Type</InputLabel>
-                    <Select 
+                  <FormControl style={{ width: '100%' }}>
+                    <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Booking Type</InputLabel>
+                    <Select
                       maxWidth={false}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
@@ -827,114 +781,100 @@ selectBoxOptions={['a','b','c']}
                       value={bookingType}
                       onChange={(e, value) => this.onbookingChange(e)}
                     >
-                      <MenuItem value= "" disabled>Booking Type</MenuItem>
+                      <MenuItem value="" disabled>Booking Type</MenuItem>
                       <MenuItem value='OSBM'>Open Space To Store Building Material</MenuItem>
                       <MenuItem value='WATER_TANKERS'>Water Tankers</MenuItem>
                     </Select>
                   </FormControl>
 
 
-                  </div>
-                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
-                    <TextField
-                      id="from-Date"
-                      name="from-Date"
-                      value={fromDate}
-                      hintText={
-                        <Label
-                          color="rgba(0, 0, 0, 0.3799999952316284)"
-                          fontSize={16}
-                          labelStyle={hintTextStyle}
-                        />
-                      }
-                      // errorText={<Label label={errorText} color="red" />}
-                      floatingLabelText={
-                        <Label
-                          key={1}
-                          label="From Date"
-                          color="rgba(0,0,0,0.60)"
-                          fontSize="12px"
-                        />
-                      }
-                      onChange={(e, value) => this.onFromDateChange(e)}
-                      underlineStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      underlineFocusStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      hintStyle={{ width: "100%" }}
+                </div>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                  <TextField
+                    id="from-Date"
+                    name="from-Date"
+                    value={fromDate}
+                    hintText={
+                      <Label
+                        color="rgba(0, 0, 0, 0.3799999952316284)"
+                        fontSize={16}
+                        labelStyle={hintTextStyle}
+                      />
+                    }
+                    // errorText={<Label label={errorText} color="red" />}
+                    floatingLabelText={
+                      <Label
+                        key={1}
+                        label="From Date"
+                        color="rgba(0,0,0,0.60)"
+                        fontSize="12px"
+                      />
+                    }
+                    onChange={(e, value) => this.onFromDateChange(e)}
+                    underlineStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    underlineFocusStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    hintStyle={{ width: "100%" }}
 
-                      type="date"
-                      defaultValue="2017-05-24"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-                  </div>
-                  <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
-                    <TextField
-                      id="to-date"
-                      name="to-date"
-                      value={toDate}
-                      hintText={
-                        <Label
-                          color="rgba(0, 0, 0, 0.3799999952316284)"
-                          fontSize={16}
-                          labelStyle={hintTextStyle}
-                        />
-                      }
-                      // errorText={<Label label={errorText} color="red" />}
-                      floatingLabelText={
-                        <Label
-                          key={1}
-                          label="To Date"
-                          color="rgba(0,0,0,0.60)"
-                          fontSize="12px"
-                        />
-                      }
-                      onChange={(e, value) => this.onToDateChange(e)}
-                      underlineStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      underlineFocusStyle={{
-                        bottom: 7,
-                        borderBottom: "1px solid #e0e0e0"
-                      }}
-                      hintStyle={{ width: "100%" }}
+                    type="date"
+                    defaultValue="2017-05-24"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </div>
+                <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', paddingTop: "10px" }}>
+                  <TextField
+                    id="to-date"
+                    name="to-date"
+                    value={toDate}
+                    hintText={
+                      <Label
+                        color="rgba(0, 0, 0, 0.3799999952316284)"
+                        fontSize={16}
+                        labelStyle={hintTextStyle}
+                      />
+                    }
+                    // errorText={<Label label={errorText} color="red" />}
+                    floatingLabelText={
+                      <Label
+                        key={1}
+                        label="To Date"
+                        color="rgba(0,0,0,0.60)"
+                        fontSize="12px"
+                      />
+                    }
+                    onChange={(e, value) => this.onToDateChange(e)}
+                    underlineStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    underlineFocusStyle={{
+                      bottom: 7,
+                      borderBottom: "1px solid #e0e0e0"
+                    }}
+                    hintStyle={{ width: "100%" }}
 
-                      type="date"
-                      defaultValue="2017-05-24"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-                  </div>
-             
-           
-                {/* <div
-                  className="col-sm-6 col-xs-12 csr-action-buttons"
-                  style={{ marginTop: 10, paddingRight: 8 }}
-                >
-              </div> */}
-                {/* <div
-                  className="col-sm-8 col-xs-12 csr-action-buttons"
-                  style={{ marginTop: 10 }}
-                >
-                  <Grid container spacing={8}>{this.handleFormFields()}</Grid>
-                </div> */}
-
+                    type="date"
+                    defaultValue="2017-05-24"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </div>
 
 
 
                 <div
                   className="col-sm-12 col-xs-12"
-                  style={{ marginTop: 10, paddingRight: 8 ,marginLeft:"16%"}}
+                  style={{ marginTop: 10, paddingRight: 8, marginLeft: "16%" }}
                 >
-                <Button
+                  <Button
                     label={
                       <Label
                         buttonLabel={true}
@@ -968,7 +908,7 @@ selectBoxOptions={['a','b','c']}
                     style={{ width: "30%" }}
                     onClick={() => this.clearSearch()}
                   />
-                    
+
                 </div>
               </div>
             }
@@ -987,18 +927,7 @@ selectBoxOptions={['a','b','c']}
             complaintLocation={true}
           />
         </div>
-        {/* <div className="floating-button-cont csr-add-button">
-          <FloatingActionButton
-            id="mycomplaints-add"
-            onClick={e => {
-              history.push("/create-complaint");
-            }}
-            className="floating-button"
-            backgroundColor="#fe7a51"
-          >
-            <Icon action="content" name="add" />
-          </FloatingActionButton>
-        </div> */}
+      
       </Screen>
     ) : (
           <Screen loading={loading}>
@@ -1085,7 +1014,7 @@ selectBoxOptions={['a','b','c']}
                       className="col-sm-6 col-xs-12 csr-action-buttons"
                       style={{ marginTop: 10, paddingRight: 8 }}
                     >
-                    
+
                       <Button
                         label={
                           <Label
@@ -1103,7 +1032,7 @@ selectBoxOptions={['a','b','c']}
                         style={{ width: "36%" }}
                         onClick={() => this.clearSearch()}
                       />
-                        <Button
+                      <Button
                         label={
                           <Label
                             buttonLabel={true}
@@ -1146,22 +1075,22 @@ selectBoxOptions={['a','b','c']}
               />
             </div>
             <Button
-                        label={
-                          <Label
-                            buttonLabel={true}
-                            label="GO_TO_MCC"
-                          />
-                        }
-                        style={{ marginRight: 28, width: "36%" }}
-                        backgroundColor="#fe7a51"
-                        labelStyle={{
-                          letterSpacing: 0.7,
-                          padding: 0,
-                          color: "#fff"
-                        }}
-                        buttonStyle={{ border: 0 }}
-                        onClick={() => this.onSearch()}
-                      />
+              label={
+                <Label
+                  buttonLabel={true}
+                  label="GO_TO_MCC"
+                />
+              }
+              style={{ marginRight: 28, width: "36%" }}
+              backgroundColor="#fe7a51"
+              labelStyle={{
+                letterSpacing: 0.7,
+                padding: 0,
+                color: "#fff"
+              }}
+              buttonStyle={{ border: 0 }}
+              onClick={() => this.onSearch()}
+            />
           </Screen>
         );
   }
@@ -1176,18 +1105,7 @@ const roleFromUserInfo = (roles = [], role) => {
     : false;
 };
 
-const displayStatus = (status = "") => {
-  let statusObj = {};
-  if (status.toLowerCase().includes("overdue")) {
-    statusObj.status = status; 
-    statusObj.statusMessage = "";
-  }
-  if (status.toLowerCase().includes("left")) {
-    statusObj.status = status; 
-    statusObj.statusMessage = "";
-  }
-  return statusObj;
-};
+
 const mapStateToProps = state => {
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
@@ -1222,15 +1140,11 @@ const mapStateToProps = state => {
     csrComplaints = [],
     numCSRComplaint,
     transformedComplaints;
-
- 
   if (MccApplicationData != null || MccApplicationData != undefined) {
     transformedComplaints = MccApplicationData.osujmNewLocationModelList;
-  
-    csrComplaints = transformedComplaints; 
+    csrComplaints = transformedComplaints;
   }
 
-  
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
     metaData: {
@@ -1242,7 +1156,7 @@ const mapStateToProps = state => {
       },
       "tenantId": "ch.chandigarh",
       "requestInfo": { "apiId": "emp", "msgId": "20170310130900", "resMsgId": "uief87324", "status": "200", ts: "Thu Jun 11 12:18:18 GMT 2020", ver: "1.0" }
-    }, 
+    },
     assignedComplaints,
     unassignedComplaints,
     csrComplaints,
@@ -1282,10 +1196,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(prepareFinalObject(jsonPath, value))
   };
 };
-
-
-
-
 
 export default connect(
   mapStateToProps,

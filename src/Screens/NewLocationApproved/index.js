@@ -5,7 +5,7 @@ import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 import "./index.css";
 import { connect } from "react-redux";
 
-class ResolveSuccess extends Component {
+class NewLocationApproved extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,7 @@ class ResolveSuccess extends Component {
   };
 
   render() {
-    let {applicationNumber,newLocationNumber} = this.props;
+    let {applicationNumber} = this.props;
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
@@ -30,8 +30,7 @@ class ResolveSuccess extends Component {
           containerStyle={{ display: "inline-block" }}
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
-          applicationNumber={applicationNumber && applicationNumber} 
-          newLocationNumber={newLocationNumber && newLocationNumber}
+          applicationNumber={applicationNumber && applicationNumber}
         />
         <div className="responsive-action-button-cont">
           <Button
@@ -48,20 +47,16 @@ class ResolveSuccess extends Component {
   }
 }
 const mapStateToProps = state => {
-  const { complaints, common, auth, form } = state;  //MccApplicationData
-  const { applicationData } = complaints;
+  const { complaints, common, auth, form } = state;
   const { MccApplicationData } = complaints;
-  let MccANumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
-  let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
-  console.log("complaints in resolve success--",complaints)
-  //bkApplicationNumber
-  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
-  let newLocationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
+  let bookingDetails = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
+  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+ 
+  let applicationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
   console.log("applicationNumber--",applicationNumber)
   return {
     bookingDetails,
-    applicationNumber,
-    newLocationNumber
+    applicationNumber
   }
 }
 
@@ -71,4 +66,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResolveSuccess);
+)(NewLocationApproved);

@@ -46,11 +46,11 @@ class PublishSuccess extends Component {
 const mapStateToProps = state => {
  
   const { complaints, common, auth, form } = state;
-  const { applicationData } = complaints;
-  let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
+  const { MccApplicationData } = complaints;
+  let bookingDetails = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
   console.log("bookingDetailsinResolveSuccess--",bookingDetails)
   //bkApplicationNumber
-  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+  let applicationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
   console.log("applicationNumber--",applicationNumber)
   return {
     bookingDetails,

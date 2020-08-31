@@ -1,631 +1,684 @@
-import React from "react";
-import Loadable from "react-loadable";
-
-// pgr employee specific screens
-import { ReOpenComplaint, ReopenAcknowledgement } from "../modules/common";
-
-const Loading = () => <div />;
-
-const Login = Loadable({
-  loader: () => import("../Screens/User/Login"),
-  loading: Loading
-});
-const OTP = Loadable({
-  loader: () => import("../Screens/User/OTP"),
-  loading: Loading
-});
-
-const RequestReAssign = Loadable({
-  loader: () => import("../Screens/RequestReAssign"),
-  loading: Loading
-});
-const AllComplaints = Loadable({
-  loader: () => import("../Screens/AllComplaints"),
-  loading: Loading
-});
-const AllRequests = Loadable({
-  loader: () => import("../Screens/AllApplications"),
-  loading: Loading
-});
-const MasterData = Loadable({
-  loader: () => import("../Screens/MasterData"),
-  loading: Loading
-});
-const ApplicationResolved = Loadable({
-  loader: () => import("../Screens/ApplicationResolved"),
-  loading: Loading
-});
-const ComplaintCreated = Loadable({
-  loader: () => import("../Screens/ComplaintCreated"),
-  loading: Loading
-});
-const ApplicationSummary = Loadable({
-  loader: () => import("../Screens/ApplicationDetails"),
-  loading: Loading
-});
-const LocationSummary = Loadable({
-  loader: () => import("../Screens/LocationSummaryComponent"),
-  loading: Loading
-});
-
-const CGApplicationDetails = Loadable({
-  loader: () => import("../Screens/CGApplicationDetails"),
-  loading: Loading
-});
-
-const AllMCCApplication = Loadable({
-  loader: () => import("../Screens/AllMCCApplication"),
-  loading: Loading
-});
-
-const OSWMCCApplicationDetails = Loadable({
-  loader: () => import("../Screens/OSWMCCApplicationDetails"),
-  loading: Loading
-});
-
-const ApplicationBWTSummary = Loadable({
-  loader: () => import("../Screens/BwtApplicationDetails"),
-  loading: Loading
-});
-//NewLocationApplicationDetails
-const NewLocationApplicationDetails = Loadable({
-  loader: () => import("../Screens/NewLocationApplicationDetails"),
-  loading: Loading
-});
-
-const ServiceHome = Loadable({
-  loader: () => import("../Screens/ApplicationDetails"),
-  loading: Loading
-});
+import * as actionTypes from "./actionTypes";
+import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
+import { httpRequest } from "egov-ui-kit/utils/api";
 
 
-const AssignComplaint = Loadable({
-  loader: () => import("../Screens/AssignComplaint"),
-  loading: Loading
-});
-const EmployeeDirectory = Loadable({
-  loader: () => import("../Screens/EmployeeDirectory"),
-  loading: Loading
-});
-const ClosedComplaints = Loadable({
-  loader: () => import("../Screens/ClosedComplaints"),
-  loading: Loading
-});
-const RejectComplaint = Loadable({
-  loader: () => import("../Screens/RejectComplaint"),
-  loading: Loading
-});
-const RejectBWTComplaint = Loadable({
-  loader: () => import("../Screens/RejectBWTBooking"),
-  loading: Loading
-});
 
-const deliverBooking= Loadable({
-  loader: () => import("../Screens/DeliveredBWTBooking"),
-  loading: Loading
-});
-const notDeliverBooking= Loadable({
-  loader: () => import("../Screens/NotDeliveredBWTBooking"),
-  loading: Loading
-});
+const applicationSectorFetchSucess = (payload) => {
+	return {
+		type: actionTypes.APPLICATION_SECTOR_FETCH_SUCCESS,
+		payload,
+	};
+};
 
-const AssignToDriver= Loadable({
-  loader: () => import("../Screens/AssignToDriver"),
-  loading: Loading
-});
-const ApplicationRejected = Loadable({
-  loader: () => import("../Screens/ApplicationRejected"),
-  loading: Loading
-});
-const ComplaintAssigned = Loadable({
-  loader: () => import("../Screens/ComplaintAssigned"),
-  loading: Loading
-});
-const ResolveSuccess = Loadable({
-  loader: () => import("../Screens/ResolveSuccess"),
-  loading: Loading
-});
+const applicationSectorFetchError = (error) => {
+	return {
+		type: actionTypes.APPLICATION_SECTOR_FETCH_ERROR,
+		error,
+	};
+};
+const applicationTypeFetchSucess = (payload) => {
+	return {
+		type: actionTypes.APPLICATION_TYPE_FETCH_SUCCESS,
+		payload,
+	};
+};
 
-const PublishSuccess = Loadable({
-  loader: () => import("../Screens/PublishSuccess"),
-  loading: Loading
-});
-
-const CreateSuccess= Loadable({
-  loader: () => import("../Screens/CreateWBTApplicationSuccess"),
-  loading: Loading
-});
-const AssignToDriverSuccess = Loadable({
-  loader: () => import("../Screens/AssignToDriverSuccess"),
-  loading: Loading
-});
-
-const RejectBWTApplicationSuccess= Loadable({
-  loader: () => import("../Screens/RejectBWTApplicationSuccess"),
-  loading: Loading
-});
-
-const DeliveredApplicationSuccess= Loadable({
-  loader: () => import("../Screens/DeliveredBWTApplicationSuccess"),
-  loading: Loading
-});
-const ReassignSuccess = Loadable({
-  loader: () => import("../Screens/ReassignSuccess"),
-  loading: Loading
-});
-const CreateComplaint = Loadable({
-  loader: () => import("../Screens/CreateComplaint"),
-  loading: Loading
-});
-const SearchScreen = Loadable({
-  loader: () => import("../Screens/SearchScreen"),
-  loading: Loading
-});
-
-const ApplyWaterTanker = Loadable({
-  loader: () => import("../Screens/ApplyWaterTanker"),
-  loading: Loading
-})
-
-// import CreateEmployee from "modules/employee/pgr/CreateEmployee";
-const redirectionUrl = "/user/login";
-const routes = [
-  {
-    path: "user/login",
-    component: Login,
-    needsAuthentication: false,
-    redirectionUrl: "/"
-  },
-  {
-    path: "user/otp",
-    component: OTP,
-    needsAuthentication: false,
-    redirectionUrl: "/"
-  },
-  {
-    path: "all-complaints",
-    component: AllComplaints,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_OPEN_COMPLAINTS_HEADER",
-      hideTitle: false,
-      redirectionUrl,
-      hideFor: "ao",
-      customFor: "csr",
-      customTitle: "ES_ALL_COMPLAINTS_HEADER"
-    }
-  },
-  {
-    path: "egov-services/all-applications",
-    component: AllRequests,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_OPEN_APPLICAION_HEADER",
-      hideTitle: false,
-      // redirectionUrl,
-      // hideFor: "ao",
-      customFor: "employee",
-      customTitle: "BK_MYBK_ALL_APPLICAION_HEADER"
-    }
-  },
-//newMasterData
-{
-  path: "egov-services/MasterData",
-  component: MasterData,
-  needsAuthentication: true,
-  options: {
-    hideFooter: true,
-    title: "ES_OPEN_APPLICAION_HEADER",
-    hideTitle: false,
-    redirectionUrl,
-    hideFor: "ao",
-    customFor: "employee",
-    customTitle: "MYBK_ALL_APPLICAION_HEADER"
-  }
-},
-  {
-    path: "egov-services/applywatertanker",
-    component: ApplyWaterTanker,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER",
-      hideTitle: false,
-      redirectionUrl,
-      hideFor: "ao",
-      customFor: "employee",
-      customTitle: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER"
-    }
-  },
-  {
-    path: "search-complaint",
-    component: SearchScreen,
-    needsAuthentication: true,
-    options: { hideFooter: true, title: "CORE_COMMON_SEARCH_COMPLAINT" }
-  },
-  {
-    path: "egov-services/booking-resolved/:applicationId?",
-    component: ApplicationResolved,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "MYBK_APPLICATION_DETAILS_RESOLVE",
-      titleBackground: true, // Use this if you need white background for title in web version
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/application-details/:applicationId",
-    component: ApplicationSummary,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/new-location-details/:applicationId",
-    component: LocationSummary,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
- 
-  {
-    path: "egov-services/cg-application-details/:applicationId",
-    component: CGApplicationDetails,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/newLocation-application-details/:applicationId",
-    component: NewLocationApplicationDetails,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/all-MccApplications",
-    component: AllMCCApplication,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/osmcc-application-details/:applicationId",
-    component: OSWMCCApplicationDetails,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/bwt-application-details/:applicationId",
-    component: ApplicationBWTSummary,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/home123",
-    component: ApplicationSummary,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "BK_CS_HEADER_APPLICATION_SUMMARY",
-      redirectionUrl
-    }
-  },
-  {
-    path: "closed-complaints",
-    component: ClosedComplaints,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_CLOSED_COMPLAINTS_HEADER",
-      redirectionUrl
-    }
-  },
-  {
-    path: "complaint-reassigned/:serviceRequestId?",
-    component: ComplaintAssigned,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "ES_COMPLAINT_REASSIGNED_HEADER",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/resolve-success",
-    component: ResolveSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/publish-success",
-    component: PublishSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/create-success",
-    component: CreateSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-
-  
-  {
-    path: "egov-services/assign-to-success",
-    component: AssignToDriverSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/reject-bwt-application-success",
-    component: RejectBWTApplicationSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/delivered-bwt-application-success",
-    component: DeliveredApplicationSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
-      hideTitle: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "reassign-success",
-    component: ReassignSuccess,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      hideTitle: true,
-      title: "CS_COMMON_RE-ASSIGN REQUESTED",
-      redirectionUrl
-    }
-  },
-  {
-    path: "complaint-assigned/:serviceRequestId?",
-    component: ComplaintAssigned,
-    needsAuthentication: true,
-    options: {
-      hideBackButton: true,
-      hideFooter: true,
-      hideTitle: true,
-      title: "ES_COMPLAINT_ASSIGNED_HEADER",
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/application-rejected",
-    component: ApplicationRejected,
-    needsAuthentication: true,
-    options: {
-      title: "ES_COMPLAINT_REJECTED_HEADER",
-      hideTitle: true,
-      hideFooter: true,
-      redirectionUrl,
-      hideBackButton: true
-    }
-  },
-  {
-    path: "assign-complaint/:serviceRequestId?",
-    component: AssignComplaint,
-    needsAuthentication: true,
-    options: {
-      title: "ES_ASSIGN_TO_EMPLOYEE_HEADER",
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "reassign-complaint/:serviceRequestId?",
-    component: AssignComplaint,
-    needsAuthentication: true,
-    options: {
-      title: "ES_REASSIGN_TO_EMPLOYEE_HEADER",
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "employee-directory",
-    component: EmployeeDirectory,
-    needsAuthentication: true,
-    options: {
-      title: "ES_EMPLOYEE_DIRECTORY_HEADER",
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/reject-booking/:applicationId?",
-    component: RejectComplaint,
-    needsAuthentication: true,
-    options: {
-      // title: "ES_REASON_TO_REJECT_HEADER",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/reject-bwt-booking/:applicationId?",
-    component: RejectBWTComplaint,
-    needsAuthentication: true,
-    options: {
-      // title: "ES_REASON_TO_REJECT_HEADER",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-
-  {
-    path: "egov-services/deliver-application/:applicationId?",
-    component: deliverBooking,
-    needsAuthentication: true,
-    options: {
-      // title: "ES_REASON_TO_REJECT_HEADER",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "egov-services/not-deliver-application/:applicationId?",
-    component: notDeliverBooking,
-    needsAuthentication: true,
-    options: {
-      // title: "ES_REASON_TO_REJECT_HEADER",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  
- 
-  {
-    path: "egov-services/assignto-driver/:applicationId?",
-    component: AssignToDriver,
-    needsAuthentication: true,
-    options: {
-       title: "BK_MYBK_ASSIGN_TO_DRIVER_HEADER",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
+const applicationTypeFetchError = (error) => {
+	return {
+		type: actionTypes.APPLICATION_TYPE_FETCH_ERROR,
+		error,
+	};
+};
 
 
-  
-  {
-    path: "request-reassign/:serviceRequestId?",
-    component: RequestReAssign,
-    needsAuthentication: true,
-    options: {
-      title: "CS_HEADER_REQUEST_REASSIGN",
-      titleBackground: true, // Use this if you need white background for title in web version
-      hideFooter: true,
-      redirectionUrl
-    }
-  },
-  {
-    path: "create-complaint",
-    component: CreateComplaint,
-    needsAuthentication: true,
-    options: {
-      title: "CS_ADD_COMPLAINT_COMPLAINT_SUBMISSION",
-      hideFooter: true,
-      redirectionUrl,
-      isHomeScreen: true
-    }
-  },
-  {
-    path: "complaint-submitted",
-    component: ComplaintCreated,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      title: "CS_HEADER_COMPLAINT_SUBMITTED",
-      hideTitle: true,
-      hideBackButton: true
-    }
-  },
-  {
-    path: "reopen-complaint/:serviceRequestId?",
-    component: ReOpenComplaint,
-    needsAuthentication: true,
-    options: {
-      title: "CS_HEADER_REOPEN_COMPLAINT",
-      titleBackground: true // Use this if you need white background for title in web version
-    }
-  },
-  {
-    path: "reopen-acknowledgement",
-    component: ReopenAcknowledgement,
-    needsAuthentication: true,
-    options: {
-      hideFooter: true,
-      hideBackButton: true,
-      title: "CS_COMMON_COMPLAINT_REOPENED",
-      hideTitle: true
-    }
-  }
-  // {
-  //   path: "create-employee",
-  //   component: CreateEmployee,
-  //   needsAuthentication: true,
-  //   options: {
-  //     hideFooter: true,
-  //     title: "Create Employee",
-  //     hideTitle: true,
-  //     hideBackButton: true
-  //   }
-  // }
-];
 
-export default routes;
+
+const complaintSectorFetchError = (error) => {
+	return {
+		type: actionTypes.COMPLAINTS_SECTOR_FETCH_ERROR,
+		error,
+	};
+};
+// complaints actions
+const complaintFetchPending = () => {
+	return {
+		type: actionTypes.COMPLAINTS_FETCH_PENDING,
+	};
+};
+
+const complaintFetchComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.COMPLAINTS_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const applicationFetchComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.APPLICATION_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const MCCapplicationFetchComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.MCCAPPLICATION_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+const MCCapplicationFetchError = (error) => {
+	return {
+		type: actionTypes.MCCAPPLICATION_FETCH_ERROR,
+		error,
+	};
+};
+const downloadReceiptComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+
+const createWaterTankerComplete= (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.CREATE_WATER_TANKER_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadApplicationComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+const downloadBWTApplicationComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.DOWNLOAD_BWT_APPLICATION_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+
+const paymentFetchComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.PAYMENT_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const fetchAfterPaymentData = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.AFTER_PAYMENT_FETCH_DETAILS,
+		payload,
+		overWrite: overWrite,
+	};
+};
+const historyFetchComplete = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.HISTORY_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+
+const complaintSendSMS = (message) => {
+	return {
+		type: actionTypes.COMPLAINTS_SEND_MESSAGE,
+		message,
+	};
+};
+
+const complaintSendSMSTo = (message) => {
+	return {
+		type: actionTypes.COMPLAINTS_SEND_MESSAGE_SHARECONTENT_TO,
+		message,
+	};
+};
+
+const complaintSendSMSMedia = (message) => {
+	return {
+		type: actionTypes.COMPLAINTS_SEND_MESSAGE_SHAREMEDIA,
+		message,
+	};
+};
+
+const complaintFetchError = (error) => {
+	return {
+		type: actionTypes.COMPLAINTS_FETCH_ERROR,
+		error,
+	};
+};
+
+
+const applicationFetchError = (error) => {
+	return {
+		type: actionTypes.APPLICATION_FETCH_ERROR,
+		error,
+	};
+};
+
+
+const downloadReceiptError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_ERROR,
+		error,
+	};
+};
+
+const createWaterTankerError = (error) => {
+	return {
+		type: actionTypes.CREATE_WATER_ERROR,
+		error,
+	};
+};
+
+
+const downloadApplicationError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_ERROR,
+		error,
+	};
+};
+const downloadBWTApplicationError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_BWT_APPLICATION_ERROR,
+		error,
+	};
+};
+
+const historyFetchError = (error) => {
+	return {
+		type: actionTypes.HISTORY_FETCH_ERROR,
+		error,
+	};
+};
+
+const fetchAfterPaymentError = (error) => {
+	return {
+		type: actionTypes.AFTER_PAYMENT_FETCH_ERROR,
+		error,
+	};
+};
+const paymentFetchError = (error) => {
+	return {
+		type: actionTypes.PAYMENT_FETCH_ERROR,
+		error,
+	};
+};
+//OS &CG
+const OSBMfetchperDayRateComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.OSBMPAYMENT_PER_DAY_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const OSBMfetchperDayRateError = (error) => {
+	return {
+		type: actionTypes.OSBMPAYMENT_PER_DAY_FETCH_FETCH_ERROR,
+		error,
+	};
+};
+
+const fetchperDayRateComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.PAYMENT_PER_DAY_FETCH_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const fetchperDayRateError = (error) => {
+	return {
+		type: actionTypes.PAYMENT_PER_DAY_FETCH_FETCH_ERROR,
+		error,
+	};
+};
+
+const downloadPermissionReceiptCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_NEWRECEIPT_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloaddPermissionReceiptErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_NEWRECEIPT_ERROR_CG,
+		error,
+	};
+};
+
+const downloadMCCPLComplete = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_PLMCC_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadMCCPLError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_PLMCC_ERROR,
+		error,
+	};
+};
+
+const downloadAPPCompleteMCC = (payload, overWrite) => {
+	console.log('payload', payload, overWrite)
+	return {
+		type: actionTypes.DOWNLOAD_MCCAPP_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadAPPErrorMCC = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_MCCAPP_ERROR,
+		error,
+	};
+};
+
+const downloadReceiptCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadReceiptErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_ERROR_CG,
+		error,
+	};
+};
+const downloadApplicationCompleteforCG = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_COMPLETE_CG,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadApplicationErrorforCG = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_ERROR_CG,
+		error,
+	};
+};
+
+//Download permission letter
+
+const downloadPermissionLetterComplete= (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_LETTER_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
+const downloadPermissionLetterError = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_LETTER_ERROR,
+		error,
+	};
+};
+
+const complaintSortOrder = (order) => {
+	return { type: actionTypes.COMPLAINTS_SORT_ORDER, order };
+};
+
+export const getComplaintDisplayOrder = (order) => {
+	return async (dispatch, getState) => {
+		dispatch(complaintSortOrder(order));
+	};
+};
+
+export const fetchComplaints = (queryObject, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		
+		dispatch(complaintFetchPending());
+		try {
+			let tenantId = "";
+			 const payload= await httpRequest(COMPLAINT.GET.URL, COMPLAINT.GET.ACTION, queryObject);
+			if (payload.services && payload.services.length === 1) {
+			  tenantId = payload.services[0].tenantId;
+			}
+			//  checkUsers(dispatch, getState(), payload.actionHistory, hasUsers, tenantId);
+			dispatch(complaintFetchComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(complaintFetchError(error.message));
+		}
+	};
+};
+export const fetchApplications = (requestBody, hasUsers = true, overWrite) => {
+	requestBody.tenantId = "ch"
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(APPLICATION.POST.URL, APPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload1----2', payload)
+			dispatch(applicationFetchComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(applicationFetchError(error.message));
+		}
+	};
+};
+export const downloadPaymentReceipt = (requestBody, hasUsers = true, overWrite) => {
+	//   requestBody.tenantId = "ch"
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADPAYMENTRECEIPT.POST.URL, DWONLOADPAYMENTRECEIPT.POST.ACTION, [], requestBody);
+			console.log('payload5----5', payload)
+			dispatch(downloadReceiptComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(downloadReceiptError(error.message));
+		}
+	};
+};
+export const downloadApplication = (requestBody, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			console.log('DOWNLOADAPPLICATION in try block',DOWNLOADAPPLICATION)
+			const payload = await httpRequest(DOWNLOADAPPLICATION.POST.URL, DOWNLOADAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload6----6', payload)
+			dispatch(downloadApplicationComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(downloadApplicationError(error.message));
+		}
+	};
+	
+};
+export const downloadBWTApplication = (requestBody, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(DOWNLOADBWTAPPLICATION.POST.URL, DOWNLOADBWTAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload6----6', payload)
+			dispatch(downloadBWTApplicationComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(downloadBWTApplicationError(error.message));
+		}
+	};
+	
+	
+};
+export const downloadPermissionLetter = (requestBody, hasUsers = true, overWrite) => {
+	//   requestBody.tenantId = "ch"
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADPERMISSIONLETTER.POST.URL, DWONLOADPERMISSIONLETTER.POST.ACTION, [], requestBody);
+			console.log('payload6----6', payload)
+			dispatch(downloadPermissionLetterComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(downloadPermissionLetterError(error.message));
+		}
+	};
+};
+
+export const fetchPayment = (queryObject, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(PAYMENT.POST.URL, PAYMENT.POST.ACTION, queryObject);
+			console.log('payload2----2', payload)
+			dispatch(paymentFetchComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(paymentFetchError(error.message));
+		}
+	};
+};
+export const fetchHistory = (queryObject, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(HISTORY.POST.URL, HISTORY.POST.ACTION, queryObject);
+			console.log('payload3----3', payload)
+			dispatch(historyFetchComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(historyFetchError(error.message));
+		}
+	};
+};
+export const fetchDataAfterPayment = (queryObject, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(AFTERPAYMENTAPI.POST.URL, AFTERPAYMENTAPI.POST.ACTION, queryObject);
+			console.log('payload4----4', payload)
+			dispatch(fetchAfterPaymentData(payload, overWrite));
+		} catch (error) {
+			dispatch(fetchAfterPaymentError(error.message));
+		}
+	};
+};
+export const createWaterTankerApplication = (requestBody, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+
+			const payload = await httpRequest(CREATEBWTAPPLICATION.POST.URL, CREATEBWTAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload10----10', payload)
+			dispatch(createWaterTankerComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(createWaterTankerError(error.message));
+		}
+	};
+};
+
+
+export const sendMessage = (message) => {
+	return async (dispatch, getState) => {
+		dispatch(complaintSendSMS(message));
+	};
+};
+
+export const sendMessageTo = (message) => {
+	return async (dispatch, getState) => {
+		dispatch(complaintSendSMSTo(message));
+	};
+};
+
+export const sendMessageMedia = (message) => {
+	return async (dispatch, getState) => {
+		dispatch(complaintSendSMSMedia(message));
+	};
+};
+
+
+export const fetchApplicaionSector = () => {
+	//Fetching Application sector from MDMS
+	let requestBody = {
+		MdmsCriteria: {
+			tenantId: "ch",//commonConfig.tenantId,
+			moduleDetails: [
+				{
+					moduleName: "Booking",
+					masterDetails: [
+						{
+							name: "Sector",
+						},
+
+						{
+							"name": "PropertyType"
+						},
+					],
+				},
+			],
+		},
+	};
+	return async (dispatch) => {
+		try {
+			const payload = await httpRequest(CATEGORY.GET.URL, CATEGORY.GET.ACTION, [], requestBody);
+			
+			dispatch(applicationSectorFetchSucess(payload));
+		} catch (error) {
+			dispatch(applicationSectorFetchError(error.message));
+		}
+	};
+};
+
+
+export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
+	requestBody.tenantId = "ch"
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payloadMCC----2', payload)
+			dispatch(MCCapplicationFetchComplete(payload, overWrite));
+		} catch (error) {		
+			dispatch(MCCapplicationFetchError(error.message));
+		}
+	};
+};
+
+
+export const fetchApplicationType = () => {
+	//Fetching Application sector from MDMS
+	let requestBody = {
+	     "tenantId": "ch",
+        "moduleDetails": [
+            {
+                "moduleName": "Booking",
+                "masterDetails": [
+                     {
+                        "name": "Status"
+                    },
+                     {
+                        "name": "ApplicationType"
+                    }
+                ]
+            }
+        ]
+    }
+	
+	return async (dispatch) => {
+		try {
+			const payload = await httpRequest(CATEGORY.GET.URL, CATEGORY.GET.ACTION, [], requestBody);
+			
+			dispatch(applicationTypeFetchSucess(payload));
+		} catch (error) {
+			dispatch(applicationTypeFetchError(error.message));
+		}
+	};
+};
+	// export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
+	// 	requestBody.tenantId = "ch"
+	// 	return async (dispatch, getState) => {
+	// 		try {
+	// 			let tenantId = "";
+	// 			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
+	// 			dispatch(MCCapplicationFetchComplete(payload, overWrite));
+	// 		} catch (error) {
+				
+	// 			dispatch(MCCapplicationFetchError(error.message));
+	// 		}
+	// 	};
+	// };
+
+	export const OSBMfetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(OSBMPerDayRateAmount.POST.URL, OSBMPerDayRateAmount.POST.ACTION,[], requestBody);
+			dispatch(OSBMfetchperDayRateComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(OSBMfetchperDayRateError(error.message));
+		  }
+		};
+	  };
+	
+	 export const fetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(PerDayRateAmount.POST.URL, PerDayRateAmount.POST.ACTION,[], requestBody);
+			dispatch(fetchperDayRateComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(fetchperDayRateError(error.message));
+		  }
+		};
+	  }; 
+	  export const downloadReceiptforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADNEWRECEIPTFORCG.POST.URL, DWONLOADNEWRECEIPTFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadPermissionReceiptCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloaddPermissionReceiptErrorforCG(error.message));
+		  }
+		};
+	  };  
+	  export const downloadMccPL = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(PermissionLetterDWNOSMCC.POST.URL, PermissionLetterDWNOSMCC.POST.ACTION, [], requestBody);
+			dispatch(downloadMCCPLComplete(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadMCCPLError(error.message));
+		  }
+		};
+	  };
+	  export const downloadMccApp = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(ApplicationDWNOSMCC.POST.URL, ApplicationDWNOSMCC.POST.ACTION, [], requestBody);
+			dispatch(downloadAPPCompleteMCC(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadAPPErrorMCC(error.message));
+		  }
+		};
+	  };
+	  export const downloadPaymentReceiptforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADPAYMENTRECEIPTFORCG.POST.URL, DWONLOADPAYMENTRECEIPTFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadReceiptCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadReceiptErrorforCG(error.message));
+		  }
+		};
+	  };
+	  export const downloadApplicationforCG = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADAPPLICATIONFORCG.POST.URL, DWONLOADAPPLICATIONFORCG.POST.ACTION, [], requestBody);
+			dispatch(downloadApplicationCompleteforCG(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadApplicationErrorforCG(error.message));
+		  }
+		};
+	  };
