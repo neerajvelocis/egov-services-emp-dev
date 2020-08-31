@@ -2,42 +2,7 @@ import * as actionTypes from "./actionTypes";
 import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
 import { httpRequest } from "egov-ui-kit/utils/api";
 
-const complaintCategoriesFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_CATEGORIES_FETCH_SUCCESS,
-		payload,
-	};
-};
 
-const complaintCategoriesFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_CATEGORIES_FETCH_ERROR,
-		error,
-	};
-};
-
-// complaint department success
-const complaintDepartmentFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_DEPARTMENT_FETCH_SUCCESS,
-		payload,
-	};
-};
-
-const complaintDepartmentFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_DEPARTMENT_FETCH_ERROR,
-		error,
-	};
-};
-
-// complaint Sector success
-const complaintSectorFetchSucess = (payload) => {
-	return {
-		type: actionTypes.COMPLAINTS_SECTOR_FETCH_SUCCESS,
-		payload,
-	};
-};
 
 const applicationSectorFetchSucess = (payload) => {
 	return {
@@ -625,19 +590,19 @@ export const fetchApplicationType = () => {
 		}
 	};
 };
-	export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
-		requestBody.tenantId = "ch"
-		return async (dispatch, getState) => {
-			try {
-				let tenantId = "";
-				const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
-				dispatch(MCCapplicationFetchComplete(payload, overWrite));
-			} catch (error) {
+	// export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
+	// 	requestBody.tenantId = "ch"
+	// 	return async (dispatch, getState) => {
+	// 		try {
+	// 			let tenantId = "";
+	// 			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
+	// 			dispatch(MCCapplicationFetchComplete(payload, overWrite));
+	// 		} catch (error) {
 				
-				dispatch(MCCapplicationFetchError(error.message));
-			}
-		};
-	};
+	// 			dispatch(MCCapplicationFetchError(error.message));
+	// 		}
+	// 	};
+	// };
 
 	export const OSBMfetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
 		return async (dispatch, getState) => {
