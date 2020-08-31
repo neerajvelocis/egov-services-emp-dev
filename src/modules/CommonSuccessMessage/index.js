@@ -6,9 +6,14 @@ import "./index.css";
 
 class SuccessMessage extends Component {
   render() {
-    const { successmessage, employeeName, secondaryLabel,headermessage, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
-    const label1 = `Application No.${applicationNumber}`
+    //applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+    const { successmessage, employeeName, newLocationNumber,secondaryLabel,headermessage, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
+    // const label1 = `Application No.${applicationNumber}`
+    const displayNumber = headermessage ? applicationNumber : newLocationNumber;
+    console.log("displayNumber--",displayNumber)
+    const label1 = `Application No.${displayNumber}`
     return (
+//applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
       // <div className="wt-app-details">
       //   <div className="container-fluid">
       //     <div className="row spl-application-header" style={{marginTop: '40px',marginBottom: '30px', marginLeft: '-6px'}}>
