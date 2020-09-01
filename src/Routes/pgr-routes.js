@@ -43,6 +43,12 @@ const ApplicationSummary = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
   loading: Loading
 });
+
+
+const ParkAndCommunityCenterAppDetails=Loadable({
+  loader: () => import("../Screens/ParkAndCommunityCenterAppDetails"),
+  loading: Loading
+});
 const LocationSummary = Loadable({
   loader: () => import("../Screens/LocationSummaryComponent"),
   loading: Loading
@@ -130,7 +136,10 @@ const PublishSuccess = Loadable({
   loader: () => import("../Screens/PublishSuccess"),
   loading: Loading
 });
-
+const NewLocationApproved= Loadable({
+  loader: () => import("../Screens/NewLocationApproved"),
+  loading: Loading
+});
 const CreateSuccess= Loadable({
   loader: () => import("../Screens/CreateWBTApplicationSuccess"),
   loading: Loading
@@ -267,6 +276,18 @@ const routes = [
     }
   },
   {
+    path: "egov-services/park-and-community-center-appDetails-details/:applicationId",
+    component: ParkAndCommunityCenterAppDetails,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+
+  
+  {
     path: "egov-services/new-location-details/:applicationId",
     component: LocationSummary,
     needsAuthentication: true,
@@ -383,6 +404,22 @@ const routes = [
       redirectionUrl
     }
   },
+
+
+  {
+    path: "egov-services/newLocation-approved",
+    component: NewLocationApproved,
+    needsAuthentication: true,
+    options: {
+      hideBackButton: true,
+      hideFooter: true,
+      title: "CS_COMPLAINT_DETAILS_COMPLAINT_RESOLVED",
+      hideTitle: true,
+      redirectionUrl
+    }
+  },
+
+
   {
     path: "egov-services/create-success",
     component: CreateSuccess,

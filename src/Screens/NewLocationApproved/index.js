@@ -5,7 +5,7 @@ import CommonSuccessMessage from "../../modules/CommonSuccessMessage";
 import "./index.css";
 import { connect } from "react-redux";
 
-class ResolveSuccess extends Component {
+class NewLocationApproved extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,11 +48,11 @@ class ResolveSuccess extends Component {
 }
 const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
-  const { applicationData } = complaints;
-  let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
-  console.log("complaints in resolve success--",complaints)
-  //bkApplicationNumber
-  let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
+  const { MccApplicationData } = complaints;
+  let bookingDetails = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
+  console.log("bookingDetailsinResolveSuccess--",bookingDetails)
+ 
+  let applicationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
   console.log("applicationNumber--",applicationNumber)
   return {
     bookingDetails,
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ResolveSuccess);
+)(NewLocationApproved);

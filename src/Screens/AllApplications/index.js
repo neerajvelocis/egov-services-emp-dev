@@ -5,7 +5,7 @@ import get from "lodash/get";
 import MenuButton from "egov-ui-framework/ui-molecules/MenuButton";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import { SortDialog, Screen } from "modules/common";
-import { fetchApplications } from "../../redux/bookings/actions"//"egov-ui-kit/redux/complaints/actions";
+import { fetchApplications,fetchApplicationType } from "../../redux/bookings/actions"//"egov-ui-kit/redux/complaints/actions";
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { transformComplaintForComponent } from "egov-ui-kit/utils/commons";
@@ -844,12 +844,7 @@ class AllRequests extends Component {
                     hintStyle={{ width: "100%" }}
                   />
                 </div>
-
-
                 <div className="col-sm-4 col-xs-12" style={{ minHeight: '72px', marginTop: '10px' }}>
-
-
-
                   <FormControl style={{ width: '100%' }}>
                     <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Application Status</InputLabel>
                     <Select
@@ -974,11 +969,6 @@ class AllRequests extends Component {
                     }}
                   />
                 </div>
-
-
-
-
-
                 <div
                   className="col-sm-12 col-xs-12"
                   style={{ marginTop: 10, paddingRight: 8, marginLeft: "16%" }}
@@ -1036,11 +1026,6 @@ class AllRequests extends Component {
             complaintLocation={true}
           />
         </div>
-
-        {/*For MCC*/}
-
-
-        
       </Screen>
     ) : (
           <Screen loading={loading}>
@@ -1203,7 +1188,7 @@ const roleFromUserInfo = (roles = [], role) => {
 };
 
 const mapStateToProps = state => {
-  
+  console.log('state in all app',state)
   const { complaints, common, screenConfiguration = {} } = state || {};
   const { categoriesById, byId, order } = complaints;
   const { fetchSuccess, applicationData } = complaints;
@@ -1244,10 +1229,6 @@ const mapStateToProps = state => {
     csrComplaints = transformedComplaints;
   }
 
-
-
-
-
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',
     assignedComplaints,
@@ -1284,6 +1265,8 @@ const mapDispatchToProps = dispatch => {
     },
     fetchApplications: (criteria, hasUsers, overWrite) =>
       dispatch(fetchApplications(criteria, hasUsers, overWrite)),
+      fetchApplicationType:(criteria, hasUsers, overWrite) =>
+      dispatch(fetchApplicationType(criteria, hasUsers, overWrite)),
     toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
     prepareFinalObject: (jsonPath, value) =>

@@ -55,7 +55,6 @@ const DialogTitle = withStyles(styles)((props) => {
 });
 
 const DialogContent = withStyles((theme) => ({
-
 }))(MuiDialogContent);
 
 class BookingDetails extends Component {
@@ -103,13 +102,12 @@ class BookingDetails extends Component {
     // this.props.history.push(`/image?source=${source}`);
   };
   render() {
-    const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
+    const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated,bkLocation,bkDimension, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
     var ProcessInstances = [];
 
     if (historyApiData != undefined && historyApiData.ProcessInstances && historyApiData.ProcessInstances.length > 0) {
       ProcessInstances = [...historyApiData.ProcessInstances];
     }
-
     return (
       <div>
         <Card
@@ -193,6 +191,26 @@ class BookingDetails extends Component {
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
                       label={bookingType}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_PARK_LOCATIION_BOOKING" />
+                    <Label
+                      className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkLocation}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_PARK_DIMENTION_AREA" />
+                    <Label
+                      className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                      label={submittedDate}
+                      id="complaint-details-submission-date"
+                      labelStyle={{ color: "inherit" }}
+                      label={bkDimension}
                     />
                   </div>
 

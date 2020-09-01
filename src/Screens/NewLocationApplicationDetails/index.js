@@ -147,7 +147,7 @@ class ApplicationDetails extends Component {
 			prepareFinalObject
 		} = this.props;
 
-	
+
 
 		prepareFormData("complaints", transformedComplaint);
 
@@ -156,15 +156,15 @@ class ApplicationDetails extends Component {
 		let requestbody = {
 			"applicationNumber": match.params.applicationId, 'uuid': userInfo.uuid,
 			"applicationStatus": "",
-			"mobileNumber": "", "bookingType": "","tenantId":"ch"
+			"mobileNumber": "", "bookingType": "", "tenantId": "ch"
 		}
 
 		let imageListFromAPI = await httpRequest(
 			"bookings/newLocation/employee/osujm/_search",
-			"_search",[],
+			"_search", [],
 			requestbody
 		);
-		
+
 		let bookingDocs = imageListFromAPI && imageListFromAPI.documentList;
 		let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
 
@@ -205,14 +205,12 @@ class ApplicationDetails extends Component {
 			])
 		fetchDataAfterPayment(
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
-			])
-
-		let { details } = this.state;
+			])	
 	}
 
 	componentWillReceiveProps = async (nextProps) => {
-		
-		this.getImegeDocument();
+
+		// this.getImegeDocument();
 		const { transformedComplaint, prepareFormData } = this.props;
 		if (!isEqual(transformedComplaint, nextProps.transformedComplaint)) {
 			prepareFormData("complaints", nextProps.transformedComplaint);
@@ -340,7 +338,7 @@ class ApplicationDetails extends Component {
 	downloadPaymentReceiptFunction = async (e) => {
 		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
 		const { complaint } = transformedComplaint;
-	
+
 
 		let BookingInfo = [{
 			"applicantDetail": {
@@ -463,7 +461,7 @@ class ApplicationDetails extends Component {
 	// Download Application 
 	downloadApplicationButton = async (e) => {
 		this.downloadApplicationFunction();
-	
+
 		const { DownloadApplicationDetails } = this.props;
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -477,7 +475,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			
+
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -499,7 +497,7 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-		
+
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -524,7 +522,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			
+
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -546,7 +544,7 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			
+
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -633,7 +631,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-		
+
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -655,7 +653,7 @@ class ApplicationDetails extends Component {
 					`Document - ${index + 1}`;
 				return doc;
 			});
-			
+
 			setTimeout(() => {
 				window.open(documentsPreview[0].link);
 			}, 100);
@@ -680,7 +678,7 @@ class ApplicationDetails extends Component {
 			let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 			let fileUrls =
 				fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-			
+
 
 			documentsPreview = documentsPreview.map(function (doc, index) {
 				doc["link"] =
@@ -708,53 +706,50 @@ class ApplicationDetails extends Component {
 			prepareFinalObject('documentsPreview', documentsPreview)
 		}
 	}
-	getImegeDocument = async () => {
-	
-		const { bookingDocs } = this.props;
-		if (bookingDocs.length > 0) {
-		
-			let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
+	// getImegeDocument = async () => {
 
-			const fileUrlPayload = fileStoreIds && (await getFileUrlFromAPI(fileStoreIds));
-			let newLocationImagesPreview = [];
-			bookingDocs && bookingDocs.forEach((item, index) => {
+	// 	const { bookingDocs } = this.props;
+	// 	if (bookingDocs.length > 0) {
 
-				newLocationImagesPreview[index] = {
-					fileName: item.fileName ||
-						`Document - ${index + 1}`,
-					fileStoreId: item.fileStoreId,
-					fileUrl: Object.values(fileUrlPayload)[index].split(",")[0],
-					documentType: item.documentType,
+	// 		let fileStoreIds = bookingDocs.map(e => e.fileStoreId).join(",");
 
-				};
+	// 		const fileUrlPayload = fileStoreIds && (await getFileUrlFromAPI(fileStoreIds));
+	// 		let newLocationImagesPreview = [];
+	// 		bookingDocs && bookingDocs.forEach((item, index) => {
 
-			});
-			let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
+	// 			newLocationImagesPreview[index] = {
+	// 				fileName: item.fileName ||
+	// 					`Document - ${index + 1}`,
+	// 				fileStoreId: item.fileStoreId,
+	// 				fileUrl: Object.values(fileUrlPayload)[index].split(",")[0],
+	// 				documentType: item.documentType,
 
-			prepareFinalObject('locationImages', part2)
-	
-			this.setState({ imageData: part2 })			
-		}
-	}
+	// 			};
+
+	// 		});
+	// 		let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
+
+	// 		prepareFinalObject('locationImages', part2)
+
+	// 		this.setState({ imageData: part2 })
+	// 	}
+	// }
 	render() {
 		const dropbordernone = {
 			float: "right",
 			paddingRight: "20px"
 
 		};
-		let { shareCallback } = this;
 		let { comments, openMap, imageData } = this.state;
-
 		let { complaint, timeLine } = this.props.transformedComplaint;
 		let { documentMap, part1, part2 } = this.props;
 		let { historyApiData, paymentDetails, match, userInfo } = this.props;
-		
 		let imageDetails;
 		if (imageData.length != 0) {
 			imageDetails = imageData;
-			
+
 		}
-		
+
 		let {
 			role,
 			serviceRequestId,
@@ -766,9 +761,7 @@ class ApplicationDetails extends Component {
 		let btnTwoLabel = "";
 		let action;
 		let complaintLoc = {};
-		// if (complaint && complaint.latitude) {
-		//   complaintLoc = { lat: complaint.latitude, lng: complaint.longitude };
-		// }
+		
 		if (complaint) {
 			if (role === "ao") {
 				if (complaint.complaintStatus.toLowerCase() === "unassigned") {
@@ -796,7 +789,7 @@ class ApplicationDetails extends Component {
 				}
 			}
 			else if (role === "employee") {
-			
+
 				//  if () {
 				btnOneLabel = "BK_MYBK_REJECT_BUTTON";
 				btnTwoLabel = "BK_MYBK_RESOLVE_MARK_RESOLVED";
@@ -809,7 +802,7 @@ class ApplicationDetails extends Component {
 		const foundFirstLavel = userInfo && userInfo.roles.some(el => el.code === 'MCC_APPROVER');
 		const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
 		const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
-		
+
 
 		return (
 			<div>
@@ -825,7 +818,7 @@ class ApplicationDetails extends Component {
 										</div>
 										<div className="col-12 col-md-6 row">
 											<div class="col-12 col-md-6 col-sm-3" >
-												
+
 											</div>
 											<div class="col-12 col-md-6 col-sm-3" >
 
@@ -840,7 +833,7 @@ class ApplicationDetails extends Component {
 									historyApiData={historyApiData && historyApiData}
 								/>
 
-                                <AppDetails
+								<AppDetails
 									{...complaint}
 
 								/>
@@ -849,33 +842,31 @@ class ApplicationDetails extends Component {
 									{...complaint}
 									historyApiData={historyApiData && historyApiData}
 								/>
-								
+
 
 								<NewLocationFieldsDetails
 									{...complaint}
 								/>
-								
 
-								<div style={{height: "250px", marginBottom:'15px',width: "100",backgroundColor: "white",	border: "2px solid white",
+
+								<div style={{
+									height: "250px", marginBottom: '15px', width: "100", backgroundColor: "white", border: "2px solid white",
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}>
-                                     <div style={{marginTop:30}}> <Label  label="BK_NEW_LOCATION_IMAGES" /></div><br></br>
-							<div>
-								{(() => {
-									if (this.state && this.state.ImageList.length > 0) {
-                                       
-										return this.state.ImageList.map((item, index) => { 
-											
-											return <div style={{marginRight: "20px",display: 'inline-block'}}><img size="medium" width={200} height={154} src={item.fileUrl} />	</div>
-										})
-									}
-								})()}
+									<div style={{ marginTop: 30 }}> <Label label="BK_NEW_LOCATION_IMAGES" /></div><br></br>
+									<div>
+										{(() => {
+											if (this.state && this.state.ImageList.length > 0) {
+
+												return this.state.ImageList.map((item, index) => {
+
+													return <div style={{ marginRight: "20px", display: 'inline-block' }}><img size="medium" width={200} height={154} src={item.fileUrl} />	</div>
+												})
+											}
+										})()}
+									</div>
 								</div>
-</div>
 
-								
-
-								
 								<div style={{
 									height: "100px",
 									width: "100",
@@ -884,7 +875,7 @@ class ApplicationDetails extends Component {
 									boxShadow: "0 0 2px 2px #e7dcdc", paddingLeft: "30px", paddingTop: "10px"
 								}}><b>Documents</b><br></br>
 
-									
+
 									document.pdf
 									<button className="ViewDetailButton" onClick={(e) => { this.callApiForDocumentData(e) }}>VIEW</button>
 								</div>
@@ -1027,39 +1018,8 @@ const roleFromUserInfo = (roles = [], role) => {
 
 
 //Don't Delete this
-const getLatestStatus = status => {
-	let transformedStatus = "";
-	switch (status.toLowerCase()) {
-		case "open":
-		case "new":
-			transformedStatus = "UNASSIGNED";
-			break;
-		case "resolved":
-		case "rejected":
-		case "closed":
-			transformedStatus = "CLOSED";
-			break;
-		case "assigned":
-			transformedStatus = "ASSIGNED";
-			break;
-		case "reassignrequested":
-			transformedStatus = "REASSIGN";
-			break;
-		case "escalatedlevel1pending":
-			transformedStatus = "ESCALATED";
-			break;
-		case "escalatedlevel2pending":
-			transformedStatus = "ESCALATED";
-			break;
-		default:
-			transformedStatus = "CLOSED";
-			break;
-	}
-	return transformedStatus;
-};
-const mapCitizenIdToName = (citizenObjById, id) => {
-	return citizenObjById && citizenObjById[id] ? citizenObjById[id].name : "";
-};
+
+
 const mapCitizenIdToMobileNumber = (citizenObjById, id) => {
 	return citizenObjById && citizenObjById[id]
 		? citizenObjById[id].mobileNumber
@@ -1072,19 +1032,19 @@ const mapStateToProps = (state, ownProps) => {
 	const { MccApplicationData } = complaints;
 	const { DownloadPaymentReceiptDetails, DownloadApplicationDetails, DownloadPermissionLetterDetails } = complaints;
 	// complaint=applicationData?applicationData.bookingsModelList:'';
-	
+
 	const { id } = auth.userInfo;
-	const { citizenById } = common || {};
+	
 	const { employeeById, departmentById, designationsById, cities } =
 		common || {};
-	const { categoriesById } = complaints;
+	
 	const { userInfo } = state.auth;
 	const serviceRequestId = ownProps.match.params.applicationId;
 	let selectedComplaint = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : ''
 	let businessService = MccApplicationData ? MccApplicationData.osujmNewLocationModelList : "";
-	//let bookingDocs;
-
 	
+
+
 	let documentMap = MccApplicationData && MccApplicationData.documentMap ? MccApplicationData.documentMap : '';
 
 	let bookingDocs = MccApplicationData && MccApplicationData.documentList ? MccApplicationData.documentList : '';
@@ -1092,7 +1052,7 @@ const mapStateToProps = (state, ownProps) => {
 
 	let newLocationImagesPreview = [];
 	bookingDocs && bookingDocs.forEach((item, index) => {
-	
+
 		newLocationImagesPreview[index] = {
 			fileName: item.fileName ||
 				`Document - ${index + 1}`,
@@ -1102,11 +1062,11 @@ const mapStateToProps = (state, ownProps) => {
 		};
 
 	});
-	
+
 	let part1 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType == "IDPROOF");
-	
+
 	let part2 = newLocationImagesPreview && newLocationImagesPreview.filter(item => item.documentType != "IDPROOF");
-	
+
 
 	const { HistoryData } = complaints;
 	let historyObject = HistoryData ? HistoryData : ''
@@ -1126,7 +1086,7 @@ const mapStateToProps = (state, ownProps) => {
 	if (historyObject) {
 		historyApiData = historyObject;
 	}
-	
+
 	const role =
 		roleFromUserInfo(userInfo.roles, "GRO") ||
 			roleFromUserInfo(userInfo.roles, "DGRO")

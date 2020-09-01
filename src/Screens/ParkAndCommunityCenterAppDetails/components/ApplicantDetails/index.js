@@ -47,16 +47,7 @@ class AppDetails extends Component {
                       label={bkMobileNumber}
                     />
                   </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_ADDRESS" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                   
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={address}
-                    />
-                  </div>
+             
                   <div className="col-md-4">
                     <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_HOUSENO" />
                     <Label
@@ -68,7 +59,7 @@ class AppDetails extends Component {
                     />
                   </div>
                   <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_SECTOR" />
+                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_SECTOR_FOR_PARK" />
                     <Label
                       className="col-xs-12 col-sm-12 col-md-12  status-result-color"
                     
@@ -77,45 +68,8 @@ class AppDetails extends Component {
                       label={sector}
                     />
                   </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_AREA_REQUIRED" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={areaRequired?areaRequired:'NA'}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_CONSTRUCTION_LABEL" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                      label={submittedDate}
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={bkConstructionType?bkConstructionType:'NA'}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DURATION_LABEL" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                      label={submittedDate}
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={bkDuration?bkDuration:'NA'}
-                    />
-                  </div>
-                  <div className="col-md-4">
-                    <Label className="col-xs-112  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_CATEGORY" />
-                    <Label
-                      className="col-xs-12 col-sm-12 col-md-12  status-result-color"
-                      label={submittedDate}
-                      id="complaint-details-submission-date"
-                      labelStyle={{ color: "inherit" }}
-                      label={bkCategory?bkCategory:'NA'}
-                    />
-                  </div>
+               
+               
                 </div>
               </div>
             </div>
