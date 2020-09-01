@@ -33,8 +33,8 @@ import {
 	getTranslatedLabel
 } from "egov-ui-kit/utils/commons";
 import {
-	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadPaymentReceipt, downloadApplication,
-	sendMessage,downloadPermissionLetter,
+	fetchApplications, fetchPayment, fetchHistory, fetchDataAfterPayment, downloadReceiptForPCC, downloadAppForPCC,
+	sendMessage,downloadPLForPCC,
 	sendMessageMedia
 } from "../../redux/bookings/actions";
 import { connect } from "react-redux";
@@ -80,7 +80,7 @@ class ApplicationDetails extends Component {
 			fetchApplications,
 			fetchHistory,
 			fetchPayment,
-			fetchDataAfterPayment, downloadPaymentReceipt,
+			fetchDataAfterPayment, downloadReceiptForPCC,
 			match,
 			resetFiles,
 			transformedComplaint,
@@ -230,64 +230,60 @@ class ApplicationDetails extends Component {
 	};
 
 	downloadPaymentReceiptFunction = async (e) => {
-		const { transformedComplaint, paymentDetailsForReceipt, downloadPaymentReceipt, userInfo } = this.props;
+		const { transformedComplaint, paymentDetailsForReceipt, downloadReceiptForPCC, userInfo } = this.props;
 		const { complaint } = transformedComplaint;
 		
 
 		let BookingInfo = [{
 			"applicantDetail": {
-				"name": complaint && complaint.applicantName ? complaint.applicantName : 'NA',
-				"mobileNumber": complaint && complaint.bkMobileNumber ? complaint.bkMobileNumber : '',
-				"houseNo": complaint && complaint.houseNo ? complaint.houseNo : '',
-				"permanentAddress": complaint && complaint.address ? complaint.address : '',
-				"permanentCity": complaint && complaint.villageCity ? complaint.villageCity : '',
-				"sector": complaint && complaint.sector ? complaint.sector : ''
-			},
-			"booking": {
-				"bkApplicationNumber": complaint && complaint.applicationNo ? complaint.applicationNo : ''
-			},
+                "name": "Sumit Kumar",
+                "mobileNumber": "9138912806",
+                "houseNo": "555",
+                "permanentAddress": "klklkk",
+                "permanentCity": "ch.chandigarh",
+                "sector": "7"
+            },
+            "booking": {
+                "bkApplicationNumber": "CH-BK-2020-07-25-000183"
+            },
 			"paymentInfo": {
-				"paymentDate": paymentDetailsForReceipt && convertEpochToDate(paymentDetailsForReceipt.Payments[0].transactionDate, "dayend"),
-				"transactionId": paymentDetailsForReceipt && paymentDetailsForReceipt.Payments[0].transactionNumber,
-				"bookingPeriod": getDurationDate(
-					complaint.bkFromDate,
-					complaint.bkToDate
-				),
-				"bookingItem": "Online Payment Against Booking of Open Space for Building Material",
-				"amount": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-					(el) => !el.taxHeadCode.includes("TAX")
-				)[0].amount,
-				"tax": paymentDetailsForReceipt.Payments[0].paymentDetails[0].bill.billDetails[0].billAccountDetails.filter(
-					(el) => el.taxHeadCode.includes("TAX")
-				)[0].amount,
-				"grandTotal": paymentDetailsForReceipt.Payments[0].totalAmountPaid,
-				"amountInWords": this.NumInWords(
-					paymentDetailsForReceipt.Payments[0].totalAmountPaid
-				),
-				paymentItemExtraColumnLabel: "Booking Period",
-				paymentMode:
-					paymentDetailsForReceipt.Payments[0].paymentMode,
-				receiptNo:
-					paymentDetailsForReceipt.Payments[0].paymentDetails[0]
-						.receiptNumber,
-				
+                "paymentDate": "13th Augest 2020",
+                "transactionId": "EDR654GF35",
+                "bookingPeriod": "13th Aug 2020 to 12th Sep 2020",
+                "bookingItem": "Online Payment Against Booking of PARK NO 69 INFRONT OF HNO 3259-60 SEC 44 CHD",
+                "amountInWords": "Three Thousands Five Hundred Fourty Rupees",
+                "paymentItemExtraColumnLabel": "Booking Period",
+                "paymentMode": "Online",
+                "receiptNo": "08/2020-21/000304",
+                "baseCharge": 4000,
+                "cleaningCharges": 345,
+                "surcharges": 100,
+                "facilitationCharge": 100,
+                "utgst": 100,
+                "cgst": 100,
+                "gst": 200,
+                "totalAmount": 4400
+            },
+            "payerInfo": {
+                "payerName": "Ramadesh KushWaha",
+                "payerMobile": "9877782389"
+            },
+            "generatedBy": {
+                "generatedBy": "Anil Clerk"
 			},
-			payerInfo: {
-				payerName: paymentDetailsForReceipt.Payments[0].payerName,
-				payerMobile:
-					paymentDetailsForReceipt.Payments[0].mobileNumber,
-			},
-			generatedBy: {
-				generatedBy: userInfo.name,
-			},
-		}
+			"tenantInfo": {
+                "municipalityName": "Municipal Corporation Chandigarh",
+                "address": "New Deluxe Building, Sector 17, Chandigarh",
+                "contactNumber": "+91-172-2541002, 0172-2541003"
+            }
+        }
 		]
-		downloadPaymentReceipt({ BookingInfo: BookingInfo })
+		downloadReceiptForPCC({ BookingInfo: BookingInfo })
 	}
 
 	downloadApplicationFunction = async (e) => {
 		
-		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
+		const { transformedComplaint, paymentDetailsForReceipt, downloadAppForPCC,paymentDetails,userInfo } = this.props;
 		const { complaint } = transformedComplaint;
 		let bookingDataOsbm = {
             applicationNumber: complaint.applicationNo,
@@ -348,7 +344,7 @@ class ApplicationDetails extends Component {
         ];
 
 
-		downloadApplication( { BookingInfo: appData })
+		downloadAppForPCC( { BookingInfo: appData })
 		
 
 	}
@@ -448,66 +444,45 @@ downloadPermissionLetterButton = async (e) => {
 }
 
 downloadPermissionLetterFunction = async (e) => {
-	const { transformedComplaint,paymentDetails,downloadPermissionLetter ,userInfo} = this.props;
+	const { transformedComplaint,paymentDetails,downloadPLForPCC ,userInfo} = this.props;
 	const {complaint} = transformedComplaint;
 	let receiptData = [
 		{
-			applicantDetail: {
-				name: complaint.applicantName,
-				mobileNumber: complaint.bkMobileNumber,
-				houseNo: complaint.houseNo,
-				permanentAddress: complaint.address,
-				permanentCity: complaint.villageCity,
-				sector: complaint.sector,
+			"applicantDetail": {
+                "name": "Sumit Kumar",
+                "mobileNumber": "9138912806",
+                "email": "nero@gmail.com",
+                "permanentAddress": "Royal Building",
+                "permanentCity": "Chandigarh",
+                "sector": "7",
+                "fatherName": "RamLal"
+            },
+			"bookingDetail": {
+                "applicationNumber": "CH-GH-2020-07-25-000183",
+                "applicationDate": "20th Dec 2020",
+                "bookingPeriod": "21th Dec 2020 to 25th Dec 2020",
+                "bookingType": "Park",
+                "venueName": "PARK NO 3 INFRONT OF H NO 53 SEC 9 CHD",
+                "sector": "sector 17",
+                "bookingPupose": "Family Gathering"
+            },
+			"generatedBy": {
+                "generatedBy": "Anil Clerk"
 			},
-			bookingDetail: {
-				applicationNumber:
-				complaint.applicationNo,
-				applicationDate: convertEpochToDate(
-					complaint.dateCreated,"dayend"
-				),
-				bookingPeriod: getDurationDate(
-					complaint.bkFromDate,
-					complaint.bkToDate
-				),
-				
-				villageOrCity: complaint.villageCity,
-				residentialOrCommercial: complaint.residentialCommercial,
-				areaRequired: complaint.areaRequired,
-				category: complaint.bkCategory,
-				typeOfConstruction: complaint.bkConstructionType,
-				permissionPeriod: getDurationDate(
-					complaint.bkFromDate,
-					complaint.bkToDate
-				),
-
-				duration:
-				complaint.bkDuration == "1"
-					? `${complaint.bkDuration} Month`
-					: `${complaint.bkDuration} Months`,
-			categoryImage: "",
-				groundName:complaint.sector
-			},
-
-
-
-			approvedBy:{
-				approvedBy: "Renil Commissioner",
-				role: "Additional Commissioner"
-			},
-			tenantInfo:{
-				municipalityName: "Municipal Corporation Chandigarh",
-				address: "New Deluxe Building, Sector 17, Chandigarh",
-				contactNumber: "+91-172-2541002, 0172-2541003",
-				logoUrl: "https://chstage.blob.core.windows.net/fileshare/logo.png",
-				webSite: "http://mcchandigarh.gov.in"
-			},
-			generatedBy: {
-				generatedBy: userInfo.name,
-			}
+			"approvedBy": {
+                "approvedBy": "Renil Commissioner",
+                "role": "Additional Commissioner"
+            },
+			"tenantInfo": {
+                "municipalityName": "Municipal Corporation Chandigarh",
+                "address": "New Deluxe Building, Sector 17, Chandigarh",
+                "contactNumber": "+91-172-2541002, 0172-2541003",
+                "logoUrl": "https://chstage.blob.core.windows.net/fileshare/logo.png",
+                "webSite": "http://mcchandigarh.gov.in"
+            }
 		}]
 
-	downloadPermissionLetter({BookingInfo:receiptData})
+		downloadPLForPCC({BookingInfo:receiptData})
 }
 
 	downloadPaymentReceiptButton = async (e) => {
@@ -986,9 +961,9 @@ const mapDispatchToProps = dispatch => {
 		fetchPayment: criteria => dispatch(fetchPayment(criteria)),
 		fetchDataAfterPayment: criteria => dispatch(fetchDataAfterPayment(criteria)),
 
-		downloadPaymentReceipt: criteria => dispatch(downloadPaymentReceipt(criteria)),
-downloadPermissionLetter: criteria => dispatch(downloadPermissionLetter(criteria)),
-		downloadApplication: criteria => dispatch(downloadApplication(criteria)),
+		downloadReceiptForPCC: criteria => dispatch(downloadReceiptForPCC(criteria)),
+		downloadPLForPCC: criteria => dispatch(downloadPLForPCC(criteria)),
+		downloadAppForPCC: criteria => dispatch(downloadAppForPCC(criteria)),
 		fetchHistory: criteria => dispatch(fetchHistory(criteria)),
 		resetFiles: formKey => dispatch(resetFiles(formKey)),
 		sendMessage: message => dispatch(sendMessage(message)),
