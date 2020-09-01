@@ -43,6 +43,12 @@ const ApplicationSummary = Loadable({
   loader: () => import("../Screens/ApplicationDetails"),
   loading: Loading
 });
+
+
+const ParkAndCommunityCenterAppDetails=Loadable({
+  loader: () => import("../Screens/ParkAndCommunityCenterAppDetails"),
+  loading: Loading
+});
 const LocationSummary = Loadable({
   loader: () => import("../Screens/LocationSummaryComponent"),
   loading: Loading
@@ -269,6 +275,18 @@ const routes = [
       redirectionUrl
     }
   },
+  {
+    path: "egov-services/park-and-community-center-appDetails-details/:applicationId",
+    component: ParkAndCommunityCenterAppDetails,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      // title: "BK_CS_HEADER_APPLICATION_SUMMARY",
+      redirectionUrl
+    }
+  },
+
+  
   {
     path: "egov-services/new-location-details/:applicationId",
     component: LocationSummary,
