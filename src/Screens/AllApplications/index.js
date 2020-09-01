@@ -5,7 +5,7 @@ import get from "lodash/get";
 import MenuButton from "egov-ui-framework/ui-molecules/MenuButton";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import { SortDialog, Screen } from "modules/common";
-import { fetchApplications } from "../../redux/bookings/actions"//"egov-ui-kit/redux/complaints/actions";
+import { fetchApplications,fetchApplicationType } from "../../redux/bookings/actions"//"egov-ui-kit/redux/complaints/actions";
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import Label from "egov-ui-kit/utils/translationNode";
 import { transformComplaintForComponent } from "egov-ui-kit/utils/commons";
@@ -1265,6 +1265,8 @@ const mapDispatchToProps = dispatch => {
     },
     fetchApplications: (criteria, hasUsers, overWrite) =>
       dispatch(fetchApplications(criteria, hasUsers, overWrite)),
+      fetchApplicationType:(criteria, hasUsers, overWrite) =>
+      dispatch(fetchApplicationType(criteria, hasUsers, overWrite)),
     toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
     prepareFinalObject: (jsonPath, value) =>

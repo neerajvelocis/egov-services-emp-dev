@@ -172,7 +172,8 @@ class BookingDetails extends Component {
                   <button 
                   style={{ color: "#FE7A51", border: "none",  outline:"none", fontWeight: "500", background: "white" }} 
                   onClick={() => { this.handleClickOpen() }}>
-                   <HistoryIcon/> VIEW HISTORY
+                   <HistoryIcon/>VIEW HISTORY
+                   {/* <Label style={{marginTop: '-52px',marginLeft: '63px',color: 'red'}} label="VIEW_HISTORY" /> */}
                 </button>
                 </div>
               </div>

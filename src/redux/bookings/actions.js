@@ -583,7 +583,7 @@ export const fetchApplicationType = () => {
 	return async (dispatch) => {
 		try {
 			const payload = await httpRequest(CATEGORY.GET.URL, CATEGORY.GET.ACTION, [], requestBody);
-			
+			console.log('payload--application type',payload)
 			dispatch(applicationTypeFetchSucess(payload));
 		} catch (error) {
 			dispatch(applicationTypeFetchError(error.message));
