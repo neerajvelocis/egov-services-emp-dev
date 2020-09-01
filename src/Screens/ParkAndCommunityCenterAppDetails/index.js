@@ -883,7 +883,7 @@ const mapStateToProps = (state, ownProps) => {
 
 	let paymentDetailsForReceipt = fetchPaymentAfterPayment;
 	let paymentDetails;
-	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPROVED") {
+	if (selectedComplaint && selectedComplaint.bkApplicationStatus == "APPLIED") {
 		paymentDetails = fetchPaymentAfterPayment && fetchPaymentAfterPayment.Payments[0] && fetchPaymentAfterPayment.Payments[0].paymentDetails[0].bill;
 	} else {
 		paymentDetails = paymentData ? paymentData.Bill[0] : '';
