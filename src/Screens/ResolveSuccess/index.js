@@ -20,7 +20,7 @@ class ResolveSuccess extends Component {
   };
 
   render() {
-    let {applicationNumber,newLocationNumber} = this.props;
+    let {applicationNumber} = this.props;
     return (
       <div className="success-message-main-screen resolve-success">
         <CommonSuccessMessage
@@ -31,7 +31,6 @@ class ResolveSuccess extends Component {
           icon={<Icon action="navigation" name="check" />}
           backgroundColor={"#22b25f"}
           applicationNumber={applicationNumber && applicationNumber} 
-          newLocationNumber={newLocationNumber && newLocationNumber}
         />
         <div className="responsive-action-button-cont">
           <Button
@@ -51,17 +50,16 @@ const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;  //MccApplicationData
   const { applicationData } = complaints;
   const { MccApplicationData } = complaints;
-  let MccANumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
+  // let MccANumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0] : '';
   let bookingDetails = applicationData ? applicationData.bookingsModelList[0] : '';
   console.log("complaints in resolve success--",complaints)
   //bkApplicationNumber
   let applicationNumber = applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
-  let newLocationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
+  // let newLocationNumber = MccApplicationData ? MccApplicationData.osujmNewLocationModelList[0].applicationNumber : '';
   console.log("applicationNumber--",applicationNumber)
   return {
     bookingDetails,
     applicationNumber,
-    newLocationNumber
   }
 }
 

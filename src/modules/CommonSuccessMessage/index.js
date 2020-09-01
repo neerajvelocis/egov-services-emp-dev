@@ -7,11 +7,11 @@ import "./index.css";
 class SuccessMessage extends Component {
   render() {
     //applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
-    const { successmessage, employeeName, newLocationNumber,secondaryLabel,headermessage, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
-    // const label1 = `Application No.${applicationNumber}`
-    const displayNumber = headermessage ? applicationNumber : newLocationNumber;
-    console.log("displayNumber--",displayNumber)
-    const label1 = `Application No.${displayNumber}`
+    const { successmessage, employeeName, secondaryLabel,headermessage, applicationNumber, tertiaryLabel, icon, backgroundColor } = this.props;
+    const label1 = `Application No.${applicationNumber}`
+    // const displayNumber = headermessage ? applicationNumber : newLocationNumber;
+    // console.log("displayNumber--",displayNumber)
+    // const label1 = `Application No.${displayNumber}`
     return (
 //applicationData ? applicationData.bookingsModelList[0].bkApplicationNumber : '';
       // <div className="wt-app-details">
