@@ -176,6 +176,16 @@ const ApplyWaterTanker = Loadable({
   loading: Loading
 })
 
+
+const ApplyPArkAndCommunity= Loadable({
+  loader: () => import("../Screens/ApplyParkAndCommunity"),
+  loading: Loading
+})
+
+
+
+
+
 // import CreateEmployee from "modules/employee/pgr/CreateEmployee";
 const redirectionUrl = "/user/login";
 const routes = [
@@ -241,6 +251,21 @@ const routes = [
     options: {
       hideFooter: true,
       title: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER",
+      hideTitle: false,
+      redirectionUrl,
+      hideFor: "ao",
+      customFor: "employee",
+      customTitle: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER"
+    }
+  },
+
+  {
+    path: "egov-services/applyPark-community-center",
+    component: ApplyPArkAndCommunity,
+    needsAuthentication: true,
+    options: {
+      hideFooter: true,
+      title: "BK_MYBK_APPLY_PACC_REQUEST_HEADER",
       hideTitle: false,
       redirectionUrl,
       hideFor: "ao",

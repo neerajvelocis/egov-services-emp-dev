@@ -69,7 +69,7 @@ class AllRequests extends Component {
       renderCustomTitle,
       prepareFinalObject
     } = this.props;
-
+    fetchApplicationType();
     let rawRole =
       userInfo && userInfo.roles && userInfo.roles[0].code.toUpperCase();
     //const numberOfComplaints = role === "employee" ? numEmpComplaint : role === "csr" ? numCSRComplaint : 0;
@@ -163,7 +163,9 @@ class AllRequests extends Component {
       sortPopOpen: true
     });
   };
-
+  gotoPArkAndCommunityTanker= () => {
+    this.props.history.push(`/egov-services/applyPark-community-center`);
+  };
   gotoMcc = () => {
     this.props.history.push(`/egov-services/all-MccApplications`);
   };
@@ -346,7 +348,6 @@ class AllRequests extends Component {
 
     else if (fromDate, toDate) {
       if (fromDate > this.state.toDate) {
-
         toggleSnackbarAndSetText(
           true,
           {
@@ -763,6 +764,17 @@ class AllRequests extends Component {
           /> : ''
         }
 
+          {/* <Button
+            className="responsive-action-button"
+            label={<Label buttonLabel={true} label="BK_MYBK_WATER_TANKER_APPLY" />}
+            fullWidth={true}
+            primary={true}
+            style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
+            onClick={() => this.gotoPArkAndCommunityTanker()
+            } /> : '' */}
+
+
+
         <div className="form-without-button-cont-generic">
           {/* <Grid container spacing={8}>{this.handleFormFields()}</Grid> */}
 
@@ -969,6 +981,7 @@ class AllRequests extends Component {
                     }}
                   />
                 </div>
+             
                 <div
                   className="col-sm-12 col-xs-12"
                   style={{ marginTop: 10, paddingRight: 8, marginLeft: "16%" }}
@@ -1265,8 +1278,8 @@ const mapDispatchToProps = dispatch => {
     },
     fetchApplications: (criteria, hasUsers, overWrite) =>
       dispatch(fetchApplications(criteria, hasUsers, overWrite)),
-      fetchApplicationType:(criteria, hasUsers, overWrite) =>
-      dispatch(fetchApplicationType(criteria, hasUsers, overWrite)),
+      fetchApplicationType:(criteria) =>
+      dispatch(fetchApplicationType(criteria)),
     toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
     prepareFinalObject: (jsonPath, value) =>

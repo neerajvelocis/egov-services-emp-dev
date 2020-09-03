@@ -564,8 +564,9 @@ export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) =>
 export const fetchApplicationType = () => {
 	//Fetching Application sector from MDMS
 	let requestBody = {
-	     "tenantId": "ch",
-        "moduleDetails": [
+		MdmsCriteria:{
+	    tenantId: "ch",
+        moduleDetails: [
             {
                 "moduleName": "Booking",
                 "masterDetails": [
@@ -577,7 +578,8 @@ export const fetchApplicationType = () => {
                     }
                 ]
             }
-        ]
+		]
+	}
     }
 	
 	return async (dispatch) => {
