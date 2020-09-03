@@ -170,7 +170,7 @@ class BookingDetails extends Component {
                                     labelName={getCurrentStatus(item.state.applicationStatus)}
                                     labelKey={
                                        item.businessService
-                                        ? `WF_${item.businessService.toUpperCase()}_${
+                                        ? `BK_WF_${item.businessService.toUpperCase()}_${
                                         item.state.applicationStatus
                                         }`
                                         : ""

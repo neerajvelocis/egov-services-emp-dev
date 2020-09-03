@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
+import {CREATEBWTAPPLICATION,DWONLOADPLFORPCC,DWONLOADRECEIPTFORPCC,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG,DWONLOADAPPFORPCC } from "../../utils/endPoints";
 import { httpRequest } from "egov-ui-kit/utils/api";
 
 
@@ -331,6 +331,52 @@ const downloadApplicationErrorforCG = (error) => {
 		error,
 	};
 };
+
+const downloadApplicationCompleteforPCC = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_COMPLETE_PCC,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadApplicationErrorforPCC = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_APPLICATION_ERROR_PCC,
+		error,
+	};
+};
+
+const downloadPermissionLetterCompleteforPCC = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_PERMISSIONLETTER_COMPLETE_PCC,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadPermissionLetterErrorforPCC = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_PERMISSIONLETTER_ERROR_PCC,
+		error,
+	};
+};
+
+const downloadReceiptCompleteforPCC = (payload, overWrite) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_COMPLETE_PCC,
+		payload,
+		overWrite: overWrite,
+	};
+};
+
+const downloadReceiptErrorforPCC = (error) => {
+	return {
+		type: actionTypes.DOWNLOAD_RECEIPT_ERROR_PCC,
+		error,
+	};
+};
+
 
 //Download permission letter
 
@@ -679,6 +725,39 @@ export const fetchApplicationType = () => {
 			dispatch(downloadApplicationCompleteforCG(payload, overWrite));
 		  } catch (error) {
 			dispatch(downloadApplicationErrorforCG(error.message));
+		  }
+		};
+	  };
+	  export const downloadAppForPCC = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADAPPFORPCC.POST.URL, DWONLOADAPPFORPCC.POST.ACTION, [], requestBody);
+			dispatch(downloadApplicationCompleteforPCC(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadApplicationErrorforPCC(error.message));
+		  }
+		};
+	  };
+	  export const downloadPLForPCC = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADPLFORPCC.POST.URL, DWONLOADPLFORPCC.POST.ACTION, [], requestBody);
+			dispatch(downloadPermissionLetterCompleteforPCC(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadPermissionLetterErrorforPCC(error.message));
+		  }
+		};
+	  };
+	  export const downloadReceiptForPCC = (requestBody, hasUsers = true, overWrite) => {
+		return async (dispatch, getState) => {
+		  try {
+			let tenantId = "";
+			const payload = await httpRequest(DWONLOADRECEIPTFORPCC.POST.URL, DWONLOADRECEIPTFORPCC.POST.ACTION, [], requestBody);
+			dispatch(downloadReceiptCompleteforPCC(payload, overWrite));
+		  } catch (error) {
+			dispatch(downloadReceiptErrorforPCC(error.message));
 		  }
 		};
 	  };

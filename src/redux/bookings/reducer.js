@@ -427,6 +427,52 @@ const complaintsReducer = (state = intialState, action) => {
                           errorMessage: action.error,
                         };  
 
+                        case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_PCC:
+                          return {
+                            ...state,
+                            loading: false,
+                            fetchSuccess: true,
+                            DownloadApplicationDetailsforPCC:action.payload
+                          };
+                        case actionTypes.DOWNLOAD_APPLICATION_ERROR_PCC:
+                          return {
+                            ...state,
+                            loading: false,
+                            fetchSuccess: true,
+                            error: true,
+                            errorMessage: action.error,
+                          };  
+                          case actionTypes.DOWNLOAD_PERMISSIONLETTER_COMPLETE_PCC:
+                          return {
+                            ...state,
+                            loading: false,
+                            fetchSuccess: true,
+                            DownloadPermissionLetterDetailsforPCC:action.payload
+                          };
+                        case actionTypes.DOWNLOAD_PERMISSIONLETTER_ERROR_PCC:
+                          return {
+                            ...state,
+                            loading: false,
+                            fetchSuccess: true,
+                            error: true,
+                            errorMessage: action.error,
+                          };  
+                          case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_PCC:
+                            return {
+                              ...state,
+                              loading: false,
+                              fetchSuccess: true,
+                              DownloadReceiptDetailsforPCC:action.payload
+                            };
+                          case actionTypes.DOWNLOAD_RECEIPT_ERROR_PCC:
+                            return {
+                              ...state,
+                              loading: false,
+                              fetchSuccess: true,
+                              error: true,
+                              errorMessage: action.error,
+                            };  
+
     case actionTypes.COMPLAINTS_SEND_MESSAGE_SHARECONTENT_TO:
       const shareCont = state.ShareMetaData.shareContent;
       shareCont.map((elem) => {
