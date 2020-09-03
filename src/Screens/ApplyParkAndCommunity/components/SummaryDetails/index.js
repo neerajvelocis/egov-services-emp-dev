@@ -1,83 +1,85 @@
 import React, { Component } from 'react';
 import { Tabs, Card, TextField, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-import { createWaterTankerApplication } from "egov-ui-kit/redux/complaints/actions";
+import { createPACCApplication } from "../../../../redux/bookings/actions";
 import { connect } from "react-redux";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EditIcon from '@material-ui/icons/Edit';
 import "./index.css";
+import Footer from "../../../../modules/footer"
 class SummaryDetails extends Component {
 
     submit = e => {
-       
-        let { createWaterTankerApplication } = this.props;
-        const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
+        let { createPACCApplication } = this.props;
+        const { firstName, email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
+        //    const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
-            "bkApproverName":approverName,
-            "bookingsRemarks": [{"bkRemarks": comment}],
-            "comment":comment,
-            "action":"DELIVER",
+            "facilitationCharges":facilitationCharges,
+            "bkBookingType": "Parks",
+            "action": "DELIVER",
             "bkApplicantName": firstName,
             "bkMobileNumber": mobileNo,
             "bkEmail": email,
             "bkHouseNo": houseNo,
-            "bkCompleteAddress": address,
             "bkSector": locality,
             "bkType": residenials,
-            "bkDate": "",
-            "bkTime": "",
-            "bkStatus": "Request due to water supply failure",
-            "bkBookingType": "WATER_TANKERS",
+            "bkDimension": dimension,
+            "bkLocation": location,
+            "bkFromDate": fromDate,
             "tenantId": "ch",
-            "bkAction": "DELIVER",
-            "businessService": "BWT"
+            "bkToDate": toDate,
+            "businessService": "PACC",
+            "bkCleansingCharges":cleaningCharges,
+            "bkRent":rent,
+            "bkSurchargeRent":surcharge,
+            "bkUtgst":utGST,
+            "bkCgst":cGST,
+            "bkBookingPurpose":purpose,
+            "bkCustomerGstNo":GSTnumber,
+            "bkAction":"APPLY",
+            "wfDocuments":""
         }
-        createWaterTankerApplication(
+        createPACCApplication(
             {
-                "applicationType": "BWT",
+                "applicationType": "PACC",
                 "applicationStatus": "",
                 "applicationId": null,
                 "tenantId": "ch",
                 "Booking": Booking
             });
-        	
-            this.props.history.push("/egov-services/create-success");
-
+        this.props.history.push("/egov-services/create-success");
     }
 
     firstStep = e => {
         e.preventDefault();
         this.props.firstStep();
-
     }
-
-
     back = e => {
         e.preventDefault();
         this.props.prevStep();
     }
     render() {
-        const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
-       
-        // const { jobTitle, jobCompany, jobLocation, complaintSector,surcharge,fromDate,toDate,onFromDateChange,onToDateChange, utGST,cGST, GSTnumber, handleChange, dimension, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, locality, residenials } = this.props;
+        //const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
+
+        const { firstName, email, mobileNo, locality, surcharge, fromDate, toDate, onFromDateChange, onToDateChange, utGST, cGST, GSTnumber, handleChange, dimension, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, residenials } = this.props;
         return (
             <div>
                 <div classsName="container">
-                <div className="col-xs-12">
-                  <button
-                        style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
-                        primary={true}
-                        onClick={this.firstStep}
-                        className="ViewDetailButton"
-                    >EDIT</button>
+                    <div className="col-xs-12">
+                        <button
+                            style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
+                            primary={true}
+                            onClick={this.firstStep}
+                            className="ViewDetailButton"
+                        >EDIT</button>
+                    </div>
                 </div>
-                </div>
-                <div style={{marginLeft: "20px", paddingBottom: '5px',paddingLeft:25}}>
+                <div style={{ marginLeft: "20px", paddingBottom: '5px', paddingLeft: 25 }}>
                     <Label label="BK_MYBK_APPLICANT_DETAILS" labelClassName="dark-heading" />
                 </div>
 
-                <div className="col-xs-12" style={{ paddingBottom: '50px',paddingLeft:25 }}>
+                <div className="col-xs-12" style={{ paddingBottom: '50px', paddingLeft: 25 }}>
                     <div className="col-sm-12 col-xs-12">
 
                         <div className="complaint-detail-detail-section-status row">
@@ -115,7 +117,7 @@ class SummaryDetails extends Component {
                 <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
                     <Label label="BK_MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
                 </div>
-                <div className="col-xs-12" style={{marginLeft: '10px'}}>
+                <div className="col-xs-12" style={{ marginLeft: '10px' }}>
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
@@ -124,7 +126,7 @@ class SummaryDetails extends Component {
                                     labelStyle={{ color: "inherit" }}
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-complaint-number"
-                                    label={firstName}
+                                    label={fromDate}
                                 />
                             </div>
                             <div className="col-md-4">
@@ -214,29 +216,29 @@ class SummaryDetails extends Component {
                         </div>
                     </div>
                 </div>
-               
-                <div className="responsive-action-button-cont">
-                    <Button
-                         className="responsive-action-button"
-                        primary={true}
-                        label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
-                        fullWidth={true}
-                        onClick={this.back}
-                        style={{ marginRight: 18 }}
-                        startIcon={<ArrowBackIosIcon />}
-                    />
+                <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
+                    <div className="responsive-action-button-cont">
+                        <Button
+                            className="responsive-action-button"
+                            primary={true}
+                            label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
+                            fullWidth={true}
+                            onClick={this.back}
+                            style={{ marginRight: 18 }}
+                            startIcon={<ArrowBackIosIcon />}
+                        />
 
 
-                    <Button
-                        className="responsive-action-button"
-                        primary={true}
-                        label={<Label buttonLabel={true} label="BK_CORE_COMMON_SUBMIT" />}
-                        fullWidth={true}
-                        onClick={this.submit}
-                     style={{rightIcon:"arrow_drop_down"}}
-                    />
-                </div>
-               
+                        <Button
+                            className="responsive-action-button"
+                            primary={true}
+                            label={<Label buttonLabel={true} label="BK_CORE_COMMON_SUBMIT" />}
+                            fullWidth={true}
+                            onClick={this.submit}
+                            style={{ rightIcon: "arrow_drop_down" }}
+                        />
+                    </div>
+                }></Footer>
 
 
             </div>
@@ -247,16 +249,16 @@ class SummaryDetails extends Component {
 const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
-    const { createWaterTankerApplicationData } = complaints;
+    const { createPACCApplicationData } = complaints;
     return {
-        createWaterTankerApplicationData
+        createPACCApplicationData
     }
 
 }
 const mapDispatchToProps = dispatch => {
     return {
 
-        createWaterTankerApplication: criteria => dispatch(createWaterTankerApplication(criteria)),
+        createPACCApplication: criteria => dispatch(createPACCApplication(criteria)),
         toggleSnackbarAndSetText: (open, message, error) =>
             dispatch(toggleSnackbarAndSetText(open, message, error)),
     }

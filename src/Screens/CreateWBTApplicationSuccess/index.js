@@ -16,24 +16,19 @@ import "./index.css";
 import { SortDialog, Screen } from "modules/common";
 import isEmpty from "lodash/isEmpty";
 class CreateWBTApplicationSuccess extends Component {
+
   continueComplaintSubmit = () => {
-   
     let { createWaterTankerApplicationData,downloadBWTApplication,userInfo,fetchSuccess } = this.props;
     createWaterTankerApplicationData={}
-  
     fetchSuccess=false;
     this.props.history.push("/egov-services/all-applications");
   };
-  componentDidMount = async () => {
-   
+  componentDidMount = async () => {   
   }
 
-
   downloadApplicationFunction = async (e) => {
-   
     const { createWaterTankerApplicationData,downloadBWTApplication,userInfo } = this.props;
     let applicationDetails = createWaterTankerApplicationData ? createWaterTankerApplicationData.data : '';
-    
     let BookingInfo = [
       {
         "applicantDetail": {
@@ -73,17 +68,13 @@ class CreateWBTApplicationSuccess extends Component {
         }
       }
     ]
-
     downloadBWTApplication({ BookingInfo: BookingInfo })
-   
   };
 
   downloadApplicationButton = async (e) => {
    await this.downloadApplicationFunction();
- 
     const {DownloadBWTApplicationDetails}=this.props;
-  
-  
+
 		var documentsPreview = [];
 		let documentsPreviewData;
 		if (DownloadBWTApplicationDetails && DownloadBWTApplicationDetails.filestoreIds.length > 0) {	
@@ -144,7 +135,6 @@ class CreateWBTApplicationSuccess extends Component {
           applicationNumber={createWaterTankerApplicationData&&createWaterTankerApplicationData.data?createWaterTankerApplicationData.data.bkApplicationNumber:''}
         />
         <div className="responsive-action-button-cont">
-
           <Button
             className="responsive-action-button"
             primary={true}
@@ -172,25 +162,17 @@ class CreateWBTApplicationSuccess extends Component {
 
 
 const mapStateToProps = state => {
-
   const { complaints, common, auth, form } = state;
- 
   const { createWaterTankerApplicationData, DownloadBWTApplicationDetails,fetchSuccess } = complaints;
-  
-  
   const loading = !isEmpty(createWaterTankerApplicationData)
   ? fetchSuccess
     ? false
     : true
   : true;
-
-  
   return {
     createWaterTankerApplicationData, DownloadBWTApplicationDetails,loading,fetchSuccess
   }
-
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {

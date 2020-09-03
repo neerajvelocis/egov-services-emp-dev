@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-
+import Footer from "../../../../modules/footer"
 
 class ApplicatInfo extends Component {
  
@@ -158,8 +158,9 @@ class ApplicatInfo extends Component {
         </div>    
         
          */}
-      <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
 
+<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
+      <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
       <Button
               className="responsive-action-button"
               primary={true}
@@ -179,7 +180,7 @@ class ApplicatInfo extends Component {
           />
         
         </div> 
-      
+        }></Footer>
       </div> 
       </div>
     );

@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG } from "../../utils/endPoints";
+import {CREATEBWTAPPLICATION,APPLICATION,MCCAPPLICATION, COMPLAINT, CATEGORY,PAYMENT,HISTORY,AFTERPAYMENTAPI,DWONLOADPAYMENTRECEIPT,DOWNLOADBWTAPPLICATION,DOWNLOADAPPLICATION,DWONLOADPERMISSIONLETTER,OSBMPerDayRateAmount,PerDayRateAmount,DWONLOADNEWRECEIPTFORCG,PermissionLetterDWNOSMCC,ApplicationDWNOSMCC, DWONLOADPAYMENTRECEIPTFORCG,DWONLOADAPPLICATIONFORCG,CREATEPACCAPPLICATION } from "../../utils/endPoints";
 import { httpRequest } from "egov-ui-kit/utils/api";
 
 
@@ -96,9 +96,14 @@ const createWaterTankerComplete= (payload, overWrite) => {
 		overWrite: overWrite,
 	};
 };
-
+const createPACCComplete= (payload, overWrite) => {
+	return {
+		type: actionTypes.CREATE_PARKCCAPP_COMPLETE,
+		payload,
+		overWrite: overWrite,
+	};
+};
 const downloadApplicationComplete = (payload, overWrite) => {
-	console.log('payload', payload, overWrite)
 	return {
 		type: actionTypes.DOWNLOAD_APPLICATION_COMPLETE,
 		payload,
@@ -186,9 +191,9 @@ const downloadReceiptError = (error) => {
 	};
 };
 
-const createWaterTankerError = (error) => {
+const createPACCError = (error) => {
 	return {
-		type: actionTypes.CREATE_WATER_ERROR,
+		type: actionTypes.CREATE_PACCAPP_ERROR,
 		error,
 	};
 };
@@ -489,6 +494,19 @@ export const createWaterTankerApplication = (requestBody, hasUsers = true, overW
 			dispatch(createWaterTankerComplete(payload, overWrite));
 		} catch (error) {
 			dispatch(createWaterTankerError(error.message));
+		}
+	};
+};
+export const createPACCApplication = (requestBody, hasUsers = true, overWrite) => {
+	return async (dispatch, getState) => {
+		try {
+			let tenantId = "";
+
+			const payload = await httpRequest(CREATEPACCAPPLICATION.POST.URL, CREATECREATEPACCAPPLICATIONBWTAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload10----10', payload)
+			dispatch(createPACCComplete(payload, overWrite));
+		} catch (error) {
+			dispatch(createPACCError(error.message));
 		}
 	};
 };

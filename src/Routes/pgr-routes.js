@@ -270,7 +270,7 @@ const routes = [
       redirectionUrl,
       hideFor: "ao",
       customFor: "employee",
-      customTitle: "BK_MYBK_APPLY_SPECIAL_REQUEST_HEADER"
+      customTitle: "BK_MYBK_APPLY_PACC_REQUEST_HEADER"
     }
   },
   {

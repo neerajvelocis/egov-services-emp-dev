@@ -3,13 +3,12 @@ import PersonalInfo from './components/ApplicatDetails';
 import BookingDetails from './components/BookingDetails';
 import SummaryInfo from './components/SummaryDetails';
 import DocumentDetails from './components/DocumentsDetails';
+import ParkPaymentDetails from './components/PaccPaymentDetails'
 import { Box, Button, Card, CardContent, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
 
 export class StepForm extends Component {
     state = {
         step: 0,
-
-        
         firstName: '',
         lastName: '',
         email: '',
@@ -31,14 +30,11 @@ export class StepForm extends Component {
         surcharge:'',utGST:'',cGST:'',
         GSTnumber:'',type:'',
         fromDate: '',
-        toDate: '',
-        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
-
+        toDate: '',transactionNumber:'',bankNane:'',paymentMode:'',amount:'',transcationDate:'',
+        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
     }
-
     nextStep = () => {
         const { step } = this.state;
-
         this.setState({
             step: step + 1
         });
@@ -76,7 +72,7 @@ export class StepForm extends Component {
     }
 
     showStep = () => {
-        const { step, firstName, fromDate, toDate, lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge, jobCompany, approverName,comment,jobLocation, mobileNo, email,location,dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials } = this.state;
+        const { step, firstName, fromDate, toDate,transactionNumber,bankNane,paymentMode, lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge, jobCompany, approverName,comment,jobLocation, mobileNo, email,location,dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials } = this.state;
         let propsData =this.props
         if (step === 0)
             return (<PersonalInfo
@@ -118,17 +114,29 @@ export class StepForm extends Component {
                 comment={comment}
                 type={type}
             />);
-
             if (step === 2)
+            return (<ParkPaymentDetails
+                nextStep={this.nextStep}
+                prevStep={this.prevStep}
+                handleChange={this.handleChange}
+                transactionNumber={transactionNumber}
+                bankNane={bankNane}
+                paymentMode={paymentMode}
+                amount={amount}
+                transactionDate={transactionDate}
+            />);
+
+            if (step === 3)
             return (<DocumentDetails
                 nextStep={this.nextStep}
+                prevStep={this.prevStep}
                 handleChange={this.handleChange}
                 firstName={firstName}
                 lastName={lastName}
                 email={email}
                 mobileNo={mobileNo}
             />);
-        if (step === 3)
+        if (step === 4)
             return (<SummaryInfo
                 approverName={approverName}
                 comment={comment}

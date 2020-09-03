@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
 import Footer from "../../../../modules/footer"
 
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 class ApplicatInfo extends Component {
  
@@ -50,9 +51,12 @@ class ApplicatInfo extends Component {
   onCitizenNameChange = e => {
 
   }
-
+  back = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  }
   render() {
-    const { firstName, email, mobileNo, lastName, handleChange } = this.props;
+    const { bankName, transactionNumber, paymentMode, amount,transcationDate, handleChange } = this.props;
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -65,15 +69,15 @@ class ApplicatInfo extends Component {
       <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
         
       <div className="col-sm-6 col-xs-6">
-        
+
           <TextField
-            id="name"
-            name="name"
+            id="bankName"
+            name="bankName"
             type="text"
-            value={firstName}
+            value={bankName}
             hintText={
               <Label
-                label="BK_MYBK_NAME_CITIZEN_PLACEHOLDER"
+                label="BK_MYBK_BANK_NAME_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -82,12 +86,12 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="BK_MYBK_CREATE_CITIZEN_NAME"
+                label="BK_MYBK_CREATE_BANK_NAME"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
             }
-            onChange={handleChange('firstName')}
+            onChange={handleChange('bankName')}
             underlineStyle={{ bottom: 7 }}
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
@@ -96,13 +100,13 @@ class ApplicatInfo extends Component {
         
         <div className="col-sm-6 col-xs-6">
           <TextField
-            id="email"
-            name="email"
+            id="transactionNumber"
+            name="transactionNumber"
             type="string"
-            value={email}
+            value={transactionNumber}
             hintText={
               <Label
-                label="BK_MYBK_CITIZEN_EMAIL_PLACEHOLDER"
+                label="BK_MYBK_CITIZEN_transactionNumber_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -111,12 +115,12 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="BK_MYBK_CREATE_CITIZEN_EMAIL"
+                label="BK_MYBK_CREATE_CITIZEN_transactionNumber"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
             }
-            onChange={handleChange('email')}
+            onChange={handleChange('transactionNumber')}
             underlineStyle={{ bottom: 7 }}
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
@@ -126,13 +130,13 @@ class ApplicatInfo extends Component {
         
         <div className="col-sm-6 col-xs-6">
           <TextField
-            id="mobile-no"
-            name="mobile-no"
+            id="paymentMode"
+            name="paymentMode"
             type="text"
-            value={mobileNo}
+            value={paymentMode}
             hintText={
               <Label
-                label="BK_MYBK_CITIZEN_MOBILENO_PLACEHOLDER"
+                label="BK_MYBK_PAYMENTMODE_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -141,12 +145,12 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="BK_MYBK_CREATE_CITIZEN_MOBILENO"
+                label="BK_MYBK_CREATE_PAYMENTMODE"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
             }
-            onChange={handleChange('mobileNo')}
+            onChange={handleChange('paymentMode')}
             underlineStyle={{ bottom: 7 }}
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
@@ -154,8 +158,23 @@ class ApplicatInfo extends Component {
         
         </div>    
         
+
+        
         <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
       <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
+          
+          
+          <Button
+              className="responsive-action-button"
+              primary={true}
+              label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
+              fullWidth={true}
+              onClick={this.back}
+              style={{ marginRight: 18 }}
+              startIcon={<ArrowBackIosIcon />}
+            />
+          
+          
           <Button
             className="responsive-action-button"
             primary={true}
@@ -164,9 +183,9 @@ class ApplicatInfo extends Component {
             onClick={this.continue}
             startIcon={<ArrowForwardIosIcon />}
           />
-       
+        
         </div> 
-       }></Footer>
+        }></Footer>
       </div> 
       </div>
     );

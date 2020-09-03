@@ -49,15 +49,31 @@ const complaintsReducer = (state = intialState, action) => {
       };
 
       case actionTypes.CREATE_WATER_TANKER_COMPLETE:
-
         return {
           ...state,
           loading: false,
           fetchSuccess: true,
           createWaterTankerApplicationData:action.payload
         };
+        case actionTypes.CREATE_PARKCCAPP_COMPLETE:
+          return {
+            ...state,
+            loading: false,
+            fetchSuccess: true,
+            createPACCApplicationData:action.payload
+          };
+          case actionTypes.CREATE_WATER_ERROR:
+            return {
+              ...state,
+              loading: false,
+              fetchSuccess: true,
+              error: true,
+              errorMessage: action.error,
+            };
+  
 
-        case actionTypes.CREATE_WATER_ERROR:
+        
+        case actionTypes.CREATE_PACCAPP_ERROR:
           return {
             ...state,
             loading: false,

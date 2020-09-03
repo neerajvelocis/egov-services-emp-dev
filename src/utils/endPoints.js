@@ -309,3 +309,9 @@ export const DWONLOADAPPLICATIONFORCG = {
     ACTION: "_search",
   },
 };
+export const CREATEPACCAPPLICATION = {
+  POST: {
+    URL: "bookings/park/community/_create?",
+    ACTION: "_search",
+  },
+};

@@ -12,7 +12,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { fetchApplicaionSector } from "../../../../redux/bookings/actions";
 import "./index.css";
-
+import Footer from "../../../../modules/footer"
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -61,7 +61,6 @@ class BookingsDetails extends Component {
     }
     else {
       this.props.nextStep();
-
     }
   }
 
@@ -500,12 +499,7 @@ class BookingsDetails extends Component {
                     }}
                   />
                 </div>
-             
-
-
-
-
-
+            
           <div className="col-sm-6 col-xs-6">
             <TextField
               id="dimension"
@@ -641,7 +635,7 @@ class BookingsDetails extends Component {
               hintStyle={{ width: "100%" }}
             />
           </div> */}
-
+<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
           <div className="col-sm-12 col-xs-12" style={{ textAlign: 'right' }}>
             <Button
               className="responsive-action-button"
@@ -661,6 +655,7 @@ class BookingsDetails extends Component {
               startIcon={<ArrowForwardIosIcon />}
             />
           </div>
+        }></Footer>
         </div>
       </div>
     );
