@@ -315,3 +315,21 @@ export const CREATEPACCAPPLICATION = {
     ACTION: "_search",
   },
 };
+export const DWONLOADAPPFORPCC = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-pacc-app-form",
+    ACTION: "_search",
+  },
+};
+export const DWONLOADPLFORPCC = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=bk-pacc-booking-pl",
+    ACTION: "_search",
+  },
+};
+export const DWONLOADRECEIPTFORPCC = {
+  POST: {
+    URL: "pdf-service/v1/_create?key=pacc-payment-receipt",
+    ACTION: "_search",
+  },
+};
