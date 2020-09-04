@@ -30,7 +30,7 @@ export class StepForm extends Component {
         surcharge:'',utGST:'',cGST:'',
         GSTnumber:'',type:'',
         fromDate: '',
-        toDate: '',transactionNumber:'',bankNane:'',paymentMode:'',amount:'',transcationDate:'',
+        toDate: '',transactionNumber:'',bankName:'',paymentMode:'',amount:'',transactionDate:'',
         childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
     }
     nextStep = () => {
@@ -72,7 +72,7 @@ export class StepForm extends Component {
     }
 
     showStep = () => {
-        const { step, firstName, fromDate, toDate,transactionNumber,bankNane,paymentMode, lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge, jobCompany, approverName,comment,jobLocation, mobileNo, email,location,dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials } = this.state;
+        const { step, firstName, fromDate,amount,transactionDate, toDate,transactionNumber,bankName,paymentMode, lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge, jobCompany, approverName,comment,jobLocation, mobileNo, email,location,dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials } = this.state;
         let propsData =this.props
         if (step === 0)
             return (<PersonalInfo
@@ -120,7 +120,7 @@ export class StepForm extends Component {
                 prevStep={this.prevStep}
                 handleChange={this.handleChange}
                 transactionNumber={transactionNumber}
-                bankNane={bankNane}
+                bankName={bankName}
                 paymentMode={paymentMode}
                 amount={amount}
                 transactionDate={transactionDate}
@@ -139,6 +139,11 @@ export class StepForm extends Component {
         if (step === 4)
             return (<SummaryInfo
                 approverName={approverName}
+                amount={amount}
+                bankName={bankName}
+                transactionDate={transactionDate}
+                transactionNumber={transactionNumber}
+                paymentMode={paymentMode}
                 comment={comment}
                 firstName={firstName}
                 purpose={purpose}

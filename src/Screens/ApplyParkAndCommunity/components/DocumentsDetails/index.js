@@ -54,6 +54,18 @@ class ApplicatInfo extends Component {
     e.preventDefault();
     this.props.prevStep();
   }
+  handleFileChange(e) {
+    e.preventDefault();
+   
+    var files;
+    if (e.dataTransfer) {
+      console.log('e.data', e.dataTransfer)
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      console.log('e.target', e.target.files)
+      files = e.target.files;
+    }
+  }
   render() {
     const { firstName, email, mobileNo, lastName, handleChange } = this.props;
     const hintTextStyle = {
@@ -68,7 +80,7 @@ class ApplicatInfo extends Component {
       <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
         
      <div className="col-sm-6 col-xs-6">
-        
+     <input type="file" onChange={this.handleFileChange} ></input>
           <TextField
             id="name"
             name="name"

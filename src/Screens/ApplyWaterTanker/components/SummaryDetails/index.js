@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs, Card, TextField, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-import { createWaterTankerApplication } from "egov-ui-kit/redux/complaints/actions";
+import { createWaterTankerApplication } from  "../../../../redux/bookings/actions";
 import { connect } from "react-redux";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';

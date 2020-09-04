@@ -20,7 +20,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
+          labelKey: `BK_ERROR_MESSAGE_FOR_WATER_TANKER_APPLICATION`
         },
         "warning"
       );

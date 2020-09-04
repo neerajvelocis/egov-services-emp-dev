@@ -15,36 +15,37 @@ class ApplicatInfo extends Component {
     let re = /\S+@\S+\.\S+/;
     let mb=/^\d{10}$/;
     e.preventDefault();
-    if(this.props.firstName==""||this.props.email==""||this.props.mobileNo==""){
+    if(this.props.amount==""||this.props.transactionDate==""){
 
       this.props.toggleSnackbarAndSetText(
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
+          labelKey: `BK_ERROR_MESSAGE_FILLED_VALIDATION`
         },
         "warning"
       );
-    }else if(!re.test(this.props.email)){
-      this.props.toggleSnackbarAndSetText(
-        true,
-        {
-          labelName: "Please enter valid email address",
-          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
-        },
-        "warning"
-      );
-    }else if(!mb.test(this.props.mobileNo)){
-      this.props.toggleSnackbarAndSetText(
-        true,
-        {
-          labelName: "Please enter valid mobile number",
-          labelKey: `BK_ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
-        },
-        "warning"
-      );
-
     }
+    // }else if(!re.test(this.props.email)){
+    //   this.props.toggleSnackbarAndSetText(
+    //     true,
+    //     {
+    //       labelName: "Please enter valid email address",
+    //       labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
+    //     },
+    //     "warning"
+    //   );
+    // }else if(!mb.test(this.props.mobileNo)){
+    //   this.props.toggleSnackbarAndSetText(
+    //     true,
+    //     {
+    //       labelName: "Please enter valid mobile number",
+    //       labelKey: `BK_ERROR_MESSAGE_FOR_MOBILE_VALIDATION`
+    //     },
+    //     "warning"
+    //   );
+
+    // }
     else{this.props.nextStep();}
     
   }
@@ -56,7 +57,7 @@ class ApplicatInfo extends Component {
     this.props.prevStep();
   }
   render() {
-    const { bankName, transactionNumber, paymentMode, amount,transcationDate, handleChange } = this.props;
+    const { bankName, transactionNumber, paymentMode, amount,transactionDate, handleChange } = this.props;
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -68,8 +69,7 @@ class ApplicatInfo extends Component {
       <div style={{float: 'left', width: '100%', padding: '36px 15px' }}>
       <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
         
-      <div className="col-sm-6 col-xs-6">
-
+       <div className="col-sm-6 col-xs-6">
           <TextField
             id="bankName"
             name="bankName"
@@ -106,7 +106,7 @@ class ApplicatInfo extends Component {
             value={transactionNumber}
             hintText={
               <Label
-                label="BK_MYBK_CITIZEN_transactionNumber_PLACEHOLDER"
+                label="BK_MYBK_TRANSACTION_NUMBER_PLACEHOLDER"
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
@@ -115,7 +115,7 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="BK_MYBK_CREATE_CITIZEN_transactionNumber"
+                label="BK_MYBK_CREATE_CITIZEN_TRANSACTION_NUMBER"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
@@ -159,9 +159,67 @@ class ApplicatInfo extends Component {
         </div>    
         
 
+        <div className="col-sm-6 col-xs-6">
+          <TextField
+            id="amount"
+            name="amount"
+            type="text"
+            value={amount}
+            hintText={
+              <Label
+                label="BK_MYBK_AMOUNT_PLACEHOLDER"
+                color="rgba(0, 0, 0, 0.3799999952316284)"
+                fontSize={16}
+                labelStyle={hintTextStyle}
+              />
+            }
+            floatingLabelText={
+              <Label
+                key={0}
+                label="BK_MYBK_CREATE_AMOUNT"
+                color="rgba(0,0,0,0.60)"
+                fontSize="12px"
+              />
+            }
+            onChange={handleChange('amount')}
+            underlineStyle={{ bottom: 7 }}
+            underlineFocusStyle={{ bottom: 7 }}
+            hintStyle={{ width: "100%" }}
+          />
         
+        </div>    
+        <div className="col-sm-6 col-xs-6">
+          <TextField
+            id="transactionDate"
+            name="transactionDate"
+            type="text"
+            value={transactionDate}
+            hintText={
+              <Label
+                label="BK_MYBK_TRDATE_PLACEHOLDER"
+                color="rgba(0, 0, 0, 0.3799999952316284)"
+                fontSize={16}
+                labelStyle={hintTextStyle}
+              />
+            }
+            floatingLabelText={
+              <Label
+                key={0}
+                label="BK_MYBK_CREATE_TRDATE"
+                color="rgba(0,0,0,0.60)"
+                fontSize="12px"
+              />
+            }
+            onChange={handleChange('transactionDate')}
+            underlineStyle={{ bottom: 7 }}
+            underlineFocusStyle={{ bottom: 7 }}
+            hintStyle={{ width: "100%" }}
+          />
+        
+        </div>    
+      
         <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
-      <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
+          <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
           
           
           <Button

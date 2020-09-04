@@ -15,30 +15,31 @@ class SummaryDetails extends Component {
         const { firstName, email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
         //    const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
-            "facilitationCharges":facilitationCharges,
             "bkBookingType": "Parks",
-            "action": "DELIVER",
-            "bkApplicantName": firstName,
-            "bkMobileNumber": mobileNo,
-            "bkEmail": email,
-            "bkHouseNo": houseNo,
-            "bkSector": locality,
-            "bkType": residenials,
-            "bkDimension": dimension,
-            "bkLocation": location,
-            "bkFromDate": fromDate,
+            "bkBookingVenue": "fabc3ff6-70d8-4ae6-8ac7-00c9c714c202",
+            "bkApplicantName": "Sumit Kumar",
+            "bkMobileNumber": "9138912806",
+            "bkDimension": "1342",
+            "bkLocation": "PARK NO 11 NEAR H NO 710 SEC 11 CHD",
+            "bkFromDate": "2020-10-14",
+            "bkToDate": "2020-10-17",
+            "bkCleansingCharges": 4000,
+            "bkRent": 9680,
+            "bkSurchargeRent": 1742.4,
+            "bkUtgst": 871.2,
+            "bkCgst": 871.2,
+            "bkSector": "SECTOR-11",
+            "bkEmail": "test@gmail.com",
+            "bkHouseNo": "548",
+            "bkBookingPurpose": "test",
+            "bkCustomerGstNo": "test",
+            "wfDocuments": [{
+                "fileStoreId": "0387281e-a040-49e7-af9d-99e9dac3a19d"
+            }],
             "tenantId": "ch",
-            "bkToDate": toDate,
+            "bkAction": "OFFLINEAPPLY",
             "businessService": "PACC",
-            "bkCleansingCharges":cleaningCharges,
-            "bkRent":rent,
-            "bkSurchargeRent":surcharge,
-            "bkUtgst":utGST,
-            "bkCgst":cGST,
-            "bkBookingPurpose":purpose,
-            "bkCustomerGstNo":GSTnumber,
-            "bkAction":"APPLY",
-            "wfDocuments":""
+            "financialYear": "2020-2021"
         }
         createPACCApplication(
             {
@@ -48,7 +49,7 @@ class SummaryDetails extends Component {
                 "tenantId": "ch",
                 "Booking": Booking
             });
-        this.props.history.push("/egov-services/create-success");
+        // this.props.history.push("/egov-services/create-success");
     }
 
     firstStep = e => {
@@ -62,7 +63,9 @@ class SummaryDetails extends Component {
     render() {
         //const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials, propsData } = this.props;
 
-        const { firstName, email, mobileNo, locality, surcharge, fromDate, toDate, onFromDateChange, onToDateChange, utGST, cGST, GSTnumber, handleChange, dimension, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, residenials } = this.props;
+        const { firstName, email, mobileNo, locality, surcharge, fromDate, toDate,
+            onFromDateChange, onToDateChange, utGST, cGST, GSTnumber, handleChange,bankName,amount,transactionDate,transactionNumber,paymentMode,
+            dimension, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, residenials } = this.props;
         return (
             <div>
                 <div classsName="container">
@@ -121,7 +124,7 @@ class SummaryDetails extends Component {
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_NAME" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_FROM_DATE" />
                                 <Label
                                     labelStyle={{ color: "inherit" }}
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -130,89 +133,144 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_DETAILS_EMAIL" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TO_DATE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label={email}
+                                    label={toDate}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_MOBILENUMBER" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_SURCHARGE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label={mobileNo}
+                                    label={surcharge}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MY_BK_HOUSE_NO_LABEL" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_UGST_NO_LABEL" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label={houseNo}
-                                />
-                            </div>
-
-                            <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_ADDRESS" />
-                                <Label
-                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                                    id="complaint-details-current-status"
-                                    labelStyle={{ color: "inherit" }}
-                                    label={address}
-                                />
-                            </div>
-
-                            <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_SECTOR" />
-                                <Label
-                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                                    id="complaint-details-current-status"
-                                    labelStyle={{ color: "inherit" }}
-                                    label={locality}
+                                    label={utGST}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_APPLICANT_RESIDENTAILSTYPE" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CGST" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label={residenials}
-                                />
-                            </div>
-                            {/* <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_APPROVER_NAME" />
-                                <Label
-                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
-                                    id="complaint-details-current-status"
-                                    labelStyle={{ color: "inherit" }}
-                                    label={approverName}
+                                    label={cGST}
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_COMMENT" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_GSTNUMBER_SECTOR" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label={comment}
+                                    label={GSTnumber}
                                 />
-                            </div> */}
-
-                            {/* <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TYPE_OF_REQUEST" />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_DIMENTION" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
                                     labelStyle={{ color: "inherit" }}
-                                    label="BK_MYBK_WATER_TANKER_REQUEST"
+                                    label={dimension}
                                 />
-                            </div> */}
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_LOCATION" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={location}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_FAC_CHARGES" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={facilitationCharges}
+                                />
+                            </div>
+                           
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_RENT" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={rent}
+                                />
+                            </div>
+                       
+                        </div>
+                    </div>
+                </div>
+                <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
+                    <Label label="BK_MYBK_PAYMENT_DETAILS" labelClassName="dark-heading" />
+                </div>
+                <div className="col-xs-12" style={{ marginLeft: '10px' }}>
+                    <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
+                        <div className="complaint-detail-detail-section-status row">
+                        <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_RENT" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={bankName}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_AMOUNT" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={amount}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TRDATE" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={transactionDate}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TRNUMBER" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={transactionNumber}
+                                />
+                            </div>
+                        
+                            <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_PMODE" />
+                                <Label
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-current-status"
+                                    labelStyle={{ color: "inherit" }}
+                                    label={paymentMode}
+                                />
+                            </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -239,8 +297,6 @@ class SummaryDetails extends Component {
                         />
                     </div>
                 }></Footer>
-
-
             </div>
         );
     }
@@ -250,6 +306,7 @@ const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
     const { createPACCApplicationData } = complaints;
+    console.log('createPACCApplicationData', createPACCApplicationData)
     return {
         createPACCApplicationData
     }

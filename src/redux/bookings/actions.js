@@ -33,30 +33,6 @@ const applicationTypeFetchError = (error) => {
 };
 
 
-
-
-const complaintSectorFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_SECTOR_FETCH_ERROR,
-		error,
-	};
-};
-// complaints actions
-const complaintFetchPending = () => {
-	return {
-		type: actionTypes.COMPLAINTS_FETCH_PENDING,
-	};
-};
-
-const complaintFetchComplete = (payload, overWrite) => {
-	console.log('payload', payload, overWrite)
-	return {
-		type: actionTypes.COMPLAINTS_FETCH_COMPLETE,
-		payload,
-		overWrite: overWrite,
-	};
-};
-
 const applicationFetchComplete = (payload, overWrite) => {
 	console.log('payload', payload, overWrite)
 	return {
@@ -169,12 +145,6 @@ const complaintSendSMSMedia = (message) => {
 	};
 };
 
-const complaintFetchError = (error) => {
-	return {
-		type: actionTypes.COMPLAINTS_FETCH_ERROR,
-		error,
-	};
-};
 
 
 const applicationFetchError = (error) => {
@@ -410,23 +380,7 @@ export const getComplaintDisplayOrder = (order) => {
 	};
 };
 
-export const fetchComplaints = (queryObject, hasUsers = true, overWrite) => {
-	return async (dispatch, getState) => {
-		
-		dispatch(complaintFetchPending());
-		try {
-			let tenantId = "";
-			 const payload= await httpRequest(COMPLAINT.GET.URL, COMPLAINT.GET.ACTION, queryObject);
-			if (payload.services && payload.services.length === 1) {
-			  tenantId = payload.services[0].tenantId;
-			}
-			//  checkUsers(dispatch, getState(), payload.actionHistory, hasUsers, tenantId);
-			dispatch(complaintFetchComplete(payload, overWrite));
-		} catch (error) {
-			dispatch(complaintFetchError(error.message));
-		}
-	};
-};
+
 export const fetchApplications = (requestBody, hasUsers = true, overWrite) => {
 	requestBody.tenantId = "ch"
 	return async (dispatch, getState) => {
@@ -549,8 +503,8 @@ export const createPACCApplication = (requestBody, hasUsers = true, overWrite) =
 		try {
 			let tenantId = "";
 
-			const payload = await httpRequest(CREATEPACCAPPLICATION.POST.URL, CREATECREATEPACCAPPLICATIONBWTAPPLICATION.POST.ACTION, [], requestBody);
-			console.log('payload10----10', payload)
+			const payload = await httpRequest(CREATEPACCAPPLICATION.POST.URL, CREATEPACCAPPLICATION.POST.ACTION, [], requestBody);
+			console.log('payload1p----10', payload)
 			dispatch(createPACCComplete(payload, overWrite));
 		} catch (error) {
 			dispatch(createPACCError(error.message));
@@ -657,19 +611,7 @@ export const fetchApplicationType = () => {
 		}
 	};
 };
-	// export const fetchMccApplications = (requestBody, hasUsers = true, overWrite) => {
-	// 	requestBody.tenantId = "ch"
-	// 	return async (dispatch, getState) => {
-	// 		try {
-	// 			let tenantId = "";
-	// 			const payload = await httpRequest(MCCAPPLICATION.POST.URL, MCCAPPLICATION.POST.ACTION, [], requestBody);
-	// 			dispatch(MCCapplicationFetchComplete(payload, overWrite));
-	// 		} catch (error) {
-				
-	// 			dispatch(MCCapplicationFetchError(error.message));
-	// 		}
-	// 	};
-	// };
+
 
 	export const OSBMfetchperDayRate = (requestBody, hasUsers = true, overWrite) => {
 		return async (dispatch, getState) => {
