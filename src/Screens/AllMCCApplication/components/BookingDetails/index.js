@@ -61,23 +61,7 @@ const DialogContent = withStyles((theme) => ({
 
 
 
-const iconStyle = {
-  marginRight: "13px",
-  height: "24px",
-  width: "24px",
-};
 
-const imageStyles = {
-  maxHeight: "100px",
-  minHeight: "100px",
-};
-
-const mapIconStyle = {
-  marginRight: "7px",
-  height: "12px",
-  width: "14px",
-  borderRadius: "50%",
-};
 
 class BookingDetails extends Component {
   state = {
@@ -228,7 +212,7 @@ class BookingDetails extends Component {
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-current-status"
                       labelStyle={{ color: "inherit" }}
-                      label={status}
+                      label={'BK_'+status}
                     />
                   </div>
                   <div className="col-md-4">

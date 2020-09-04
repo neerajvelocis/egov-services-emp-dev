@@ -4,23 +4,7 @@ import Label from "egov-ui-kit/utils/translationNode";
 import isEmpty from "lodash/isEmpty";
 import "./index.css";
 
-const iconStyle = {
-  marginRight: "13px",
-  height: "24px",
-  width: "24px",
-};
 
-const imageStyles = {
-  maxHeight: "100px",
-  minHeight: "100px",
-};
-
-const mapIconStyle = {
-  marginRight: "7px",
-  height: "12px",
-  width: "14px",
-  borderRadius: "50%",
-};
 
 class BwtApplicantDetails extends Component {
   navigateToComplaintType = () => {
@@ -64,7 +48,7 @@ class BwtApplicantDetails extends Component {
               <div key={10} className="complaint-detail-full-width">
                 <div className="complaint-detail-detail-section-status row">
                   <div className="col-md-4">
-                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="MK_MYBK_CREATE_DRIVER_NAME" />
+                    <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_DRIVER_NAME" />
                     <Label
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       label={driverName?driverName:'NA'}

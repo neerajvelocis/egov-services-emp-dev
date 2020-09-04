@@ -916,45 +916,6 @@ const roleFromUserInfo = (roles = [], role) => {
 
 
 
-const getLatestStatus = status => {
-	let transformedStatus = "";
-	switch (status.toLowerCase()) {
-		case "open":
-		case "new":
-			transformedStatus = "UNASSIGNED";
-			break;
-		case "resolved":
-		case "rejected":
-		case "closed":
-			transformedStatus = "CLOSED";
-			break;
-		case "assigned":
-			transformedStatus = "ASSIGNED";
-			break;
-		case "reassignrequested":
-			transformedStatus = "REASSIGN";
-			break;
-		case "escalatedlevel1pending":
-			transformedStatus = "ESCALATED";
-			break;
-		case "escalatedlevel2pending":
-			transformedStatus = "ESCALATED";
-			break;
-		default:
-			transformedStatus = "CLOSED";
-			break;
-	}
-	return transformedStatus;
-};
-const mapCitizenIdToName = (citizenObjById, id) => {
-	return citizenObjById && citizenObjById[id] ? citizenObjById[id].name : "";
-};
-const mapCitizenIdToMobileNumber = (citizenObjById, id) => {
-	return citizenObjById && citizenObjById[id]
-		? citizenObjById[id].mobileNumber
-		: "";
-};
-let gro = "";
 
 const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
