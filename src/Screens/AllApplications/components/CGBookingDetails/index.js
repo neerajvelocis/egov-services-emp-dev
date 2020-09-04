@@ -89,7 +89,7 @@ class CGBookingDetails extends Component {
                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                     id="complaint-details-current-status"
                     labelStyle={{ color: "inherit" }}
-                    label={status}
+                    label={'BK_'+status}
                   />
                 </div>
                 <div className="col-md-4">

@@ -77,31 +77,8 @@ class BookingDetails extends Component {
     })
   };
 
-  navigateToComplaintType = () => {
-    this.props.history.push("/complaint-type");
-  };
-  getImageSource = (imageSource, size) => {
-    const images = imageSource.split(",");
-    if (!images.length) {
-      return null;
-    }
-    switch (size) {
-      case "small":
-        imageSource = images[2];
-        break;
-      case "medium":
-        imageSource = images[1];
-        break;
-      case "large":
-      default:
-        imageSource = images[0];
-    }
-    return imageSource || images[0];
-  };
-  onImageClick = (source) => {
-    window.open(this.getImageSource(source, "large"), 'Image');
-    // this.props.history.push(`/image?source=${source}`);
-  };
+
+
   render() {
     const { status, historyApiData, applicantName, applicationNo, submittedDate, dateCreated, address, sector, houseNo, bookingType, mapAction, images, action, role } = this.props;
     var ProcessInstances = [];
@@ -172,7 +149,7 @@ class BookingDetails extends Component {
                       className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                       id="complaint-details-current-status"
                       labelStyle={{ color: "inherit" }}
-                      label={status}
+                      label={'BK_'+status}
                     />
                   </div>
                   <div className="col-md-4">
@@ -192,7 +169,7 @@ class BookingDetails extends Component {
                       label={submittedDate}
                       id="complaint-details-submission-date"
                       labelStyle={{ color: "inherit" }}
-                      label={bookingType}
+                      label={'BK_'+bookingType}
                     />
                   </div>
 

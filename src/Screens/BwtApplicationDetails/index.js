@@ -14,16 +14,16 @@ import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { prepareFormData } from "egov-ui-kit/redux/common/actions";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
-import OSMCCBookingDetails from "../AllComplaints/components/OSMCCBookingDetails"
-import BwtApplicantDetails from "../AllComplaints/components/BwtApplicantDetails"
-import BookingDetails from "../AllComplaints/components/BookingDetails"
-import DocumentPreview from "../AllComplaints/components/DocumentPreview"
+import OSMCCBookingDetails from "../AllApplications/components/OSMCCBookingDetails"
+import BwtApplicantDetails from "../AllApplications/components/BwtApplicantDetails"
+import BookingDetails from "../AllApplications/components/BookingDetails"
+import DocumentPreview from "../AllApplications/components/DocumentPreview"
 import { prepareFinalObject } from "egov-ui-framework/ui-redux/screen-configuration/actions";
 import DialogContainer from "../../modules/DialogContainer"
-import PaymentDetails from "../AllComplaints/components/PaymentDetails"
+import PaymentDetails from "../AllApplications/components/PaymentDetails"
 import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
-import BwtApplicationDriverDetailsfrom from "../AllComplaints/components/BwtApplicationDriverDetails"
+import BwtApplicationDriverDetailsfrom from "../AllApplications/components/BwtApplicationDriverDetails"
 
 
 import jp from "jsonpath";
