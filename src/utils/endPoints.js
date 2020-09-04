@@ -309,6 +309,12 @@ export const DWONLOADAPPLICATIONFORCG = {
     ACTION: "_search",
   },
 };
+export const CREATEPACCAPPLICATION = {
+  POST: {
+    URL: "bookings/park/community/_create?",
+    ACTION: "_search",
+  },
+};
 export const DWONLOADAPPFORPCC = {
   POST: {
     URL: "pdf-service/v1/_create?key=bk-pacc-app-form",

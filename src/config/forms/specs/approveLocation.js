@@ -21,19 +21,19 @@ const formConfig = {
         value:''
       },
      
-        createdBy: {
-          id: "createdby",
-          jsonPath: "NewLocationDetails.Remarks[0].bkCreatedBy",
-          value:''
-        },
-        createdOn: {
-          id: "application-number",
-          jsonPath: "NewLocationDetails.Remarks[0].bkCreatedOn",
-          value:''
-        },
+        // createdBy: {
+        //   id: "createdby",
+        //   jsonPath: "NewLocationDetails.Remarks[0].bkCreatedBy",
+        //   value:''
+        // },
+        // createdOn: {
+        //   id: "application-number",
+        //   jsonPath: "NewLocationDetails.Remarks[0].bkCreatedOn",
+        //   value:''
+        // },
         remarks: {
           id: "application-number",
-          jsonPath: "NewLocationDetails.Remarks[0].bkRemarks",
+          jsonPath: "NewLocationDetails.remarks",
           value:''
         }
      ,

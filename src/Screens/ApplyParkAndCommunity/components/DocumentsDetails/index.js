@@ -5,8 +5,8 @@ import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import { connect } from "react-redux";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
-
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Footer from "../../../../modules/footer"
 
 class ApplicatInfo extends Component {
  
@@ -20,7 +20,7 @@ class ApplicatInfo extends Component {
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `BK_ERROR_MESSAGE_FOR_WATER_TANKER_APPLICATION`
+          labelKey: `BK_ERROR_MESSAGE_EMAIL_VALIDATION`
         },
         "warning"
       );
@@ -50,7 +50,22 @@ class ApplicatInfo extends Component {
   onCitizenNameChange = e => {
 
   }
-
+  back = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  }
+  handleFileChange(e) {
+    e.preventDefault();
+   
+    var files;
+    if (e.dataTransfer) {
+      console.log('e.data', e.dataTransfer)
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      console.log('e.target', e.target.files)
+      files = e.target.files;
+    }
+  }
   render() {
     const { firstName, email, mobileNo, lastName, handleChange } = this.props;
     const hintTextStyle = {
@@ -64,8 +79,8 @@ class ApplicatInfo extends Component {
       <div style={{float: 'left', width: '100%', padding: '36px 15px' }}>
       <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
         
-      <div className="col-sm-6 col-xs-6">
-        
+     <div className="col-sm-6 col-xs-6">
+     <input type="file" onChange={this.handleFileChange} ></input>
           <TextField
             id="name"
             name="name"
@@ -93,7 +108,7 @@ class ApplicatInfo extends Component {
             hintStyle={{ width: "100%" }}
           />
         </div>
-        
+     {/*   
         <div className="col-sm-6 col-xs-6">
           <TextField
             id="email"
@@ -154,8 +169,19 @@ class ApplicatInfo extends Component {
         
         </div>    
         
-        
+         */}
+
+<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
       <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
+      <Button
+              className="responsive-action-button"
+              primary={true}
+              label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
+              fullWidth={true}
+              onClick={this.back}
+              style={{ marginRight: 18 }}
+              startIcon={<ArrowBackIosIcon />}
+            />
           <Button
             className="responsive-action-button"
             primary={true}
@@ -166,7 +192,7 @@ class ApplicatInfo extends Component {
           />
         
         </div> 
-      
+        }></Footer>
       </div> 
       </div>
     );

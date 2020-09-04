@@ -67,9 +67,9 @@ const NewLocationForm = ({ form, options,userInfo, onSubmit,bookingservice,booki
     
 formValue.applicationNumber.value=applicationNumber;
 formValue.tenantId.value=tenantId;
-formValue.createdBy.value=createdBy;
+// formValue.createdBy.value=createdBy;
 formValue.remarks.value=commentValue;
-formValue.createdOn.value=new Date();
+// formValue.createdOn.value=new Date();
 // formValue.bookingType.value=bookingtype;
 formValue.businessService.value=bookingservice
 

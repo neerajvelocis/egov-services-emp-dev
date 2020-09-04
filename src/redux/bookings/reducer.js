@@ -24,129 +24,138 @@ const intialState = {
   errorMessage: "",
   byId: {},
   categoriesById: {},
-  complaintDepartment : [],
-  complaintSector:[],
+  complaintDepartment: [],
+  complaintSector: [],
   order: "",
 };
 
 const complaintsReducer = (state = intialState, action) => {
   const { type, overWrite } = action;
   switch (type) {
-    case actionTypes.COMPLAINTS_FETCH_PENDING:
-      return {
-        ...state,
-        loading: true,
-        error: false,
-        fetchSuccess: false,
-        errorMessage: "",
-      };
+
     case actionTypes.APPLICATION_FETCH_COMPLETE:
       return {
         ...state,
         loading: false,
         fetchSuccess: true,
-        applicationData:action.payload
+        applicationData: action.payload
       };
 
-      case actionTypes.CREATE_WATER_TANKER_COMPLETE:
-
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          createWaterTankerApplicationData:action.payload
-        };
-
-        case actionTypes.CREATE_WATER_ERROR:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            error: true,
-            errorMessage: action.error,
-          };
-
-
-          case actionTypes.DOWNLOAD_BWT_APPLICATION_COMPLETE:
-            return {
-              ...state,
-              loading: false,
-              fetchSuccess: true,
-              DownloadBWTApplicationDetails:action.payload
-            };
-            case actionTypes.DOWNLOAD_BWT_APPLICATION_ERROR:
-              return {
-                ...state,
-                loading: false,
-                fetchSuccess: true,
-                error: true,
-                errorMessage: action.error,
-              };
-
-      case actionTypes.DOWNLOAD_RECEIPT_COMPLETE:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          DownloadPaymentReceiptDetails:action.payload
-        };
-
-        case actionTypes.DOWNLOAD_LETTER_COMPLETE:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            DownloadPermissionLetterDetails:action.payload
-          };
-        case actionTypes.DOWNLOAD_LETTER_ERROR:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            error: true,
-            errorMessage: action.error,
-          };
-        case actionTypes.DOWNLOAD_APPLICATION_COMPLETE:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            DownloadApplicationDetails:action.payload
-          };
-      case actionTypes.PAYMENT_FETCH_COMPLETE:
+    case actionTypes.CREATE_WATER_TANKER_COMPLETE:
       return {
         ...state,
         loading: false,
         fetchSuccess: true,
-        paymentData:action.payload,
-      
+        createWaterTankerApplicationData: action.payload
       };
-  
-      case actionTypes.HISTORY_FETCH_COMPLETE:
+    case actionTypes.CREATE_PARKCCAPP_COMPLETE:
       return {
         ...state,
         loading: false,
         fetchSuccess: true,
-        HistoryData:action.payload,
+        createPACCApplicationData: action.payload
       };
-      case actionTypes.AFTER_PAYMENT_FETCH_DETAILS:
-        console.log('action.payload,',action.payload)
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          fetchPaymentAfterPayment:action.payload,
-        };
-
-
-    
-      case actionTypes.MCCAPPLICATION_FETCH_COMPLETE:
-        console.log("in mcc sucess")
+    case actionTypes.CREATE_WATER_ERROR:
       return {
         ...state,
         loading: false,
         fetchSuccess: true,
-        MccApplicationData:action.payload
+        error: true,
+        errorMessage: action.error,
+      };
+
+
+
+    case actionTypes.CREATE_PACCAPP_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+
+    case actionTypes.DOWNLOAD_BWT_APPLICATION_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadBWTApplicationDetails: action.payload
+      };
+    case actionTypes.DOWNLOAD_BWT_APPLICATION_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+    case actionTypes.DOWNLOAD_RECEIPT_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadPaymentReceiptDetails: action.payload
+      };
+
+    case actionTypes.DOWNLOAD_LETTER_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadPermissionLetterDetails: action.payload
+      };
+    case actionTypes.DOWNLOAD_LETTER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_APPLICATION_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadApplicationDetails: action.payload
+      };
+    case actionTypes.PAYMENT_FETCH_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        paymentData: action.payload,
+
+      };
+
+    case actionTypes.HISTORY_FETCH_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        HistoryData: action.payload,
+      };
+    case actionTypes.AFTER_PAYMENT_FETCH_DETAILS:
+      console.log('action.payload,', action.payload)
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        fetchPaymentAfterPayment: action.payload,
+      };
+
+
+
+    case actionTypes.MCCAPPLICATION_FETCH_COMPLETE:
+      console.log("in mcc sucess")
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        MccApplicationData: action.payload
       };
     case actionTypes.MCCAPPLICATION_FETCH_ERROR:
       console.log("in mcc failure")
@@ -156,10 +165,59 @@ const complaintsReducer = (state = intialState, action) => {
         fetchSuccess: true,
         error: true,
         errorMessage: action.error,
-      }; 
-     
-      
-    case actionTypes.COMPLAINTS_FETCH_ERROR:
+      };
+
+
+
+
+
+
+    case actionTypes.APPLICATION_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+    case actionTypes.DOWNLOAD_RECEIPT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+    case actionTypes.DOWNLOAD_APPLICATION_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+    case actionTypes.HISTORY_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.AFTER_PAYMENT_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+
+
+    case actionTypes.PAYMENT_FETCH_ERROR:
       return {
         ...state,
         loading: false,
@@ -170,63 +228,7 @@ const complaintsReducer = (state = intialState, action) => {
 
 
 
-      case actionTypes.APPLICATION_FETCH_ERROR:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          error: true,
-          errorMessage: action.error,
-        };
 
-        case actionTypes.DOWNLOAD_RECEIPT_ERROR:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          error: true,
-          errorMessage: action.error,
-        };
-
-        case actionTypes.DOWNLOAD_APPLICATION_ERROR:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          error: true,
-          errorMessage: action.error,
-        };
-  
-        case actionTypes.HISTORY_FETCH_ERROR:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            error: true,
-            errorMessage: action.error,
-          };
-          case actionTypes.AFTER_PAYMENT_FETCH_ERROR:
-            return {
-              ...state,
-              loading: false,
-              fetchSuccess: true,
-              error: true,
-              errorMessage: action.error,
-            };
-  
-
-          case actionTypes.PAYMENT_FETCH_ERROR:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            error: true,
-            errorMessage: action.error,
-          };
-      
-
-
-      
     case actionTypes.COMPLAINTS_CATEGORIES_FETCH_SUCCESS:
       let categoriesById = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].ServiceDefs, "serviceCode");
       return {
@@ -237,52 +239,52 @@ const complaintsReducer = (state = intialState, action) => {
           ...categoriesById,
         },
       };
-      case actionTypes.COMPLAINTS_DEPARTMENT_FETCH_SUCCESS:
-        let complaintDepartment = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].PgrDepartment, "code");
-        return {
-          ...state,
-          loading: false,
-          complaintDepartment: {
-            ...state.complaintDepartment,
-            ...complaintDepartment,
-          },
-        };
-        case actionTypes.APPLICATION_SECTOR_FETCH_SUCCESS:
-        let applicationSector = transformById(action.payload.MdmsRes["Booking"].Sector, "code");
-        console.log('applicationSector',applicationSector)
-        return {
-          ...state,
-          loading: false,
-          applicationSector: {
-            ...state.applicationSector,
-            ...applicationSector,
-          },
-        };
+    case actionTypes.COMPLAINTS_DEPARTMENT_FETCH_SUCCESS:
+      let complaintDepartment = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].PgrDepartment, "code");
+      return {
+        ...state,
+        loading: false,
+        complaintDepartment: {
+          ...state.complaintDepartment,
+          ...complaintDepartment,
+        },
+      };
+    case actionTypes.APPLICATION_SECTOR_FETCH_SUCCESS:
+      let applicationSector = transformById(action.payload.MdmsRes["Booking"].Sector, "code");
+      console.log('applicationSector', applicationSector)
+      return {
+        ...state,
+        loading: false,
+        applicationSector: {
+          ...state.applicationSector,
+          ...applicationSector,
+        },
+      };
 
-  case actionTypes.APPLICATION_TYPE_FETCH_SUCCESS:
-        let applicationType = transformById(action.payload.MdmsRes["Booking"].Sector, "code");
-        console.log('applicationType',applicationType)
-        return {
-          ...state,
-          loading: false,
-          applicationType: {
-            ...state.applicationType,
-            ...applicationType,
-          },
-        };
+    case actionTypes.APPLICATION_TYPE_FETCH_SUCCESS:
+      let applicationType = transformById(action.payload.MdmsRes["Booking"].Sector, "code");
+      console.log('applicationType', applicationType)
+      return {
+        ...state,
+        loading: false,
+        applicationType: {
+          ...state.applicationType,
+          ...applicationType,
+        },
+      };
 
-        
-        case actionTypes.COMPLAINTS_SECTOR_FETCH_SUCCESS:
-          let complaintSector = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].Sector, "code");
-          console.log('complaintSector',complaintSector)
-          return {
-            ...state,
-            loading: false,
-            complaintSector: {
-              ...state.complaintSector,
-              ...complaintSector,
-            },
-          };
+
+    case actionTypes.COMPLAINTS_SECTOR_FETCH_SUCCESS:
+      let complaintSector = transformById(action.payload.MdmsRes["RAINMAKER-PGR"].Sector, "code");
+      console.log('complaintSector', complaintSector)
+      return {
+        ...state,
+        loading: false,
+        complaintSector: {
+          ...state.complaintSector,
+          ...complaintSector,
+        },
+      };
     case actionTypes.COMPLAINTS_SORT_ORDER:
       return {
         ...state,
@@ -305,173 +307,173 @@ const complaintsReducer = (state = intialState, action) => {
           shareMedia: action.message,
         },
       };
-      case actionTypes.PAYMENT_PER_DAY_FETCH_COMPLETE:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          perDayRate:action.payload
-        };
-      case actionTypes.PAYMENT_PER_DAY_FETCH_FETCH_ERROR:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          error: true,
-          errorMessage: action.error,
-        };  
-        case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_COMPLETE:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          OSBMperDayRate:action.payload
-        };
-      case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_FETCH_ERROR:
-        return {
-          ...state,
-          loading: false,
-          fetchSuccess: true,
-          error: true,
-          errorMessage: action.error,
-        };        
-        case actionTypes.DOWNLOAD_NEWRECEIPT_COMPLETE_CG:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            DownloadReceiptDetailsforCG:action.payload
-          };
-        case actionTypes.DOWNLOAD_NEWRECEIPT_ERROR_CG:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            error: true,
-            errorMessage: action.error,
-          };
-          case actionTypes.DOWNLOAD_PLMCC_COMPLETE:
-            return {
-              ...state,
-              loading: false,
-              fetchSuccess: true,
-              DownloadMccPermissionLetter:action.payload
-            };
-          case actionTypes.DOWNLOAD_PLMCC_ERROR:
-            return {
-              ...state,
-              loading: false,
-              fetchSuccess: true,
-              error: true,
-              errorMessage: action.error,
-            };   
-        case actionTypes.DOWNLOAD_RECEIPT_COMPLETE:
-          return {
-            ...state,
-            loading: false,
-            fetchSuccess: true,
-            DownloadPaymentReceiptDetails:action.payload
-          };
-          case actionTypes.DOWNLOAD_RECEIPT_ERROR:
-            return {
-              ...state,
-              loading: false,
-              fetchSuccess: true,
-              error: true,
-              errorMessage: action.error,
-            };
-            case actionTypes.DOWNLOAD_MCCAPP_COMPLETE:
-              return {
-                 ...state,
-                  loading: false,
-                 fetchSuccess: true,
-                 DownloadMccAppp:action.payload
-                };
-             case actionTypes.DOWNLOAD_MCCAPP_ERROR:
-               return {
-                   ...state,
-                   loading: false,
-                    fetchSuccess: true,
-                   error: true,
-                    errorMessage: action.error,
-                   };
-                   case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_CG:
-                       return {
-                       ...state,
-                       loading: false,
-                        fetchSuccess: true,
-                         DownloadPaymentReceiptDetailsforCG:action.payload
-                         };
-                  case actionTypes.DOWNLOAD_RECEIPT_ERROR_CG:
-                      return {
-                         ...state,
-                        loading: false,
-                        fetchSuccess: true,
-                         error: true,
-                         errorMessage: action.error,
-                      };
+    case actionTypes.PAYMENT_PER_DAY_FETCH_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        perDayRate: action.payload
+      };
+    case actionTypes.PAYMENT_PER_DAY_FETCH_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        OSBMperDayRate: action.payload
+      };
+    case actionTypes.OSBMPAYMENT_PER_DAY_FETCH_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_NEWRECEIPT_COMPLETE_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadReceiptDetailsforCG: action.payload
+      };
+    case actionTypes.DOWNLOAD_NEWRECEIPT_ERROR_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_PLMCC_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadMccPermissionLetter: action.payload
+      };
+    case actionTypes.DOWNLOAD_PLMCC_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadPaymentReceiptDetails: action.payload
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_MCCAPP_COMPLETE:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadMccAppp: action.payload
+      };
+    case actionTypes.DOWNLOAD_MCCAPP_ERROR:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadPaymentReceiptDetailsforCG: action.payload
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_ERROR_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
 
-                      case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_CG:
-                        return {
-                          ...state,
-                          loading: false,
-                          fetchSuccess: true,
-                          DownloadApplicationDetailsforCG:action.payload
-                        };
-                      case actionTypes.DOWNLOAD_APPLICATION_ERROR_CG:
-                        return {
-                          ...state,
-                          loading: false,
-                          fetchSuccess: true,
-                          error: true,
-                          errorMessage: action.error,
-                        };  
+    case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadApplicationDetailsforCG: action.payload
+      };
+    case actionTypes.DOWNLOAD_APPLICATION_ERROR_CG:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
 
-                        case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_PCC:
-                          return {
-                            ...state,
-                            loading: false,
-                            fetchSuccess: true,
-                            DownloadApplicationDetailsforPCC:action.payload
-                          };
-                        case actionTypes.DOWNLOAD_APPLICATION_ERROR_PCC:
-                          return {
-                            ...state,
-                            loading: false,
-                            fetchSuccess: true,
-                            error: true,
-                            errorMessage: action.error,
-                          };  
-                          case actionTypes.DOWNLOAD_PERMISSIONLETTER_COMPLETE_PCC:
-                          return {
-                            ...state,
-                            loading: false,
-                            fetchSuccess: true,
-                            DownloadPermissionLetterDetailsforPCC:action.payload
-                          };
-                        case actionTypes.DOWNLOAD_PERMISSIONLETTER_ERROR_PCC:
-                          return {
-                            ...state,
-                            loading: false,
-                            fetchSuccess: true,
-                            error: true,
-                            errorMessage: action.error,
-                          };  
-                          case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_PCC:
-                            return {
-                              ...state,
-                              loading: false,
-                              fetchSuccess: true,
-                              DownloadReceiptDetailsforPCC:action.payload
-                            };
-                          case actionTypes.DOWNLOAD_RECEIPT_ERROR_PCC:
-                            return {
-                              ...state,
-                              loading: false,
-                              fetchSuccess: true,
-                              error: true,
-                              errorMessage: action.error,
-                            };  
+    case actionTypes.DOWNLOAD_APPLICATION_COMPLETE_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadApplicationDetailsforPCC: action.payload
+      };
+    case actionTypes.DOWNLOAD_APPLICATION_ERROR_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_PERMISSIONLETTER_COMPLETE_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadPermissionLetterDetailsforPCC: action.payload
+      };
+    case actionTypes.DOWNLOAD_PERMISSIONLETTER_ERROR_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_COMPLETE_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        DownloadReceiptDetailsforPCC: action.payload
+      };
+    case actionTypes.DOWNLOAD_RECEIPT_ERROR_PCC:
+      return {
+        ...state,
+        loading: false,
+        fetchSuccess: true,
+        error: true,
+        errorMessage: action.error,
+      };
 
     case actionTypes.COMPLAINTS_SEND_MESSAGE_SHARECONTENT_TO:
       const shareCont = state.ShareMetaData.shareContent;

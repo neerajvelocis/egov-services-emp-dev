@@ -20,19 +20,19 @@ const formConfig = {
         jsonPath: "Booking.businessService",
         value:''
       },
-        createdBy: {
-          id: "createdby",
-          jsonPath: "Booking.bookingsRemarks[0].bkCreatedBy",
-          value:''
-        },
-        createdOn: {
-          id: "application-number",
-          jsonPath: "Booking.bookingsRemarks[0].bkCreatedOn",
-          value:''
-        },
+        // createdBy: {
+        //   id: "createdby",
+        //   jsonPath: "Booking.bookingsRemarks[0].bkCreatedBy",
+        //   value:''
+        // },
+        // createdOn: {
+        //   id: "application-number",
+        //   jsonPath: "Booking.bookingsRemarks[0].bkCreatedOn",
+        //   value:''
+        // },
         remarks: {
           id: "application-number",
-          jsonPath: "Booking.bookingsRemarks[0].bkRemarks",
+          jsonPath: "Booking.bkRemarks",
           value:''
         }
      ,
