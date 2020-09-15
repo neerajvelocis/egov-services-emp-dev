@@ -57,7 +57,16 @@ class ApplicatInfo extends Component {
     this.props.prevStep();
   }
   render() {
-    const { bankName, transactionNumber, paymentMode, amount,transactionDate, handleChange } = this.props;
+    let { bankName, transactionNumber,  discountType,rent, paymentMode, amount,transactionDate, handleChange } = this.props;
+    if(discountType=='100%'){
+      amount=rent;
+    }else if(discountType=='50%'){
+      amount=(50*rent)/100;
+    }else if (discountType=='20%'){
+      let discount=(20*rent)/100;
+      amount=amount-discount;
+    }
+    console.log('amount in payment Details===>>>',amount)
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -115,7 +124,7 @@ class ApplicatInfo extends Component {
             floatingLabelText={
               <Label
                 key={0}
-                label="BK_MYBK_CREATE_CITIZEN_TRANSACTION_NUMBER"
+                label="BK_MYBK_CREATE_TRANSACTION_NUMBER"
                 color="rgba(0,0,0,0.60)"
                 fontSize="12px"
               />
@@ -163,7 +172,7 @@ class ApplicatInfo extends Component {
           <TextField
             id="amount"
             name="amount"
-            type="text"
+            type="number"
             value={amount}
             hintText={
               <Label
@@ -220,8 +229,6 @@ class ApplicatInfo extends Component {
       
         <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
           <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
-          
-          
           <Button
               className="responsive-action-button"
               primary={true}

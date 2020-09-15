@@ -14,7 +14,7 @@ class ApplicatInfo extends Component {
     let re = /\S+@\S+\.\S+/;
     let mb=/^\d{10}$/;
     e.preventDefault();
-    if(this.props.firstName==""||this.props.email==""||this.props.mobileNo==""){
+    if(this.props.firstName==""||this.props.email==""||this.props.mobileNo==""||this.props.houseNo==""){
 
       this.props.toggleSnackbarAndSetText(
         true,
@@ -52,7 +52,7 @@ class ApplicatInfo extends Component {
   }
 
   render() {
-    const { firstName, email, mobileNo, lastName, handleChange } = this.props;
+    const { firstName, email, mobileNo, lastName,houseNo, handleChange } = this.props;
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -64,8 +64,7 @@ class ApplicatInfo extends Component {
       <div style={{float: 'left', width: '100%', padding: '36px 15px' }}>
       <div className="col-xs-12" style={{background:'#fff', padding: '15px 0'}}>
         
-      <div className="col-sm-6 col-xs-6">
-        
+      <div className="col-sm-6 col-xs-6">       
           <TextField
             id="name"
             name="name"
@@ -153,7 +152,37 @@ class ApplicatInfo extends Component {
           />
         
         </div>    
-        
+
+        <div className="col-sm-6 col-xs-6">
+            <TextField
+              id="houseNo"
+              name="houseNo"
+              type="text"
+
+              value={houseNo}
+              hintText={
+                <Label
+                  label="BK_MYBK_CITIZEN_HOUSE_NUMBER_PLACEHOLDER"
+                  color="rgba(0, 0, 0, 0.3799999952316284)"
+                  fontSize={16}
+                  labelStyle={hintTextStyle}
+                />
+              }
+              floatingLabelText={
+                <Label
+                  key={0}
+                  label="BK_MYBK_CREATE_HOUSE_NUMBER"
+                  color="rgba(0,0,0,0.60)"
+                  fontSize="12px"
+                />
+              }
+              onChange={handleChange('houseNo')}
+              underlineStyle={{ bottom: 7 }}
+              underlineFocusStyle={{ bottom: 7 }}
+              hintStyle={{ width: "100%" }}
+            />
+          </div>
+  
         <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
       <div className="col-sm-12 col-xs-12" style={{textAlign: 'right'}}>
           <Button

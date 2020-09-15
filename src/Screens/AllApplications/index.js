@@ -78,51 +78,50 @@ class AllRequests extends Component {
     } else {
       let { fetchApplications } = this.props;
       
-      if (role === "ao") {
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "assigned,escalatedlevel1pending,escalatedlevel2pending"
-            }
-          ],
-          true,
-          false
-        );
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "open,reassignrequested"
-            }
-          ],
-          true,
-          false
-        );
-      } else if (role === "eo") {
-        fetchApplications(
-          [
-            {
-              key: "status",
-              value: "escalatedlevel1pending,escalatedlevel2pending"
-            }
-          ],
-          true,
-          true
-        );
-      }
-      else {
+      // if (role === "ao") {
+      //   fetchApplications(
+      //     [
+      //       {
+      //         key: "status",
+      //         value: "assigned,escalatedlevel1pending,escalatedlevel2pending"
+      //       }
+      //     ],
+      //     true,
+      //     false
+      //   );
+      //   fetchApplications(
+      //     [
+      //       {
+      //         key: "status",
+      //         value: "open,reassignrequested"
+      //       }
+      //     ],
+      //     true,
+      //     false
+      //   );
+      // } else if (role === "eo") {
+      //   fetchApplications(
+      //     [
+      //       {
+      //         key: "status",
+      //         value: "escalatedlevel1pending,escalatedlevel2pending"
+      //       }
+      //     ],
+      //     true,
+      //     true
+      //   );
+      // }
+      // else {
         fetchApplications(
           {
             "uuid": userInfo.uuid, "applicationNumber": "",
             "applicationStatus": "",
             "mobileNumber": "", "bookingType": ""
           },
-
           true,
           true
         );
-      }
+      // }
     }
     let inputType = document.getElementsByTagName("input");
     for (let input in inputType) {
@@ -164,7 +163,7 @@ class AllRequests extends Component {
     });
   };
   gotoPArkAndCommunityTanker= () => {
-    this.props.history.push(`/egov-services/applyPark-community-center`);
+    this.props.history.push(`/egov-services/checkavailability_pcc`);
   };
   gotoMcc = () => {
     this.props.history.push(`/egov-services/all-MccApplications`);
@@ -451,63 +450,63 @@ class AllRequests extends Component {
     }
   };
 
-  validateDate = (startDate, endDate, required, field) => {
-    if (startDate && endDate) {
-      let sD = new Date(startDate);
-      sD.setHours(0, 0, 0, 0);
-      let eD = new Date(endDate);
-      eD.setHours(0, 0, 0, 0);
-      if (eD >= sD) {
-        this.setState({ datefield: "" });
-        this.setState({ dateError: "" });
-      } else {
-        let e = {
-          target: {
-            value: "",
-          },
-        };
-        this.props.handleChange(e, field, required, "");
-        this.setState({ datefield: field });
-        this.setState({
-          dateError:
-            field === "toDate" ? (
-              <Label labelStyle={{ color: "rgb(244, 67, 54)" }} label="REPORT_SEARCHFORM_DATE_GREATER" />
-            ) : (
-                <Label labelStyle={{ color: "rgb(244, 67, 54)" }} label="REPORT_SEARCHFORM_DATE_LESSER" />
-              ),
-        });
-      }
-    }
-  };
+  // validateDate = (startDate, endDate, required, field) => {
+  //   if (startDate && endDate) {
+  //     let sD = new Date(startDate);
+  //     sD.setHours(0, 0, 0, 0);
+  //     let eD = new Date(endDate);
+  //     eD.setHours(0, 0, 0, 0);
+  //     if (eD >= sD) {
+  //       this.setState({ datefield: "" });
+  //       this.setState({ dateError: "" });
+  //     } else {
+  //       let e = {
+  //         target: {
+  //           value: "",
+  //         },
+  //       };
+  //       this.props.handleChange(e, field, required, "");
+  //       this.setState({ datefield: field });
+  //       this.setState({
+  //         dateError:
+  //           field === "toDate" ? (
+  //             <Label labelStyle={{ color: "rgb(244, 67, 54)" }} label="REPORT_SEARCHFORM_DATE_GREATER" />
+  //           ) : (
+  //               <Label labelStyle={{ color: "rgb(244, 67, 54)" }} label="REPORT_SEARCHFORM_DATE_LESSER" />
+  //             ),
+  //       });
+  //     }
+  //   }
+  // };
 
   clearSearch = () => {
     const { metaData, resetForm, searchForm, setSearchParams, userInfo } = this.props;
-    if (!searchForm) {
-      return;
-    } else {
-      if (get(metaData, "reportDetails.searchParams")) {
-        let searchParams = metaData.reportDetails.searchParams;
-        var i;
-        let fromDateIndex, toDateIndex;
-        for (i = 0; i < searchParams.length; i++) {
-          if (searchParams[i].name === "fromDate") {
-            fromDateIndex = i;
-          } else if (searchParams[i].name === "toDate") {
-            toDateIndex = i;
-          }
-        }
-        if (fromDateIndex !== undefined) searchParams[fromDateIndex].maxValue = new Date();
-        if (toDateIndex !== undefined) {
-          searchParams[toDateIndex].minValue = undefined;
-          searchParams[toDateIndex].maxValue = undefined;
-        }
-        setSearchParams(searchParams);
-      }
-      this.setState({ getResults: false, dateError: "" }, () => {
-        resetForm();
+    // if (!searchForm) {
+    //   return;
+    // } else {
+    //   if (get(metaData, "reportDetails.searchParams")) {
+    //     let searchParams = metaData.reportDetails.searchParams;
+    //     var i;
+    //     let fromDateIndex, toDateIndex;
+    //     for (i = 0; i < searchParams.length; i++) {
+    //       if (searchParams[i].name === "fromDate") {
+    //         fromDateIndex = i;
+    //       } else if (searchParams[i].name === "toDate") {
+    //         toDateIndex = i;
+    //       }
+    //     }
+    //     if (fromDateIndex !== undefined) searchParams[fromDateIndex].maxValue = new Date();
+    //     if (toDateIndex !== undefined) {
+    //       searchParams[toDateIndex].minValue = undefined;
+    //       searchParams[toDateIndex].maxValue = undefined;
+    //     }
+    //     setSearchParams(searchParams);
+    //   }
+    //   this.setState({ getResults: false, dateError: "" }, () => {
+    //     resetForm();
 
-      });
-    }
+    //   });
+    // }
     const { fetchApplications } = this.props;
     fetchApplications(
       {
@@ -602,142 +601,142 @@ class AllRequests extends Component {
     const foundSecondLavel = userInfo && userInfo.roles.some(el => el.code === 'OSD_APPROVER');
     const foundthirdLavel = userInfo && userInfo.roles.some(el => el.code === 'ADMIN_APPROVER');
     
-    return role === "ao" ? (
-      <div>
-        <div
-          className="sort-button rainmaker-displayInline"
-          style={{ padding: "20px 20px 0px 0px", justifyContent: "flex-end" }}
-        >
-          <div
-            className="rainmaker-displayInline"
-            style={{ cursor: "pointer", marginRight: "20px" }}
-            onClick={onSortClick}
-          >
-            <Label
-              label="ES_SORT_BUTTON"
-              color="rgba(0, 0, 0, 0.8700000047683716)"
-              containerStyle={{ marginRight: 5 }}
-              labelStyle={{ fontWeight: 500 }}
-            />
-            <Icon
-              style={style.iconStyle}
-              action="action"
-              name="swap-vert"
-              color="rgba(0, 0, 0, 0.8700000047683716)"
-            />
-          </div>
-          <div
-            className="rainmaker-displayInline"
-            style={{ cursor: "pointer" }}
-            onClick={() => history.push("search-complaint")}
-          >
-            <Label
-              label="ES_SEARCH_BUTTON"
-              color="rgba(0, 0, 0, 0.8700000047683716)"
-              containerStyle={{ marginRight: 5 }}
-              labelStyle={{ fontWeight: 500 }}
-            />
-            <Icon
-              style={style.iconStyle}
-              action="action"
-              name="search"
-              color="rgba(0, 0, 0, 0.8700000047683716)"
-            />
-          </div>
-          <SortDialog
-            sortPopOpen={sortPopOpen}
-            closeSortDialog={closeSortDialog}
-          />
-        </div>
-        <Tabs
-          className="employee-complaints-tab"
-          onChange={this.onChange}
-          tabs={[
-            {
-              label: (
-                <div className="inline-Localization-text">
-                  <Label
-                    //labelClassName = "unassigned-label-text"
-                    labelClassName={
-                      this.state.value === 0
-                        ? "selected-tab-label-text"
-                        : "unselected-tab-label-text"
-                    }
-                    //color={this.state.value === 0 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
-                    bold={true}
-                    label={`ES_ALL_COMPLAINTS_UNASSIGNED_TAB_LABEL2`}
-                    labelStyle={tabStyle}
-                  />
+    // return role === "ao" ? (
+    //   <div>
+    //     <div
+    //       className="sort-button rainmaker-displayInline"
+    //       style={{ padding: "20px 20px 0px 0px", justifyContent: "flex-end" }}
+    //     >
+    //       <div
+    //         className="rainmaker-displayInline"
+    //         style={{ cursor: "pointer", marginRight: "20px" }}
+    //         onClick={onSortClick}
+    //       >
+    //         <Label
+    //           label="ES_SORT_BUTTON"
+    //           color="rgba(0, 0, 0, 0.8700000047683716)"
+    //           containerStyle={{ marginRight: 5 }}
+    //           labelStyle={{ fontWeight: 500 }}
+    //         />
+    //         <Icon
+    //           style={style.iconStyle}
+    //           action="action"
+    //           name="swap-vert"
+    //           color="rgba(0, 0, 0, 0.8700000047683716)"
+    //         />
+    //       </div>
+    //       <div
+    //         className="rainmaker-displayInline"
+    //         style={{ cursor: "pointer" }}
+    //         onClick={() => history.push("search-complaint")}
+    //       >
+    //         <Label
+    //           label="ES_SEARCH_BUTTON"
+    //           color="rgba(0, 0, 0, 0.8700000047683716)"
+    //           containerStyle={{ marginRight: 5 }}
+    //           labelStyle={{ fontWeight: 500 }}
+    //         />
+    //         <Icon
+    //           style={style.iconStyle}
+    //           action="action"
+    //           name="search"
+    //           color="rgba(0, 0, 0, 0.8700000047683716)"
+    //         />
+    //       </div>
+    //       <SortDialog
+    //         sortPopOpen={sortPopOpen}
+    //         closeSortDialog={closeSortDialog}
+    //       />
+    //     </div>
+    //     <Tabs
+    //       className="employee-complaints-tab"
+    //       onChange={this.onChange}
+    //       tabs={[
+    //         {
+    //           label: (
+    //             <div className="inline-Localization-text">
+    //               <Label
+    //                 //labelClassName = "unassigned-label-text"
+    //                 labelClassName={
+    //                   this.state.value === 0
+    //                     ? "selected-tab-label-text"
+    //                     : "unselected-tab-label-text"
+    //                 }
+    //                 //color={this.state.value === 0 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
+    //                 bold={true}
+    //                 label={`ES_ALL_COMPLAINTS_UNASSIGNED_TAB_LABEL2`}
+    //                 labelStyle={tabStyle}
+    //               />
                   
-                </div>
-              ),
-              children: (
-                <Screen className="gro-screen" loading={loading}>
-                  <div className="tab1-content form-without-button-cont-generic">
-                    <CountDetails
-                      count={unassignedComplaints.length}
-                      total={unassignedTotalComplaints}
-                      status="unassigned"
-                    />
-                    <CustomComplaints
-                      noComplaintMessage={
-                        "ES_MYCOMPLAINTS_NO_COMPLAINTS_TO_ASSIGN1"
-                      }
-                      onComplaintClick={onComplaintClick}
-                      complaints={unassignedComplaints}
-                      complaintLocation={true}
-                      role={role}
-                      heightOffset="116px"
-                    />
-                  </div>
-                </Screen>
-              )
-            },
-            {
-              label: (
-                <div className="inline-Localization-text">
-                  <Label
-                    // labelClassName="assigned-label-text"
-                    labelClassName={
-                      this.state.value === 1
-                        ? "selected-tab-label-text"
-                        : "unselected-tab-label-text"
-                    }
-                    //color={this.state.value === 1 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
-                    bold={true}
-                    label={`ES_ALL_COMPLAINTS_ASSIGNED_TAB_LABEL`}
-                    labelStyle={tabStyle}
-                  />
+    //             </div>
+    //           ),
+    //           children: (
+    //             <Screen className="gro-screen" loading={loading}>
+    //               <div className="tab1-content form-without-button-cont-generic">
+    //                 <CountDetails
+    //                   count={unassignedComplaints.length}
+    //                   total={unassignedTotalComplaints}
+    //                   status="unassigned"
+    //                 />
+    //                 <CustomComplaints
+    //                   noComplaintMessage={
+    //                     "ES_MYCOMPLAINTS_NO_COMPLAINTS_TO_ASSIGN1"
+    //                   }
+    //                   onComplaintClick={onComplaintClick}
+    //                   complaints={unassignedComplaints}
+    //                   complaintLocation={true}
+    //                   role={role}
+    //                   heightOffset="116px"
+    //                 />
+    //               </div>
+    //             </Screen>
+    //           )
+    //         },
+    //         {
+    //           label: (
+    //             <div className="inline-Localization-text">
+    //               <Label
+    //                 // labelClassName="assigned-label-text"
+    //                 labelClassName={
+    //                   this.state.value === 1
+    //                     ? "selected-tab-label-text"
+    //                     : "unselected-tab-label-text"
+    //                 }
+    //                 //color={this.state.value === 1 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.7)"}
+    //                 bold={true}
+    //                 label={`ES_ALL_COMPLAINTS_ASSIGNED_TAB_LABEL`}
+    //                 labelStyle={tabStyle}
+    //               />
 
-                </div>
-              ),
-              children: (
-                <Screen className="gro-screen" loading={loading}>
-                  <div className="tab2-content form-without-button-cont-generic">
-                    <CountDetails
-                      count={assignedComplaints.length}
-                      total={assignedTotalComplaints}
-                      status="assigned"
-                    />
-                    <CustomComplaints
-                      noComplaintMessage={
-                        "ES_MYCOMPLAINTS_NO_ASSIGNED_COMPLAINTS"
-                      }
-                      onComplaintClick={onComplaintClick}
-                      complaints={assignedComplaints}
-                      complaintLocation={true}
-                      role={role}
-                      heightOffset="116px"
-                    />
-                  </div>
-                </Screen>
-              )
-            }
-          ]}
-        />
-      </div>
-    ) : role === "employee" ? (
-      <Screen loading={loading}>
+    //             </div>
+    //           ),
+    //           children: (
+    //             <Screen className="gro-screen" loading={loading}>
+    //               <div className="tab2-content form-without-button-cont-generic">
+    //                 <CountDetails
+    //                   count={assignedComplaints.length}
+    //                   total={assignedTotalComplaints}
+    //                   status="assigned"
+    //                 />
+    //                 <CustomComplaints
+    //                   noComplaintMessage={
+    //                     "ES_MYCOMPLAINTS_NO_ASSIGNED_COMPLAINTS"
+    //                   }
+    //                   onComplaintClick={onComplaintClick}
+    //                   complaints={assignedComplaints}
+    //                   complaintLocation={true}
+    //                   role={role}
+    //                   heightOffset="116px"
+    //                 />
+    //               </div>
+    //             </Screen>
+    //           )
+    //         }
+    //       ]}
+    //     />
+    //   </div>
+    // ) :
+    return (<Screen loading={loading}>
 
         {/* <div className="col-xs-12"> */}
         {foundWaterTanker ?
@@ -763,15 +762,15 @@ class AllRequests extends Component {
             onClick={() => this.gotoMcc()}
           /> : ''
         }
-{/* 
+
           <Button
             className="responsive-action-button"
-            label={<Label buttonLabel={true} label="BK_MYBK_WATER_TANKER_APPLY" />}
+            label={<Label buttonLabel={true} label="BK_MYBK_PACC_APPLY" />}
             fullWidth={true}
             primary={true}
             style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
             onClick={() => this.gotoPArkAndCommunityTanker()
-            } /> : '' */}
+            } /> : ''
 
 
 
@@ -1039,155 +1038,155 @@ class AllRequests extends Component {
             complaintLocation={true}
           />
         </div>
-      </Screen>
-    ) : (
-          <Screen loading={loading}>
-            <div className="form-without-button-cont-generic">
-              <Card
-                id="complaint-search-card"
-                className="complaint-search-main-card"
-                textChildren={
-                  <div className="complaint-search-cont clearfix">
-                    <div className="col-xs-12" style={{ paddingLeft: 8 }}>
-                      <Label
-                        label="CORE_COMMON_SEARCH_COMPLAINT123"
-                        fontSize={16}
-                        dark={true}
-                        bold={true}
-                      />
-                    </div>
-                    <div
-                      className="col-sm-3 col-xs-12"
-                      style={{ paddingLeft: 8, paddingRight: 40 }}
-                    >
-                      <TextField
-                        id="mobile-no"
-                        name="mobile-no"
-                        type="number"
-                        value={mobileNo}
-                        hintText={
-                          <Label
-                            label="BK_CORE_COMMON_MOBILE_NUMBER_PLACEHOLDER345"
-                            color="rgba(0, 0, 0, 0.3799999952316284)"
-                            fontSize={16}
-                            labelStyle={hintTextStyle}
-                          />
-                        }
-                        floatingLabelText={
-                          <Label
-                            key={0}
-                            label="ES_CREATECOMPLAINT_MOBILE_NUMBER678"
-                            color="rgba(0,0,0,0.60)"
-                            fontSize="12px"
-                          />
-                        }
-                        onChange={(e, value) => this.onMobileChange(e)}
-                        underlineStyle={{ bottom: 7 }}
-                        underlineFocusStyle={{ bottom: 7 }}
-                        hintStyle={{ width: "100%" }}
-                      />
-                    </div>
-                    <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
-                      <TextField
-                        id="complaint-no"
-                        name="complaint-no"
-                        value={complaintNo}
-                        hintText={
-                          <Label
-                            label="ES_MYCOMPLAINTS_COMPLAINT_NO01"
-                            color="rgba(0, 0, 0, 0.3799999952316284)"
-                            fontSize={16}
-                            labelStyle={hintTextStyle}
-                          />
-                        }
-                        errorText={<Label label={errorText} color="red" />}
-                        floatingLabelText={
-                          <Label
-                            key={1}
-                            label="CS_COMPLAINT_SUBMITTED_COMPLAINT_NO02"
-                            color="rgba(0,0,0,0.60)"
-                            fontSize="12px"
-                          />
-                        }
-                        onChange={(e, value) => this.onComplaintChange(e)}
-                        underlineStyle={{
-                          bottom: 7,
-                          borderBottom: "1px solid #e0e0e0"
-                        }}
-                        underlineFocusStyle={{
-                          bottom: 7,
-                          borderBottom: "1px solid #e0e0e0"
-                        }}
-                        hintStyle={{ width: "100%" }}
-                      />
-                    </div>
-                    <div
-                      className="col-sm-6 col-xs-12 csr-action-buttons"
-                      style={{ marginTop: 10, paddingRight: 8 }}
-                    >
+      </Screen>)
+    // ) : (
+    //       <Screen loading={loading}>
+    //         <div className="form-without-button-cont-generic">
+    //           <Card
+    //             id="complaint-search-card"
+    //             className="complaint-search-main-card"
+    //             textChildren={
+    //               <div className="complaint-search-cont clearfix">
+    //                 <div className="col-xs-12" style={{ paddingLeft: 8 }}>
+    //                   <Label
+    //                     label="CORE_COMMON_SEARCH_COMPLAINT123"
+    //                     fontSize={16}
+    //                     dark={true}
+    //                     bold={true}
+    //                   />
+    //                 </div>
+    //                 <div
+    //                   className="col-sm-3 col-xs-12"
+    //                   style={{ paddingLeft: 8, paddingRight: 40 }}
+    //                 >
+    //                   <TextField
+    //                     id="mobile-no"
+    //                     name="mobile-no"
+    //                     type="number"
+    //                     value={mobileNo}
+    //                     hintText={
+    //                       <Label
+    //                         label="BK_CORE_COMMON_MOBILE_NUMBER_PLACEHOLDER345"
+    //                         color="rgba(0, 0, 0, 0.3799999952316284)"
+    //                         fontSize={16}
+    //                         labelStyle={hintTextStyle}
+    //                       />
+    //                     }
+    //                     floatingLabelText={
+    //                       <Label
+    //                         key={0}
+    //                         label="ES_CREATECOMPLAINT_MOBILE_NUMBER678"
+    //                         color="rgba(0,0,0,0.60)"
+    //                         fontSize="12px"
+    //                       />
+    //                     }
+    //                     onChange={(e, value) => this.onMobileChange(e)}
+    //                     underlineStyle={{ bottom: 7 }}
+    //                     underlineFocusStyle={{ bottom: 7 }}
+    //                     hintStyle={{ width: "100%" }}
+    //                   />
+    //                 </div>
+    //                 <div className="col-sm-4 col-xs-12" style={{ paddingLeft: 8 }}>
+    //                   <TextField
+    //                     id="complaint-no"
+    //                     name="complaint-no"
+    //                     value={complaintNo}
+    //                     hintText={
+    //                       <Label
+    //                         label="ES_MYCOMPLAINTS_COMPLAINT_NO01"
+    //                         color="rgba(0, 0, 0, 0.3799999952316284)"
+    //                         fontSize={16}
+    //                         labelStyle={hintTextStyle}
+    //                       />
+    //                     }
+    //                     errorText={<Label label={errorText} color="red" />}
+    //                     floatingLabelText={
+    //                       <Label
+    //                         key={1}
+    //                         label="CS_COMPLAINT_SUBMITTED_COMPLAINT_NO02"
+    //                         color="rgba(0,0,0,0.60)"
+    //                         fontSize="12px"
+    //                       />
+    //                     }
+    //                     onChange={(e, value) => this.onComplaintChange(e)}
+    //                     underlineStyle={{
+    //                       bottom: 7,
+    //                       borderBottom: "1px solid #e0e0e0"
+    //                     }}
+    //                     underlineFocusStyle={{
+    //                       bottom: 7,
+    //                       borderBottom: "1px solid #e0e0e0"
+    //                     }}
+    //                     hintStyle={{ width: "100%" }}
+    //                   />
+    //                 </div>
+    //                 <div
+    //                   className="col-sm-6 col-xs-12 csr-action-buttons"
+    //                   style={{ marginTop: 10, paddingRight: 8 }}
+    //                 >
 
-                      <Button
-                        label={
-                          <Label
-                            buttonLabel={true}
-                            color="#fe7a51"
-                            label="ES_MYCOMPLAINTS_CLEAR_SEARCH_BUTTON"
-                          />
-                        }
-                        labelStyle={{
-                          letterSpacing: 0.7,
-                          padding: 0,
-                          color: "#fe7a51"
-                        }}
-                        buttonStyle={{ border: "1px solid #fe7a51" }}
-                        style={{ width: "36%" }}
-                        onClick={() => this.clearSearch()}
-                      />
-                      <Button
-                        label={
-                          <Label
-                            buttonLabel={true}
-                            label="ES_MYCOMPLAINTS_SEARCH_BUTTON"
-                          />
-                        }
-                        style={{ marginRight: 28, width: "36%" }}
-                        backgroundColor="#fe7a51"
-                        labelStyle={{
-                          letterSpacing: 0.7,
-                          padding: 0,
-                          color: "#fff"
-                        }}
-                        buttonStyle={{ border: 0 }}
-                        onClick={() => this.onSearch()}
-                      />
-                    </div>
-                  </div>
-                }
-              />
-            </div>
-            <div className="form-without-button-cont-generic" style={{ fontWeight: "bold" }}>
-              <CountDetails
-                count={
-                  search
-                    ? searchFilterEmployeeComplaints.length
-                    : employeeComplaints.length
-                }
-                total={employeeTotalComplaints}
-                status="open"
-              />
-              <CustomComplaints
-                noComplaintMessage={"ES_MYCOMPLAINTS_NO_COMPLAINTS_ASSIGNED"}
-                onComplaintClick={onComplaintClick}
-                complaints={
-                  search ? searchFilterEmployeeComplaints : employeeComplaints
-                }
-                role={role}
-                complaintLocation={true}
-              />
-            </div>
+    //                   <Button
+    //                     label={
+    //                       <Label
+    //                         buttonLabel={true}
+    //                         color="#fe7a51"
+    //                         label="ES_MYCOMPLAINTS_CLEAR_SEARCH_BUTTON"
+    //                       />
+    //                     }
+    //                     labelStyle={{
+    //                       letterSpacing: 0.7,
+    //                       padding: 0,
+    //                       color: "#fe7a51"
+    //                     }}
+    //                     buttonStyle={{ border: "1px solid #fe7a51" }}
+    //                     style={{ width: "36%" }}
+    //                     onClick={() => this.clearSearch()}
+    //                   />
+    //                   <Button
+    //                     label={
+    //                       <Label
+    //                         buttonLabel={true}
+    //                         label="ES_MYCOMPLAINTS_SEARCH_BUTTON"
+    //                       />
+    //                     }
+    //                     style={{ marginRight: 28, width: "36%" }}
+    //                     backgroundColor="#fe7a51"
+    //                     labelStyle={{
+    //                       letterSpacing: 0.7,
+    //                       padding: 0,
+    //                       color: "#fff"
+    //                     }}
+    //                     buttonStyle={{ border: 0 }}
+    //                     onClick={() => this.onSearch()}
+    //                   />
+    //                 </div>
+    //               </div>
+    //             }
+    //           />
+    //         </div>
+    //         <div className="form-without-button-cont-generic" style={{ fontWeight: "bold" }}>
+    //           <CountDetails
+    //             count={
+    //               search
+    //                 ? searchFilterEmployeeComplaints.length
+    //                 : employeeComplaints.length
+    //             }
+    //             total={employeeTotalComplaints}
+    //             status="open"
+    //           />
+    //           <CustomComplaints
+    //             noComplaintMessage={"ES_MYCOMPLAINTS_NO_COMPLAINTS_ASSIGNED"}
+    //             onComplaintClick={onComplaintClick}
+    //             complaints={
+    //               search ? searchFilterEmployeeComplaints : employeeComplaints
+    //             }
+    //             role={role}
+    //             complaintLocation={true}
+    //           />
+    //         </div>
          
-          </Screen>
-        );
+    //       </Screen>
+    //     );
   }
 }
 
@@ -1241,6 +1240,7 @@ const mapStateToProps = state => {
     transformedComplaints = applicationData.bookingsModelList;
     csrComplaints = transformedComplaints;
   }
+  console.log('csrComplaintsin all applications ',csrComplaints)
 
   return {
     searchForm: state && state.formtemp && state.formtemp.form ? state.formtemp.form : '',

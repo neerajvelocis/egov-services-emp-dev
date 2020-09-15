@@ -121,7 +121,7 @@ class SummaryDetails extends Component {
                     <Label label="BK_MYBK_APPLICANTION_DETAILS" labelClassName="dark-heading" />
                 </div>
                 <div className="col-xs-12" style={{ marginLeft: '10px' }}>
-                    <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
+                    <div className="col-sm-12 col-xs-12" style={{ marginBottom: '30px' }}>
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
                                 <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_FROM_DATE" />
@@ -218,7 +218,7 @@ class SummaryDetails extends Component {
                         </div>
                     </div>
                 </div>
-                <div style={{ marginLeft: "45px", paddingBottom: '5px', marginTop: 10 }} >
+                <div style={{ marginLeft: "45px", paddingBottom: '5px' }} >
                     <Label label="BK_MYBK_PAYMENT_DETAILS" labelClassName="dark-heading" />
                 </div>
                 <div className="col-xs-12" style={{ marginLeft: '10px' }}>

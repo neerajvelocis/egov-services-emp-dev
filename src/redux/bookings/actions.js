@@ -724,3 +724,31 @@ export const fetchApplicationType = () => {
 		  }
 		};
 	  };
+
+	  export const getAvailabilityDataPCC = async (requestBody) => {
+		try {
+			const response = await httpRequest(
+				"post",
+				"/bookings/park/community/availability/_search",
+				"",
+				[],
+				requestBody
+			);
+			console.log(response, "availability data response");
+			return { status: "success", data: response.data };
+		} catch (exception) {
+			console.log(exception);
+		}
+	};
+	export const getBetweenDays = function (start, end) {
+		let arr = [];
+		// let endDate = new Date(end);
+		for (
+			let dt = new Date(start);
+			dt <= new Date(end);
+			dt.setDate(dt.getDate() + 1)
+		) {
+			arr.push(new Date(dt));
+		}
+		return arr;
+	};	

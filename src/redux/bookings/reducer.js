@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import { transformById } from "egov-ui-kit/utils/commons";
 import isEmpty from "lodash/isEmpty";
 
-const mergeServiceWithActions = (payload) => {
+/*const mergeServiceWithActions = (payload) => {
   return (
     payload &&
     payload.actionHistory &&
@@ -16,7 +16,7 @@ const mergeServiceWithActions = (payload) => {
       return result;
     }, [])
   );
-};
+};*/
 
 const intialState = {
   loading: false,

@@ -147,8 +147,6 @@ class ApplicationDetails extends Component {
 		fetchDataAfterPayment(
 			[{ key: "consumerCodes", value: match.params.applicationId }, { key: "tenantId", value: userInfo.tenantId }
 			])
-
-	
 		//  downloadPaymentReceipt({ BookingInfo: BookingInfo })
 		let { details } = this.state;
 	}

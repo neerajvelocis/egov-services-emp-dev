@@ -4,6 +4,10 @@ import BookingDetails from './components/BookingDetails';
 import SummaryInfo from './components/SummaryDetails';
 import DocumentDetails from './components/DocumentsDetails';
 import ParkPaymentDetails from './components/PaccPaymentDetails'
+import { connect } from "react-redux";
+import get from "lodash/get";
+import moment from 'moment';
+
 import { Box, Button, Card, CardContent, CircularProgress, Grid, Step, StepLabel, Stepper } from '@material-ui/core';
 
 export class StepForm extends Component {
@@ -30,8 +34,8 @@ export class StepForm extends Component {
         surcharge:'',utGST:'',cGST:'',
         GSTnumber:'',type:'',
         fromDate: '',
-        toDate: '',transactionNumber:'',bankName:'',paymentMode:'',amount:'',transactionDate:'',
-        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
+        toDate: '',transactionNumber:'',bankName:'',paymentMode:'',amount:'',transactionDate:'',discountType:''
+,        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
     }
     nextStep = () => {
         const { step } = this.state;
@@ -55,11 +59,14 @@ export class StepForm extends Component {
     }
     
  onFromDateChange = e => {
-    const fromDate = e.target.value;
+    let fromDate = e.target.value;
     this.setState({
       fromDate
     })
   }
+  handleChangeDiscount = (event) => {
+    this.setState({ discountType: event.target.value });
+  };
 
   onToDateChange = e => {
     const toDate = e.target.value;
@@ -72,7 +79,24 @@ export class StepForm extends Component {
     }
 
     showStep = () => {
-        const { step, firstName, fromDate,amount,transactionDate, toDate,transactionNumber,bankName,paymentMode, lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge, jobCompany, approverName,comment,jobLocation, mobileNo, email,location,dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials } = this.state;
+        let { step, firstName,transactionDate,transactionNumber,bankName,paymentMode,
+             lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge,
+              jobCompany, approverName,comment,jobLocation, mobileNo, email,
+              dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials,discountType } = this.state;
+        let bookingData=this.props.stateData.screenConfiguration.preparedFinalObject.availabilityCheckData;
+        let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
+        let {fromDate,toDate,location,amount}=this.state;
+        fromDate =moment(bookingData.bkFromDate).format("YYYY-MM-DD");
+        toDate =moment(bookingData.bkToDate).format("YYYY-MM-DD");
+        location =bookingData.bkLocation;
+        amount=vanueData.amount;
+        rent=vanueData.rent;
+        utGST=vanueData.utgstRate
+        cGST=vanueData.cgstRate
+        locality=vanueData.sector;
+        cleaningCharges=vanueData.cleaningCharges;
+        surcharge=vanueData.surcharge;dimension=vanueData.dimensionSqrYards;
+        console.log('fromDate in this.props',fromDate)
         let propsData =this.props
         if (step === 0)
             return (<PersonalInfo
@@ -82,12 +106,15 @@ export class StepForm extends Component {
                 lastName={lastName}
                 email={email}
                 mobileNo={mobileNo}
+                houseNo={houseNo}
             />);
 
        
         if (step === 1)
             return (<BookingDetails
                 houseNo={houseNo}
+                handleChangeDiscount={this.handleChangeDiscount}
+                discountType={discountType}
                 onFromDateChange={this.onFromDateChange}
                 onToDateChange={this.onToDateChange}
                 fromDate={fromDate}
@@ -124,11 +151,13 @@ export class StepForm extends Component {
                 paymentMode={paymentMode}
                 amount={amount}
                 transactionDate={transactionDate}
+                discountType={discountType}
             />);
 
             if (step === 3)
             return (<DocumentDetails
                 nextStep={this.nextStep}
+                rent={rent}
                 prevStep={this.prevStep}
                 handleChange={this.handleChange}
                 firstName={firstName}
@@ -138,6 +167,7 @@ export class StepForm extends Component {
             />);
         if (step === 4)
             return (<SummaryInfo
+                discountType={discountType}
                 approverName={approverName}
                 amount={amount}
                 bankName={bankName}
@@ -197,4 +227,17 @@ export class StepForm extends Component {
     }
 }
 
-export default StepForm;
+
+const mapStateToProps = state => {
+    const { complaints, common, auth, form } = state;
+    console.log('state--->>apply',state)
+    let stateData = state;
+  
+    return {
+      stateData
+    }
+  }
+  export default connect(
+    mapStateToProps,
+    null
+  )(StepForm);

@@ -81,7 +81,7 @@ class ApplicatInfo extends Component {
         
      <div className="col-sm-6 col-xs-6">
      <input type="file" onChange={this.handleFileChange} ></input>
-          <TextField
+          {/* <TextField
             id="name"
             name="name"
             type="text"
@@ -106,7 +106,7 @@ class ApplicatInfo extends Component {
             underlineStyle={{ bottom: 7 }}
             underlineFocusStyle={{ bottom: 7 }}
             hintStyle={{ width: "100%" }}
-          />
+          /> */}
         </div>
      {/*   
         <div className="col-sm-6 col-xs-6">

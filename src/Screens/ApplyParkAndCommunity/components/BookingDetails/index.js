@@ -19,33 +19,31 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
-
+import RadioOptions from "../../../../modules/common/RadioOptions";
+// import { RadioButton } from '../RadioButton'
 
 class BookingsDetails extends Component {
   state = {
     open: false, setOpen: false,
-    value: 'Park'
+    genderValue: "female"
   }
-  handleChangeRadio = (event) => {
-    console.log('event.target.value', event.target.value)
 
-  };
+
   componentDidMount = async () => {
     let { fetchApplicaionSector } = this.props;
     fetchApplicaionSector();
   }
   continue = e => {
     e.preventDefault();
-    const { jobTitle, jobCompany, toggleSnackbarAndSetText, utGST, GSTnumber, jobLocation, handleChange, facilitationCharges, approverName, dimension, location, cleaningCharges, comment, houseNo, rent, purpose, surcharge, cGST, locality, type, residenials,fromDate,toDate } = this.props;
-//|| purpose == "" || locality == "" || residenials == "" || dimension == "" || location == "" || cleaningCharges == "" || rent == "" || facilitationCharges == "" || surcharge == "" || utGST == "" || cGST== "" || GSTnumber == "" || type == ""||fromDate==""||toDate==""
-    if (houseNo == "") {
+    const { jobTitle, jobCompany, toggleSnackbarAndSetText, utGST, GSTnumber, jobLocation, handleChange, facilitationCharges, approverName, dimension, location, cleaningCharges, comment, houseNo, rent, purpose, surcharge, cGST, locality, type, residenials, fromDate, toDate } = this.props;
+    //|| purpose == "" || locality == "" || residenials == "" || dimension == "" || location == "" || cleaningCharges == "" || rent == "" || facilitationCharges == "" || surcharge == "" || utGST == "" || cGST== "" || GSTnumber == "" || type == ""||fromDate==""||toDate==""
+    if (purpose == "") {
 
       toggleSnackbarAndSetText(
         true,
         {
           labelName: "Error_Message_For_Water_tanker_Application",
-          labelKey: `BK_Error_Message_For_Water_tanker_Application`
+          labelKey: `BK_ERROR_MESSAGE_FOR_ALL_FILLED_REQUIRED`
         },
         "warning"
       );
@@ -54,7 +52,7 @@ class BookingsDetails extends Component {
         true,
         {
           labelName: "From_Date_Is_Greater_Than_To_Date",
-          labelKey: `From_Date_Is_Greater_Than_To_Date`
+          labelKey: `BK_FROM_DATE_SHOULSD_GREATER_THAN_TO_DATE`
         },
         "warning"
       );
@@ -79,10 +77,27 @@ class BookingsDetails extends Component {
       setOpen: true
     })
   };
- 
- 
+  handleChangeDiscount = (event) => {
+    console.log('event.target.value gnser',event.target.value)
+    this.setState({ genderValue: event.target.value });
+  };
+
+  options = [
+    {
+      value: "Not a valid application",
+      label: <Label label="ES_REASSIGN_OPTION_ONE" />
+    },
+    {
+      value: "Out of operational scope",
+      label: <Label label="ES_REJECT_OPTION_TWO" />
+    },
+    { value: "Operation already underway", label: <Label label="ES_REJECT_OPTION_THREE" /> },
+    { value: "Other", label: <Label label="ES_REJECT_OPTION_FOUR" /> }
+  ];
   render() {
-    const { jobTitle, jobCompany, jobLocation, complaintSector,surcharge,fromDate,toDate,onFromDateChange,onToDateChange, utGST,cGST, GSTnumber, handleChange, dimension, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, locality, residenials } = this.props;
+    const { jobTitle, jobCompany, jobLocation, handleChangeDiscount,discountType,dimension, complaintSector, fromDate, surcharge, toDate, onFromDateChange, onToDateChange, utGST, cGST, GSTnumber, handleChange, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, locality, residenials } = this.props;
+    // let dimension="Wed Sep 23 2020 12:00:00 GMT+0530 (India Standard Time)"
+   console.log('localityin bkng',locality)
     let sectorData = [];
     sectorData.push(complaintSector);
 
@@ -107,35 +122,6 @@ class BookingsDetails extends Component {
       <div style={{ float: 'left', width: '100%', padding: '36px 15px' }}>
         <div className="col-xs-12" style={{ background: '#fff', padding: '15px 0' }}>
 
-          <div className="col-sm-6 col-xs-6">
-            <TextField
-              id="houseNo"
-              name="houseNo"
-              type="text"
-
-              value={houseNo}
-              hintText={
-                <Label
-                  label="BK_MYBK_CITIZEN_HOUSE_NUMBER_PLACEHOLDER"
-                  color="rgba(0, 0, 0, 0.3799999952316284)"
-                  fontSize={16}
-                  labelStyle={hintTextStyle}
-                />
-              }
-              floatingLabelText={
-                <Label
-                  key={0}
-                  label="BK_MYBK_CREATE_HOUSE_NUMBER"
-                  color="rgba(0,0,0,0.60)"
-                  fontSize="12px"
-                />
-              }
-              onChange={handleChange('houseNo')}
-              underlineStyle={{ bottom: 7 }}
-              underlineFocusStyle={{ bottom: 7 }}
-              hintStyle={{ width: "100%" }}
-            />
-          </div>
 
           <div className="col-sm-6 col-xs-6">
             <TextField
@@ -171,6 +157,7 @@ class BookingsDetails extends Component {
               name="location"
               type="text"
               value={location}
+              disabled={true}
               hintText={
                 <Label
                   label="BK_MYBK_NAME_LOCATION_PLACEHOLDER"
@@ -389,15 +376,16 @@ class BookingsDetails extends Component {
               hintStyle={{ width: "100%" }}
             />
           </div>
-          <div className="col-sm-6 col-xs-6">
+       
+         <div className="col-sm-6 col-xs-6">
             <TextField
-              id="type"
-              name="type"
+              id="locality"
+              name="locality"
               type="text"
-              value={type}
+              value={locality}
               hintText={
                 <Label
-                  label="BK_MYBK_TYPE_PLACEHOLDER"
+                  label="BK_MYBK_SETCOR_PLACEHOLDER"
                   color="rgba(0, 0, 0, 0.3799999952316284)"
                   fontSize={16}
                   labelStyle={hintTextStyle}
@@ -406,100 +394,80 @@ class BookingsDetails extends Component {
               floatingLabelText={
                 <Label
                   key={0}
-                  label="BK_MYBK_CREATE_TYPE"
+                  label="BK_MYBK_SETCOR_PLACEHOLDER"
                   color="rgba(0,0,0,0.60)"
                   fontSize="12px"
                 />
               }
-              onChange={handleChange('type')}
+              onChange={handleChange('locality')}
+              underlineStyle={{ bottom: 7 }}
+              underlineFocusStyle={{ bottom: 7 }}
+              hintStyle={{ width: "100%" }}
+            />
+          </div> 
+
+
+          <div className="col-sm-6 col-xs-6">
+          
+            <TextField
+            id="from-Date"
+            name="from-Date"
+            type="text"
+
+            value={fromDate}
+            disabled={true}
+            hintText={
+              <Label
+                label="BK_From_Date"
+                color="rgba(0, 0, 0, 0.3799999952316284)"
+                fontSize={16}
+                labelStyle={hintTextStyle}
+              />
+            }
+            floatingLabelText={
+              <Label
+                key={0}
+                label="BK_From_Date"
+                color="rgba(0,0,0,0.60)"
+                fontSize="12px"
+              />
+            }
+            onChange={handleChange('toDate')}
+            underlineStyle={{ bottom: 7 }}
+            underlineFocusStyle={{ bottom: 7 }}
+            hintStyle={{ width: "100%" }}
+          />
+          </div>
+          <div className="col-sm-6 col-xs-6">
+            <TextField
+              id="to-date"
+              name="to-date"
+              type="text"
+
+              value={toDate}
+              disabled={true}
+              hintText={
+                <Label
+                  label="BK_TO_DATE"
+                  color="rgba(0, 0, 0, 0.3799999952316284)"
+                  fontSize={16}
+                  labelStyle={hintTextStyle}
+                />
+              }
+              floatingLabelText={
+                <Label
+                  key={0}
+                  label="BK_TO_DATE"
+                  color="rgba(0,0,0,0.60)"
+                  fontSize="12px"
+                />
+              }
+              onChange={handleChange('toDate')}
               underlineStyle={{ bottom: 7 }}
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
           </div>
-          {/* <div className="col-sm-6 col-xs-6">
-            <FormControl component="fieldset">
-
-              <RadioGroup aria-label="gender" name="gender1" value={this.state.value}>
-                <FormControlLabel value="Community" control={<Radio onClick={this.handleChangeRadio} />} label="Community" />
-                <FormControlLabel value="Community1" control={<Radio onClick={this.handleChangeRadio} />} label="Community1" />
-                <FormControlLabel value="Park" control={<Radio />} label="Park" />
-
-              </RadioGroup>
-            </FormControl>
-            <div>
-        <input type="radio" onChange={this.handleChangeRadio}  value="Community" name="Community" /> Community
-        <input type="radio" selected onChange={this.handleChangeRadio} value="Park" name="Park" /> Park
-      </div> 
-          </div>*/}
-             
-             <div className="col-sm-6 col-xs-6">
-                  <TextField
-                    id="from-Date"
-                    name="from-Date"
-                    value={fromDate}
-                    hintText={
-                      <Label
-                        color="rgba(0, 0, 0, 0.3799999952316284)"
-                        fontSize={16}
-                        labelStyle={hintTextStyle}
-                      />
-                    }
-                    floatingLabelText={
-                      <Label
-                        key={1}
-                        label="From Date"
-                        color="rgba(0,0,0,0.60)"
-                        fontSize="12px"
-                      />
-                    }
-                    onChange={onFromDateChange}
-                    underlineStyle={{bottom: 7,borderBottom: "1px solid #e0e0e0"}}
-                    underlineFocusStyle={{bottom: 7,borderBottom: "1px solid #e0e0e0"}}
-                    hintStyle={{ width: "100%" }}
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </div>
-                <div className="col-sm-6 col-xs-6">
-                  <TextField
-                    id="to-date"
-                    name="to-date"
-                    value={toDate}
-                    hintText={
-                      <Label
-                        color="rgba(0, 0, 0, 0.3799999952316284)"
-                        fontSize={16}
-                        labelStyle={hintTextStyle}
-                      />
-                    }
-                    floatingLabelText={
-                      <Label
-                        key={1}
-                        label="To Date"
-                        color="rgba(0,0,0,0.60)"
-                        fontSize="12px"
-                      />
-                    }
-                    onChange={onToDateChange}
-                    underlineStyle={{
-                      bottom: 7,
-                      borderBottom: "1px solid #e0e0e0"
-                    }}
-                    underlineFocusStyle={{
-                      bottom: 7,
-                      borderBottom: "1px solid #e0e0e0"
-                    }}
-                    hintStyle={{ width: "100%" }}
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </div>
-            
           <div className="col-sm-6 col-xs-6">
             <TextField
               id="dimension"
@@ -530,9 +498,9 @@ class BookingsDetails extends Component {
             />
           </div>
 
-          <div className="col-sm-6 col-xs-6">
+          {/* <div style={{marginTop:'10px'}}className="col-sm-6 col-xs-6">
             <FormControl style={{ width: '100%' }}>
-              <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Locality</InputLabel>
+              <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label"><Label label="BK_MYBK_LOCALITY" /></InputLabel>
               <Select
                 maxWidth={false}
                 labelId="demo-controlled-open-select-label-Locality"
@@ -551,7 +519,7 @@ class BookingsDetails extends Component {
               </Select>
             </FormControl>
 
-          </div>
+          </div> */}
 
           <div className="col-sm-6 col-xs-6">
             <FormControl style={{ width: '100%' }}>
@@ -577,85 +545,42 @@ class BookingsDetails extends Component {
 
           </div>
 
-          {/* <div className="col-sm-6 col-xs-6">
-            <TextField
-              id="approver-name"
-              name="approver-name"
-              type="text"
-
-              value={approverName}
-              hintText={
-                <Label
-                  label="BK_MYBK_APPROVER_NAME_PLACEHOLDER"
-                  color="rgba(0, 0, 0, 0.3799999952316284)"
-                  fontSize={16}
-                  labelStyle={hintTextStyle}
-                />
-              }
-              floatingLabelText={
-                <Label
-                  key={0}
-                  label="BK_MYBK_CREATE_APPROVER_NAME"
-                  color="rgba(0,0,0,0.60)"
-                  fontSize="12px"
-                />
-              }
-              onChange={handleChange('approverName')}
-              underlineStyle={{ bottom: 7 }}
-              underlineFocusStyle={{ bottom: 7 }}
-              hintStyle={{ width: "100%" }}
-            />
-          </div> */}
-
-          {/* <div className="col-sm-6 col-xs-6">
-            <TextField
-              id="comemnt"
-              name="comment"
-              type="text"
-              value={comment}
-              hintText={
-                <Label
-                  label="BK_MYBK_ADD_COMMENTS_PLACEHOLDER"
-                  color="rgba(0, 0, 0, 0.3799999952316284)"
-                  fontSize={16}
-                  labelStyle={hintTextStyle}
-                />
-              }
-              floatingLabelText={
-                <Label
-                  key={0}
-                  label="BK_MYBK_CREATE_COMMENT"
-                  color="rgba(0,0,0,0.60)"
-                  fontSize="12px"
-                />
-              }
-              onChange={handleChange('comment')}
-              underlineStyle={{ bottom: 7 }}
-              underlineFocusStyle={{ bottom: 7 }}
-              hintStyle={{ width: "100%" }}
-            />
-          </div> */}
-<Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
-          <div className="col-sm-12 col-xs-12" style={{ textAlign: 'right' }}>
-            <Button
-              className="responsive-action-button"
-              primary={true}
-              label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
-              fullWidth={true}
-              onClick={this.back}
-              style={{ marginRight: 18 }}
-              startIcon={<ArrowBackIosIcon />}
-            />
-            <Button
-              className="responsive-action-button"
-              primary={true}
-              label={<Label buttonLabel={true} label="BK_CORE_COMMON_GONEXT" />}
-              fullWidth={true}
-              onClick={this.continue}
-              startIcon={<ArrowForwardIosIcon />}
-            />
+          <div className="col-sm-6 col-xs-6" style={{marginTop: '19px'}}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend"><Label label="BK_MYBK_CREATE_TYPE" /></FormLabel>
+              <RadioGroup aria-label="gender" name="gender1" value={discountType} onChange={handleChangeDiscount}>
+                <FormControlLabel value="General" control={<Radio color="primary" />} label="General" />
+                <FormControlLabel value="100%" control={<Radio color="primary" />} label="Discount 100%" />
+                <FormControlLabel value="50%" control={<Radio color="primary" />} label="Discount 50%" />
+                <FormControlLabel value="20%" control={<Radio color="primary" />} label="Discount 20%" />
+                <FormControlLabel value="Kiraya/Bhog" control={<Radio color="primary" />} label="Kiraya/Bhog" />
+                <FormControlLabel value="Religiousfunction" control={<Radio color="primary" />} label="Religious Function" />
+              </RadioGroup>
+            </FormControl>
           </div>
-        }></Footer>
+
+
+          <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
+            <div className="col-sm-12 col-xs-12" style={{ textAlign: 'right' }}>
+              <Button
+                className="responsive-action-button"
+                primary={true}
+                label={<Label buttonLabel={true} label="BK_CORE_COMMON_GOBACK" />}
+                fullWidth={true}
+                onClick={this.back}
+                style={{ marginRight: 18 }}
+                startIcon={<ArrowBackIosIcon />}
+              />
+              <Button
+                className="responsive-action-button"
+                primary={true}
+                label={<Label buttonLabel={true} label="BK_CORE_COMMON_GONEXT" />}
+                fullWidth={true}
+                onClick={this.continue}
+                startIcon={<ArrowForwardIosIcon />}
+              />
+            </div>
+          }></Footer>
         </div>
       </div>
     );
