@@ -116,7 +116,9 @@ class AllRequests extends Component {
           {
             "uuid": userInfo.uuid, "applicationNumber": "",
             "applicationStatus": "",
-            "mobileNumber": "", "bookingType": ""
+            "mobileNumber": "", "bookingType": "",
+            "roles":userInfo.roles,
+            "tenantId":userInfo.tenantId
           },
           true,
           true
@@ -171,8 +173,8 @@ class AllRequests extends Component {
 
 
   onComplaintClick = (complaintNo, bookingType) => {
-
-    if (bookingType && bookingType == "WATER_TANKERS") {
+    console.log('bookingType===>>>',bookingType)
+    if (bookingType && bookingType == "WATER_TANKERS"||bookingType=="BK_Water Tankers") {
       this.props.history.push(`/egov-services/bwt-application-details/${complaintNo}`);
     }
     if (bookingType && bookingType == "OSBM") {
@@ -770,7 +772,7 @@ class AllRequests extends Component {
             primary={true}
             style={{ float: 'right', marginRight: '50px', marginTop: '40px' }}
             onClick={() => this.gotoPArkAndCommunityTanker()
-            } /> : ''
+            } /> 
 
 
 

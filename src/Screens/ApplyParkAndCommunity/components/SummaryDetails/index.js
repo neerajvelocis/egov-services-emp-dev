@@ -15,6 +15,7 @@ class SummaryDetails extends Component {
         const { firstName, email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
         //    const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
+            "uuid": "e101ff2e-f6f3-43c3-8a7c-17482b438d70",
             "bkBookingType": "Parks",
             "bkBookingVenue": "fabc3ff6-70d8-4ae6-8ac7-00c9c714c202",
             "bkApplicantName": "Sumit Kumar",
@@ -124,6 +125,16 @@ class SummaryDetails extends Component {
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '30px' }}>
                         <div className="complaint-detail-detail-section-status row">
                             <div className="col-md-4">
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_PURPOSE" />
+                                <Label
+                                    labelStyle={{ color: "inherit" }}
+                                    className="col-xs-12  col-sm-12 col-md-12  status-result-color"
+                                    id="complaint-details-complaint-number"
+                                    label={purpose}
+                                />
+                            </div>
+
+                            <div className="col-md-4">
                                 <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_FROM_DATE" />
                                 <Label
                                     labelStyle={{ color: "inherit" }}
@@ -132,6 +143,7 @@ class SummaryDetails extends Component {
                                     label={fromDate}
                                 />
                             </div>
+
                             <div className="col-md-4">
                                 <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TO_DATE" />
                                 <Label
@@ -142,7 +154,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_SURCHARGE" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_SURCHARGE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -151,7 +163,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_UGST_NO_LABEL" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_UTGST" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -160,7 +172,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CGST" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_CGST" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -169,7 +181,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_GSTNUMBER_SECTOR" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_GSTNUMBER" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -178,7 +190,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_DIMENTION" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_DIMENSION_AREA" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -187,7 +199,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_LOCATION" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_LOCATION" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -196,7 +208,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_FAC_CHARGES" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_FCHARGES" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -206,7 +218,7 @@ class SummaryDetails extends Component {
                             </div>
                            
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_RENT" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_RENT" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -224,7 +236,7 @@ class SummaryDetails extends Component {
                 <div className="col-xs-12" style={{ marginLeft: '10px' }}>
                     <div className="col-sm-12 col-xs-12" style={{ marginBottom: '90px' }}>
                         <div className="complaint-detail-detail-section-status row">
-                        <div className="col-md-4">
+                        {/* <div className="col-md-4">
                                 <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_RENT" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
@@ -232,9 +244,9 @@ class SummaryDetails extends Component {
                                     labelStyle={{ color: "inherit" }}
                                     label={bankName}
                                 />
-                            </div>
+                            </div> */}
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_AMOUNT" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_AMOUNT" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -243,7 +255,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TRDATE" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_TRDATE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -252,7 +264,7 @@ class SummaryDetails extends Component {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_TRNUMBER" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_TRANSACTION_NUMBER" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"
@@ -262,7 +274,7 @@ class SummaryDetails extends Component {
                             </div>
                         
                             <div className="col-md-4">
-                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_PMODE" />
+                                <Label className="col-xs-12  col-sm-12 col-md-12 status-color" label="BK_MYBK_CREATE_PAYMENTMODE" />
                                 <Label
                                     className="col-xs-12  col-sm-12 col-md-12  status-result-color"
                                     id="complaint-details-current-status"

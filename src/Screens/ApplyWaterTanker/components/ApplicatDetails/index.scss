@@ -21,3 +21,8 @@
   margin-bottom: 10px;
   position: relative;
 }
+.required:after {
+  content:" *";
+  color: red;
+}
+

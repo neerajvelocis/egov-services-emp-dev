@@ -11,7 +11,8 @@ class SummaryDetails extends Component {
 
     submit = e => {
        
-        let { createWaterTankerApplication } = this.props;
+        let { createWaterTankerApplication,userInfo } = this.props;
+        console.log('userInfo in summary',userInfo);
         const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
         let Booking = {
             "bkApproverName":approverName,
@@ -27,9 +28,9 @@ class SummaryDetails extends Component {
             "bkType": residenials,
             "bkDate": "",
             "bkTime": "",
-            "bkStatus": "Request due to water supply failure",
+            "bkStatus": "Special Request due to water supply.",
             "bkBookingType": "WATER_TANKERS",
-            "tenantId": "ch",
+            "tenantId": userInfo.tenantId,
             "bkAction": "DELIVER",
             "businessService": "BWT"
         }
@@ -38,7 +39,7 @@ class SummaryDetails extends Component {
                 "applicationType": "BWT",
                 "applicationStatus": "",
                 "applicationId": null,
-                "tenantId": "ch",
+                "tenantId": userInfo.tenantId,
                 "Booking": Booking
             });
         	

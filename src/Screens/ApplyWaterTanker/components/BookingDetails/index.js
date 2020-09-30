@@ -61,9 +61,7 @@ class BookingsDetails extends Component {
     const { jobTitle, jobCompany, jobLocation,complaintSector, handleChange,approverName,comment, houseNo, address, locality, residenials } = this.props;
     let sectorData=[];
     sectorData.push(complaintSector);
-
     let arrayData=[];
-   
     let y=sectorData.forEach((item,index)=>{
     let finalValues=Object.values(item);
     finalValues.forEach((event)=>{

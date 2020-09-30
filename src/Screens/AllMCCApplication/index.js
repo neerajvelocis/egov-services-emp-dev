@@ -19,7 +19,7 @@ import isEqual from "lodash/isEqual";
 import { getTenantId } from "egov-ui-kit/utils/localStorageUtils";
 import CountDetails from "./components/CountDetails";
 import "./index.css";
-import ShowField from "./showField";
+// import ShowField from "./showField";
 import CustomComplaints from "./components/CustomComponent";
 import SelectBox from '../../modules/SelectBox';
 
@@ -323,18 +323,18 @@ class AllRequests extends Component {
         if (item.type === "singlevaluelist") {
           item["searchText"] = !_.isEmpty(searchForm) ? (searchForm[item.name] ? searchForm[item.name] : "") : "";
         }
-        return (
-          item.name !== "tenantId" && (
-            <ShowField
-              value={item["value"]}
-              key={index}
-              obj={item}
-              dateField={this.state.datefield}
-              dateError={this.state.dateError}
-              handler={this.handleChange}
-            />
-          )
-        );
+       // return (
+        //  item.name !== "tenantId" && (
+            // <ShowField
+            //   value={item["value"]}
+            //   key={index}
+            //   obj={item}
+            //   dateField={this.state.datefield}
+            //   dateError={this.state.dateError}
+            //   handler={this.handleChange}
+            // />
+        //  )
+      //  );
       });
     }
   };

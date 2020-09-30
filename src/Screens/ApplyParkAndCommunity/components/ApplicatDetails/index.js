@@ -7,7 +7,12 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Grid from '@material-ui/core/Grid';
 import Footer from "../../../../modules/footer"
 
-
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+ import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import RadioOptions from "../../../../modules/common/RadioOptions";
+import Radio from '@material-ui/core/Radio';
 class ApplicatInfo extends Component {
  
   continue = e => {
@@ -52,7 +57,7 @@ class ApplicatInfo extends Component {
   }
 
   render() {
-    const { firstName, email, mobileNo, lastName,houseNo, handleChange } = this.props;
+    const { firstName, email, mobileNo, lastName,houseNo, handleChange,discountType,handleChangeDiscount } = this.props;
     const hintTextStyle = {
       letterSpacing: "0.7px",
       textOverflow: "ellipsis",
@@ -181,6 +186,20 @@ class ApplicatInfo extends Component {
               underlineFocusStyle={{ bottom: 7 }}
               hintStyle={{ width: "100%" }}
             />
+          </div>
+  
+          <div className="col-sm-6 col-xs-6" style={{marginTop: '19px'}}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend"><Label label="BK_MYBK_CATEGORY_TYPE" /></FormLabel>
+              <RadioGroup row aria-label="position" name="gender1" value={discountType} onChange={handleChangeDiscount}>
+                <FormControlLabel value="General" control={<Radio color="primary" />} label="General" />
+                <FormControlLabel value="100%" control={<Radio color="primary" />} label="Discount 100%" />
+                <FormControlLabel value="50%" control={<Radio color="primary" />} label="Discount 50%" />
+                <FormControlLabel value="20%" control={<Radio color="primary" />} label="Discount 20%" />
+                <FormControlLabel value="KirayaBhog" control={<Radio color="primary" />} label="Kiraya/Bhog" />
+                <FormControlLabel value="ReligiousFunction" control={<Radio color="primary" />} label="Religious Function" />
+              </RadioGroup>
+            </FormControl>
           </div>
   
         <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={

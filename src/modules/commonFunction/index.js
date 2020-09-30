@@ -1,3 +1,4 @@
+import { httpRequest } from "egov-ui-kit/utils/api";
 export const convertEpochToDate = (dateEpoch) => {
     const dateFromApi = new Date(dateEpoch);
     let month = dateFromApi.getMonth() + 1;
@@ -109,3 +110,24 @@ export const NumInWords = (number) => {
     }
     return word + "Rupees Only";
 };
+
+export const getFileUrlFromAPI = async (fileStoreId,tenantId) => {
+    console.log('tenantId in ui fremwork',tenantId)
+    const queryObject = [
+      { key: "tenantId", value: 'ch.chandigarh'},
+      { key: "fileStoreIds", value: fileStoreId }
+    ];
+    try {
+      console.log('queryObject in employee common function',queryObject)
+      const fileUrl = await httpRequest(
+        "get",
+        "/filestore/v1/files/url",
+        "",
+        queryObject
+      );
+      console.log('fileUrl in f core',fileUrl)
+      return fileUrl;
+    } catch (e) {
+      console.log(e);
+    }
+  };

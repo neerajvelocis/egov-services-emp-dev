@@ -97,7 +97,7 @@ class BookingsDetails extends Component {
   render() {
     const { jobTitle, jobCompany, jobLocation, handleChangeDiscount,discountType,dimension, complaintSector, fromDate, surcharge, toDate, onFromDateChange, onToDateChange, utGST, cGST, GSTnumber, handleChange, location, facilitationCharges, cleaningCharges, rent, approverName, comment, houseNo, type, purpose, locality, residenials } = this.props;
     // let dimension="Wed Sep 23 2020 12:00:00 GMT+0530 (India Standard Time)"
-   console.log('localityin bkng',locality)
+    console.log(' in booking rent in', rent)
     let sectorData = [];
     sectorData.push(complaintSector);
 
@@ -157,7 +157,7 @@ class BookingsDetails extends Component {
               name="location"
               type="text"
               value={location}
-              disabled={true}
+              disabled
               hintText={
                 <Label
                   label="BK_MYBK_NAME_LOCATION_PLACEHOLDER"
@@ -523,7 +523,7 @@ class BookingsDetails extends Component {
 
           <div className="col-sm-6 col-xs-6">
             <FormControl style={{ width: '100%' }}>
-              <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Residentials/Commercials</InputLabel>
+              <InputLabel shrink style={{ width: '100%' }} id="demo-controlled-open-select-label">Normal/Residentials</InputLabel>
               <Select
                 maxWidth={false}
                 labelId="demo-controlled-open-select-label"
@@ -538,28 +538,23 @@ class BookingsDetails extends Component {
                 <MenuItem value="" disabled>Normal/Residential</MenuItem>
                 <MenuItem value='Nomal'>Nomal</MenuItem>
                 <MenuItem value='Residential'>Residential</MenuItem>
-
               </Select>
             </FormControl>
-
-
           </div>
-
+{/* 
           <div className="col-sm-6 col-xs-6" style={{marginTop: '19px'}}>
             <FormControl component="fieldset">
-              <FormLabel component="legend"><Label label="BK_MYBK_CREATE_TYPE" /></FormLabel>
-              <RadioGroup aria-label="gender" name="gender1" value={discountType} onChange={handleChangeDiscount}>
+              <FormLabel component="legend"><Label label="BK_MYBK_CATEGORY_TYPE" /></FormLabel>
+              <RadioGroup row aria-label="position" name="gender1" value={discountType} onChange={handleChangeDiscount}>
                 <FormControlLabel value="General" control={<Radio color="primary" />} label="General" />
                 <FormControlLabel value="100%" control={<Radio color="primary" />} label="Discount 100%" />
                 <FormControlLabel value="50%" control={<Radio color="primary" />} label="Discount 50%" />
                 <FormControlLabel value="20%" control={<Radio color="primary" />} label="Discount 20%" />
-                <FormControlLabel value="Kiraya/Bhog" control={<Radio color="primary" />} label="Kiraya/Bhog" />
-                <FormControlLabel value="Religiousfunction" control={<Radio color="primary" />} label="Religious Function" />
+                <FormControlLabel value="KirayaBhog" control={<Radio color="primary" />} label="Kiraya/Bhog" />
+                <FormControlLabel value="ReligiousFunction" control={<Radio color="primary" />} label="Religious Function" />
               </RadioGroup>
             </FormControl>
-          </div>
-
-
+          </div> */}
           <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={
             <div className="col-sm-12 col-xs-12" style={{ textAlign: 'right' }}>
               <Button
@@ -587,12 +582,8 @@ class BookingsDetails extends Component {
   }
 }
 const mapStateToProps = state => {
-
-
   const { complaints, common, auth, form } = state;
   const { complaintSector } = complaints;
-
-
 
   return {
     complaintSector

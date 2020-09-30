@@ -18,9 +18,9 @@ import ApproveBooking from "../ApplicationResolved";
 import RejectBooking from "../RejectComplaint";
 
 import jp from "jsonpath";
-import {
-	getFileUrlFromAPI,
-} from "egov-ui-framework/ui-utils/commons";
+// import {
+// 	getFileUrlFromAPI,
+// } from "egov-ui-framework/ui-utils/commons";
 import {
 	getDateFromEpoch,
 	mapCompIDToName,
@@ -40,7 +40,7 @@ import { connect } from "react-redux";
 import DialogContainer from '../../modules/DialogContainer';
 import Footer from "../../modules/footer"
 import ActionButtonDropdown from '../../modules/ActionButtonDropdown'
-import { convertEpochToDate, getDurationDate } from '../../modules/commonFunction'
+import { convertEpochToDate, getDurationDate,getFileUrlFromAPI } from '../../modules/commonFunction'
 import "./index.css";
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -141,6 +141,7 @@ class ApplicationDetails extends Component {
 		fetchHistory([
 			{ key: "businessIds", value: match.params.applicationId }, { key: "history", value: true }, { key: "tenantId", value: userInfo.tenantId }])
 		
+			// let convertedTenantId=userInfo.tenantId ? userInfo.tenantId.split(".")[0] : "";
 		fetchPayment(
 			[{ key: "consumerCode", value: match.params.applicationId }, { key: "businessService", value: "OSBM" }, { key: "tenantId", value: userInfo.tenantId }
 			])
@@ -389,14 +390,15 @@ class ApplicationDetails extends Component {
         ];
 
 
-		downloadApplication( { BookingInfo: appData })
+		downloadApplication( { BookingInfo: appData})
 		
 
 	}
 	
 	downloadApplicationButton = async (e) => {
 		await this.downloadApplicationFunction();
-		const { DownloadApplicationDetails } = this.props;
+		const { DownloadApplicationDetails,userInfo } = this.props;
+		console.log('DownloadApplicationDetails====???',DownloadApplicationDetails)
 		var documentsPreview = [];
 		let documentsPreviewData;
 		if (DownloadApplicationDetails && DownloadApplicationDetails.filestoreIds.length > 0) {	
@@ -407,35 +409,38 @@ class ApplicationDetails extends Component {
 					linkText: "View",
 				});
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
+				console.log('fileStoreIds====???',fileStoreIds)
+				console.log('getFileUrlFromAPI====???',await getFileUrlFromAPI(fileStoreIds))
+
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
-				
+				console.log('fileUrls====???',fileUrls)
 					
-				documentsPreview = documentsPreview.map(function (doc, index) {
-					doc["link"] =
-						(fileUrls &&
-							fileUrls[doc.fileStoreId] &&
-							fileUrls[doc.fileStoreId].split(",")[0]) ||
-						"";
+				// documentsPreview = documentsPreview.map(function (doc, index) {
+				// 	doc["link"] =
+				// 		(fileUrls &&
+				// 			fileUrls[doc.fileStoreId] &&
+				// 			fileUrls[doc.fileStoreId].split(",")[0]) ||
+				// 		"";
 					
-					doc["name"] =
-						(fileUrls[doc.fileStoreId] &&
-							decodeURIComponent(
-								fileUrls[doc.fileStoreId]
-									.split(",")[0]
-									.split("?")[0]
-									.split("/")
-									.pop()
-									.slice(13)
-							)) ||
-						`Document - ${index + 1}`;
-					return doc;
-				});
+				// 	doc["name"] =
+				// 		(fileUrls[doc.fileStoreId] &&
+				// 			decodeURIComponent(
+				// 				fileUrls[doc.fileStoreId]
+				// 					.split(",")[0]
+				// 					.split("?")[0]
+				// 					.split("/")
+				// 					.pop()
+				// 					.slice(13)
+				// 			)) ||
+				// 		`Document - ${index + 1}`;
+				// 	return doc;
+				// });
 			
-				setTimeout(() => {
+				// setTimeout(() => {
 					
-					window.open(documentsPreview[0].link);
-				}, 100);
+				// 	window.open(documentsPreview[0].link);
+				// }, 100);
 				prepareFinalObject('documentsPreview', documentsPreview)
 			}
 

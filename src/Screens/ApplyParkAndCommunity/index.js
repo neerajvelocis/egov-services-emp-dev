@@ -33,10 +33,17 @@ export class StepForm extends Component {
         facilitationCharges:'',
         surcharge:'',utGST:'',cGST:'',
         GSTnumber:'',type:'',
-        fromDate: '',
-        toDate: '',transactionNumber:'',bankName:'',paymentMode:'',amount:'',transactionDate:'',discountType:''
-,        childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
+        fromDate: '',finalRent:'',
+        toDate: '',transactionNumber:'',bankName:'',paymentMode:'',amount:'',transactionDate:'',discountType:'General',        
+        childrenArray : [
+            { labelName: "Applicant Details", labelKey: "BK_PCC_APPLICANT_DETAILS" },
+            { labelName: "Booking Details", labelKey: "BK_PCC_BOOKING_DETAILS" },
+            { labelName: "Payments Details", labelKey: "BK_PCC_PAYMENT_DETAILS" },
+            { labelName: "Documents", labelKey: "BK_PCC_DOCUMENTS" },
+            { labelName: "Summary", labelKey: "BK_PCC_SUMMARY" },]
+
     }
+    // childrenArray: [{ label: "APPLICANT DETAILS" }, { label: "BOOKING DETAILS" },{ label: "PAYMENT DETAILS" },{ label: "DOCUMENTS" }, { label: "SUMMARY" }]
     nextStep = () => {
         const { step } = this.state;
         this.setState({
@@ -74,29 +81,78 @@ export class StepForm extends Component {
       toDate: toDate
     })
   }
-    handleChange = input => e => {
+
+  transactionDateChange= e => {
+    const trDate = e.target.value;
+    this.setState({
+        transactionDate: trDate
+    })
+
+  }
+ 
+  handleChange = input => e => {
         this.setState({ [input]: e.target.value });
     }
 
+
+
+    calculateBetweenDaysCount = (startDate, endDate) => {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const firstDate = new Date(startDate);
+        const secondDate = new Date(endDate);
+    
+        const daysCount =
+            Math.round(Math.abs((firstDate - secondDate) / oneDay)) + 1;
+        return daysCount;
+    };
     showStep = () => {
+      
+      
         let { step, firstName,transactionDate,transactionNumber,bankName,paymentMode,
              lastName,utGST,cGST,GSTnumber,type, jobTitle,facilitationCharges,surcharge,
               jobCompany, approverName,comment,jobLocation, mobileNo, email,
               dimension,cleaningCharges, houseNo,rent, purpose, locality, residenials,discountType } = this.state;
         let bookingData=this.props.stateData.screenConfiguration.preparedFinalObject.availabilityCheckData;
         let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
-        let {fromDate,toDate,location,amount}=this.state;
+        let {fromDate,toDate,location,amount,finalRent}=this.state;
+
+        let daysCount = this.calculateBetweenDaysCount(
+            bookingData.bkFromDate,
+            bookingData.bkToDate
+        );
+
+        console.log(discountType, "discountType in first");
+        let tAmount = Number(vanueData.rent) + Number(vanueData.cleaningCharges);
+        let totalAmount = tAmount * daysCount;
+        
+        if(discountType=='100%'||discountType=="KirayaBhog"||discountType=="ReligiousFunction"){
+            totalAmount=0;
+          }else if(discountType=='50%'){
+            let discount=(50*Number(totalAmount))/100;
+            totalAmount=Number(totalAmount)-discount;
+          }else if (discountType=='20%'){
+            let discount=(20*Number(totalAmount))/100;
+            totalAmount=Number(totalAmount)-discount;
+          
+          }else{
+            totalAmount=totalAmount;
+          }
+          console.log('totalAmount in apply',totalAmount)
         fromDate =moment(bookingData.bkFromDate).format("YYYY-MM-DD");
         toDate =moment(bookingData.bkToDate).format("YYYY-MM-DD");
         location =bookingData.bkLocation;
         amount=vanueData.amount;
-        rent=vanueData.rent;
-        utGST=vanueData.utgstRate
-        cGST=vanueData.cgstRate
+        rent=totalAmount;
+        cleaningCharges=Number(vanueData.cleaningCharges)*daysCount;
+       
+        utGST=(Number(totalAmount) * Number(vanueData.utgstRate)) / 100
+        cGST=(Number(totalAmount) * Number(vanueData.cgstRate)) / 100
         locality=vanueData.sector;
-        cleaningCharges=vanueData.cleaningCharges;
-        surcharge=vanueData.surcharge;dimension=vanueData.dimensionSqrYards;
-        console.log('fromDate in this.props',fromDate)
+        
+        surcharge=( Number(totalAmount) * Number(vanueData.surcharge)) / 100
+        dimension=vanueData.dimensionSqrYards;
+         console.log('facilitationCharges in apply',facilitationCharges)
+          finalRent=totalAmount+surcharge+utGST+cGST+facilitationCharges;
         let propsData =this.props
         if (step === 0)
             return (<PersonalInfo
@@ -107,6 +163,8 @@ export class StepForm extends Component {
                 email={email}
                 mobileNo={mobileNo}
                 houseNo={houseNo}
+                handleChangeDiscount={this.handleChangeDiscount}
+                discountType={discountType}
             />);
 
        
@@ -147,12 +205,16 @@ export class StepForm extends Component {
                 prevStep={this.prevStep}
                 handleChange={this.handleChange}
                 transactionNumber={transactionNumber}
+                transactionDateChange={this.transactionDateChange}
                 bankName={bankName}
                 paymentMode={paymentMode}
                 amount={amount}
+                finalRent={finalRent}
                 transactionDate={transactionDate}
                 discountType={discountType}
-            />);
+                rent={rent}
+                facilitationCharges={facilitationCharges}
+                />);
 
             if (step === 3)
             return (<DocumentDetails
@@ -213,8 +275,8 @@ export class StepForm extends Component {
               <div className="col-sm-12 col-xs-12">
                     <Stepper alternativeLabel activeStep={step}>
                         {this.state.childrenArray.map((child, index) => (
-                            <Step key={child.label}>
-                                <StepLabel>{child.label}</StepLabel>
+                            <Step key={child.labelKey}>
+                                <StepLabel>{child.labelKey}</StepLabel>
                             </Step>
                         ))}
 
@@ -230,7 +292,7 @@ export class StepForm extends Component {
 
 const mapStateToProps = state => {
     const { complaints, common, auth, form } = state;
-    console.log('state--->>apply',state)
+    // console.log('state--->>apply',state)
     let stateData = state;
   
     return {

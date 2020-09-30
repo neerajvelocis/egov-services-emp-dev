@@ -89,7 +89,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchApplications: criteria => dispatch(fetchApplications(criteria)),
+    fetchApplications: (criteria, hasUsers, overWrite) =>
+    dispatch(fetchApplications(criteria, hasUsers, overWrite)),
     handleFieldChange: (formKey, fieldKey, value) =>
       dispatch(handleFieldChange(formKey, fieldKey, value)),
     toggleSnackbarAndSetText: (open, message, error) =>

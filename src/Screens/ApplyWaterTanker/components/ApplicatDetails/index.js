@@ -77,6 +77,7 @@ class ApplicatInfo extends Component {
                 color="rgba(0, 0, 0, 0.3799999952316284)"
                 fontSize={16}
                 labelStyle={hintTextStyle}
+                className="required"
               />
             }
             floatingLabelText={

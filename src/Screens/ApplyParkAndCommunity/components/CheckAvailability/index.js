@@ -22,10 +22,12 @@ import BookingCalendar from "../BookingCalendar"
 import { httpRequest } from "egov-ui-kit/utils/api";
 import get from "lodash/get";
 import set from "lodash/set";
+import BookingTimeSlot from "../BookingTimeSlot"
+
 class CheckAvailability extends Component {
   state = {
-    genderValue: "Park",
-    open: false, setOpen: false, locality: '', masterDataPCC: [], availabilityCheckData: {},
+    vanueType: "Parks",
+    open: false, setOpen: false, locality: '', masterDataPCC: [], availabilityCheckData: { bkBookingType: 'Parks' },
   }
 
   handleClose = () => {
@@ -40,17 +42,21 @@ class CheckAvailability extends Component {
     })
   };
   handleChange = (event) => {
-    console.log('event.target.value', event.target.value)
-    this.setState({ genderValue: event.target.value });
+    console.log('event.target.value in radio', event.target.value)
+    this.setState({ vanueType: event.target.value });
+    this.setState({ availabilityCheckData: { bkBookingType: event.target.value } })
   };
 
-  getSectorDataFromAPI = async () => {
-    console.log('hello in sector getSectorDataFromAPI')
+  getSectorDataFromAPI = async (availabilityCheck) => {
+    let venueType = availabilityCheck.bkBookingType;
+    let sector = availabilityCheck.bkSector.toUpperCase()
+    console.log('hello in sector getSectorDataFromAPI', availabilityCheck, this.props);
+    let { userInfo } = this.props;
     let requestbody = {
-      "venueType": "Parks",
-      "sector": "SECTOR-11",
-      "tenantId": "ch"
-    }
+      "venueType": venueType,
+      "tenantId": userInfo.tenantId,
+      "sector": sector
+    };
 
     let sectorDataFromMaster = await httpRequest(
       "bookings/park/community/master/_fetch?",
@@ -63,10 +69,11 @@ class CheckAvailability extends Component {
 
 
   sectorHandleChange = input => e => {
-    let availabilityCheck = { "bkSector": e.target.value, bkBookingType: this.state.genderValue };
+    // let sector= e.target.value.toUpperCase();
+    let availabilityCheck = { "bkSector": e.target.value, bkBookingType: this.state.vanueType };
     this.setState({ availabilityCheckData: availabilityCheck })
-    this.getSectorDataFromAPI();
-    console.log('hello in sector chnage')
+    this.getSectorDataFromAPI(availabilityCheck);
+
     this.setState({ [input]: e.target.value });
   }
   componentDidMount = async () => {
@@ -111,11 +118,12 @@ class CheckAvailability extends Component {
     // else{this.props.nextStep();}
 
   }
-  
-  render() {
-    const { firstName, email, mobileNo, lastName, handleChange, complaintSector } = this.props;
-    let sectorData = [];
 
+  render() {
+    const { firstName, email, mobileNo, lastName, stateData,handleChange, complaintSector } = this.props;
+    let sectorData = [];
+console.log('this.props in check avail render file',this.props)
+let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
     sectorData.push(complaintSector);
 
     let arrayData = [];
@@ -137,14 +145,14 @@ class CheckAvailability extends Component {
       <div style={{ float: 'left', width: '100%', padding: '36px 15px' }}>
         <div className="col-xs-12" style={{ background: '#fff', padding: '15px 0' }}>
           <div>
-            <div style={{ paddingBottom: '5px',marginLeft: '15px'}}>
+            <div style={{ paddingBottom: '5px', marginLeft: '15px' }}>
               <Label label="BK_MYBK_CHECK_AVAILABILITY" labelClassName="dark-heading" />
             </div>
             <div className="col-sm-6 col-xs-6">
               <FormControl component="fieldset">
                 <FormLabel component="legend"><Label label="BK_MYBK_BOOKING_TYPE" /></FormLabel>
-                <RadioGroup aria-label="gender" name="gender1" value={this.state.genderValue} onChange={this.handleChange}>
-                  <FormControlLabel value="General" control={<Radio color="primary" />} label="Commuunity" />
+                <RadioGroup row aria-label="position" name="gender1" value={this.state.vanueType} onChange={this.handleChange}>
+                  <FormControlLabel value="Community Center" control={<Radio color="primary" />} label="Commuunity Center" />
                   <FormControlLabel value="Parks" control={<Radio color="primary" />} label="Park" />
                 </RadioGroup>
               </FormControl>
@@ -175,16 +183,26 @@ class CheckAvailability extends Component {
             </FormControl>
 
           </div>
+
+          {this.state.availabilityCheckData&&(vanueData&&vanueData.bookingAllowedFor=='')&&(
           <BookingMedia
             masterDataPCC={this.state.masterDataPCC}
             availabilityCheckData={this.state.availabilityCheckData}
 
           />
+          )} 
 
-
-          <BookingCalendar
+      
+	{this.state.availabilityCheckData && this.state.availabilityCheckData.bkBookingType=='Community Center' &&(vanueData&&vanueData.bookingAllowedFor!='')&&(
+          <BookingTimeSlot
             masterDataPCC={this.state.masterDataPCC}
             availabilityCheckData={this.state.availabilityCheckData}
+          />
+  )}
+      <BookingCalendar
+            masterDataPCC={this.state.masterDataPCC}
+            availabilityCheckData={this.state.availabilityCheckData}
+            bookingVenue={this.props && this.props.bookingVenue}
           />
 
           {/* <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={ */}
@@ -211,11 +229,14 @@ class CheckAvailability extends Component {
 
 const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
-  console.log('state----',state)
+  console.log('state----', state)
+  let stateData = state;
   const { complaintSector } = complaints;
-
+  // let bookingVenue=state&&state.screenConfiguration.preparedFinalObject.availabilityCheckData.bkLocation;
+  var bookingVenueData = state && state.screenConfiguration.preparedFinalObject.availabilityCheckData;
+  let bookingVenue = bookingVenueData && bookingVenueData.bkLocation ? bookingVenueData.bkLocation : '';
   return {
-    complaintSector
+    complaintSector, bookingVenue,stateData
   }
 }
 const mapDispatchToProps = dispatch => {

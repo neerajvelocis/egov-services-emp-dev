@@ -247,7 +247,8 @@ class BookingCalendar extends React.Component {
 
     render() {
         //console.log('from in render',from,to,enteredTo)
-       // console.log('this.props.in render',this.props)
+        console.log('masterDataPCC in book calendar.in render',this.props)
+   
         const { from, to, enteredTo } = this.state;
         const modifiers = { start: from, end: enteredTo };
         const disabledDays = { before: this.state.from };
@@ -304,7 +305,7 @@ class BookingCalendar extends React.Component {
                                 letterSpacing: "0.67px",
                             }}
                         >
-                            {this.props.bookingVenue === undefined
+                            {this.props.bookingVenue === ''
                                 ? "------------"
                                 : this.props.bookingVenue}
                         </span>

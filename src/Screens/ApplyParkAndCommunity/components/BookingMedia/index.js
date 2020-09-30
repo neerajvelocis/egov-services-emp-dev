@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import PlotArea from "./plotArea";
+
 import CC from "./Sector 39_CG1731_Photo.jpg";
 import Park from "./park11.jpeg";
 
@@ -11,7 +12,7 @@ export default class BookingMedia extends React.Component {
     }
     render() {
         const { masterDataPCC, availabilityCheckData } = this.props;
-        console.log('masterDataPCC bk media',masterDataPCC)
+        console.log('availabilityCheckData bk media',availabilityCheckData)
         return (
             <div>
                 <img
@@ -32,6 +33,8 @@ export default class BookingMedia extends React.Component {
                          availabilityCheckData={availabilityCheckData}
                     />
                 </map>
+
+              
             </div>
         );
     }

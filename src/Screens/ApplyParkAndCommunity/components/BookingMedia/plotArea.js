@@ -46,7 +46,7 @@ class PlotArea extends React.Component {
 
         let requestBody = {
             bookingType: availabilityCheckData.bkBookingType,
-            bookingVenue:'fabc3ff6-70d8-4ae6-8ac7-00c9c714c202', //item.id,
+            bookingVenue:item.id,
             sector: availabilityCheckData.bkSector,
         };
 console.log('requestBody4321',requestBody)
