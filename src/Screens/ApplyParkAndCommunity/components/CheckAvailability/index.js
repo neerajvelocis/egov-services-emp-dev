@@ -16,13 +16,14 @@ import FormLabel from '@material-ui/core/FormLabel';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { fetchApplicaionSector } from "../../../../redux/bookings/actions";
+import { fetchApplicaionSector } from "egov-ui-kit/redux/complaints/actions";
 import BookingMedia from "../BookingMedia";
 import BookingCalendar from "../BookingCalendar"
 import { httpRequest } from "egov-ui-kit/utils/api";
 import get from "lodash/get";
 import set from "lodash/set";
-import BookingTimeSlot from "../BookingTimeSlot"
+import BookingTimeSlot from "../BookingTimeSlot";
+import SelectedTimeSlotInfo  from "../SelectedTimeSlotInfo"
 
 class CheckAvailability extends Component {
   state = {
@@ -120,10 +121,11 @@ class CheckAvailability extends Component {
   }
 
   render() {
-    const { firstName, email, mobileNo, lastName, stateData,handleChange, complaintSector } = this.props;
+    const { firstName, email, mobileNo, lastName, stateData,handleChange,sImageUrl, complaintSector } = this.props;
     let sectorData = [];
-console.log('this.props in check avail render file',this.props)
+console.log('this.props in check avail render availabilityCheckData',this.state.availabilityCheckData)
 let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
+console.log('vanueData in render check vail---',vanueData)
     sectorData.push(complaintSector);
 
     let arrayData = [];
@@ -183,14 +185,14 @@ let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBoo
             </FormControl>
 
           </div>
-
-          {this.state.availabilityCheckData&&(vanueData&&vanueData.bookingAllowedFor=='')&&(
+ 
+          {this.state.availabilityCheckData&&this.state.availabilityCheckData.bkSector &&(
           <BookingMedia
             masterDataPCC={this.state.masterDataPCC}
             availabilityCheckData={this.state.availabilityCheckData}
-
+            pacc_image_initial_path ={sImageUrl&&sImageUrl[0].Value}
           />
-          )} 
+            )} 
 
       
 	{this.state.availabilityCheckData && this.state.availabilityCheckData.bkBookingType=='Community Center' &&(vanueData&&vanueData.bookingAllowedFor!='')&&(
@@ -198,16 +200,25 @@ let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBoo
             masterDataPCC={this.state.masterDataPCC}
             availabilityCheckData={this.state.availabilityCheckData}
           />
+
   )}
+ {this.state.availabilityCheckData && this.state.availabilityCheckData.bkBookingType=='Community Center' &&(vanueData&&vanueData.bookingAllowedFor!='')&&(
+  <SelectedTimeSlotInfo
+          masterDataPCC={this.state.masterDataPCC}
+          availabilityCheckData={this.state.availabilityCheckData}
+          />
+          )}
+
+  {this.state.availabilityCheckData && this.state.availabilityCheckData.bkSector &&vanueData!=undefined&& vanueData.bookingAllowedFor==''&&(
       <BookingCalendar
             masterDataPCC={this.state.masterDataPCC}
             availabilityCheckData={this.state.availabilityCheckData}
             bookingVenue={this.props && this.props.bookingVenue}
           />
-
+          )}
           {/* <Footer className="apply-wizard-footer" style={{ display: 'flex', justifyContent: 'flex-end' }} children={ */}
+          {this.state.availabilityCheckData && this.state.availabilityCheckData.bkSector &&vanueData!=undefined&&(
           <div className="col-sm-12 col-xs-12" style={{ textAlign: 'right' }}>
-
             <Button
               className="responsive-action-button"
               primary={true}
@@ -218,6 +229,7 @@ let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBoo
             />
 
           </div>
+               )}
           {/* }></Footer> */}
         </div>
       </div>
@@ -231,19 +243,19 @@ const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
   console.log('state----', state)
   let stateData = state;
-  const { complaintSector } = complaints;
+  const { complaintSector,sImageUrl } = complaints;
   // let bookingVenue=state&&state.screenConfiguration.preparedFinalObject.availabilityCheckData.bkLocation;
   var bookingVenueData = state && state.screenConfiguration.preparedFinalObject.availabilityCheckData;
   let bookingVenue = bookingVenueData && bookingVenueData.bkLocation ? bookingVenueData.bkLocation : '';
   return {
-    complaintSector, bookingVenue,stateData
+    complaintSector, bookingVenue,stateData,sImageUrl
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     toggleSnackbarAndSetText: (open, message, error) =>
       dispatch(toggleSnackbarAndSetText(open, message, error)),
-    fetchApplicaionSector: criteria => dispatch(fetchApplicaionSector(criteria)),
+    fetchApplicaionSector: () => dispatch(fetchApplicaionSector()),
   }
 }
 

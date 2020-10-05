@@ -38,7 +38,7 @@ class SummaryDetails extends Component {
                 "fileStoreId": "0387281e-a040-49e7-af9d-99e9dac3a19d"
             }],
             "tenantId": "ch",
-            "bkAction": "OFFLINEAPPLY",
+            "bkAction": "OFFLINE_APPLY",
             "businessService": "PACC",
             "financialYear": "2020-2021"
         }
@@ -47,7 +47,7 @@ class SummaryDetails extends Component {
                 "applicationType": "PACC",
                 "applicationStatus": "",
                 "applicationId": null,
-                "tenantId": "ch",
+                "tenantId": "ch.chandigarh",
                 "Booking": Booking
             });
         // this.props.history.push("/egov-services/create-success");

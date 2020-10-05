@@ -120,10 +120,8 @@ export const getFileUrlFromAPI = async (fileStoreId,tenantId) => {
     try {
       console.log('queryObject in employee common function',queryObject)
       const fileUrl = await httpRequest(
-        "get",
-        "/filestore/v1/files/url",
-        "",
-        queryObject
+        "/filestore/v1/files/url","_search",
+        queryObject,{},[],{},true,true
       );
       console.log('fileUrl in f core',fileUrl)
       return fileUrl;

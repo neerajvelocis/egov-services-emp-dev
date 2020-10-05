@@ -327,7 +327,7 @@ class ApplicationDetails extends Component {
 		downloadPaymentReceipt({ BookingInfo: BookingInfo })
 	}
 
-	downloadApplicationFunction = async (e) => {
+	downloadApplicationFunction = (e) => {
 		
 		const { transformedComplaint, paymentDetailsForReceipt, downloadApplication,paymentDetails,userInfo } = this.props;
 		const { complaint } = transformedComplaint;
@@ -396,8 +396,9 @@ class ApplicationDetails extends Component {
 	}
 	
 	downloadApplicationButton = async (e) => {
-		await this.downloadApplicationFunction();
+		 this.downloadApplicationFunction();
 		const { DownloadApplicationDetails,userInfo } = this.props;
+		
 		console.log('DownloadApplicationDetails====???',DownloadApplicationDetails)
 		var documentsPreview = [];
 		let documentsPreviewData;
@@ -410,37 +411,37 @@ class ApplicationDetails extends Component {
 				});
 				let fileStoreIds = jp.query(documentsPreview, "$.*.fileStoreId");
 				console.log('fileStoreIds====???',fileStoreIds)
-				console.log('getFileUrlFromAPI====???',await getFileUrlFromAPI(fileStoreIds))
+				console.log('getFileUrlFromAPI====???',await getFileUrlFromAPI(fileStoreIds,userInfo.tenanId))
 
 				let fileUrls =
 					fileStoreIds.length > 0 ? await getFileUrlFromAPI(fileStoreIds) : {};
 				console.log('fileUrls====???',fileUrls)
 					
-				// documentsPreview = documentsPreview.map(function (doc, index) {
-				// 	doc["link"] =
-				// 		(fileUrls &&
-				// 			fileUrls[doc.fileStoreId] &&
-				// 			fileUrls[doc.fileStoreId].split(",")[0]) ||
-				// 		"";
+				documentsPreview = documentsPreview.map(function (doc, index) {
+					doc["link"] =
+						(fileUrls &&
+							fileUrls[doc.fileStoreId] &&
+							fileUrls[doc.fileStoreId].split(",")[0]) ||
+						"";
 					
-				// 	doc["name"] =
-				// 		(fileUrls[doc.fileStoreId] &&
-				// 			decodeURIComponent(
-				// 				fileUrls[doc.fileStoreId]
-				// 					.split(",")[0]
-				// 					.split("?")[0]
-				// 					.split("/")
-				// 					.pop()
-				// 					.slice(13)
-				// 			)) ||
-				// 		`Document - ${index + 1}`;
-				// 	return doc;
-				// });
+					doc["name"] =
+						(fileUrls[doc.fileStoreId] &&
+							decodeURIComponent(
+								fileUrls[doc.fileStoreId]
+									.split(",")[0]
+									.split("?")[0]
+									.split("/")
+									.pop()
+									.slice(13)
+							)) ||
+						`Document - ${index + 1}`;
+					return doc;
+				});
 			
-				// setTimeout(() => {
+				setTimeout(() => {
 					
-				// 	window.open(documentsPreview[0].link);
-				// }, 100);
+					window.open(documentsPreview[0].link);
+				}, 100);
 				prepareFinalObject('documentsPreview', documentsPreview)
 			}
 
@@ -924,6 +925,7 @@ const mapStateToProps = (state, ownProps) => {
 	const { complaints, common, auth, form } = state;
 	const { applicationData } = complaints;
 	const { DownloadPaymentReceiptDetails,DownloadApplicationDetails,DownloadPermissionLetterDetails } = complaints;
+	console.log(';DownloadApplicationDetails====??? in state====',DownloadApplicationDetails,'state',state)
 	const { id } = auth.userInfo;
 	const { citizenById } = common || {};
 	const { employeeById, departmentById, designationsById, cities } =

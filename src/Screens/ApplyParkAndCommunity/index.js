@@ -115,7 +115,7 @@ export class StepForm extends Component {
         let bookingData=this.props.stateData.screenConfiguration.preparedFinalObject.availabilityCheckData;
         let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
         let {fromDate,toDate,location,amount,finalRent}=this.state;
-
+        let paccDate=this.props.stateData.screenConfiguration.preparedFinalObject?this.props.stateData.screenConfiguration.preparedFinalObject.DisplayPacc:'';
         let daysCount = this.calculateBetweenDaysCount(
             bookingData.bkFromDate,
             bookingData.bkToDate
@@ -137,9 +137,16 @@ export class StepForm extends Component {
           }else{
             totalAmount=totalAmount;
           }
-          console.log('totalAmount in apply',totalAmount)
+          console.log("paccDate=======",paccDate)      
+if(paccDate){
+    console.log(" i paccDate",paccDate.bkDisplayFromDateTime)
+    fromDate =paccDate.bkDisplayFromDateTime;
+    toDate= paccDate.bkDisplayToDateTime;
+}
+else{
         fromDate =moment(bookingData.bkFromDate).format("YYYY-MM-DD");
         toDate =moment(bookingData.bkToDate).format("YYYY-MM-DD");
+}
         location =bookingData.bkLocation;
         amount=vanueData.amount;
         rent=totalAmount;
