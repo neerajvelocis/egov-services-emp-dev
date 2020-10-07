@@ -28,7 +28,7 @@ class PlotArea extends React.Component {
             item
         );
         const { availabilityCheckData } = this.props;
-        console.log('availabilityCheckData in getAvailabilityData function', availabilityCheckData,item);
+        // console.log('availabilityCheckData in getAvailabilityData function', availabilityCheckData,item);
         set(
             this.props.calendarVisiblity.checkavailability_pcc,
             "components.div.children.availabilityCalendarWrapper.visible",
@@ -49,7 +49,7 @@ class PlotArea extends React.Component {
             bookingVenue:item.id,
             sector: availabilityCheckData.bkSector,
         };
-console.log('requestBody4321',requestBody)
+// console.log('requestBody4321',requestBody)
         //  const response = await getAvailabilityDataPCC(requestBody);
 
         let responseData = await httpRequest(
@@ -62,8 +62,9 @@ console.log('requestBody4321',requestBody)
          let response= { status: "success", data: responseData.data };
 
         let responseStatus = get(response, "status", "");
-        // console.log('response in checkData', response)
+        console.log('response in checkData', response)
         if (responseStatus == "SUCCESS" || responseStatus == "success") {
+            console.log('in if condition data')
             let data = response.data;
             let reservedDates = [];
             var daylist = [];
@@ -75,11 +76,12 @@ console.log('requestBody4321',requestBody)
                     reservedDates.push(v.toISOString().slice(0, 10));
                 });
             });
+           
             this.props.prepareFinalObject(
                 "availabilityCheckData.reservedDays",
                 reservedDates
             );
-
+            console.log('availabilityCheckData in rsv date',availabilityCheckData)
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: "smooth",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Tabs, Card, TextField, Icon, Button } from "components";
 import Label from "egov-ui-kit/utils/translationNode";
-import { createPACCApplication } from "../../../../redux/bookings/actions";
+import { createPACCApplication,updatePACCApplication } from "egov-ui-kit/redux/complaints/actions";
 import { connect } from "react-redux";
 import { toggleSnackbarAndSetText } from "egov-ui-kit/redux/app/actions";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -10,20 +10,23 @@ import "./index.css";
 import Footer from "../../../../modules/footer"
 class SummaryDetails extends Component {
 
-    submit = e => {
-        let { createPACCApplication } = this.props;
-        const { firstName, email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
-        //    const { firstName,approverName,comment, email, mobileNo, houseNo, address, locality, residenials } = this.props;
+
+
+    componentDidMount = async () => {
+        console.log('createPACCApplication',this.props)
+        let { createPACCApplication,userInfo } = this.props;
+        const { firstName,venurType, bokingType,email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
+      console.log('type==',venurType,bokingType)
         let Booking = {
-            "uuid": "e101ff2e-f6f3-43c3-8a7c-17482b438d70",
+            "discount" : 50,
             "bkBookingType": "Parks",
             "bkBookingVenue": "fabc3ff6-70d8-4ae6-8ac7-00c9c714c202",
             "bkApplicantName": "Sumit Kumar",
             "bkMobileNumber": "9138912806",
             "bkDimension": "1342",
             "bkLocation": "PARK NO 11 NEAR H NO 710 SEC 11 CHD",
-            "bkFromDate": "2020-10-14",
-            "bkToDate": "2020-10-17",
+            "bkFromDate": fromDate,
+            "bkToDate": toDate,
             "bkCleansingCharges": 4000,
             "bkRent": 9680,
             "bkSurchargeRent": 1742.4,
@@ -38,7 +41,7 @@ class SummaryDetails extends Component {
                 "fileStoreId": "0387281e-a040-49e7-af9d-99e9dac3a19d"
             }],
             "tenantId": "ch",
-            "bkAction": "OFFLINE_APPLY",
+            "bkAction": "OFFLINE_INITIATE",
             "businessService": "PACC",
             "financialYear": "2020-2021"
         }
@@ -47,12 +50,59 @@ class SummaryDetails extends Component {
                 "applicationType": "PACC",
                 "applicationStatus": "",
                 "applicationId": null,
-                "tenantId": "ch.chandigarh",
+                "tenantId": userInfo.tenantId,
+                "Booking": Booking
+            });   
+    }
+      
+
+    submit = e => {
+        let { updatePACCApplication,createPACCApplicationData } = this.props;
+let {data}=createPACCApplicationData;
+        const { firstName,userInfo, email, mobileNo, surcharge, fromDate, toDate, utGST, cGST, GSTnumber, dimension, location, facilitationCharges, cleaningCharges, rent, houseNo, type, purpose, locality, residenials } = this.props;
+        console.log('data in submit button',data)
+        if(data){
+        let Booking = {
+            bkBookingType: data.bkBookingType,
+            bkBookingVenue: data.bkBookingVenue,
+            bkApplicantName: data.bkApplicantName,
+            bkMobileNumber: data.bkMobileNumber,
+            bkDimension: data.bkDimension,
+            bkLocation: data.bkLocation,
+            bkFromDate: data.bkFromDate,
+            bkToDate: data.bkToDate,
+            bkCleansingCharges: data.bkCleansingCharges,
+            bkRent: data.bkRent,
+            bkSurchargeRent:data.bkSurchargeRent,
+            bkUtgst: data.bkUtgst,
+            bkCgst: data.bkCgst,
+            bkSector: data.bkSector,
+            bkEmail: data.bkEmail,
+            bkHouseNo: data.bkHouseNo,
+            bkBookingPurpose: data.bkBookingPurpose,
+            bkApplicationNumber:data.bkApplicationNumber,
+            bkCustomerGstNo: data.bkCustomerGstNo?data.bkCustomerGstNo:'NA',
+            "wfDocuments": [{
+                "fileStoreId": "0387281e-a040-49e7-af9d-99e9dac3a19d"
+            }],
+            "tenantId": "ch",
+            "bkAction": "OFFLINE_APPLY",
+            "businessService": "PACC",
+            "financialYear": "2020-2021"
+        }
+    
+        updatePACCApplication(
+            {
+                "applicationType": "PACC",
+                "applicationStatus": "",
+                "applicationId": null,
+                "tenantId": userInfo.tenantId,
                 "Booking": Booking
             });
         // this.props.history.push("/egov-services/create-success");
+        }
     }
-
+    
     firstStep = e => {
         e.preventDefault();
         this.props.firstStep();
@@ -318,7 +368,8 @@ const mapStateToProps = state => {
 
     const { complaints, common, auth, form } = state;
     const { createPACCApplicationData } = complaints;
-    console.log('createPACCApplicationData', createPACCApplicationData)
+
+    console.log('createPACCApplicationData', createPACCApplicationData,"state---",state)
     return {
         createPACCApplicationData
     }
@@ -327,7 +378,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
 
-        createPACCApplication: criteria => dispatch(createPACCApplication(criteria)),
+        createPACCApplication: (criteria, hasUsers, overWrite) => dispatch(createPACCApplication(criteria, hasUsers, overWrite)),
+        updatePACCApplication: (criteria, hasUsers, overWrite) => dispatch(updatePACCApplication(criteria, hasUsers, overWrite)),      
         toggleSnackbarAndSetText: (open, message, error) =>
             dispatch(toggleSnackbarAndSetText(open, message, error)),
     }

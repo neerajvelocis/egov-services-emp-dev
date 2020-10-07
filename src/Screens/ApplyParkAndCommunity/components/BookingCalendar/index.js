@@ -26,13 +26,18 @@ class BookingCalendar extends React.Component {
 
     componentDidMount() {
         const { availabilityCheckData } = this.props;
-        console.log('availabilityCheckData in bcalendar',availabilityCheckData)
-        if ("reservedDays" in availabilityCheckData) {
+       
+        console.log('availabilityCheckDataVal in bcalendar111111',availabilityCheckData)
+  //      console.log('availabilityCheckDataVal in bcalendar',availabilityCheckDataVal&&availabilityCheckDataVal.reservedDays)
+
+        if (availabilityCheckData&&availabilityCheckData.reservedDays) {
+            console.log('pushReservedDayssssssssssssssssssssssssssssss');
             let pushReservedDay = [];
             availabilityCheckData.reservedDays.length > 0 &&
                 availabilityCheckData.reservedDays.map((el) => {
                     pushReservedDay.push(new Date(el));
                 });
+                console.log('pushReservedDay',pushReservedDay);
             this.setState({
                 dselectedDays: pushReservedDay,
                 from: new Date(availabilityCheckData.bkFromDate),
@@ -196,7 +201,7 @@ class BookingCalendar extends React.Component {
     };
 
     handleDayMouseEnter = (day) => {
-        console.log('day',day)
+     //   console.log('day',day)
         const { from, to } = this.state;
         if (!this.isSelectingFirstDay(from, to, day)) {
             this.setState({
@@ -206,7 +211,7 @@ class BookingCalendar extends React.Component {
     };
 
     handleResetClick = () => {
-        console.log('this.props---->>>>',this.props)
+       // console.log('this.props---->>>>',this.props)
         this.setState(this.getInitialState());
         this.props.prepareFinalObject("availabilityCheckData.bkToDate", null);
         this.props.prepareFinalObject("availabilityCheckData.bkFromDate", null);
@@ -421,5 +426,23 @@ const mapDispatchToProps = (dispatch) => {
         //showBookButton: () => dispatchMultipleFieldChangeAction("checkavailability", actionDefination, dispatch)
     };
 };
-
-export default connect(null, mapDispatchToProps)(BookingCalendar);
+const mapStateToProps = (state, ownProps) => {
+    
+    let availabilityCheckData = get(
+        state,
+        "screenConfiguration.preparedFinalObject.availabilityCheckData",
+        []
+    );
+  if(availabilityCheckData&&availabilityCheckData.reservedDays){
+    availabilityCheckData=availabilityCheckData;
+    console.log('availabilityCheckData in bcalendar00',availabilityCheckData)
+  }
+  console.log('availabilityCheckData in bcalendar333',availabilityCheckData)
+  if(availabilityCheckData.reservedDays){
+    return { availabilityCheckData };
+  }else{
+      return ""
+}
+ 
+}
+export default connect(mapStateToProps, mapDispatchToProps)(BookingCalendar);

@@ -43,7 +43,7 @@ class CheckAvailability extends Component {
     })
   };
   handleChange = (event) => {
-    console.log('event.target.value in radio', event.target.value)
+    // console.log('event.target.value in radio', event.target.value)
     this.setState({ vanueType: event.target.value });
     this.setState({ availabilityCheckData: { bkBookingType: event.target.value } })
   };
@@ -51,7 +51,7 @@ class CheckAvailability extends Component {
   getSectorDataFromAPI = async (availabilityCheck) => {
     let venueType = availabilityCheck.bkBookingType;
     let sector = availabilityCheck.bkSector.toUpperCase()
-    console.log('hello in sector getSectorDataFromAPI', availabilityCheck, this.props);
+    // console.log('hello in sector getSectorDataFromAPI', availabilityCheck, this.props);
     let { userInfo } = this.props;
     let requestbody = {
       "venueType": venueType,
@@ -123,9 +123,9 @@ class CheckAvailability extends Component {
   render() {
     const { firstName, email, mobileNo, lastName, stateData,handleChange,sImageUrl, complaintSector } = this.props;
     let sectorData = [];
-console.log('this.props in check avail render availabilityCheckData',this.state.availabilityCheckData)
+// console.log('this.props in check avail render availabilityCheckData',this.state.availabilityCheckData)
 let vanueData=this.props.stateData.screenConfiguration.preparedFinalObject.bkBookingData;
-console.log('vanueData in render check vail---',vanueData)
+// console.log('vanueData in render check vail---',vanueData)
     sectorData.push(complaintSector);
 
     let arrayData = [];
@@ -241,7 +241,7 @@ console.log('vanueData in render check vail---',vanueData)
 
 const mapStateToProps = state => {
   const { complaints, common, auth, form } = state;
-  console.log('state----', state)
+  // console.log('state----', state)
   let stateData = state;
   const { complaintSector,sImageUrl } = complaints;
   // let bookingVenue=state&&state.screenConfiguration.preparedFinalObject.availabilityCheckData.bkLocation;

@@ -120,8 +120,9 @@ export class StepForm extends Component {
             bookingData.bkFromDate,
             bookingData.bkToDate
         );
-
-        console.log(discountType, "discountType in first");
+       let venueType=vanueData.venueType;
+       let bokingType=bookingData?bookingData.bkBookingVenue:""
+        console.log(bookingData, "bookingData in first",'vanueData',vanueData);
         let tAmount = Number(vanueData.rent) + Number(vanueData.cleaningCharges);
         let totalAmount = tAmount * daysCount;
         
@@ -236,6 +237,8 @@ else{
             />);
         if (step === 4)
             return (<SummaryInfo
+                venueType={venueType}
+                bokingType={bokingType}
                 discountType={discountType}
                 approverName={approverName}
                 amount={amount}
